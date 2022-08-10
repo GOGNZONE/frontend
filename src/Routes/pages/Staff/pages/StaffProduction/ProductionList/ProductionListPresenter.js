@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { Button, Table, Typography, Modal } from 'antd';
+import { Button, Table, Typography, Modal, BackTop } from 'antd';
 
 const { confirm } = Modal;
 
@@ -13,8 +13,9 @@ const columns = [
   {
     title: '생산품목',
     dataIndex: 'productionName',
-    defaultSortOrder: 'descend',
-    render: (text) => <Link to="/staff/production/1">{text}</Link>,
+    render: (name, record) => (
+      <Link to={`/staff/production/${record.productionId}`}>{name}</Link>
+    ),
   },
   {
     title: '브랜드',
@@ -102,6 +103,7 @@ const ProductionListPresenter = ({ dataSource }) => {
         </div>
       </div>
       <Table columns={columns} dataSource={dataSource} />
+      <BackTop visibilityHeight={100} />
     </>
   );
 };
