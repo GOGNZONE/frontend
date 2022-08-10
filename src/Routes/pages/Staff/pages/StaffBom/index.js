@@ -1,2 +1,3 @@
-export { default as StaffBomList } from './StaffBomList';
-export { default as StaffBomRegist } from './StaffBomRegist';
+export { StaffBomList } from './StaffBomList';
+export { StaffBomInfo } from './StaffBomInfo';
+export { StaffBomRegist } from './StaffBomRegist';
