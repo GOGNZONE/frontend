@@ -25,8 +25,10 @@ const Staff = () => {
         {/* production */}
         <Route path="/production" element={<StaffProductionRegistration />} />
         <Route path="/production/list" element={<StaffProductionList />} />
-        {/* <Route path="/production/:productionId" element={<StaffProductionDetails />}> */}
-        <Route path="/production/1" element={<StaffProductionDetails />} />
+        <Route
+          path="/production/:productionIdParams"
+          element={<StaffProductionDetails />}
+        />
 
         <Route path="/stock/list" element={<StaffStock />} />
 
