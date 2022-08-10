@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Typography,
   Form,
@@ -12,10 +12,12 @@ import {
 } from 'antd';
 import { ExclamationCircleOutlined, UploadOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 const { TextArea } = Input;
 const { confirm } = Modal;
 const { Option } = Select;
+const dateFormat = 'YYYY-MM-DD';
 
 const showDeleteConfirm = () => {
   confirm({
@@ -36,8 +38,6 @@ const showDeleteConfirm = () => {
 };
 
 const normFile = (e) => {
-  console.log('Upload event:', e);
-
   if (Array.isArray(e)) {
     return e;
   }
@@ -59,13 +59,12 @@ const unitSelectAfter = (
   </Select>
 );
 
-const ProductionDetailsPresenter = () => {
-  const [componentDisabled, setComponentDisabled] = useState(true);
-
-  const onFormLayoutChange = ({ disabled }) => {
-    setComponentDisabled(disabled);
-  };
-
+const ProductionDetailsPresenter = ({
+  componentDisabled,
+  setComponentDisabled,
+  onFormLayoutChange,
+  production,
+}) => {
   return (
     <>
       <Typography.Title level={3} style={{ margin: 5 }}>
@@ -92,7 +91,7 @@ const ProductionDetailsPresenter = () => {
             },
           ]}
         >
-          <Input disabled={true} />
+          <Input disabled={true} value={production.productionId} />
         </Form.Item>
         <Form.Item
           label="생산품목"
@@ -105,10 +104,13 @@ const ProductionDetailsPresenter = () => {
           required
           tooltip="필수 입력 필드입니다"
         >
-          <Input placeholder="생산 제품명" />
+          <Input placeholder="생산 제품명" value={production.productionName} />
         </Form.Item>
         <Form.Item label="브랜드">
-          <Input placeholder="생산 제품 브랜드명" />
+          <Input
+            placeholder="생산 제품 브랜드명"
+            value={production.productionBrandName}
+          />
         </Form.Item>
         <Form.Item
           label="단가"
@@ -132,6 +134,7 @@ const ProductionDetailsPresenter = () => {
               `￦ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
             }
             parser={(value) => value.replace(/\\s?|(,*)/g, '')}
+            value={production.productionPrice}
           />
         </Form.Item>
         <Form.Item
@@ -156,18 +159,21 @@ const ProductionDetailsPresenter = () => {
               `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
             }
             parser={(value) => value.replace(/\\s?|(,*)/g, '')}
+            value={production.productionQuantity}
           />
         </Form.Item>
         <Form.Item label="규격">
           <Input
             addonAfter={standardSelectAfter}
             placeholder="생산 제품 규격"
+            value={production.productionStandard}
           />
         </Form.Item>
         <Form.Item label="단위">
           <Input
             addonAfter={unitSelectAfter}
             placeholder="생산 제품 규격 단위"
+            value={production.productionUnit}
           />
         </Form.Item>
         <Form.Item label="비고">
@@ -176,6 +182,7 @@ const ProductionDetailsPresenter = () => {
             maxLength={1000}
             rows={5}
             placeholder="생산 제품 비고"
+            value={production.productionDescription}
           />
         </Form.Item>
         <Form.Item
@@ -189,7 +196,11 @@ const ProductionDetailsPresenter = () => {
           required
           tooltip="필수 입력 필드입니다"
         >
-          <DatePicker placeholder="제품 출고 일자" />
+          <DatePicker
+            placeholder="제품 출고 일자"
+            value={moment(`${production.productionReleasedDate}`, dateFormat)}
+            format={dateFormat}
+          />
         </Form.Item>
         <Form.Item
           label="생성일자"
@@ -202,7 +213,11 @@ const ProductionDetailsPresenter = () => {
           required
           tooltip="필수 입력 필드입니다"
         >
-          <DatePicker placeholder="제품 생성 일자" />
+          <DatePicker
+            placeholder="제품 생성 일자"
+            value={moment(`${production.productionDate}`, dateFormat)}
+            format={dateFormat}
+          />
         </Form.Item>
         <Form.Item
           label="파일"
