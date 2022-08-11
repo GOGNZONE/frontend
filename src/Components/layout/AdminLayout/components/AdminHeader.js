@@ -4,7 +4,7 @@ import { Layout, Avatar } from 'antd';
 
 const { Header } = Layout;
 
-const StaffHeader = () => {
+const AdminHeader = () => {
   return (
     <Header className="site-layout-background" style={{ padding: '0px 30px' }}>
       <div style={{ float: 'left' }}>
@@ -29,4 +29,4 @@ const StaffHeader = () => {
   );
 };
 
-export default StaffHeader;
+export default AdminHeader;

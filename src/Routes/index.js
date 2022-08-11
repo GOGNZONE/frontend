@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { SignIn, Staff } from './pages';
+import { Admin, SignIn, Staff } from './pages';
 
 /**
  * @title RootRoute
@@ -11,6 +11,8 @@ const RootRoute = () => {
     <Routes>
       <Route path="/" element={<SignIn />} />
       <Route path="/staff/*" element={<Staff />} />
+      <Route path="/admin/*" element={<Admin />} />
+      {/* 404 Page */}
     </Routes>
   );
 };
