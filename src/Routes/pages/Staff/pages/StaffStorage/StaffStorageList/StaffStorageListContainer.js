@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import StaffStorageListPresenter from './StaffStorageListPresenter';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
+
 function StaffStorageListContainer() {
   const [storageList, setStorageList] = useState([]);
-  const { number } = useParams();
+
   const columns = [
     {
       title: '창고 코드',
       dataIndex: 'storageId',
       key: 'storageId',
-      render: (id) => (
-        <Link to={`/staff/storage/list/${id}`}>
-          <a>{id}</a>
-        </Link>
+      render: (id, index) => (
+        <Link to={`/staff/storage/list/${index.storageId}`}>{id}</Link>
       ),
     },
     {

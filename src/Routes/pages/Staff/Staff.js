@@ -29,20 +29,21 @@ const Staff = () => {
         <Route path="/client" element={<StaffClienList />} />
         <Route path="/production/list" element={<StaffProduction />} />
         <Route path="/stock/list" element={<StaffStockList />} />
-        <Route path="/stock/info" element={<StaffStockInfo />} />
+        <Route path="/stock/list/:stockIdParams" element={<StaffStockInfo />} />
         <Route path="/stock" element={<StaffStockRegist />} />
         <Route path="/release/list" element={<StaffRelease />} />
-        <Route path="/order/list" element={<StaffOrderList />}>
-          <Route path=":id" element={<StaffOrderInfo />} />
-        </Route>
+        <Route path="/order/list" element={<StaffOrderList />} />
+        <Route path="/order/list/:orderIdParams" element={<StaffOrderInfo />} />
         <Route path="/order/info" element={<StaffOrderInfo />} />
         <Route path="/bom" element={<StaffBomRegist />} />
         <Route path="/bom/list" element={<StaffBomList />} />
-        <Route path="/bom/info" element={<StaffBomInfo />} />
-        <Route path="/storage/list" element={<StaffStorageList />}>
-          <Route path=":number" element={<StaffStorageInfo />} />
-        </Route>
-        {/* <Route path="/storage/info" element={<StaffStorageInfo />} /> */}
+        <Route path="/bom/list/:bomIdParams" element={<StaffBomInfo />} />
+        <Route path="/bom" element={<StaffBomRegist />} />
+        <Route path="/storage/list" element={<StaffStorageList />} />
+        <Route
+          path="/storage/list/:storageIdParams"
+          element={<StaffStorageInfo />}
+        />
         <Route path="/storage" element={<StaffStorageRegist />} />
       </Route>
     </Routes>

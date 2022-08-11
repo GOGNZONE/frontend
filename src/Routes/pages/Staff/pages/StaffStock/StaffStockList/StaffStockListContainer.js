@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from 'react';
+import { getStock, getStockList } from '../../../../../../Apis/api/stockApi';
 import StaffStockListPresenter from './StaffStockListPresenter';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 function StaffStockListContainer() {
   const [stockList, setStockList] = useState([]);
+  const getStockListApi = () => {
+    getStockList().then((response) => setStockList(response.data));
+  };
+
   useEffect(() => {
-    axios
-      .get('http://localhost:8080/api/stock/list')
-      .then((response) => setStockList(response.data));
+    getStockListApi();
   }, []);
+
   const columns = [
     {
       title: '재고 코드',
       dataIndex: 'stockId',
       key: 'stockId',
-      render: (id) => (
-        // <Link to={`/staff/storage/list/${id}`}>
-        <a>{id}</a>
-        // </Link>
+      render: (id, index) => (
+        <Link to={`/staff/stock/list/${index.stockId}`}>{id}</Link>
       ),
     },
     {

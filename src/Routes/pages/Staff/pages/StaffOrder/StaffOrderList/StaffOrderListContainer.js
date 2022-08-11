@@ -1,22 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getOrderList } from '../../../../../../Apis/api/orderApi';
+import { Link } from 'react-router-dom';
 import StaffOrderListPresenter from './StaffOrderListPresenter';
-import axios from 'axios';
 function StaffOrderListContainer() {
   const [orderList, setOrderList] = useState([]);
+  const getOrderApi = () => {
+    getOrderList().then((response) => {
+      setOrderList(response.data);
+    });
+  };
+
   useEffect(() => {
-    axios
-      .get('http://localhost:8080/api/order/list')
-      .then((response) => setOrderList(response.data));
+    getOrderApi();
   }, []);
+
   const columns = [
     {
       title: '주문 코드',
       dataIndex: 'orderId',
       key: 'orderId',
-      render: (id) => (
-        // <Link to={`/staff/storage/list/${id}`}>
-        <a>{id}</a>
-        // </Link>
+      render: (id, index) => (
+        <Link to={`/staff/order/list/${index.orderId}`}>{id}</Link>
       ),
     },
     {

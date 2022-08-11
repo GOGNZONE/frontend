@@ -1,24 +1,16 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import StaffBomListPresenter from './StaffBomListPresenter';
-import { Link, useParams } from 'react-router-dom';
-// const StaffBomListContainer = () => {
-//   const [bomList, setBomList] = useState([]);
-//   useEffect(() => {
-//     axios
-//       .get('http://localhost:8080/api/BOM/list')
-//       .then((reponse) => setBomList(reponse.data));
-//     console.log(bomList);
-//   }, []);
-//   return <StaffBomListPresenter bomList={bomList} />;
-// };
+import { getBomList } from '../../../../../../Apis/api/bomApi';
+import { Link } from 'react-router-dom';
 
 const columns = [
   {
     title: '원자재코드',
     dataIndex: 'bomId',
     key: 'bomId',
-    render: (text) => <a>{text}</a>,
+    render: (id, index) => (
+      <Link to={`/staff/bom/list/${index.bomId}`}>{id}</Link>
+    ),
   },
   {
     title: '원자재명',
@@ -44,10 +36,12 @@ const columns = [
 
 function StaffBomListContainer() {
   const [bomList, setBomList] = useState([]);
+  const getBomListApi = () => {
+    getBomList().then((response) => setBomList(response.data));
+  };
+
   useEffect(() => {
-    axios
-      .get('http://localhost:8080/api/BOM/list')
-      .then((reponse) => setBomList(reponse.data));
+    getBomListApi();
   }, []);
   return <StaffBomListPresenter columns={columns} bomList={bomList} />;
 }
