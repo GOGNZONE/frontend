@@ -33,21 +33,21 @@ const columns = [
     title: '비고',
     dataIndex: 'productionDescription',
   },
-  {
-    title: '삭제',
-    dataIndex: 'deleteButton',
-    align: 'center',
-    render: () => (
-      <Button
-        type="primary"
-        size="middle"
-        style={{ backgroundColor: '#D61C4E', border: '#D61C4E' }}
-        onClick={showDeleteConfirm}
-      >
-        삭제
-      </Button>
-    ),
-  },
+  // {
+  //   title: '삭제',
+  //   dataIndex: 'deleteButton',
+  //   align: 'center',
+  //   render: () => (
+  //     <Button
+  //       type="primary"
+  //       size="middle"
+  //       style={{ backgroundColor: '#D61C4E', border: '#D61C4E' }}
+  //       onClick={showDeleteConfirm}
+  //     >
+  //       삭제
+  //     </Button>
+  //   ),
+  // },
 ];
 
 const showDeleteConfirm = () => {
