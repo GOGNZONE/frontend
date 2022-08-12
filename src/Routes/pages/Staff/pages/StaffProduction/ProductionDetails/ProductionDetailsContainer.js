@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getProduction } from '../../../../../../Apis/api/productionApi';
+import { getProduction } from '../../../../../../Apis/productionApi';
 import ProductionDetailsPresenter from './ProductionDetailsPresenter';
 
 const ProductionDetailsContainer = () => {
