@@ -16,8 +16,6 @@ const { TextArea } = Input;
 const { Option } = Select;
 
 const normFile = (e) => {
-  console.log('Upload event:', e);
-
   if (Array.isArray(e)) {
     return e;
   }
@@ -39,7 +37,36 @@ const unitSelectAfter = (
   </Select>
 );
 
-const ProductionRegistrationPresenter = () => {
+const ProductionRegistrationPresenter = ({
+  productionLen,
+  onChange,
+  postProductionApi,
+  newProduction,
+}) => {
+  // const registration = {
+  //   productionName: '',
+  //   productionBrandName: '',
+  //   productionStandard: '',
+  //   productionUnit: '',
+  //   productionDescription: '',
+  // };
+
+  // const {
+  //   productionName,
+  //   productionBrandName,
+  //   productionStandard,
+  //   productionUnit,
+  //   productionDescription,
+  // } = registration;
+
+  const inputNumberOnChangeHandle = (name) => (value) => {
+    onChange({ name: name, value: value });
+  };
+
+  const datePickerOnChangeHandle = (name) => (e) => {
+    onChange({ name: name, value: e });
+  };
+
   return (
     <>
       <Typography.Title level={3} style={{ margin: 5 }}>
@@ -64,7 +91,7 @@ const ProductionRegistrationPresenter = () => {
             },
           ]}
         >
-          <Input disabled={true} />
+          <Input disabled={true} value={productionLen + 1} />
         </Form.Item>
         <Form.Item
           label="생산품목"
@@ -77,10 +104,20 @@ const ProductionRegistrationPresenter = () => {
           required
           tooltip="필수 입력 필드입니다"
         >
-          <Input placeholder="생산 제품명" />
+          <Input
+            name="productionName"
+            placeholder="생산 제품명"
+            defaultValue={newProduction.productionName}
+            onChange={onChange}
+          />
         </Form.Item>
         <Form.Item label="브랜드">
-          <Input placeholder="생산 제품 브랜드명" />
+          <Input
+            name="productionBrandName"
+            placeholder="생산 제품 브랜드명"
+            defaultValue={newProduction.productionBrandName}
+            onChange={onChange}
+          />
         </Form.Item>
         <Form.Item
           label="단가"
@@ -92,18 +129,19 @@ const ProductionRegistrationPresenter = () => {
           ]}
           required
           tooltip="필수 입력 필드입니다"
-          initialValue={0}
         >
           <InputNumber
+            defaultValue={0}
             min={0}
             style={{
               width: '100%',
             }}
             placeholder="생산 제품 단가"
             formatter={(value) =>
-              `￦ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+              `\￦ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
             }
-            parser={(value) => value.replace(/\\s?|(,*)/g, '')}
+            parser={(value) => value.replace(/\￦\s?|(,*)/g, '')}
+            onChange={inputNumberOnChangeHandle('productionPrice')}
           />
         </Form.Item>
         <Form.Item
@@ -118,6 +156,7 @@ const ProductionRegistrationPresenter = () => {
           tooltip="필수 입력 필드입니다"
         >
           <InputNumber
+            defaultValue={1}
             min={1}
             style={{
               width: '100%',
@@ -128,26 +167,36 @@ const ProductionRegistrationPresenter = () => {
               `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
             }
             parser={(value) => value.replace(/\\s?|(,*)/g, '')}
+            onChange={inputNumberOnChangeHandle('productionQuantity')}
           />
         </Form.Item>
         <Form.Item label="규격">
           <Input
+            name="productionStandard"
             addonAfter={standardSelectAfter}
             placeholder="생산 제품 규격"
+            defaultValue={newProduction.productionStandard}
+            onChange={onChange}
           />
         </Form.Item>
         <Form.Item label="단위">
           <Input
+            name="productionUnit"
             addonAfter={unitSelectAfter}
             placeholder="생산 제품 규격 단위"
+            defaultValue={newProduction.productionUnit}
+            onChange={onChange}
           />
         </Form.Item>
         <Form.Item label="비고">
           <TextArea
+            name="productionDescription"
             showCount
             maxLength={1000}
             rows={5}
             placeholder="생산 제품 비고"
+            defaultValue={newProduction.productionDescription}
+            onChange={onChange}
           />
         </Form.Item>
         <Form.Item
@@ -161,7 +210,10 @@ const ProductionRegistrationPresenter = () => {
           required
           tooltip="필수 입력 필드입니다"
         >
-          <DatePicker placeholder="제품 출고 일자" />
+          <DatePicker
+            placeholder="제품 출고 일자"
+            onChange={datePickerOnChangeHandle('productionReleasedDate')}
+          />
         </Form.Item>
         <Form.Item
           label="생성일자"
@@ -174,7 +226,10 @@ const ProductionRegistrationPresenter = () => {
           required
           tooltip="필수 입력 필드입니다"
         >
-          <DatePicker placeholder="제품 생성 일자" />
+          <DatePicker
+            placeholder="제품 생성 일자"
+            onChange={datePickerOnChangeHandle('productionDate')}
+          />
         </Form.Item>
         <Form.Item
           label="파일"
@@ -195,6 +250,7 @@ const ProductionRegistrationPresenter = () => {
                 backgroundColor: '#FEB139',
                 border: '#FEB139',
               }}
+              onClick={() => postProductionApi(newProduction)}
             >
               등록
             </Button>
