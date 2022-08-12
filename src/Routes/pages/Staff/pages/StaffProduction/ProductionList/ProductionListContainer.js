@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ProductionListPresenter from './ProductionListPresenter';
-import { getProductionList } from '../../../../../../Apis/api/productionApi';
+import { getProductionList } from '../../../../../../Apis/productionApi';
 
 const ProductionListContainer = () => {
   const [productions, setProductions] = useState([]);
