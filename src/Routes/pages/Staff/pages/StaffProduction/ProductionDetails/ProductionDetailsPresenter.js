@@ -131,9 +131,9 @@ const ProductionDetailsPresenter = ({
             }}
             placeholder="생산 제품 단가"
             formatter={(value) =>
-              `￦ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+              `\￦ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
             }
-            parser={(value) => value.replace(/\\s?|(,*)/g, '')}
+            parser={(value) => value.replace(/\￦\s?|(,*)/g, '')}
             value={production.productionPrice}
           />
         </Form.Item>
@@ -244,7 +244,7 @@ const ProductionDetailsPresenter = ({
             수정
           </Button>
         </Form.Item>
-        <Button
+        {/* <Button
           type="primary"
           style={{
             margin: 5,
@@ -254,7 +254,7 @@ const ProductionDetailsPresenter = ({
           onClick={showDeleteConfirm}
         >
           삭제
-        </Button>
+        </Button> */}
         <Link to="/staff/production/list">
           <Button
             type="primary"
