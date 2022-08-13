@@ -19,3 +19,12 @@ export const postProduction = async (production) => {
   const response = await axiosInstance.post('/api/production', production);
   return response;
 };
+
+/* 생산 품목 수정 */
+export const putProduction = async (productionIdParams, production) => {
+  const response = await axiosInstance.put(
+    `/api/production/${productionIdParams}`,
+    production,
+  );
+  return response;
+};
