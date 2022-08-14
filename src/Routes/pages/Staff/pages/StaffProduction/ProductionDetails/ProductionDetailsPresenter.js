@@ -5,37 +5,36 @@ import {
   Input,
   Button,
   InputNumber,
-  Modal,
   Select,
   DatePicker,
   Upload,
+  Space,
 } from 'antd';
-import { ExclamationCircleOutlined, UploadOutlined } from '@ant-design/icons';
+import { UploadOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 const { TextArea } = Input;
-const { confirm } = Modal;
+// const { confirm } = Modal;
 const { Option } = Select;
-const dateFormat = 'YYYY-MM-DD';
 
-const showDeleteConfirm = () => {
-  confirm({
-    title: '해당 제품을 삭제하시겠습니까?',
-    icon: <ExclamationCircleOutlined />,
-    okText: '확인',
-    okType: 'danger',
-    cancelText: '취소',
+// const showDeleteConfirm = () => {
+//   confirm({
+//     title: '해당 제품을 삭제하시겠습니까?',
+//     icon: <ExclamationCircleOutlined />,
+//     okText: '확인',
+//     okType: 'danger',
+//     cancelText: '취소',
 
-    onOk() {
-      console.log('OK');
-    },
+//     onOk() {
+//       console.log('OK');
+//     },
 
-    onCancel() {
-      console.log('Cancel');
-    },
-  });
-};
+//     onCancel() {
+//       console.log('Cancel');
+//     },
+//   });
+// };
 
 const normFile = (e) => {
   if (Array.isArray(e)) {
@@ -52,23 +51,29 @@ const standardSelectAfter = (
   </Select>
 );
 
-const unitSelectAfter = (
-  <Select defaultValue="kg" className="unit-select-after">
-    <Option value="kg">kg</Option>
-    <Option value="g">g</Option>
-  </Select>
-);
-
 const ProductionDetailsPresenter = ({
   componentDisabled,
   setComponentDisabled,
   onFormLayoutChange,
   production,
+  productionIdParams,
+  putProductionApi,
+  onChange,
+  updateButton,
+  onButtonNameChange,
 }) => {
+  const inputNumberOnChangeHandler = (name) => (value) => {
+    onChange({ name: name, value: value });
+  };
+
+  const datePickerOnChangeHandler = (name) => (e) => {
+    onChange({ name: name, value: e });
+  };
+
   return (
     <>
       <Typography.Title level={3} style={{ margin: 5 }}>
-        Name 상세정보
+        생산 상세정보
       </Typography.Title>
       <Form
         labelCol={{
@@ -82,15 +87,7 @@ const ProductionDetailsPresenter = ({
         onValuesChange={onFormLayoutChange}
         disabled={componentDisabled}
       >
-        <Form.Item
-          label="생산코드"
-          rules={[
-            {
-              required: true,
-              message: '생산코드를 가져올 수 없습니다!',
-            },
-          ]}
-        >
+        <Form.Item label="생산코드">
           <Input disabled={true} value={production.productionId} />
         </Form.Item>
         <Form.Item
@@ -104,12 +101,19 @@ const ProductionDetailsPresenter = ({
           required
           tooltip="필수 입력 필드입니다"
         >
-          <Input placeholder="생산 제품명" value={production.productionName} />
+          <Input
+            name="productionName"
+            placeholder="생산 제품명"
+            value={production.productionName}
+            onChange={onChange}
+          />
         </Form.Item>
         <Form.Item label="브랜드">
           <Input
+            name="productionBrandName"
             placeholder="생산 제품 브랜드명"
             value={production.productionBrandName}
+            onChange={onChange}
           />
         </Form.Item>
         <Form.Item
@@ -122,7 +126,6 @@ const ProductionDetailsPresenter = ({
           ]}
           required
           tooltip="필수 입력 필드입니다"
-          initialValue={0}
         >
           <InputNumber
             min={0}
@@ -135,10 +138,11 @@ const ProductionDetailsPresenter = ({
             }
             parser={(value) => value.replace(/\￦\s?|(,*)/g, '')}
             value={production.productionPrice}
+            onChange={inputNumberOnChangeHandler('productionPrice')}
           />
         </Form.Item>
         <Form.Item
-          label="제품수량"
+          label="제품수량/단위"
           rules={[
             {
               required: true,
@@ -146,43 +150,48 @@ const ProductionDetailsPresenter = ({
             },
           ]}
           required
-          tooltip="필수 입력 필드입니다"
+          tooltip="제품 수량은 필수 입력 필드입니다"
         >
-          <InputNumber
-            min={1}
-            style={{
-              width: '100%',
-            }}
-            placeholder="생산 제품 수량"
-            addonAfter="개"
-            formatter={(value) =>
-              `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-            }
-            parser={(value) => value.replace(/\\s?|(,*)/g, '')}
-            value={production.productionQuantity}
-          />
+          <Space>
+            <InputNumber
+              min={1}
+              style={{
+                width: '100%',
+              }}
+              placeholder="생산 제품 수량"
+              formatter={(value) =>
+                `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+              }
+              parser={(value) => value.replace(/\\s?|(,*)/g, '')}
+              value={production.productionQuantity}
+              onChange={inputNumberOnChangeHandler('productionQuantity')}
+            />
+            <Input
+              name="productionUnit"
+              placeholder="ex. mm, cm, yd, ..."
+              value={production.productionUnit}
+              onChange={onChange}
+            />
+          </Space>
         </Form.Item>
         <Form.Item label="규격">
           <Input
+            name="productionStandard"
             addonAfter={standardSelectAfter}
             placeholder="생산 제품 규격"
             value={production.productionStandard}
-          />
-        </Form.Item>
-        <Form.Item label="단위">
-          <Input
-            addonAfter={unitSelectAfter}
-            placeholder="생산 제품 규격 단위"
-            value={production.productionUnit}
+            onChange={onChange}
           />
         </Form.Item>
         <Form.Item label="비고">
           <TextArea
+            name="productionDescription"
             showCount
             maxLength={1000}
             rows={5}
             placeholder="생산 제품 비고"
             value={production.productionDescription}
+            onChange={onChange}
           />
         </Form.Item>
         <Form.Item
@@ -198,25 +207,23 @@ const ProductionDetailsPresenter = ({
         >
           <DatePicker
             placeholder="제품 출고 일자"
-            value={moment(`${production.productionReleasedDate}`, dateFormat)}
-            format={dateFormat}
+            value={
+              production.productionReleasedDate
+                ? moment(production.productionReleasedDate)
+                : undefined
+            }
+            onChange={datePickerOnChangeHandler('productionReleasedDate')}
           />
         </Form.Item>
-        <Form.Item
-          label="생성일자"
-          rules={[
-            {
-              required: true,
-              message: '제품 생성일자를 입력해주세요!',
-            },
-          ]}
-          required
-          tooltip="필수 입력 필드입니다"
-        >
+        <Form.Item label="생성일자">
           <DatePicker
             placeholder="제품 생성 일자"
-            value={moment(`${production.productionDate}`, dateFormat)}
-            format={dateFormat}
+            value={
+              production.productionDate
+                ? moment(production.productionDate)
+                : undefined
+            }
+            disabled={true}
           />
         </Form.Item>
         <Form.Item
@@ -239,9 +246,13 @@ const ProductionDetailsPresenter = ({
               backgroundColor: '#FEB139',
               border: '#FEB139',
             }}
-            onClick={() => setComponentDisabled(!componentDisabled)}
+            onClick={() => {
+              setComponentDisabled(!componentDisabled);
+              putProductionApi(productionIdParams, production);
+              onButtonNameChange();
+            }}
           >
-            수정
+            {updateButton ? '수정' : '확인'}
           </Button>
         </Form.Item>
         {/* <Button
