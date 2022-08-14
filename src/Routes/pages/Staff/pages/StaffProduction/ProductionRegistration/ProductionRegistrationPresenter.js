@@ -8,6 +8,7 @@ import {
   Button,
   InputNumber,
   Select,
+  Space,
 } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -27,13 +28,6 @@ const standardSelectAfter = (
   <Select defaultValue="mm" className="standard-select-after">
     <Option value="mm">mm</Option>
     <Option value="cm">cm</Option>
-  </Select>
-);
-
-const unitSelectAfter = (
-  <Select defaultValue="kg" className="unit-select-after">
-    <Option value="kg">kg</Option>
-    <Option value="g">g</Option>
   </Select>
 );
 
@@ -59,11 +53,11 @@ const ProductionRegistrationPresenter = ({
   //   productionDescription,
   // } = registration;
 
-  const inputNumberOnChangeHandle = (name) => (value) => {
+  const inputNumberOnChangeHandler = (name) => (value) => {
     onChange({ name: name, value: value });
   };
 
-  const datePickerOnChangeHandle = (name) => (e) => {
+  const datePickerOnChangeHandler = (name) => (e) => {
     onChange({ name: name, value: e });
   };
 
@@ -141,11 +135,11 @@ const ProductionRegistrationPresenter = ({
               `\￦ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
             }
             parser={(value) => value.replace(/\￦\s?|(,*)/g, '')}
-            onChange={inputNumberOnChangeHandle('productionPrice')}
+            onChange={inputNumberOnChangeHandler('productionPrice')}
           />
         </Form.Item>
         <Form.Item
-          label="제품수량"
+          label="제품수량/단위"
           rules={[
             {
               required: true,
@@ -153,22 +147,29 @@ const ProductionRegistrationPresenter = ({
             },
           ]}
           required
-          tooltip="필수 입력 필드입니다"
+          tooltip="제품 수량은 필수 입력 필드입니다"
         >
-          <InputNumber
-            defaultValue={1}
-            min={1}
-            style={{
-              width: '100%',
-            }}
-            placeholder="생산 제품 수량"
-            addonAfter="개"
-            formatter={(value) =>
-              `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-            }
-            parser={(value) => value.replace(/\\s?|(,*)/g, '')}
-            onChange={inputNumberOnChangeHandle('productionQuantity')}
-          />
+          <Space>
+            <InputNumber
+              defaultValue={1}
+              min={1}
+              style={{
+                width: '100%',
+              }}
+              placeholder="생산 제품 수량"
+              formatter={(value) =>
+                `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+              }
+              parser={(value) => value.replace(/\\s?|(,*)/g, '')}
+              onChange={inputNumberOnChangeHandler('productionQuantity')}
+            />
+            <Input
+              name="productionUnit"
+              placeholder="ex) mm, cm, yd, ..."
+              defaultValue={newProduction.productionUnit}
+              onChange={onChange}
+            />
+          </Space>
         </Form.Item>
         <Form.Item label="규격">
           <Input
@@ -176,15 +177,6 @@ const ProductionRegistrationPresenter = ({
             addonAfter={standardSelectAfter}
             placeholder="생산 제품 규격"
             defaultValue={newProduction.productionStandard}
-            onChange={onChange}
-          />
-        </Form.Item>
-        <Form.Item label="단위">
-          <Input
-            name="productionUnit"
-            addonAfter={unitSelectAfter}
-            placeholder="생산 제품 규격 단위"
-            defaultValue={newProduction.productionUnit}
             onChange={onChange}
           />
         </Form.Item>
@@ -212,7 +204,7 @@ const ProductionRegistrationPresenter = ({
         >
           <DatePicker
             placeholder="제품 출고 일자"
-            onChange={datePickerOnChangeHandle('productionReleasedDate')}
+            onChange={datePickerOnChangeHandler('productionReleasedDate')}
           />
         </Form.Item>
         <Form.Item
@@ -228,7 +220,7 @@ const ProductionRegistrationPresenter = ({
         >
           <DatePicker
             placeholder="제품 생성 일자"
-            onChange={datePickerOnChangeHandle('productionDate')}
+            onChange={datePickerOnChangeHandler('productionDate')}
           />
         </Form.Item>
         <Form.Item
