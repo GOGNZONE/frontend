@@ -6,6 +6,6 @@ export {
   StaffProductionDetails,
 } from './StaffProduction';
 export { default as StaffStock } from './StaffStock';
-export { default as StaffRelease } from './StaffRelease';
+export { StaffReleaseList, StaffReleaseDetails } from './StaffRelease';
 export { default as StaffOrder } from './StaffOrder';
 export { StaffBomRegist, StaffBomList } from './StaffBom';
