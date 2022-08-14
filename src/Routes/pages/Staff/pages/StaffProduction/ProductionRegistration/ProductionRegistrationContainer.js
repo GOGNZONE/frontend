@@ -37,6 +37,7 @@ const ProductionRegistrationContainer = () => {
 
     if (e.target === undefined) {
       if (moment.isMoment(e.value)) {
+        console.log(e);
         value = e.value.format('YYYY-MM-DD');
         name = e.name;
       } else {
