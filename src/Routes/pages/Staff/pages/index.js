@@ -1,4 +1,4 @@
-export { default as StaffDashBoard } from './StaffDashBoard';
+export { StaffDashBoard } from './StaffDashBoard';
 export { default as StaffClienList } from './StaffClient';
 export {
   StaffProductionList,
