@@ -1,25 +1,124 @@
 import React from 'react';
-import { Badge, Descriptions } from 'antd';
+import { Form, Button, Input, Typography } from 'antd';
+import { Link } from 'react-router-dom';
 
-const StaffStorageInfoPresenter = ({ storage }) => {
+function StaffStorageInfoPresenter({
+  storage,
+  componentDisabled,
+  setComponentDisabled,
+  onFormLayoutChange,
+  storageIdParams,
+  onChange,
+  updateButton,
+  onButtonNameChange,
+}) {
   return (
     <div>
-      <Descriptions title="창고 정보" bordered>
-        <Descriptions.Item label="창고 코드" span={3}>
-          {storage.storageId}
-        </Descriptions.Item>
-        <Descriptions.Item label="재고명" span={2}>
-          {storage.storageAddress}
-        </Descriptions.Item>
-        <Descriptions.Item label="재고 수량" span={2}>
-          {storage.storageCategory}
-        </Descriptions.Item>
-        <Descriptions.Item label="비고" span={2}>
-          {storage.storageDescription}
-        </Descriptions.Item>
-      </Descriptions>
+      <Form
+        labelCol={{
+          span: 7,
+        }}
+        wrapperCol={{
+          span: 10,
+        }}
+        layout="horizontal"
+        size="large"
+        onValuesChange={onFormLayoutChange}
+        disabled={componentDisabled}
+      >
+        <Typography.Title level={3} style={{ margin: 5 }}>
+          창고 상세정보
+        </Typography.Title>
+        <Form.Item label="창고코드">
+          <Input disabled={true} name="storageId" value={storage.storageId} />
+        </Form.Item>
+        <Form.Item
+          label="창고 주소"
+          rules={[
+            {
+              required: true,
+              message: '입력해주세요',
+            },
+          ]}
+          required
+          tooltip="필수 입력 필드입니다."
+        >
+          <Input
+            name="storageAddress"
+            onChange={onChange}
+            value={storage.storageAddress}
+          />
+        </Form.Item>
+        <Form.Item
+          label="창고 종류"
+          rules={[
+            {
+              required: true,
+              message: '입력해주세요',
+            },
+          ]}
+          required
+          tooltip="필수 입력 필드입니다."
+        >
+          <Input
+            name="storageCategory"
+            onChange={onChange}
+            value={storage.storageCategory}
+          />
+        </Form.Item>
+        <Form.Item label="비고">
+          <Input
+            name="storageDescription"
+            onChange={onChange}
+            value={storage.storageDescription}
+          />
+        </Form.Item>
+      </Form>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            style={{
+              margin: 5,
+              backgroundColor: '#FEB139',
+              border: '#FEB139',
+            }}
+            onClick={() => {
+              setComponentDisabled(!componentDisabled);
+              // putProductionApi(storageIdParams, storage);
+              onButtonNameChange();
+            }}
+          >
+            {updateButton ? '수정' : '확인'}
+          </Button>
+        </Form.Item>
+        {/* <Button
+    type="primary"
+    style={{
+      margin: 5,
+      backgroundColor: '#D61C4E',
+      border: '#D61C4E',
+    }}
+    onClick={showDeleteConfirm}
+  >
+    삭제
+  </Button> */}
+        <Link to="/staff/order/list">
+          <Button
+            type="primary"
+            style={{
+              margin: 5,
+              backgroundColor: '#293462',
+              border: '#293462',
+            }}
+          >
+            목록
+          </Button>
+        </Link>
+      </div>
     </div>
   );
-};
+}
 
 export default StaffStorageInfoPresenter;

@@ -1,4 +1,4 @@
-import axiosInstance from '../utils/index.js';
+import axiosInstance from '../Utils/index.js';
 
 /* 창고 리스트 조회 */
 export const getStorageList = async () => {
@@ -13,7 +13,7 @@ export const getStorage = async (storageIdParams) => {
 };
 
 /* 창고 등록 */
-// export const InsertStorage = async () => {
-//     const response = await axiosInstance.post('/api/storage',);
-//     return response;
-//   };
+export const InsertStorage = async (storage) => {
+  const response = await axiosInstance.post('/api/storage', storage);
+  return response;
+};
