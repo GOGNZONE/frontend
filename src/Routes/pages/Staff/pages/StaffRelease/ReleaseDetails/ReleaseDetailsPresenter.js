@@ -189,7 +189,7 @@ const ReleaseDetailsPresenter = ({ release }) => {
               itemLayout="horizontal"
               dataSource={clientData}
               renderItem={(item) => (
-                <List.Item style={{ marginLeft: '5px' }}>
+                <List.Item style={{ marginLeft: '7px' }}>
                   <List.Item.Meta
                     title={item.title}
                     description={item.description}
@@ -215,7 +215,7 @@ const ReleaseDetailsPresenter = ({ release }) => {
               itemLayout="horizontal"
               dataSource={productionData}
               renderItem={(item) => (
-                <List.Item style={{ marginLeft: '5px' }}>
+                <List.Item style={{ marginLeft: '7px' }}>
                   <List.Item.Meta
                     title={item.title}
                     description={item.description}
@@ -241,7 +241,7 @@ const ReleaseDetailsPresenter = ({ release }) => {
               itemLayout="horizontal"
               dataSource={deliveryData}
               renderItem={(item) => (
-                <List.Item style={{ marginLeft: '5px' }}>
+                <List.Item style={{ marginLeft: '7px' }}>
                   <List.Item.Meta
                     title={item.title}
                     description={item.description}
