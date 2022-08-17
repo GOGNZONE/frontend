@@ -196,3 +196,5 @@ export const deleteProduction = (production_id) => {
     method: 'delete',
   });
 };
+
+/** Stock */
