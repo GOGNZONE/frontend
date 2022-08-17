@@ -1,19 +1,30 @@
 import axios from 'axios';
 
-const client = axios.create();
+/** axios localhost instance 생성 */
+const client = axios.create({
+  baseURL: 'http://localhost:8080/',
+  timeout: 15000,
+});
 
-/** localhost */
-client.defaults.baseURL = 'http://localhost:8080/';
+/** axios gongzone-service instance */
 
 /** interceptor */
 client.interceptors.response.use(
   (response) => {
-    // 요청 성공시 특정 작업 수행
+    /** http status가 200인 경우
+     * 응답 바로 직전에 대해 작성
+     * .then() 으로 이어짐
+     */
     return response;
   },
   (error) => {
-    // 요청 실패 시 특정 작업 수행
-    // 400 ~ 500
+    /*
+        http status가 200이 아닌 경우
+        응답 에러 처리를 작성합니다.
+        .catch() 으로 이어집니다.
+        
+        status code : 400 ~ 500
+    */
     if (error.response.status === 400) {
       console.log(error);
       window.location.href = '/';
