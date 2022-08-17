@@ -198,3 +198,200 @@ export const deleteProduction = (production_id) => {
 };
 
 /** Stock */
+export const getStockList = () => {
+  client({
+    url: `api/stock/list`,
+    method: 'get',
+  });
+};
+
+export const getStockInfo = (stock_id) => {
+  client({
+    url: `api/stock/${stock_id}`,
+    method: 'get',
+  });
+};
+
+export const registerStock = (inData) => {
+  client({
+    url: `api/stock`,
+    method: 'post',
+    data: inData,
+  });
+};
+
+export const updateStock = (stock_id, inData) => {
+  client({
+    url: `api/stock/${stock_id}`,
+    method: 'get',
+    data: inData,
+  });
+};
+
+export const deleteStock = (stock_id) => {
+  client({
+    url: `api/stock/${stock_id}`,
+    method: 'delete',
+  });
+};
+
+/** Storage */
+export const getStorageList = () => {
+  client({
+    url: `api/storage/list`,
+    method: 'get',
+  });
+};
+
+export const getStorageInfo = (storage_id) => {
+  client({
+    url: `api/storage/${storage_id}`,
+    method: 'get',
+  });
+};
+
+export const registerStorage = (inData) => {
+  client({
+    url: `api/storage`,
+    method: 'post',
+    data: inData,
+  });
+};
+
+export const updateStorage = (storage_id, inData) => {
+  client({
+    url: `api/storage/${storage_id}`,
+    method: 'get',
+    data: inData,
+  });
+};
+
+export const deleteStorage = (BOM_id) => {
+  client({
+    url: `api/BOM/${BOM_id}`,
+    method: 'delete',
+  });
+};
+
+/** BOM */
+export const getBomList = () => {
+  client({
+    url: `api/BOM/list`,
+    method: 'get',
+  });
+};
+
+export const getBomInfo = (BOM_id) => {
+  client({
+    url: `api/BOM/${BOM_id}`,
+    method: 'get',
+  });
+};
+
+export const registerBom = (inData) => {
+  client({
+    url: `api/BOM`,
+    method: 'post',
+    data: inData,
+  });
+};
+
+export const updateBom = (BOM_id, inData) => {
+  client({
+    url: `api/BOM/${BOM_id}`,
+    method: 'get',
+    data: inData,
+  });
+};
+
+export const deleteBom = (BOM_id) => {
+  client({
+    url: `api/BOM/${BOM_id}`,
+    method: 'delete',
+  });
+};
+
+/** Order */
+export const getOrderList = () => {
+  client({
+    url: `api/order/list`,
+    method: 'get',
+  });
+};
+
+export const getOrderInfo = (order_id) => {
+  client({
+    url: `api/order/${order_id}`,
+    method: 'get',
+  });
+};
+
+export const registerOrder = (client_id, inData) => {
+  client({
+    url: `api/order/${client_id}`,
+    method: 'post',
+    data: inData,
+  });
+};
+
+export const updateOrder = (order_id, inData) => {
+  client({
+    url: `api/order/${order_id}`,
+    method: 'get',
+    data: inData,
+  });
+};
+
+export const deleteOrder = (order_id) => {
+  client({
+    url: `api/order/${order_id}`,
+    method: 'delete',
+  });
+};
+
+/** Release */
+export const getReleaseList = () => {
+  client({
+    url: `api/release/list`,
+    method: 'get',
+  });
+};
+
+export const getReleaseInfo = (release_id) => {
+  client({
+    url: `api/release/${release_id}`,
+    method: 'get',
+  });
+};
+
+export const registerRelease = (production_id, inData) => {
+  client({
+    url: `api/release/${production_id}`,
+    method: 'post',
+    data: inData,
+  });
+};
+
+export const updateRelease = (release_id, inData) => {
+  client({
+    url: `api/release/${release_id}`,
+    method: 'get',
+    data: inData,
+  });
+};
+
+export const deleteRelease = (release_id) => {
+  client({
+    url: `api/release/${release_id}`,
+    method: 'delete',
+  });
+};
+
+/** Delivery */
+export const registerDelivery = (inData) => {
+  client({
+    url: `api/delivery`,
+    method: 'post',
+    data: inData,
+  });
+};
