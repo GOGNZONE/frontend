@@ -1,20 +1,23 @@
 import axios from 'axios';
 
 /** axios localhost instance 생성 */
-const client = axios.create({
+const instance = axios.create({
   baseURL: 'http://localhost:8080/',
   timeout: 15000,
+  headers: { 'Content-Type': 'application/json; charset=utf-8' },
 });
 
 /** axios gongzone-service instance */
 
 /** interceptor */
-client.interceptors.response.use(
+instance.interceptors.response.use(
   (response) => {
     /** http status가 200인 경우
      * 응답 바로 직전에 대해 작성
      * .then() 으로 이어짐
      */
+    // if (response.headers && accessToken)
+    //   response.headers.Authorization = `Bearer ${accessToken}`;
     return response;
   },
   (error) => {
@@ -44,4 +47,4 @@ client.interceptors.response.use(
   },
 );
 
-export default client;
+export default instance;

@@ -1,24 +1,22 @@
-import client from './client';
-
-/** 사용 예시) import * as api from '../apis/index' */
+import apiController from './apiController';
 
 /** Employee API */
 export const getEmployeeList = () => {
-  client({
+  apiController({
     url: 'api/employee/list',
     method: 'get',
   });
 };
 
 export const getEmployeeInfo = (employee_id) => {
-  client({
+  apiController({
     url: `api/employee/${employee_id}`,
     method: 'get',
   });
 };
 
 export const updateEmployee = (employee_id, inData) => {
-  client({
+  apiController({
     url: `api/employee/${employee_id}`,
     method: 'put',
     data: inData,
@@ -26,21 +24,21 @@ export const updateEmployee = (employee_id, inData) => {
 };
 
 export const deleteEmployee = (employee_id) => {
-  client({
+  apiController({
     url: `api/employee/${employee_id}`,
     method: 'delete',
   });
 };
 
 export const myEmployeeInfo = () => {
-  client({
+  return apiController({
     url: `api/employee/mypage`,
     method: 'get',
   });
 };
 
 export const updatePassword = (inData) => {
-  client({
+  apiController({
     url: `api/employee/password`,
     method: 'post',
     data: inData,
@@ -48,7 +46,7 @@ export const updatePassword = (inData) => {
 };
 
 export const registerEmployee = (inData) => {
-  client({
+  apiController({
     url: `/api/employee/register`,
     method: 'post',
     data: inData,
@@ -56,7 +54,8 @@ export const registerEmployee = (inData) => {
 };
 
 export const login = (inData) => {
-  client({
+  console.log(apiController);
+  apiController({
     url: `/auth/login`,
     method: 'post',
     data: inData,
@@ -64,43 +63,43 @@ export const login = (inData) => {
 };
 
 export const getRetiredEmployeeList = () => {
-  client({
+  apiController({
     url: `api/retired-employee/list`,
     method: 'get',
   });
 };
 
 export const getRetiredEmployeeInfo = (employee_id) => {
-  client({
+  apiController({
     url: `api/retired-employee/${employee_id}`,
     method: 'get',
   });
 };
 
 export const deleteRetiredEmployee = (employee_id) => {
-  client({
+  apiController({
     url: `api/retired-employee/${employee_id}`,
     method: 'delete',
   });
 };
 
-/** Client API */
+/** apiController API */
 export const getClientList = () => {
-  client({
+  apiController({
     url: `api/client/list`,
     method: 'get',
   });
 };
 
 export const getClientInfo = (client_id) => {
-  client({
+  apiController({
     url: `api/client/${client_id}`,
     method: 'get',
   });
 };
 
 export const registerClient = (inData) => {
-  client({
+  apiController({
     url: `api/client`,
     method: 'post',
     data: inData,
@@ -108,7 +107,7 @@ export const registerClient = (inData) => {
 };
 
 export const updateClient = (client_id, inData) => {
-  client({
+  apiController({
     url: `api/client/${client_id}`,
     method: 'put',
     data: inData,
@@ -116,36 +115,36 @@ export const updateClient = (client_id, inData) => {
 };
 
 export const deleteClient = (client_id) => {
-  client({
+  apiController({
     url: `api/client/${client_id}`,
     method: 'delete',
   });
 };
 
 export const getAccountList = () => {
-  client({
+  apiController({
     url: `api/account/list`,
     method: 'get',
   });
 };
 
 export const getAccountInfo = (account_id) => {
-  client({
+  apiController({
     url: `api/account/${account_id}`,
     method: 'get',
   });
 };
 
-export const registerAccount = (client_id, inData) => {
-  client({
-    url: `api/account/${client_id}`,
+export const registerAccount = (apiController_id, inData) => {
+  apiController({
+    url: `api/account/${apiController_id}`,
     method: 'post',
     data: inData,
   });
 };
 
 export const updateAccount = (account_id, inData) => {
-  client({
+  apiController({
     url: `api/account/${account_id}`,
     method: 'put',
     data: inData,
@@ -153,7 +152,7 @@ export const updateAccount = (account_id, inData) => {
 };
 
 export const deleteAccount = (account_id) => {
-  client({
+  apiController({
     url: `api/account/${account_id}`,
     method: 'delete',
   });
@@ -161,21 +160,21 @@ export const deleteAccount = (account_id) => {
 
 /** Production */
 export const getProductionList = () => {
-  client({
+  apiController({
     url: `api/production/list`,
     method: 'get',
   });
 };
 
 export const getProductionInfo = (production_id) => {
-  client({
+  apiController({
     url: `api/production/${production_id}`,
     method: 'get',
   });
 };
 
 export const registerProduction = (inData) => {
-  client({
+  apiController({
     url: `api/production`,
     method: 'post',
     data: inData,
@@ -183,7 +182,7 @@ export const registerProduction = (inData) => {
 };
 
 export const updateProduction = (production_id, inData) => {
-  client({
+  apiController({
     url: `api/production/${production_id}`,
     method: 'put',
     data: inData,
@@ -191,7 +190,7 @@ export const updateProduction = (production_id, inData) => {
 };
 
 export const deleteProduction = (production_id) => {
-  client({
+  apiController({
     url: `api/production/${production_id}`,
     method: 'delete',
   });
@@ -199,21 +198,21 @@ export const deleteProduction = (production_id) => {
 
 /** Stock */
 export const getStockList = () => {
-  client({
+  apiController({
     url: `api/stock/list`,
     method: 'get',
   });
 };
 
 export const getStockInfo = (stock_id) => {
-  client({
+  apiController({
     url: `api/stock/${stock_id}`,
     method: 'get',
   });
 };
 
 export const registerStock = (inData) => {
-  client({
+  apiController({
     url: `api/stock`,
     method: 'post',
     data: inData,
@@ -221,7 +220,7 @@ export const registerStock = (inData) => {
 };
 
 export const updateStock = (stock_id, inData) => {
-  client({
+  apiController({
     url: `api/stock/${stock_id}`,
     method: 'get',
     data: inData,
@@ -229,7 +228,7 @@ export const updateStock = (stock_id, inData) => {
 };
 
 export const deleteStock = (stock_id) => {
-  client({
+  apiController({
     url: `api/stock/${stock_id}`,
     method: 'delete',
   });
@@ -237,21 +236,21 @@ export const deleteStock = (stock_id) => {
 
 /** Storage */
 export const getStorageList = () => {
-  client({
+  apiController({
     url: `api/storage/list`,
     method: 'get',
   });
 };
 
 export const getStorageInfo = (storage_id) => {
-  client({
+  apiController({
     url: `api/storage/${storage_id}`,
     method: 'get',
   });
 };
 
 export const registerStorage = (inData) => {
-  client({
+  apiController({
     url: `api/storage`,
     method: 'post',
     data: inData,
@@ -259,7 +258,7 @@ export const registerStorage = (inData) => {
 };
 
 export const updateStorage = (storage_id, inData) => {
-  client({
+  apiController({
     url: `api/storage/${storage_id}`,
     method: 'get',
     data: inData,
@@ -267,7 +266,7 @@ export const updateStorage = (storage_id, inData) => {
 };
 
 export const deleteStorage = (BOM_id) => {
-  client({
+  apiController({
     url: `api/BOM/${BOM_id}`,
     method: 'delete',
   });
@@ -275,21 +274,21 @@ export const deleteStorage = (BOM_id) => {
 
 /** BOM */
 export const getBomList = () => {
-  client({
+  apiController({
     url: `api/BOM/list`,
     method: 'get',
   });
 };
 
 export const getBomInfo = (BOM_id) => {
-  client({
+  apiController({
     url: `api/BOM/${BOM_id}`,
     method: 'get',
   });
 };
 
 export const registerBom = (inData) => {
-  client({
+  apiController({
     url: `api/BOM`,
     method: 'post',
     data: inData,
@@ -297,7 +296,7 @@ export const registerBom = (inData) => {
 };
 
 export const updateBom = (BOM_id, inData) => {
-  client({
+  apiController({
     url: `api/BOM/${BOM_id}`,
     method: 'get',
     data: inData,
@@ -305,7 +304,7 @@ export const updateBom = (BOM_id, inData) => {
 };
 
 export const deleteBom = (BOM_id) => {
-  client({
+  apiController({
     url: `api/BOM/${BOM_id}`,
     method: 'delete',
   });
@@ -313,29 +312,29 @@ export const deleteBom = (BOM_id) => {
 
 /** Order */
 export const getOrderList = () => {
-  client({
+  apiController({
     url: `api/order/list`,
     method: 'get',
   });
 };
 
 export const getOrderInfo = (order_id) => {
-  client({
+  apiController({
     url: `api/order/${order_id}`,
     method: 'get',
   });
 };
 
-export const registerOrder = (client_id, inData) => {
-  client({
-    url: `api/order/${client_id}`,
+export const registerOrder = (apiController_id, inData) => {
+  apiController({
+    url: `api/order/${apiController_id}`,
     method: 'post',
     data: inData,
   });
 };
 
 export const updateOrder = (order_id, inData) => {
-  client({
+  apiController({
     url: `api/order/${order_id}`,
     method: 'get',
     data: inData,
@@ -343,7 +342,7 @@ export const updateOrder = (order_id, inData) => {
 };
 
 export const deleteOrder = (order_id) => {
-  client({
+  apiController({
     url: `api/order/${order_id}`,
     method: 'delete',
   });
@@ -351,21 +350,21 @@ export const deleteOrder = (order_id) => {
 
 /** Release */
 export const getReleaseList = () => {
-  client({
+  apiController({
     url: `api/release/list`,
     method: 'get',
   });
 };
 
 export const getReleaseInfo = (release_id) => {
-  client({
+  apiController({
     url: `api/release/${release_id}`,
     method: 'get',
   });
 };
 
 export const registerRelease = (production_id, inData) => {
-  client({
+  apiController({
     url: `api/release/${production_id}`,
     method: 'post',
     data: inData,
@@ -373,7 +372,7 @@ export const registerRelease = (production_id, inData) => {
 };
 
 export const updateRelease = (release_id, inData) => {
-  client({
+  apiController({
     url: `api/release/${release_id}`,
     method: 'get',
     data: inData,
@@ -381,7 +380,7 @@ export const updateRelease = (release_id, inData) => {
 };
 
 export const deleteRelease = (release_id) => {
-  client({
+  apiController({
     url: `api/release/${release_id}`,
     method: 'delete',
   });
@@ -389,7 +388,7 @@ export const deleteRelease = (release_id) => {
 
 /** Delivery */
 export const registerDelivery = (inData) => {
-  client({
+  apiController({
     url: `api/delivery`,
     method: 'post',
     data: inData,
