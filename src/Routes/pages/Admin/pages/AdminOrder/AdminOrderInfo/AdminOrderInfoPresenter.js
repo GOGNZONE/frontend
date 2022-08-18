@@ -13,10 +13,6 @@ function AdminOrderInfoPresenter({
   updateButton,
   onButtonNameChange,
 }) {
-  super(order);
-  // console.log(order[2]['client'].clientId);
-  console.log(order.client);
-  // Object.entries(order.client);
   return (
     <div>
       <Form
