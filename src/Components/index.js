@@ -1,1 +1,1 @@
-export { StaffLayout } from './layout';
+export { StaffLayout, AdminLayout } from './layout';

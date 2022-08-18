@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Layout } from 'antd';
-import { StaffHeader, StaffSider } from './components';
+import { AdminHeader, AdminSider } from './components';
 import '../layout.css';
 
 const { Content, Footer } = Layout;
 
-const StaffLayout = () => {
+const AdminLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
 
   const onCollapse = (val) => {
@@ -15,9 +15,9 @@ const StaffLayout = () => {
 
   return (
     <Layout className="site-layout-container" style={{ minHeight: '100vh' }}>
-      <StaffSider collapsed={collapsed} onCollapse={onCollapse} />
+      <AdminSider collapsed={collapsed} onCollapse={onCollapse} />
       <Layout className="site-layout">
-        <StaffHeader />
+        <AdminHeader />
         <Content style={{ margin: '0 16px', padding: '10px 10px 10px 10px' }}>
           <div
             className="site-layout-background"
@@ -42,4 +42,4 @@ const StaffLayout = () => {
   );
 };
 
-export default StaffLayout;
+export default AdminLayout;
