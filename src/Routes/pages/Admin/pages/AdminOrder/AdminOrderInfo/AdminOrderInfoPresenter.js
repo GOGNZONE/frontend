@@ -204,7 +204,6 @@ function AdminOrderInfoPresenter({
             }}
             onClick={() => {
               setComponentDisabled(!componentDisabled);
-              // putProductionApi(productionIdParams, production);
               onButtonNameChange();
             }}
           >
