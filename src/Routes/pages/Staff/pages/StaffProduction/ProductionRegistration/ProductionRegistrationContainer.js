@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   getProductionList,
@@ -6,33 +6,39 @@ import {
 } from '../../../../../../Apis/productionApi';
 import ProductionRegistrationPresenter from './ProductionRegistrationPresenter';
 import moment from 'moment';
+import { useSelector, useDispatch } from 'react-redux';
+import { setNewProduction } from '../../../../../../modules/production';
 
 const ProductionRegistrationContainer = () => {
   const [productionLen, setProductionLen] = useState(0);
-  const [newProduction, setNewProduction] = useState({
-    productionName: '',
-    productionBrandName: '',
-    productionPrice: '',
-    productionQuantity: '',
-    productionStandard: '',
-    productionUnit: '',
-    productionDescription: '',
-    productionReleasedDate: '',
-    productionDate: '',
-  });
   const navigate = useNavigate();
 
+  const newProduction = useSelector((state) => state.production);
+  const dispatch = useDispatch();
+
+  const {
+    productionName,
+    productionBrandName,
+    productionPrice,
+    productionQuantity,
+    productionStandard,
+    productionUnit,
+    productionDescription,
+    productionReleasedDate,
+    productionDate,
+  } = newProduction;
+
   useEffect(() => {
-    getProductionListApi();
+    getProductionListAPI();
   }, []);
 
-  const getProductionListApi = () => {
-    getProductionList().then((response) => {
-      setProductionLen(response.data.length);
-    });
+  const getProductionListAPI = () => {
+    // getProductionList().then((response) => {
+    //   setProductionLen(response.data.length);
+    // });
   };
 
-  const onChange = (e) => {
+  const onChange = useCallback((e) => {
     let { value, name } = '';
 
     if (e.target === undefined) {
@@ -49,11 +55,8 @@ const ProductionRegistrationContainer = () => {
       name = e.target.name;
     }
 
-    setNewProduction({
-      ...newProduction,
-      [name]: value,
-    });
-  };
+    dispatch(setNewProduction({ name: name, value: value }));
+  });
 
   const postProductionApi = (newProduction) => {
     postProduction(newProduction).then(() =>
