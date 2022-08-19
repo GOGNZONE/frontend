@@ -1,397 +1,221 @@
-import client from './client';
+import instance from './apiController';
 
-/** 사용 예시) import * as api from '../apis/index' */
-
-/** Employee API */
+/** Employee  */
 export const getEmployeeList = () => {
-  client({
-    url: 'api/employee/list',
-    method: 'get',
-  });
+  return instance.get('employee/list');
 };
 
 export const getEmployeeInfo = (employee_id) => {
-  client({
-    url: `api/employee/${employee_id}`,
-    method: 'get',
-  });
+  return instance.get(`employee/${employee_id}`);
 };
 
 export const updateEmployee = (employee_id, inData) => {
-  client({
-    url: `api/employee/${employee_id}`,
-    method: 'put',
-    data: inData,
-  });
+  return instance.put(`employee/${employee_id}`, inData);
 };
 
 export const deleteEmployee = (employee_id) => {
-  client({
-    url: `api/employee/${employee_id}`,
-    method: 'delete',
-  });
+  return instance.delete(`employee/${employee_id}`);
 };
 
 export const myEmployeeInfo = () => {
-  client({
-    url: `api/employee/mypage`,
-    method: 'get',
-  });
+  return instance.get(`employee/mypage`);
 };
 
 export const updatePassword = (inData) => {
-  client({
-    url: `api/employee/password`,
-    method: 'post',
-    data: inData,
-  });
+  return instance.put('employee/password', inData);
 };
 
 export const registerEmployee = (inData) => {
-  client({
-    url: `/api/employee/register`,
-    method: 'post',
-    data: inData,
-  });
+  return instance.post(`/employee/register`, inData);
 };
 
 export const login = (inData) => {
-  client({
-    url: `/auth/login`,
-    method: 'post',
-    data: inData,
-  });
+  return instance.post('/auth/login', inData);
 };
 
 export const getRetiredEmployeeList = () => {
-  client({
-    url: `api/retired-employee/list`,
-    method: 'get',
-  });
+  return instance.get(`/retired-employee/list`);
 };
 
 export const getRetiredEmployeeInfo = (employee_id) => {
-  client({
-    url: `api/retired-employee/${employee_id}`,
-    method: 'get',
-  });
+  return instance.get(`/retired-employee/${employee_id}`);
 };
 
 export const deleteRetiredEmployee = (employee_id) => {
-  client({
-    url: `api/retired-employee/${employee_id}`,
-    method: 'delete',
-  });
+  return instance.delete(`/retired-employee/${employee_id}`);
 };
 
-/** Client API */
+/** instance  */
 export const getClientList = () => {
-  client({
-    url: `api/client/list`,
-    method: 'get',
-  });
+  return instance.get(`/client/list`);
 };
 
 export const getClientInfo = (client_id) => {
-  client({
-    url: `api/client/${client_id}`,
-    method: 'get',
-  });
+  return instance.get(`client/${client_id}`);
 };
 
 export const registerClient = (inData) => {
-  client({
-    url: `api/client`,
-    method: 'post',
-    data: inData,
-  });
+  return instance.post(`/client`, inData);
 };
 
 export const updateClient = (client_id, inData) => {
-  client({
-    url: `api/client/${client_id}`,
-    method: 'put',
-    data: inData,
-  });
+  return instance.put(`/client/${client_id}`, inData);
 };
 
 export const deleteClient = (client_id) => {
-  client({
-    url: `api/client/${client_id}`,
-    method: 'delete',
-  });
+  return instance.delete(`/client/${client_id}`);
 };
 
 export const getAccountList = () => {
-  client({
-    url: `api/account/list`,
-    method: 'get',
-  });
+  return instance.get(`/account/list`);
 };
 
 export const getAccountInfo = (account_id) => {
-  client({
-    url: `api/account/${account_id}`,
-    method: 'get',
-  });
+  return instance.get(`/account/${account_id}`);
 };
 
-export const registerAccount = (client_id, inData) => {
-  client({
-    url: `api/account/${client_id}`,
-    method: 'post',
-    data: inData,
-  });
+export const registerAccount = (instance_id, inData) => {
+  return instance.post(`/account/${instance_id}`, inData);
 };
 
 export const updateAccount = (account_id, inData) => {
-  client({
-    url: `api/account/${account_id}`,
-    method: 'put',
-    data: inData,
-  });
+  return instance.put(`/account/${account_id}`, inData);
 };
 
 export const deleteAccount = (account_id) => {
-  client({
-    url: `api/account/${account_id}`,
-    method: 'delete',
-  });
+  return instance.delete(`/account/${account_id}`);
 };
 
 /** Production */
 export const getProductionList = () => {
-  client({
-    url: `api/production/list`,
-    method: 'get',
-  });
+  return instance.get(`/production/list`);
 };
 
 export const getProductionInfo = (production_id) => {
-  client({
-    url: `api/production/${production_id}`,
-    method: 'get',
-  });
+  return instance.get(`/production/${production_id}`);
 };
 
 export const registerProduction = (inData) => {
-  client({
-    url: `api/production`,
-    method: 'post',
-    data: inData,
-  });
+  return instance.post(`/production`, inData);
 };
 
 export const updateProduction = (production_id, inData) => {
-  client({
-    url: `api/production/${production_id}`,
-    method: 'put',
-    data: inData,
-  });
+  return instance.put(`/production/${production_id}`, inData);
 };
 
 export const deleteProduction = (production_id) => {
-  client({
-    url: `api/production/${production_id}`,
+  instance({
+    url: `/production/${production_id}`,
     method: 'delete',
   });
 };
 
 /** Stock */
 export const getStockList = () => {
-  client({
-    url: `api/stock/list`,
-    method: 'get',
-  });
+  return instance.get(`/stock/list`);
 };
 
 export const getStockInfo = (stock_id) => {
-  client({
-    url: `api/stock/${stock_id}`,
-    method: 'get',
-  });
+  return instance.get(`/stock/${stock_id}`);
 };
 
 export const registerStock = (inData) => {
-  client({
-    url: `api/stock`,
-    method: 'post',
-    data: inData,
-  });
+  return instance.post(`/stock`, inData);
 };
 
 export const updateStock = (stock_id, inData) => {
-  client({
-    url: `api/stock/${stock_id}`,
-    method: 'get',
-    data: inData,
-  });
+  return instance.put(`/stock/${stock_id}`, inData);
 };
 
 export const deleteStock = (stock_id) => {
-  client({
-    url: `api/stock/${stock_id}`,
-    method: 'delete',
-  });
+  return instance.delete(`/stock/${stock_id}`);
 };
 
 /** Storage */
 export const getStorageList = () => {
-  client({
-    url: `api/storage/list`,
-    method: 'get',
-  });
+  return instance.get(`/storage/list`);
 };
 
 export const getStorageInfo = (storage_id) => {
-  client({
-    url: `api/storage/${storage_id}`,
-    method: 'get',
-  });
+  return instance.get(`/storage/${storage_id}`);
 };
 
 export const registerStorage = (inData) => {
-  client({
-    url: `api/storage`,
-    method: 'post',
-    data: inData,
-  });
+  return instance.post(`/storage`);
 };
 
 export const updateStorage = (storage_id, inData) => {
-  client({
-    url: `api/storage/${storage_id}`,
-    method: 'get',
-    data: inData,
-  });
+  return instance.get(`/storage/${storage_id}`, inData);
 };
 
 export const deleteStorage = (BOM_id) => {
-  client({
-    url: `api/BOM/${BOM_id}`,
-    method: 'delete',
-  });
+  return instance.delete(`/BOM/${BOM_id}`);
 };
 
 /** BOM */
 export const getBomList = () => {
-  client({
-    url: `api/BOM/list`,
-    method: 'get',
-  });
+  return instance.get(`/BOM/list`);
 };
 
 export const getBomInfo = (BOM_id) => {
-  client({
-    url: `api/BOM/${BOM_id}`,
-    method: 'get',
-  });
+  return instance.get(`/BOM/${BOM_id}`);
 };
 
 export const registerBom = (inData) => {
-  client({
-    url: `api/BOM`,
-    method: 'post',
-    data: inData,
-  });
+  return instance.post(`/BOM`, inData);
 };
 
 export const updateBom = (BOM_id, inData) => {
-  client({
-    url: `api/BOM/${BOM_id}`,
-    method: 'get',
-    data: inData,
-  });
+  return instance.put(`/BOM/${BOM_id}`, inData);
 };
 
 export const deleteBom = (BOM_id) => {
-  client({
-    url: `api/BOM/${BOM_id}`,
-    method: 'delete',
-  });
+  return instance.delete(`/BOM/${BOM_id}`);
 };
 
 /** Order */
 export const getOrderList = () => {
-  client({
-    url: `api/order/list`,
-    method: 'get',
-  });
+  return instance.get(`/order/list`);
 };
 
 export const getOrderInfo = (order_id) => {
-  client({
-    url: `api/order/${order_id}`,
-    method: 'get',
-  });
+  return instance.get(`/order/${order_id}`);
 };
 
-export const registerOrder = (client_id, inData) => {
-  client({
-    url: `api/order/${client_id}`,
-    method: 'post',
-    data: inData,
-  });
+export const registerOrder = (instance_id, inData) => {
+  return instance.post(`/order/${instance_id}`, inData);
 };
 
 export const updateOrder = (order_id, inData) => {
-  client({
-    url: `api/order/${order_id}`,
-    method: 'get',
-    data: inData,
-  });
+  return instance.put(`/order/${order_id}`, inData);
 };
 
 export const deleteOrder = (order_id) => {
-  client({
-    url: `api/order/${order_id}`,
-    method: 'delete',
-  });
+  return instance.delete(`/order/${order_id}`);
 };
 
 /** Release */
 export const getReleaseList = () => {
-  client({
-    url: `api/release/list`,
-    method: 'get',
-  });
+  return instance.get(`/release/list`);
 };
 
 export const getReleaseInfo = (release_id) => {
-  client({
-    url: `api/release/${release_id}`,
-    method: 'get',
-  });
+  return instance.get(`/release/${release_id}`);
 };
 
 export const registerRelease = (production_id, inData) => {
-  client({
-    url: `api/release/${production_id}`,
-    method: 'post',
-    data: inData,
-  });
+  return instance.post(`/release/${production_id}`, inData);
 };
 
 export const updateRelease = (release_id, inData) => {
-  client({
-    url: `api/release/${release_id}`,
-    method: 'get',
-    data: inData,
-  });
+  return instance.put(`/release/${release_id}`, inData);
 };
 
 export const deleteRelease = (release_id) => {
-  client({
-    url: `api/release/${release_id}`,
-    method: 'delete',
-  });
+  return instance.delete(`/release/${release_id}`);
 };
 
 /** Delivery */
 export const registerDelivery = (inData) => {
-  client({
-    url: `api/delivery`,
-    method: 'post',
-    data: inData,
-  });
+  return instance.post(`/delivery`, inData);
 };
