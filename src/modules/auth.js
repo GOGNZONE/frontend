@@ -23,18 +23,6 @@ const initialState = {
     employee_email: '',
     employee_password: '',
   },
-  register: {
-    form: 'register',
-    employee_id: '',
-    employee_password: '',
-    employee_name: '',
-    employee_email: '',
-    employee_phone: '',
-    employee_address: '',
-    employee_hiredate: '',
-    employee_image: '',
-    employee_role: '',
-  },
 };
 
 const auth = handleActions(

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import SignInPresenter from './SignInPresenter';
 import api from '../../../apis/apiController';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,16 +6,16 @@ import { chagneField, chagneFields } from '../../../modules/auth';
 import Swal from 'sweetalert2';
 
 const SignInContainer = () => {
-  // console.log(api.login);
   const dispatch = useDispatch();
-  const { login } = useSelector(({ auth }) => {
+  const { login, token } = useSelector(({ auth }) => {
     return {
       login: auth.login,
-      register: auth.register,
+      token: auth.token,
     };
   });
 
   let loginInit = { employee_email: '', employee_password: '' };
+
   useEffect(() => {
     dispatch(chagneFields({ form: 'login', key: loginInit }));
   }, [dispatch]);
@@ -35,8 +35,6 @@ const SignInContainer = () => {
 
   // 로그인
   const onLogin = async (e) => {
-    // e.preventDefault();
-    console.log(login);
     const { employee_email, employee_password } = login;
 
     let data = {
@@ -48,6 +46,7 @@ const SignInContainer = () => {
       if (response.data.accessToken) {
         // localstorage 토큰 저장
         localStorage.setItem('ACCESS_TOKEN', response.data.accessToken);
+        localStorage.setItem('AUTH', response.data.employeeRole);
         Swal.fire({
           position: 'center',
           icon: 'success',

@@ -32,7 +32,6 @@ const AdminLayout = () => {
         <Footer
           style={{
             textAlign: 'center',
-            position: '',
           }}
         >
           GONGZONE ©2022 Created by GONGZONE TEAM
