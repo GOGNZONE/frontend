@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import SignInPresenter from './SignInPresenter';
-import * as api from '../../../apis/index';
+import api from '../../../apis/apiController';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  chagneField,
-  chagneFields,
-  initializeForm,
-} from '../../../modules/auth';
+import { chagneField, chagneFields } from '../../../modules/auth';
 import Swal from 'sweetalert2';
-import axios from 'axios';
 
 const SignInContainer = () => {
   // console.log(api.login);
@@ -49,19 +44,10 @@ const SignInContainer = () => {
       employeePassword: employee_password,
     };
 
-    // axios.post('http://localhost:8080/auth/login', data).then((res) => {
-    //   console.log(res.data);
-    // });
-
-    axios.post('http://localhost:8080/auth/login', data).then((response) => {
-      // api.login(data).then((response) => {
-      console.log(response.data);
+    api.post('/auth/login', data).then((response) => {
       if (response.data.accessToken) {
         // localstorage 토큰 저장
-        // localStorage.setItem('ACCESS_TOKEN', response.data.accessToken);
-        axios.defaults.headers.common[
-          'Authorization'
-        ] = `Bearer ${response.data.accessToken}`;
+        localStorage.setItem('ACCESS_TOKEN', response.data.accessToken);
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -73,7 +59,7 @@ const SignInContainer = () => {
           response.data.employeeRole === 'ADMIN'
             ? (window.location.href = '/admin')
             : (window.location.href = '/staff');
-        });
+        }, 2000);
       } else {
         Swal.fire({
           position: 'center',
