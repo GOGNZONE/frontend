@@ -1,15 +1,29 @@
 import axios from 'axios';
 
 /** axios localhost instance 생성 */
-const client = axios.create({
-  baseURL: 'http://localhost:8080/',
+const instance = axios.create({
+  baseURL: '/api',
   timeout: 15000,
+  headers: { 'Content-Type': 'application/json; charset=utf-8' },
 });
 
 /** axios gongzone-service instance */
 
+instance.interceptors.request.use(
+  (config) => {
+    // HTTP Authorization 요청 헤더에 jwt-token을 넣음
+    // 서버측 미들웨어에서 이를 확인하고 검증한 후 해당 API에 요청함.
+    const token = localStorage.getItem('ACCESS_TOKEN');
+    config.headers.Authorization = `Bearer ${token}`;
+    return config;
+  },
+  (error) => {
+    console.log(error);
+  },
+);
+
 /** interceptor */
-client.interceptors.response.use(
+instance.interceptors.response.use(
   (response) => {
     /** http status가 200인 경우
      * 응답 바로 직전에 대해 작성
@@ -44,4 +58,4 @@ client.interceptors.response.use(
   },
 );
 
-export default client;
+export default instance;
