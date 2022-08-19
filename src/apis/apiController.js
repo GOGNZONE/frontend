@@ -2,12 +2,25 @@ import axios from 'axios';
 
 /** axios localhost instance 생성 */
 const instance = axios.create({
-  baseURL: 'http://localhost:8080/',
+  baseURL: '/api',
   timeout: 15000,
   headers: { 'Content-Type': 'application/json; charset=utf-8' },
 });
 
 /** axios gongzone-service instance */
+
+instance.interceptors.request.use(
+  (config) => {
+    // HTTP Authorization 요청 헤더에 jwt-token을 넣음
+    // 서버측 미들웨어에서 이를 확인하고 검증한 후 해당 API에 요청함.
+    const token = localStorage.getItem('ACCESS_TOKEN');
+    config.headers.Authorization = `Bearer ${token}`;
+    return config;
+  },
+  (error) => {
+    console.log(error);
+  },
+);
 
 /** interceptor */
 instance.interceptors.response.use(
@@ -16,8 +29,6 @@ instance.interceptors.response.use(
      * 응답 바로 직전에 대해 작성
      * .then() 으로 이어짐
      */
-    // if (response.headers && accessToken)
-    //   response.headers.Authorization = `Bearer ${accessToken}`;
     return response;
   },
   (error) => {
