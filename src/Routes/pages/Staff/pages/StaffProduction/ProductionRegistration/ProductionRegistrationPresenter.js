@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   Typography,
   Form,
@@ -37,29 +37,13 @@ const ProductionRegistrationPresenter = ({
   postProductionApi,
   newProduction,
 }) => {
-  // const registration = {
-  //   productionName: '',
-  //   productionBrandName: '',
-  //   productionStandard: '',
-  //   productionUnit: '',
-  //   productionDescription: '',
-  // };
-
-  // const {
-  //   productionName,
-  //   productionBrandName,
-  //   productionStandard,
-  //   productionUnit,
-  //   productionDescription,
-  // } = registration;
-
-  const inputNumberOnChangeHandler = (name) => (value) => {
+  const onChangeInputNumberHandler = useCallback((name) => (value) => {
     onChange({ name: name, value: value });
-  };
+  });
 
-  const datePickerOnChangeHandler = (name) => (e) => {
+  const onChangeDatePickerHandler = useCallback((name) => (e) => {
     onChange({ name: name, value: e });
-  };
+  });
 
   return (
     <>
@@ -135,7 +119,7 @@ const ProductionRegistrationPresenter = ({
               `\￦ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
             }
             parser={(value) => value.replace(/\￦\s?|(,*)/g, '')}
-            onChange={inputNumberOnChangeHandler('productionPrice')}
+            onChange={onChangeInputNumberHandler('productionPrice')}
           />
         </Form.Item>
         <Form.Item
@@ -161,7 +145,7 @@ const ProductionRegistrationPresenter = ({
                 `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
               }
               parser={(value) => value.replace(/\\s?|(,*)/g, '')}
-              onChange={inputNumberOnChangeHandler('productionQuantity')}
+              onChange={onChangeInputNumberHandler('productionQuantity')}
             />
             <Input
               name="productionUnit"
@@ -204,7 +188,7 @@ const ProductionRegistrationPresenter = ({
         >
           <DatePicker
             placeholder="제품 출고 일자"
-            onChange={datePickerOnChangeHandler('productionReleasedDate')}
+            onChange={onChangeDatePickerHandler('productionReleasedDate')}
           />
         </Form.Item>
         <Form.Item
@@ -220,7 +204,7 @@ const ProductionRegistrationPresenter = ({
         >
           <DatePicker
             placeholder="제품 생성 일자"
-            onChange={datePickerOnChangeHandler('productionDate')}
+            onChange={onChangeDatePickerHandler('productionDate')}
           />
         </Form.Item>
         <Form.Item
