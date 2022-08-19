@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import ProductionListPresenter from './ProductionListPresenter';
-import { getProductionList } from '../../../../../../Apis/productionApi';
+import * as api from '../../../../../../Apis/index';
 
 const ProductionListContainer = () => {
   const [productions, setProductions] = useState([]);
@@ -9,11 +9,11 @@ const ProductionListContainer = () => {
   const searchInput = useRef(null);
 
   useEffect(() => {
-    getProductionListApi();
+    getProductionListAPI();
   }, []);
 
-  const getProductionListApi = () => {
-    getProductionList().then((response) => {
+  const getProductionListAPI = async () => {
+    await api.getProductionList().then((response) => {
       setProductions(response.data);
     });
   };
