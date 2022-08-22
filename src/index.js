@@ -7,13 +7,13 @@ import 'antd/dist/antd.min.css';
 import { Provider } from 'react-redux';
 
 import store from './store/configureStore';
-import rootReducer from './modules';
+// import rootReducer from './modules';
 // import { createStore } from 'redux';
 
-const store = createStore(rootReducer);
+// const store = createStore(rootReducer);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Provider store={store}>
+  <Provider store={store()}>
     <React.StrictMode>
       <Router>
         <App />
