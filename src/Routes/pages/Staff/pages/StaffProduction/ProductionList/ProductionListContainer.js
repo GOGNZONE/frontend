@@ -1,9 +1,14 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import ProductionListPresenter from './ProductionListPresenter';
-import * as api from '../../../../../../Apis/index';
+import * as api from 'Apis/index';
+import { getProductions } from 'store/modules/production/productionAction';
+import { useSelector, useDispatch } from 'react-redux';
 
 const ProductionListContainer = () => {
-  const [productions, setProductions] = useState([]);
+  /***** redux (state) *****/
+  const dispatch = useDispatch();
+  const production = useSelector((state) => state.production.data);
+  /***** search *****/
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
@@ -13,14 +18,20 @@ const ProductionListContainer = () => {
   }, []);
 
   const getProductionListAPI = async () => {
-    await api.getProductionList().then((response) => {
-      setProductions(response.data);
-    });
+    try {
+      const response = await api.getProductionList();
+      console.log(response);
+      if (response) {
+        dispatch(getProductions(response.data));
+      }
+    } catch (e) {
+      alert(e.message);
+    }
   };
 
   return (
     <ProductionListPresenter
-      dataSource={productions}
+      dataSource={production}
       setSearchText={setSearchText}
       setSearchedColumn={setSearchedColumn}
       searchInput={searchInput}
