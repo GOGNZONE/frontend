@@ -3,10 +3,16 @@ import produce from 'immer';
 
 const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const CHANGE_FIELDS = 'auth/CHANGE_FIELDS';
-const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
-const CHANGE_INPUT = 'auth/CHANGE_INPUT';
 
-export const chagneField = createAction(
+const initialState = {
+  admin: false,
+  login: {
+    employee_email: '',
+    employee_password: '',
+  },
+};
+
+export const changeField = createAction(
   CHANGE_FIELD,
   ({ form, key, value }) => ({
     form,
@@ -14,16 +20,11 @@ export const chagneField = createAction(
     value,
   }),
 );
-export const chagneFields = createAction(CHANGE_FIELDS);
-export const initializeForm = createAction(INITIALIZE_FORM);
-export const changeInput = createAction(CHANGE_INPUT);
 
-const initialState = {
-  login: {
-    employee_email: '',
-    employee_password: '',
-  },
-};
+export const changeFields = createAction(CHANGE_FIELDS, ({ form, key }) => ({
+  form,
+  key,
+}));
 
 const auth = handleActions(
   {
@@ -34,14 +35,6 @@ const auth = handleActions(
     [CHANGE_FIELDS]: (state, { payload: { form, key } }) => ({
       ...state,
       [form]: key,
-    }),
-    [INITIALIZE_FORM]: (state, { payload: form }) => ({
-      ...state,
-      [form]: initialState[form],
-    }),
-    [CHANGE_INPUT]: (state, { payload: { form, input } }) => ({
-      ...state,
-      [form]: input,
     }),
   },
   initialState,

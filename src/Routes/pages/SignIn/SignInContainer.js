@@ -1,23 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import SignInPresenter from './SignInPresenter';
 import api from '../../../apis/apiController';
 import { useDispatch, useSelector } from 'react-redux';
-import { chagneField, chagneFields } from '../../../modules/auth';
+import { changeField, changeFields } from '../../../modules/auth';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const SignInContainer = () => {
   const dispatch = useDispatch();
-  const { login, token } = useSelector(({ auth }) => {
+  const navigate = useNavigate();
+  const { login } = useSelector(({ auth }) => {
     return {
       login: auth.login,
-      token: auth.token,
+      admin: auth.admin,
     };
   });
 
   let loginInit = { employee_email: '', employee_password: '' };
 
   useEffect(() => {
-    dispatch(chagneFields({ form: 'login', key: loginInit }));
+    dispatch(changeFields({ form: 'login', key: loginInit }));
+    // eslint-disable-next-line
   }, [dispatch]);
 
   /* 로그인 input 값 변경 */
@@ -25,7 +28,7 @@ const SignInContainer = () => {
     e.preventDefault();
     const { value, name } = e.target;
     dispatch(
-      chagneField({
+      changeField({
         form: 'login',
         key: name,
         value,
@@ -47,6 +50,7 @@ const SignInContainer = () => {
         // localstorage 토큰 저장
         localStorage.setItem('ACCESS_TOKEN', response.data.accessToken);
         localStorage.setItem('AUTH', response.data.employeeRole);
+        localStorage.setItem('EXPIRSE', response.data.tokenExpiresIn);
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -56,8 +60,8 @@ const SignInContainer = () => {
         });
         setTimeout(() => {
           response.data.employeeRole === 'ADMIN'
-            ? (window.location.href = '/admin')
-            : (window.location.href = '/staff');
+            ? navigate('/admin')
+            : navigate('/staff');
         }, 2000);
       } else {
         Swal.fire({
@@ -68,7 +72,7 @@ const SignInContainer = () => {
           timer: 1500,
         });
         setTimeout(() => {
-          window.location.reload();
+          navigate('/');
         }, 1800);
       }
     });
@@ -83,4 +87,4 @@ const SignInContainer = () => {
   );
 };
 
-export default SignInContainer;
+export default React.memo(SignInContainer);
