@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import StaffBomInfoPresenter from './StaffBomInfoPresenter';
 import { useParams } from 'react-router-dom';
-import { getBom } from '../../../../../../Apis/bomApi';
+
 import moment from 'moment';
 function StaffBomInfoContainer() {
   const [bom, setBom] = useState([]);

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import StaffBomListPresenter from './StaffBomListPresenter';
-import { getBomList } from '../../../../../../Apis/bomApi';
+import { Provider, useSelector, useDispatch } from 'react-redux';
+import { getBomList } from '../../../../../../Apis/index';
 
 function StaffBomListContainer() {
   const [bomList, setBomList] = useState([]);
@@ -12,7 +13,14 @@ function StaffBomListContainer() {
   useEffect(() => {
     getBomListApi();
   }, []);
-  return <StaffBomListPresenter bomList={bomList} />;
+
+  return (
+    <div>
+      {/* <Provider store={store}> */}
+      <StaffBomListPresenter bomList={bomList} />
+      {/* </Provider> */}
+    </div>
+  );
 }
 
 export default StaffBomListContainer;

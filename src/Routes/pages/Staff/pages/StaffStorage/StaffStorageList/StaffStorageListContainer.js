@@ -1,17 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import StaffStorageListPresenter from './StaffStorageListPresenter';
+import { connect } from 'react-redux';
+import { getList } from '../../../../../../modules/storage';
 
-import axios from 'axios';
-
-function StaffStorageListContainer() {
-  const [storageList, setStorageList] = useState([]);
-
+const { useEffect } = React;
+function StaffStorageListContainer({ getList, list, loadingList }) {
   useEffect(() => {
-    axios
-      .get('http://localhost:8080/api/storage/list')
-      .then((reponse) => setStorageList(reponse.data));
-  }, []);
-  return <StaffStorageListPresenter storageList={storageList} />;
+    const fn = async () => {
+      try {
+        await getList();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fn();
+  }, [getList]);
+  return <StaffStorageListPresenter list={list} loadingList={loadingList} />;
 }
 
-export default StaffStorageListContainer;
+export default connect(
+  ({ storage, loading }) => ({
+    list: storage.list,
+    loadingList: loading['/storage/GET_LIST'],
+  }),
+  {
+    getList,
+  },
+)(StaffStorageListContainer);
