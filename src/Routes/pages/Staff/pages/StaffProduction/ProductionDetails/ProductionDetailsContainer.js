@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import {
-  getProduction,
-  putProduction,
-} from '../../../../../../Apis/productionApi';
+import { putProduction } from 'Apis/productionApi';
 import ProductionDetailsPresenter from './ProductionDetailsPresenter';
 import moment from 'moment';
+import { useSelector, useDispatch } from 'react-redux';
+import * as api from 'Apis/index';
+import { getProduction } from 'store/modules/production/productionAction';
 
 const ProductionDetailsContainer = () => {
+  /***** production id params *****/
   const { productionIdParams } = useParams();
+  /***** state and redux *****/
   const [componentDisabled, setComponentDisabled] = useState(true);
-  const [production, setProduction] = useState([]);
+  const production = useSelector((state) => state.production);
   const [updateButton, setUpdateButton] = useState(true);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getProductionApi(productionIdParams);
+    getProductionAPI(productionIdParams);
   }, [productionIdParams]);
 
   const onFormLayoutChange = ({ disabled }) => {
@@ -25,10 +28,15 @@ const ProductionDetailsContainer = () => {
     setUpdateButton(!updateButton);
   };
 
-  const getProductionApi = (productionIdParams) => {
-    getProduction(productionIdParams).then((response) => {
-      setProduction(response.data);
-    });
+  const getProductionAPI = async (productionIdParams) => {
+    try {
+      const response = await api.getProductionInfo(productionIdParams);
+      if (response) {
+        dispatch(getProduction(response.data));
+      }
+    } catch (e) {
+      alert(e.message);
+    }
   };
 
   const putProductionApi = (productionIdParams, production) => {
@@ -51,13 +59,11 @@ const ProductionDetailsContainer = () => {
       name = e.target.name;
     }
 
-    setProduction({
-      ...production,
-      [name]: value,
-    });
+    // setProduction({
+    //   ...production,
+    //   [name]: value,
+    // });
   };
-
-  console.log(production);
 
   return (
     <ProductionDetailsPresenter
