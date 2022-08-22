@@ -1,75 +1,39 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import {
-  getProductionList,
-  postProduction,
-} from '../../../../../../Apis/productionApi';
+import React, { useCallback } from 'react';
 import ProductionRegistrationPresenter from './ProductionRegistrationPresenter';
-import moment from 'moment';
 import { useSelector, useDispatch } from 'react-redux';
-import { setNewProduction } from '../../../../../../modules/production';
+import * as api from 'Apis/index';
+import { useNavigate } from 'react-router-dom';
+import { addProduction } from 'store/modules/production/productionAction';
 
 const ProductionRegistrationContainer = () => {
-  const [productionLen, setProductionLen] = useState(0);
+  /***** redux (state) *****/
+  const dispatch = useDispatch();
+  const production = useSelector((state) => state.production);
+  /***** navigate *****/
   const navigate = useNavigate();
 
-  const newProduction = useSelector((state) => state.production);
-  const dispatch = useDispatch();
+  console.log(production);
 
-  const {
-    productionName,
-    productionBrandName,
-    productionPrice,
-    productionQuantity,
-    productionStandard,
-    productionUnit,
-    productionDescription,
-    productionReleasedDate,
-    productionDate,
-  } = newProduction;
-
-  useEffect(() => {
-    getProductionListAPI();
-  }, []);
-
-  const getProductionListAPI = () => {
-    // getProductionList().then((response) => {
-    //   setProductionLen(response.data.length);
-    // });
-  };
-
-  const onChange = useCallback((e) => {
-    let { value, name } = '';
-
-    if (e.target === undefined) {
-      if (moment.isMoment(e.value)) {
-        console.log(e);
-        value = e.value.format('YYYY-MM-DD');
-        name = e.name;
-      } else {
-        value = parseInt(e.value);
-        name = e.name;
-      }
-    } else {
-      value = e.target.value;
-      name = e.target.name;
-    }
-
-    dispatch(setNewProduction({ name: name, value: value }));
+  const onChange = useCallback((value) => {
+    dispatch(addProduction(value));
   });
 
-  const postProductionApi = (newProduction) => {
-    postProduction(newProduction).then(() =>
-      navigate('/staff/production/list'),
-    );
+  const postProductionAPI = async (production) => {
+    try {
+      const response = await api.registerProduction(production);
+      if (response) {
+        navigate('list');
+      }
+    } catch (e) {
+      alert(e.message);
+    }
   };
 
   return (
     <ProductionRegistrationPresenter
-      productionLen={productionLen}
       onChange={onChange}
-      postProductionApi={postProductionApi}
-      newProduction={newProduction}
+      production={production}
+      postProductionAPI={postProductionAPI}
     />
   );
 };
