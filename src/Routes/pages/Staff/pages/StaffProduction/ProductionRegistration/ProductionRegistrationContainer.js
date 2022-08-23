@@ -1,39 +1,51 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import ProductionRegistrationPresenter from './ProductionRegistrationPresenter';
-import { useSelector, useDispatch } from 'react-redux';
-import * as api from 'Apis/index';
+import { useDispatch } from 'react-redux';
+import { postProduction } from 'store/modules/production/productionActions';
 import { useNavigate } from 'react-router-dom';
-import { addProduction } from 'store/modules/production/productionAction';
+import { message } from 'antd';
 
 const ProductionRegistrationContainer = () => {
-  /***** redux (state) *****/
+  /***** state *****/
+  const [productionValue, setProductionValue] = useState({
+    productionName: '',
+    productionBrandName: '',
+    productionPrice: '',
+    productionQuantity: '',
+    productionStandard: '',
+    productionUnit: '',
+    productionDescription: '',
+    productionReleasedDate: '',
+    productionDate: '',
+  });
   const dispatch = useDispatch();
-  const production = useSelector((state) => state.production);
   /***** navigate *****/
   const navigate = useNavigate();
 
-  console.log(production);
-
-  const onChange = useCallback((value) => {
-    dispatch(addProduction(value));
-  });
-
-  const postProductionAPI = async (production) => {
-    try {
-      const response = await api.registerProduction(production);
-      if (response) {
-        navigate('list');
-      }
-    } catch (e) {
-      alert(e.message);
-    }
+  const onChangeHandler = (value) => {
+    setProductionValue(value);
   };
+
+  const onClickHandler = useCallback(() => {
+    if (
+      productionValue.productionName === '' ||
+      productionValue.productionPrice === '' ||
+      productionValue.productionQuantity === '' ||
+      productionValue.productionReleasedDate === '' ||
+      productionValue.productionDate === ''
+    ) {
+      message.error('필수 입력값을 입력해 주세요.');
+    } else {
+      dispatch(postProduction(productionValue));
+      navigate('list');
+    }
+  });
 
   return (
     <ProductionRegistrationPresenter
-      onChange={onChange}
-      production={production}
-      postProductionAPI={postProductionAPI}
+      productionValue={productionValue}
+      onChangeHandler={onChangeHandler}
+      onClickHandler={onClickHandler}
     />
   );
 };

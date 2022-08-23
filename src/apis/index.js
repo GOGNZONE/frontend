@@ -91,16 +91,16 @@ export const getProductionList = () => {
   return instance.get(`/production/list`);
 };
 
-export const getProductionInfo = (production_id) => {
-  return instance.get(`/production/${production_id}`);
+export const getProductionInfo = (productionId) => {
+  return instance.get(`/production/${productionId}`);
 };
 
 export const registerProduction = (inData) => {
   return instance.post(`/production`, inData);
 };
 
-export const updateProduction = (production_id, inData) => {
-  return instance.put(`/production/${production_id}`, inData);
+export const updateProduction = (productionId, inData) => {
+  return instance.put(`/production/${productionId}`, inData);
 };
 
 export const deleteProduction = (production_id) => {

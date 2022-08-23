@@ -1,42 +1,32 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import ProductionListPresenter from './ProductionListPresenter';
-import * as api from 'Apis/index';
-import { getProductions } from 'store/modules/production/productionAction';
 import { useSelector, useDispatch } from 'react-redux';
+import { getProductions } from 'store/modules/production/productionActions';
 
 const ProductionListContainer = () => {
   /***** redux (state) *****/
+  const { data, loading, error } = useSelector(
+    (state) => state.production.productions,
+  );
   const dispatch = useDispatch();
-  const production = useSelector((state) => state.production.data);
   /***** search *****/
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
 
   useEffect(() => {
-    getProductionListAPI();
-  }, []);
-
-  const getProductionListAPI = async () => {
-    try {
-      const response = await api.getProductionList();
-      console.log(response);
-      if (response) {
-        dispatch(getProductions(response.data));
-      }
-    } catch (e) {
-      alert(e.message);
-    }
-  };
+    dispatch(getProductions());
+  }, [dispatch]);
 
   return (
     <ProductionListPresenter
-      dataSource={production}
+      dataSource={data}
       setSearchText={setSearchText}
       setSearchedColumn={setSearchedColumn}
       searchInput={searchInput}
       searchedColumn={searchedColumn}
       searchText={searchText}
+      loading={loading}
     />
   );
 };

@@ -1,1 +1,1 @@
-export { production } from './productionReducer';
+export { production } from './productionReducers';

@@ -33,32 +33,24 @@ const standardSelectAfter = (
 );
 
 const ProductionRegistrationPresenter = ({
-  onChange,
-  production,
-  postProductionAPI,
+  productionValue,
+  onChangeHandler,
+  onClickHandler,
 }) => {
   const onChangeInputHandler = useCallback((name, e) => {
     const { value } = e.target;
-    onChange({
-      ...production,
+    onChangeHandler({
+      ...productionValue,
       [name]: value,
     });
   });
 
   const onChangeDatePickerHandler = useCallback((name, value) => {
-    onChange({
-      ...production,
+    onChangeHandler({
+      ...productionValue,
       [name]: value,
     });
   });
-
-  const onClick = useCallback(
-    (e) => {
-      e.preventDefault();
-      postProductionAPI(production);
-    },
-    [production],
-  );
 
   return (
     <>
@@ -133,9 +125,9 @@ const ProductionRegistrationPresenter = ({
               `\￦ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
             }
             parser={(value) => value.replace(/\￦\s?|(,*)/g, '')}
-            onChange={(e) =>
-              onChangeInputHandler('productionPrice', { target: { value: e } })
-            }
+            onChange={(e) => {
+              onChangeInputHandler('productionPrice', { target: { value: e } });
+            }}
           />
         </Form.Item>
         <Form.Item
@@ -259,7 +251,7 @@ const ProductionRegistrationPresenter = ({
                 backgroundColor: '#FEB139',
                 border: '#FEB139',
               }}
-              onClick={onClick}
+              onClick={onClickHandler}
             >
               등록
             </Button>

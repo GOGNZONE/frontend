@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SearchOutlined } from '@ant-design/icons';
-import { Button, Table, Typography, BackTop, Input, Space } from 'antd';
+import { Button, Table, Typography, BackTop, Input, Space, Spin } from 'antd';
 
 import Highlighter from 'react-highlight-words';
 
@@ -12,6 +12,7 @@ const ProductionListPresenter = ({
   searchInput,
   searchedColumn,
   searchText,
+  loading,
 }) => {
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -185,12 +186,13 @@ const ProductionListPresenter = ({
           </Link>
         </div>
       </div>
-      <Table
-        rowKey="productionId"
-        columns={columns}
-        dataSource={dataSource}
-        tableLayout="fixed"
-      />
+      <Spin spinning={loading && !dataSource}>
+        <Table
+          rowKey="productionId"
+          columns={columns}
+          dataSource={dataSource}
+        />
+      </Spin>
       <BackTop visibilityHeight={100} />
     </>
   );
