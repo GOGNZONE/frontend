@@ -5,3 +5,4 @@ export { default as StaffStock } from './StaffStock';
 export { default as StaffRelease } from './StaffRelease';
 export { default as StaffOrder } from './StaffOrder';
 export { StaffBomRegist, StaffBomList } from './StaffBom';
+export { default as StaffMypage } from './StaffMypage';
