@@ -4,7 +4,7 @@ import { Layout, Avatar } from 'antd';
 
 const { Header } = Layout;
 
-const StaffHeader = () => {
+const StaffHeader = ({ logout }) => {
   return (
     <Header className="site-layout-background" style={{ padding: '0px 30px' }}>
       <div style={{ float: 'left' }}>
@@ -17,10 +17,7 @@ const StaffHeader = () => {
             {/* {manager_nm} */}
             STAFF
           </span>
-          <span
-            className="site-header-logout"
-            //   onClick={logout}
-          >
+          <span className="site-header-logout" onClick={logout}>
             로그아웃
           </span>
         </>

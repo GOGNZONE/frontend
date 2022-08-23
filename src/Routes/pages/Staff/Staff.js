@@ -15,10 +15,13 @@ import {
 } from './pages/StaffProduction';
 import { StaffReleaseList, StaffReleaseDetails } from './pages/StaffRelease';
 
-const Staff = () => {
+const Staff = ({ checkAdmin, logout }) => {
   return (
     <Routes>
-      <Route path="/" element={<StaffLayout />}>
+      <Route
+        path="/"
+        element={<StaffLayout checkAdmin={checkAdmin} logout={logout} />}
+      >
         <Route index element={<StaffDashBoard />} />
         <Route path="/client" element={<StaffClienList />} />
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Layout } from 'antd';
 import { AdminHeader, AdminSider } from './components';
@@ -6,18 +6,23 @@ import '../layout.css';
 
 const { Content, Footer } = Layout;
 
-const AdminLayout = () => {
+const AdminLayout = ({ checkAdmin, logout }) => {
   const [collapsed, setCollapsed] = useState(false);
 
   const onCollapse = (val) => {
     setCollapsed(val);
   };
 
+  useEffect(() => {
+    checkAdmin();
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <Layout className="site-layout-container" style={{ minHeight: '100vh' }}>
       <AdminSider collapsed={collapsed} onCollapse={onCollapse} />
       <Layout className="site-layout">
-        <AdminHeader />
+        <AdminHeader logout={logout} />
         <Content style={{ margin: '0 16px', padding: '10px 10px 10px 10px' }}>
           <div
             className="site-layout-background"
@@ -32,7 +37,6 @@ const AdminLayout = () => {
         <Footer
           style={{
             textAlign: 'center',
-            position: '',
           }}
         >
           GONGZONE ©2022 Created by GONGZONE TEAM
@@ -42,4 +46,4 @@ const AdminLayout = () => {
   );
 };
 
-export default AdminLayout;
+export default React.memo(AdminLayout);
