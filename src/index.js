@@ -9,11 +9,15 @@ import 'antd/dist/antd.min.css';
 
 /** redux */
 import rootReducer from './modules';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import ReduxThunk from 'redux-thunk';
 
-const store = createStore(rootReducer, composeWithDevTools());
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(ReduxThunk)),
+);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
