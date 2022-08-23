@@ -1,7 +1,6 @@
 import React from 'react';
 import { UserOutlined } from '@ant-design/icons';
 import { Layout, Avatar } from 'antd';
-import { useNavigate } from 'react-router-dom';
 
 const { Header } = Layout;
 
