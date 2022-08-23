@@ -12,13 +12,10 @@ import {
 } from './pages';
 import { StaffBomList, StaffBomRegist } from './pages/StaffBom';
 
-const Staff = ({ checkAdmin, logout }) => {
+const Staff = ({ logout }) => {
   return (
     <Routes>
-      <Route
-        path="/"
-        element={<StaffLayout checkAdmin={checkAdmin} logout={logout} />}
-      >
+      <Route path="/" element={<StaffLayout logout={logout} />}>
         <Route index element={<StaffMypage />} />
         <Route path="/dashboard" element={<StaffDashBoard />} />
         <Route path="/client" element={<StaffClienList />} />
