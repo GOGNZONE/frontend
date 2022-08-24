@@ -1,13 +1,9 @@
-import {
-  handleAsyncActions,
-  handleAsyncActionsById,
-  reducerUtils,
-} from 'lib/asyncUtils';
+import { handleAsyncActions, reducerUtils } from 'lib/asyncUtils';
 import * as types from './productionActions';
 
 const initialState = {
   productions: reducerUtils.initial(),
-  production: {},
+  production: reducerUtils.initial(),
 };
 
 export const productionReducer = (state = initialState, action) => {
@@ -23,11 +19,15 @@ export const productionReducer = (state = initialState, action) => {
     case types.GET_PRODUCTION:
     case types.GET_PRODUCTION_SUCCESS:
     case types.GET_PRODUCTION_ERROR:
-      return handleAsyncActionsById(
-        types.GET_PRODUCTION,
-        'production',
-        true,
-      )(state, action);
+      return handleAsyncActions(types.GET_PRODUCTION, 'production')(
+        state,
+        action,
+      );
+    case types.CLEAR_PRODUCTION:
+      return {
+        ...state,
+        production: reducerUtils.initial(),
+      };
     default:
       return state;
   }
