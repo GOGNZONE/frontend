@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { InsertBOM } from '../../../../../../Apis/bomApi';
+
 import { ExclamationCircleOutlined, UploadOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import {
@@ -33,7 +33,6 @@ function StaffBomRegistPresenter() {
     const unit = document.getElementById('bomUnit').value;
     const desc = document.getElementById('bomDescription').value;
     const file = document.getElementById('bomFile').value;
-    const require = document.getElementById('bomRequiredQuntity').value;
     const storageId = document.getElementById('bomStorage').value;
     const parent = document.getElementById('bomParent').value;
     const bomdata = {
@@ -44,7 +43,6 @@ function StaffBomRegistPresenter() {
       bomUnit: unit,
       bomDescription: desc,
       bomFile: file,
-      bomRequiredQuntity: require,
       storage: {
         storageId: storageId,
       },

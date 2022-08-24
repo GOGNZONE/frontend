@@ -141,7 +141,7 @@ export const getStorageInfo = (storage_id) => {
 };
 
 export const registerStorage = (inData) => {
-  return instance.post(`/storage`);
+  return instance.post(`/storage`, inData);
 };
 
 export const updateStorage = (storage_id, inData) => {

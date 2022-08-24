@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { getOrderList } from '../../../../../../Apis/orderApi';
-import { Link } from 'react-router-dom';
 import AdminOrderListPresenter from './AdminOrderListPresenter';
+import { useDispatch, useSelector } from 'react-redux';
+import * as api from '../../../../../../Apis/index';
+
 function AdminOrderListContainer() {
-  const [orderList, setOrderList] = useState([]);
-  const getOrderApi = () => {
-    getOrderList().then((response) => {
-      setOrderList(response.data);
-    });
-  };
+  const orderList = useSelector((state) => state.order.orderList.data);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getOrderApi();
+    orderListApi();
   }, []);
+
+  const orderListApi = async () => {
+    const list = await api.getOrderList();
+    dispatch({ type: 'GET_ORDER_LIST', payload: list });
+  };
 
   return <AdminOrderListPresenter orderList={orderList} />;
 }

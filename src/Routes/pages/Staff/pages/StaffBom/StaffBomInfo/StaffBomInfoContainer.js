@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import StaffBomInfoPresenter from './StaffBomInfoPresenter';
 import { useParams } from 'react-router-dom';
-
+import { useDispatch, useSelector } from 'react-redux';
+import * as api from '../../../../../../Apis/index';
 import moment from 'moment';
 function StaffBomInfoContainer() {
-  const [bom, setBom] = useState([]);
   const { bomIdParams } = useParams();
   const [componentDisabled, setComponentDisabled] = useState(true);
   const [updateButton, setUpdateButton] = useState(true);
-
-  const getBomApi = (bomIdParams) => {
-    getBom(bomIdParams).then((response) => setBom(response.data));
-  };
-
+  const bomInfo = useSelector((state) => state.bom.bom.data);
+  const dispatch = useDispatch();
+  console.log(bomInfo);
   useEffect(() => {
-    getBomApi(bomIdParams);
+    bomInfoApi();
   }, []);
-
+  const bomInfoApi = async () => {
+    const bom = await api.getBomInfo(bomIdParams);
+    dispatch({ type: 'GET_BOM', payload: bom });
+  };
+  console.log(bomInfo);
   const onFormLayoutChange = ({ disabled }) => {
     setComponentDisabled(disabled);
   };
@@ -40,10 +42,10 @@ function StaffBomInfoContainer() {
       name = e.target.name;
     }
 
-    setBom({
-      ...bom,
-      [name]: value,
-    });
+    // setBom({
+    //   ...bom,
+    //   [name]: value,
+    // });
   };
   return (
     <StaffBomInfoPresenter
@@ -53,7 +55,7 @@ function StaffBomInfoContainer() {
       setComponentDisabled={setComponentDisabled}
       onButtonNameChange={onButtonNameChange}
       onFormLayoutChange={onFormLayoutChange}
-      bom={bom}
+      bomInfo={bomInfo}
       bomIdParams={bomIdParams}
     />
   );

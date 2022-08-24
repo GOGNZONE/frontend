@@ -1,29 +1,20 @@
 import React, { useEffect } from 'react';
 import StaffStorageListPresenter from './StaffStorageListPresenter';
-import { connect } from 'react-redux';
-import { getList } from '../../../../../../modules/storage';
+import { useDispatch, useSelector } from 'react-redux';
+import * as api from '../../../../../../Apis/index';
 
-const { useEffect } = React;
-function StaffStorageListContainer({ getList, list, loadingList }) {
+function StaffStorageListContainer() {
+  const storList = useSelector((state) => state.storage.storageList.data);
+  const dispatch = useDispatch();
   useEffect(() => {
-    const fn = async () => {
-      try {
-        await getList();
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fn();
-  }, [getList]);
-  return <StaffStorageListPresenter list={list} loadingList={loadingList} />;
+    storageListApi();
+  }, []);
+  const storageListApi = async () => {
+    const list = await api.getStorageList();
+    dispatch({ type: 'GET_STOR_LIST', payload: list });
+  };
+
+  return <StaffStorageListPresenter storList={storList} />;
 }
 
-export default connect(
-  ({ storage, loading }) => ({
-    list: storage.list,
-    loadingList: loading['/storage/GET_LIST'],
-  }),
-  {
-    getList,
-  },
-)(StaffStorageListContainer);
+export default StaffStorageListContainer;

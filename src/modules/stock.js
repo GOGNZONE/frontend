@@ -1,25 +1,24 @@
-import produce from 'immer';
-import { createAction, handleActions } from 'redux-actions';
+import { handleActions } from 'redux-actions';
+import * as api from '../Apis/index';
+import createRequestThunk from '../Apis/createRequestThunk';
+
+const GET_LIST = '/stock/GET_LIST';
+const GET_LIST_SUCCESS = '/stock/GET_LIST_SUCCESS';
+
+export const getList = createRequestThunk(GET_LIST, api.getStockList);
 
 const initialState = {
-  stockId: '',
-  stockName: '',
-  stockQuantity: 0,
-  stockDescription: '',
-  storage: '',
+  list: {},
 };
 
-export const SET_NEW_STOCK = 'stock/SET_NEW_STOCK'; //??
-export const setNewStock = createAction(SET_NEW_STOCK);
-
-const stockReducer = handleActions(
+const stock = handleActions(
   {
-    [SET_NEW_STOCK]: (state = initialState, { payload: { name, value } }) =>
-      produce(state, (draft) => {
-        draft[name] = value;
-      }),
+    [GET_LIST_SUCCESS]: (state, action) => ({
+      ...state,
+      list: action.payload,
+    }),
   },
   initialState,
 );
 
-export default stockReducer;
+export default stock;

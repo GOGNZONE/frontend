@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import AdminStorageListPresenter from './AdminStorageListPresenter';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import * as api from '../../../../../../Apis/index';
 
 function AdminStorageListContainer() {
-  const [storageList, setStorageList] = useState([]);
+  const storageList = useSelector((state) => state.storage.storageList.data);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    axios
-      .get('http://localhost:8080/api/storage/list')
-      .then((reponse) => setStorageList(reponse.data));
+    storageListApi();
   }, []);
+
+  const storageListApi = async () => {
+    const list = await api.getStorageList();
+    dispatch({ type: 'GET_STOR_LIST', payload: list });
+  };
   return <AdminStorageListPresenter storageList={storageList} />;
 }
 

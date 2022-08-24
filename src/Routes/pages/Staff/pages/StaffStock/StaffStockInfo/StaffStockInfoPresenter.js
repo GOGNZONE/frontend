@@ -14,7 +14,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 function StaffStockInfoPresenter({
-  stock,
+  stockInfo,
   componentDisabled,
   setComponentDisabled,
   onFormLayoutChange,
@@ -23,6 +23,7 @@ function StaffStockInfoPresenter({
   updateButton,
   onButtonNameChange,
 }) {
+  console.log(stockInfo);
   return (
     <div>
       <Form
@@ -41,7 +42,7 @@ function StaffStockInfoPresenter({
           재고 상세정보
         </Typography.Title>
         <Form.Item label="재고코드">
-          <Input disabled={true} name="stockId" value={stock.stockId} />
+          <Input disabled={true} name="stockId" value={stockInfo.stockId} />
         </Form.Item>
         <Form.Item
           label="재고 상품명"
@@ -57,7 +58,7 @@ function StaffStockInfoPresenter({
           <Input
             name="stockName"
             placeholder="재고 상품명"
-            value={stock.stockName}
+            value={stockInfo.stockName}
             onChange={onChange}
           />
         </Form.Item>
@@ -75,7 +76,7 @@ function StaffStockInfoPresenter({
           <Input
             name="stockQuantity"
             placeholder="재고 수량"
-            value={stock.stockQuantity}
+            value={stockInfo.stockQuantity}
             onChange={onChange}
           />
         </Form.Item>
@@ -83,7 +84,7 @@ function StaffStockInfoPresenter({
           <Input
             name="stockDescription"
             placeholder="비고"
-            value={stock.stockDescription}
+            value={stockInfo.stockDescription}
             onChange={onChange}
           />
         </Form.Item>
@@ -103,7 +104,7 @@ function StaffStockInfoPresenter({
             name="창고"
             placeholder="창고"
             onChange={onChange}
-            value={stock.storage}
+            value={stockInfo.storage}
           />
         </Form.Item>
       </Form>

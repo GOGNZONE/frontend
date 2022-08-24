@@ -47,7 +47,7 @@ const StaffBomInfoPresenter = ({
   componentDisabled,
   setComponentDisabled,
   onFormLayoutChange,
-  bom,
+  bomInfo,
   bomIdParams,
   onButtonNameChange,
   updateButton,
@@ -85,7 +85,7 @@ const StaffBomInfoPresenter = ({
             },
           ]}
         >
-          <Input disabled={true} value={bom.bomId} />
+          <Input disabled={true} value={bomInfo.bomId} />
         </Form.Item>
 
         <Form.Item
@@ -103,7 +103,7 @@ const StaffBomInfoPresenter = ({
             name="bomName"
             placeholder="원자재 제품명"
             onChange={onChange}
-            value={bom.bomName}
+            value={bomInfo.bomName}
           />
         </Form.Item>
 
@@ -111,7 +111,7 @@ const StaffBomInfoPresenter = ({
           <Input
             name="bomQuantity"
             placeholder="원자재 재고 수량"
-            value={bom.bomQuantity}
+            value={bomInfo.bomQuantity}
             onChange={onChange}
           />
         </Form.Item>
@@ -139,7 +139,7 @@ const StaffBomInfoPresenter = ({
               `￦ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
             }
             parser={(value) => value.replace(/\\s?|(,*)/g, '')}
-            value={bom.bomPrice}
+            value={bomInfo.bomPrice}
             onChange={onChange}
           />
         </Form.Item>
@@ -150,7 +150,7 @@ const StaffBomInfoPresenter = ({
             onChange={onChange}
             addonAfter={unitSelectAfter}
             placeholder="원자재 제품 규격"
-            value={bom.bomStandard}
+            value={bomInfo.bomStandard}
           />
         </Form.Item>
         <Form.Item label="비고">
@@ -161,7 +161,7 @@ const StaffBomInfoPresenter = ({
             maxLength={1000}
             rows={5}
             placeholder="비고"
-            value={bom.bomDescription}
+            value={bomInfo.bomDescription}
           />
         </Form.Item>
         <Form.Item
@@ -178,7 +178,9 @@ const StaffBomInfoPresenter = ({
           <DatePicker
             placeholder="제품 출고 일자"
             value={
-              bom.bomReceivedDate ? moment(bom.bomReceivedDate) : undefined
+              bomInfo.bomReceivedDate
+                ? moment(bomInfo.bomReceivedDate)
+                : undefined
             }
             onChange={datePickerOnChangeHandler('bomReceivedDate')}
           />
@@ -188,7 +190,7 @@ const StaffBomInfoPresenter = ({
             name="bomParent"
             placeholder="비고"
             onChange={onChange}
-            value={bom.bomParent}
+            value={bomInfo.bomParent}
           />
         </Form.Item>
         <Form.Item label="창고">
@@ -196,7 +198,7 @@ const StaffBomInfoPresenter = ({
             name="storage"
             placeholder="비고"
             onChange={onChange}
-            value={bom.storage}
+            value={bomInfo.storage}
           />
         </Form.Item>
         <Form.Item

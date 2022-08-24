@@ -1,33 +1,24 @@
-import produce from 'immer';
-import { createAction, handleActions } from 'redux-actions';
+import { handleActions } from 'redux-actions';
+import * as api from '../Apis/index';
+import createRequestThunk from '../Apis/createRequestThunk';
+
+const GET_LIST = '/order/GET_LIST';
+const GET_LIST_SUCCESS = '/order/GET_LIST_SUCCESS';
+
+export const getList = createRequestThunk(GET_LIST, api.getOrderList);
 
 const initialState = {
-  orderId: '',
-  orderProductionName: '',
-  orderProductionBrandName: '',
-  orderProductionPrice: 0,
-  orderProductionQuantity: 0,
-  orderProuctionFile: '',
-  orderProductionStandard: '',
-  orderProductionUnit: '',
-  orderProductionDescription: '',
-  orderProductionEndDate: '',
-  orderDate: '',
-  client: '',
+  list: {},
 };
 
-export const SET_NEW_ORDER = 'order/SET_NEW_ORDER'; //??
-
-export const setNewOrder = createAction(SET_NEW_ORDER);
-
-const orderReducer = handleActions(
+const order = handleActions(
   {
-    [SET_NEW_ORDER]: (state = initialState, { payload: { name, value } }) =>
-      produce(state, (draft) => {
-        draft[name] = value;
-      }),
+    [GET_LIST_SUCCESS]: (state, action) => ({
+      ...state,
+      list: action.payload,
+    }),
   },
   initialState,
 );
 
-export default orderReducer;
+export default order;

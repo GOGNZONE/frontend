@@ -1,22 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import StaffOrderInfoPresenter from './StaffOrderInfoPresenter';
-import { getOrder } from '../../../../../../Apis/orderApi';
+import { useDispatch, useSelector } from 'react-redux';
+import * as api from '../../../../../../Apis/index';
 import { Link, useParams } from 'react-router-dom';
 import moment from 'moment';
+import reduxSaga from 'redux-saga';
 function StaffOrderInfoContainer() {
-  const [order, setOrder] = useState([]);
   const { orderIdParams } = useParams();
+  const orderInfo = useSelector((state) => state.order);
+  const dispatch = useDispatch();
   const [componentDisabled, setComponentDisabled] = useState(true);
   const [updateButton, setUpdateButton] = useState(true);
 
-  const getOrderApi = (orderIdParams) => {
-    getOrder(orderIdParams).then((response) => {
-      setOrder(response.data);
-    });
-  };
   useEffect(() => {
-    getOrderApi(orderIdParams);
+    orderInfoApi(orderIdParams);
   }, []);
+  const orderInfoApi = async (IdParam) => {
+    const info = await api.getOrderInfo(IdParam);
+    dispatch({ type: 'GET_ORDER', payload: info });
+  };
+  console.log(orderInfo);
   const onFormLayoutChange = ({ disabled }) => {
     setComponentDisabled(disabled);
   };
@@ -40,15 +43,15 @@ function StaffOrderInfoContainer() {
       name = e.target.name;
     }
 
-    setOrder({
-      ...order,
-      [name]: value,
-    });
+    // setOrder({
+    //   ...order,
+    //   [name]: value,
+    // });
   };
 
   return (
     <StaffOrderInfoPresenter
-      order={order}
+      orderInfo={orderInfo}
       onChange={onChange}
       updateButton={updateButton}
       componentDisabled={componentDisabled}

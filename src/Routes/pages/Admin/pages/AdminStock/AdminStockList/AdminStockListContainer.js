@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { getStockList } from '../../../../../../Apis/stockApi';
 import AdminStockListPresenter from './AdminStockListPresenter';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import * as api from '../../../../../../Apis/index';
 
 function AdminStockListContainer() {
-  const [stockList, setStockList] = useState([]);
-  const getStockListApi = () => {
-    getStockList().then((response) => setStockList(response.data));
-  };
+  const stockList = useSelector((state) => state.stock.stockList.data);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getStockListApi();
+    stockListApi();
   }, []);
+
+  const stockListApi = async () => {
+    const list = await api.getStockList();
+    dispatch({ type: 'GET_STOCK_LIST', payload: list });
+  };
 
   return <AdminStockListPresenter stockList={stockList} />;
 }

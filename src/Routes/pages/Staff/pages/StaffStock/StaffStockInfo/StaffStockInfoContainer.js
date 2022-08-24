@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import StaffStorageInfoPresenter from './StaffStockInfoPresenter';
-import { getStock } from '../../../../../../Apis/stockApi';
+import { useDispatch, useSelector } from 'react-redux';
+import * as api from '../../../../../../Apis/index';
 import moment from 'moment';
 
 function StaffStorageInfoContainer() {
   const { stockIdParams } = useParams();
-  const [stock, setStock] = useState([]);
   const [componentDisabled, setComponentDisabled] = useState(true);
   const [updateButton, setUpdateButton] = useState(true);
+  const stockInfo = useSelector((state) => state.stock.stock.data);
+  const dispatch = useDispatch();
 
-  const getStockApi = (stockIdParams) => {
-    getStock(stockIdParams).then((response) => {
-      setStock(response.data);
-    });
-  };
   useEffect(() => {
-    getStockApi(stockIdParams);
+    storageInfoApi();
   }, []);
+  const storageInfoApi = async () => {
+    const stock = await api.getStockInfo(stockIdParams);
+    dispatch({ type: 'GET_STOCK', payload: stock });
+  };
 
   const onFormLayoutChange = ({ disabled }) => {
     setComponentDisabled(disabled);
@@ -43,15 +44,15 @@ function StaffStorageInfoContainer() {
       name = e.target.name;
     }
 
-    setStock({
-      ...stock,
-      [name]: value,
-    });
+    // setStock({
+    //   ...stock,
+    //   [name]: value,
+    // });
   };
 
   return (
     <StaffStorageInfoPresenter
-      stock={stock}
+      stockInfo={stockInfo}
       componentDisabled={componentDisabled}
       setComponentDisabled={setComponentDisabled}
       onFormLayoutChange={onFormLayoutChange}

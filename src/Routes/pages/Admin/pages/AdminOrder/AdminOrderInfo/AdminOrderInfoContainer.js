@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AdminOrderInfoPresenter from './AdminOrderInfoPresenter';
-import { getOrder } from '../../../../../../Apis/orderApi';
+
 import { Link, useParams } from 'react-router-dom';
 import moment from 'moment';
 
@@ -10,14 +10,6 @@ function AdminOrderInfoContainer() {
   const [componentDisabled, setComponentDisabled] = useState(true);
   const [updateButton, setUpdateButton] = useState(true);
 
-  const getOrderApi = (orderIdParams) => {
-    getOrder(orderIdParams).then((response) => {
-      setOrder(response.data);
-    });
-  };
-  useEffect(() => {
-    getOrderApi(orderIdParams);
-  }, []);
   const onFormLayoutChange = ({ disabled }) => {
     setComponentDisabled(disabled);
   };

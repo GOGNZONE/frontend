@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import AdminStorageInfoPresenter from './AdminStorageInfoPresenter';
-import { getStorage } from '../../../../../../Apis/storageApi';
+
 import moment from 'moment';
 
 function AdminStorageInfoContainer() {
@@ -10,14 +10,6 @@ function AdminStorageInfoContainer() {
   const [componentDisabled, setComponentDisabled] = useState(true);
   const [updateButton, setUpdateButton] = useState(true);
 
-  const getStorageApi = (storageIdParams) => {
-    getStorage(storageIdParams).then((response) => {
-      setStorage(response.data);
-    });
-  };
-  useEffect(() => {
-    getStorageApi(storageIdParams);
-  }, []);
   const onFormLayoutChange = ({ disabled }) => {
     setComponentDisabled(disabled);
   };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import AdminStorageInfoPresenter from './AdminStockInfoPresenter';
-import { getStock } from '../../../../../../Apis/stockApi';
+
 import moment from 'moment';
 
 function AdminStorageInfoContainer() {
@@ -10,14 +10,6 @@ function AdminStorageInfoContainer() {
   const [componentDisabled, setComponentDisabled] = useState(true);
   const [updateButton, setUpdateButton] = useState(true);
 
-  const getStockApi = (stockIdParams) => {
-    getStock(stockIdParams).then((response) => {
-      setStock(response.data);
-    });
-  };
-  useEffect(() => {
-    getStockApi(stockIdParams);
-  }, []);
   const onFormLayoutChange = ({ disabled }) => {
     setComponentDisabled(disabled);
   };

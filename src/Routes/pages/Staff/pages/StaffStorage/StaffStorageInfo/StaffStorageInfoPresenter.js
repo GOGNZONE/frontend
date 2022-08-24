@@ -3,7 +3,7 @@ import { Form, Button, Input, Typography } from 'antd';
 import { Link } from 'react-router-dom';
 
 function StaffStorageInfoPresenter({
-  storage,
+  storageInfo,
   componentDisabled,
   setComponentDisabled,
   onFormLayoutChange,
@@ -12,6 +12,7 @@ function StaffStorageInfoPresenter({
   updateButton,
   onButtonNameChange,
 }) {
+  console.log(storageInfo);
   return (
     <div>
       <Form
@@ -30,7 +31,11 @@ function StaffStorageInfoPresenter({
           창고 상세정보
         </Typography.Title>
         <Form.Item label="창고코드">
-          <Input disabled={true} name="storageId" value={storage.storageId} />
+          <Input
+            disabled={true}
+            name="storageId"
+            value={storageInfo.storageId}
+          />
         </Form.Item>
         <Form.Item
           label="창고 주소"
@@ -46,7 +51,7 @@ function StaffStorageInfoPresenter({
           <Input
             name="storageAddress"
             onChange={onChange}
-            value={storage.storageAddress}
+            value={storageInfo.storageAddress}
           />
         </Form.Item>
         <Form.Item
@@ -63,14 +68,14 @@ function StaffStorageInfoPresenter({
           <Input
             name="storageCategory"
             onChange={onChange}
-            value={storage.storageCategory}
+            value={storageInfo.storageCategory}
           />
         </Form.Item>
         <Form.Item label="비고">
           <Input
             name="storageDescription"
             onChange={onChange}
-            value={storage.storageDescription}
+            value={storageInfo.storageDescription}
           />
         </Form.Item>
       </Form>

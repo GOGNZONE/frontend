@@ -1,32 +1,24 @@
-import produce from 'immer';
-import { createAction, handleActions } from 'redux-actions';
+import { handleActions } from 'redux-actions';
+import * as api from '../Apis/index';
+import createRequestThunk from '../Apis/createRequestThunk';
+
+const GET_LIST = '/bom/GET_LIST';
+const GET_LIST_SUCCESS = '/bom/GET_LIST_SUCCESS';
+
+export const getList = createRequestThunk(GET_LIST, api.getBomList);
 
 const initialState = {
-  bomId: '',
-  bomName: '',
-  bomQuantity: 0,
-  bomPrice: 0,
-  bomStandard: '',
-  bomUnit: '',
-  bomDescription: '',
-  bomReceivedData: '',
-  bomFile: '',
-  bomRequiredQuntity: '',
-  storage: '',
-  bomParent: '',
+  list: {},
 };
 
-export const SET_NEW_BOM = 'bom/SET_NEW_BOM'; //??
-export const setNewBOM = createAction(SET_NEW_BOM);
-
-const bomReducer = handleActions(
+const bom = handleActions(
   {
-    [SET_NEW_BOM]: (state = initialState, { payload: { name, value } }) =>
-      produce(state, (draft) => {
-        draft[name] = value;
-      }),
+    [GET_LIST_SUCCESS]: (state, action) => ({
+      ...state,
+      list: action.payload,
+    }),
   },
   initialState,
 );
 
-export default bomReducer;
+export default bom;

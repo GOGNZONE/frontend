@@ -1,21 +1,12 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Form, Button, Input, Typography } from 'antd';
 import { Link } from 'react-router-dom';
 
-function AdminStorageRegistPresenter() {
-  const insertStorage = () => {
-    const category = document.getElementById('storageCategory').value;
-    const address = document.getElementById('storageAddress').value;
-    const description = document.getElementById('storageDescription').value;
-
-    const data = {
-      storageCategory: category,
-      storageAddress: address,
-      storageDescription: description,
-    };
-    console.log(data);
-  };
-
+function AdminStorageRegistPresenter({
+  storage,
+  registStorage,
+  onChangeInputHandler,
+}) {
   return (
     <div>
       <Form
@@ -33,6 +24,7 @@ function AdminStorageRegistPresenter() {
         </Typography.Title>
         <Form.Item
           label="창고 주소"
+          name="storageAddress"
           rules={[
             {
               required: true,
@@ -42,10 +34,11 @@ function AdminStorageRegistPresenter() {
           required
           tooltip="필수 입력 필드입니다."
         >
-          <Input name="storageAddress" />
+          <Input onChange={(e) => onChangeInputHandler('storageAddress', e)} />
         </Form.Item>
         <Form.Item
           label="창고 종류"
+          name="storageCategory"
           rules={[
             {
               required: true,
@@ -55,10 +48,12 @@ function AdminStorageRegistPresenter() {
           required
           tooltip="필수 입력 필드입니다."
         >
-          <Input name="storageCategory" />
+          <Input onChange={(e) => onChangeInputHandler('storageCategory', e)} />
         </Form.Item>
-        <Form.Item label="비고">
-          <Input name="storageDescription" />
+        <Form.Item name="storageDescription" label="비고">
+          <Input
+            onChange={(e) => onChangeInputHandler('storageDescription', e)}
+          />
         </Form.Item>
       </Form>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -71,6 +66,7 @@ function AdminStorageRegistPresenter() {
               backgroundColor: '#FEB139',
               border: '#FEB139',
             }}
+            onClick={registStorage}
           >
             등록
           </Button>

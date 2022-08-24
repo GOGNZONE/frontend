@@ -1,21 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import AdminBomInfoPresenter from './AdminBomInfoPresenter';
 import { useParams } from 'react-router-dom';
-import { getBom } from '../../../../../../Apis/bomApi';
+
 import moment from 'moment';
 function AdminBomInfoContainer() {
   const [bom, setBom] = useState([]);
   const { bomIdParams } = useParams();
   const [componentDisabled, setComponentDisabled] = useState(true);
   const [updateButton, setUpdateButton] = useState(true);
-
-  const getBomApi = (bomIdParams) => {
-    getBom(bomIdParams).then((response) => setBom(response.data));
-  };
-
-  useEffect(() => {
-    getBomApi(bomIdParams);
-  }, []);
 
   const onFormLayoutChange = ({ disabled }) => {
     setComponentDisabled(disabled);
