@@ -1,7 +1,11 @@
-export { default as StaffDashBoard } from './StaffDashBoard';
+export { StaffDashBoard } from './StaffDashBoard';
 export { default as StaffClienList } from './StaffClient';
-export { default as StaffProduction } from './StaffProduction';
+export {
+  StaffProductionList,
+  StaffProductionRegistration,
+  StaffProductionDetails,
+} from './StaffProduction';
 export { default as StaffStock } from './StaffStock';
-export { default as StaffRelease } from './StaffRelease';
+export { StaffReleaseList, StaffReleaseDetails } from './StaffRelease';
 export { default as StaffOrder } from './StaffOrder';
 export { StaffBomRegist, StaffBomList } from './StaffBom';

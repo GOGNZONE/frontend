@@ -15,6 +15,7 @@ instance.interceptors.request.use(
     // 서버측 미들웨어에서 이를 확인하고 검증한 후 해당 API에 요청함.
     const token = localStorage.getItem('ACCESS_TOKEN');
     config.headers.Authorization = `Bearer ${token}`;
+    // console.log('config : ', config);
     return config;
   },
   (error) => {
@@ -39,21 +40,21 @@ instance.interceptors.response.use(
         
         status code : 400 ~ 500
     */
-    if (error.response.status === 400) {
+    if (error?.response?.status === 400) {
       console.log(error);
-      window.location.href = '/';
+      // window.location.href = '/';
     }
-    if (error.response.status === 401) {
+    if (error?.response?.status === 401) {
       alert('인증이 필요합니다.');
-      window.location.href = '/';
+      // window.location.href = '/';
     }
-    if (error.response.status === 403) {
+    if (error?.response?.status === 403) {
       alert('접근 권한이 없습니다.');
-      window.location.href = '/';
+      // window.location.href = '/';
     }
-    if (error.response.status === 500) {
+    if (error?.response?.status === 500) {
       console.log(error);
-      window.location.href = '/';
+      // window.location.href = '/';
     }
   },
 );
