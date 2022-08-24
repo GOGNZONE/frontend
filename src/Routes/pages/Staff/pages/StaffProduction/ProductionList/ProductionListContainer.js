@@ -16,7 +16,7 @@ const ProductionListContainer = () => {
 
   useEffect(() => {
     dispatch(getProductions());
-  }, [dispatch]);
+  }, [data]);
 
   return (
     <ProductionListPresenter
