@@ -5,6 +5,7 @@ import {
   AdminDashBoard,
   AdminEmployeeDetails,
   AdminEmployeeList,
+  AdminRegisterEmployee,
 } from './pages';
 
 const Admin = ({ checkAdmin, logout }) => {
@@ -17,6 +18,7 @@ const Admin = ({ checkAdmin, logout }) => {
         <Route index element={<AdminDashBoard />} />
         <Route path="employee/list" element={<AdminEmployeeList />} />
         <Route path="employee/:employeeId" element={<AdminEmployeeDetails />} />
+        <Route path="employee" element={<AdminRegisterEmployee />} />
       </Route>
     </Routes>
   );
