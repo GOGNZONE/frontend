@@ -121,11 +121,14 @@ const ProductionListPresenter = ({
     {
       title: '생산코드',
       dataIndex: 'productionId',
+      width: 180,
       ...getColumnSearchProps('productionId'),
+      sorter: (a, b) => a.productionQuantity - b.productionQuantity,
     },
     {
       title: '생산품목',
       dataIndex: 'productionName',
+      width: 200,
       ...getColumnSearchProps('productionName'),
       render: (name, record) => (
         <Link to={`/staff/production/${record.productionId}`}>{name}</Link>
@@ -134,18 +137,21 @@ const ProductionListPresenter = ({
     {
       title: '브랜드',
       dataIndex: 'productionBrandName',
+      width: 200,
       ...getColumnSearchProps('productionBrandName'),
     },
     {
       title: '제품수량',
       dataIndex: 'productionQuantity',
       defaultSortOrder: 'ascend',
+      width: 200,
       sorter: (a, b) => a.productionQuantity - b.productionQuantity,
     },
     {
       title: '단가',
       dataIndex: 'productionPrice',
       defaultSortOrder: 'ascend',
+      width: 200,
       sorter: (a, b) => a.productionPrice - b.productionPrice,
     },
     {
