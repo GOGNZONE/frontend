@@ -9,6 +9,7 @@ import {
   InputNumber,
   Select,
   Space,
+  message,
 } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -21,7 +22,6 @@ const normFile = (e) => {
   if (Array.isArray(e)) {
     return e;
   }
-
   return e?.fileList;
 };
 
@@ -52,6 +52,27 @@ const ProductionRegistrationPresenter = ({
     });
   });
 
+  const props = {
+    name: 'file',
+    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+    headers: {
+      authorization: 'authorization-text',
+    },
+
+    onChange(info) {
+      if (info.file.status === 'done') {
+        message.success(`${info.file.name}이 성공적으로 등록되었습니다.`);
+      } else if (info.file.status === 'error') {
+        message.error(`${info.file.name}이 업로드에 실패했습니다.`);
+      }
+
+      onChangeHandler({
+        ...productionValue,
+        productionFile: info.file.name,
+      });
+    },
+  };
+
   return (
     <>
       <Typography.Title level={3} style={{ margin: 5 }}>
@@ -67,17 +88,6 @@ const ProductionRegistrationPresenter = ({
         layout="horizontal"
         size="large"
       >
-        {/* <Form.Item
-          label="생산코드"
-          rules={[
-            {
-              required: true,
-              message: '생산코드를 가져올 수 없습니다!',
-            },
-          ]}
-        >
-          <Input disabled={true} value={productionLen + 1} />
-        </Form.Item> */}
         <Form.Item
           name="productionName"
           label="생산품목"
@@ -233,11 +243,25 @@ const ProductionRegistrationPresenter = ({
           />
         </Form.Item>
         <Form.Item
+          name="fkClientId"
+          label="거래처코드"
+          rules={[
+            {
+              required: true,
+              message: '거래처 코드를 입력해주세요!',
+            },
+          ]}
+          required
+          tooltip="필수 입력 필드입니다"
+        >
+          <Select></Select>
+        </Form.Item>
+        <Form.Item
           label="파일"
-          valuePropName="fileList"
+          valuePropName="fileName"
           getValueFromEvent={normFile}
         >
-          <Upload name="logo" action="/upload.do" listType="picture">
+          <Upload {...props}>
             <Button icon={<UploadOutlined />}>업로드</Button>
           </Upload>
         </Form.Item>
@@ -251,7 +275,7 @@ const ProductionRegistrationPresenter = ({
                 backgroundColor: '#FEB139',
                 border: '#FEB139',
               }}
-              onClick={onClickHandler}
+              onClick={() => onClickHandler()}
             >
               등록
             </Button>
