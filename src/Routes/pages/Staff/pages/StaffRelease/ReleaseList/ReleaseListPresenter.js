@@ -1,7 +1,6 @@
 import React from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import { Typography, Table, BackTop, Button, Input, Space } from 'antd';
-
 import Highlighter from 'react-highlight-words';
 import { Link } from 'react-router-dom';
 

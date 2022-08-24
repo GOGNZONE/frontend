@@ -1,4 +1,4 @@
-import * as api from 'Apis/index';
+import * as api from 'apis/index';
 import { createPromiseThunk, createPromiseThunkPut } from 'lib/asyncUtils';
 
 export const GET_PRODUCTIONS = 'GET_PRODUCTIONS';

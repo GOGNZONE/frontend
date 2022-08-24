@@ -8,16 +8,12 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import 'antd/dist/antd.min.css';
 
 /** redux */
-import rootReducer from './modules';
-import { createStore } from 'redux';
+import store from 'store/configureStore';
 import { Provider } from 'react-redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-
-const store = createStore(rootReducer, composeWithDevTools());
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Provider store={store}>
+  <Provider store={store()}>
     <React.StrictMode>
       <Router>
         <App />
