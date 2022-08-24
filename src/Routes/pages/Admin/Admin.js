@@ -1,7 +1,11 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { AdminLayout } from '../../../Components';
-import { AdminDashBoard, AdminEmployeeList } from './pages';
+import { AdminLayout } from 'Components';
+import {
+  AdminDashBoard,
+  AdminEmployeeDetails,
+  AdminEmployeeList,
+} from './pages';
 
 const Admin = ({ checkAdmin, logout }) => {
   return (
@@ -12,6 +16,7 @@ const Admin = ({ checkAdmin, logout }) => {
       >
         <Route index element={<AdminDashBoard />} />
         <Route path="employee/list" element={<AdminEmployeeList />} />
+        <Route path="employee/:employeeId" element={<AdminEmployeeDetails />} />
       </Route>
     </Routes>
   );

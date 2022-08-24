@@ -45,3 +45,11 @@
 // };
 
 // export default ReleaseDetailsContainer;
+import React from 'react';
+import ReleaseDetailsPresenter from './ReleaseDetailsPresenter';
+
+const ReleaseDetailsContainer = () => {
+  return <ReleaseDetailsPresenter />;
+};
+
+export default ReleaseDetailsContainer;
