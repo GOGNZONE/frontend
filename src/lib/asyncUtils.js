@@ -24,7 +24,6 @@ export const reducerUtils = {
   }),
 };
 
-// GET PRODUCTIONS, POST PRODUCTION
 export const createPromiseThunk = (type, promiseCreator) => {
   const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
 
@@ -122,7 +121,6 @@ export const handleAsyncActions = (type, key, keepData = false) => {
 //   };
 // };
 
-// PUT PRODUCTION
 export const createPromiseThunkPut = (type, promiseCreator) => {
   const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
 

@@ -1,1 +1,2 @@
-export { default as StaffProductionRegistration } from './ProductionRegistrationContainer';
+import ProductionRegistrationContainer from './ProductionRegistrationContainer';
+export default ProductionRegistrationContainer;

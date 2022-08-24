@@ -23,11 +23,6 @@ export const productionReducer = (state = initialState, action) => {
         state,
         action,
       );
-    case types.CLEAR_PRODUCTION:
-      return {
-        ...state,
-        production: reducerUtils.initial(),
-      };
     default:
       return state;
   }

@@ -1,1 +1,2 @@
-export { default as StaffProductionList } from './ProductionListContainer';
+import ProductionListContainer from './ProductionListContainer';
+export default ProductionListContainer;
