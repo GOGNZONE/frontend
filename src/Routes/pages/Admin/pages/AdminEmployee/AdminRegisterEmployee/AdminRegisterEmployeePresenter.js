@@ -30,7 +30,6 @@ const AdminRegisterEmployeePresenter = ({
     employeeImage,
     employeeRole,
   } = employeeInfo;
-  console.log(employeeInfo);
 
   const tailLayout = {
     wrapperCol: {

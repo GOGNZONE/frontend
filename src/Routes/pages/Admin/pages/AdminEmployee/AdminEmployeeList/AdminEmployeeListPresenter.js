@@ -3,12 +3,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-const AdminEmployeeListPresenter = ({ employeeList, loading, error }) => {
+const AdminEmployeeListPresenter = ({
+  employeeList,
+  loading,
+  error,
+  onDeleteHandler,
+}) => {
   if (error)
     return Swal.fire({
       position: 'center',
       icon: 'error',
-      title: 'error!',
+      title: 'error',
       showConfirmButton: false,
       timer: 1500,
     });
@@ -22,6 +27,12 @@ const AdminEmployeeListPresenter = ({ employeeList, loading, error }) => {
             <Link to={`/admin/employee/${employee.employeeId}`}>
               {employee.employeeName}
             </Link>
+            <button
+              type="button"
+              onClick={() => onDeleteHandler(employee.employeeId)}
+            >
+              삭제
+            </button>
           </li>
         ))}
       </ul>

@@ -1,12 +1,19 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getEmployeeList } from 'store/modules/employee/employeeActions';
+import {
+  deleteEmployee,
+  getEmployeeList,
+} from 'store/modules/employee/employeeActions';
 import AdminEmployeeListPresenter from './AdminEmployeeListPresenter';
 const AdminEmployeeListContainer = () => {
   const { data, loading, error } = useSelector(
     (state) => state.employee.employeeList,
   );
   const dispatch = useDispatch();
+
+  const onDeleteHandler = (employeeId) => {
+    dispatch(deleteEmployee(employeeId));
+  };
 
   useEffect(() => {
     dispatch(getEmployeeList());
@@ -17,6 +24,7 @@ const AdminEmployeeListContainer = () => {
       employeeList={data}
       loading={loading}
       error={error}
+      onDeleteHandler={onDeleteHandler}
     />
   );
 };

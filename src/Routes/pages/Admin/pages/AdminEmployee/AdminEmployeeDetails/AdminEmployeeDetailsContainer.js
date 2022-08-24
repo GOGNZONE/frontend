@@ -15,8 +15,6 @@ const AdminEmployeeDetailsContainer = () => {
     dispatch(getEmployee(employeeId));
   }, [employeeId, dispatch]);
 
-  console.log(data);
-
   return (
     <AdminEmployeeDetailsPresenter
       employee={data}
