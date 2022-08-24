@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import ProductionRegistrationPresenter from './ProductionRegistrationPresenter';
 import { useDispatch } from 'react-redux';
 import { postProduction } from 'store/modules/production/productionActions';
@@ -17,10 +17,15 @@ const ProductionRegistrationContainer = () => {
     productionDescription: '',
     productionReleasedDate: '',
     productionDate: '',
+    productionFile: '',
   });
   const dispatch = useDispatch();
   /***** navigate *****/
   const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   dispatch(getClients());
+  // }, [dispatch]);
 
   const onChangeHandler = (value) => {
     setProductionValue(value);
@@ -36,7 +41,7 @@ const ProductionRegistrationContainer = () => {
     ) {
       message.error('필수 입력값을 입력해 주세요.');
     } else {
-      dispatch(postProduction(productionValue));
+      console.log(dispatch(postProduction(productionValue)));
       navigate('list');
     }
   });
