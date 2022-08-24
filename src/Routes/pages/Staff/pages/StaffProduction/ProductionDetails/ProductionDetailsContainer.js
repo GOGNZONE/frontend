@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import ProductionDetailsPresenter from './ProductionDetailsPresenter';
 import { useSelector, useDispatch } from 'react-redux';
 import {
+  clearProduction,
   getProduction,
   putProduction,
 } from 'store/modules/production/productionActions';
@@ -16,13 +17,20 @@ const ProductionDetailsContainer = () => {
   const [productionValue, setProductionValue] = useState({});
   /***** redux *****/
   const { data, loading, error } = useSelector(
-    (state) => state.production.production[productionIdParams],
-  ) || { loading: false, data: null, error: null };
+    (state) => state.production.production,
+  );
+
+  // const { data, loading, error } = useSelector((state) =>
+  //   state.production.production ? state.production.production : null,
+  // );
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getProduction(productionIdParams));
-  }, [dispatch, productionIdParams]);
+    // return () => {
+    //   dispatch(clearProduction());
+    // };
+  }, [productionIdParams, dispatch]);
 
   const onFormLayoutChange = ({ disabled }) => {
     setComponentDisabled(disabled);
