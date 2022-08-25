@@ -13,7 +13,7 @@ import {
   StaffProductionRegistration,
   StaffProductionDetails,
 } from './pages/StaffProduction';
-import { StaffReleaseList, StaffReleaseDetails } from './pages/StaffRelease';
+// import { StaffReleaseList, StaffReleaseDetails } from './pages/StaffRelease';
 
 const Staff = ({ checkAdmin, logout }) => {
   return (
@@ -36,11 +36,11 @@ const Staff = ({ checkAdmin, logout }) => {
         <Route path="/stock/list" element={<StaffStock />} />
 
         {/* release */}
-        <Route path="/release/list" element={<StaffReleaseList />} />
+        {/* <Route path="/release/list" element={<StaffReleaseList />} />
         <Route
           path="/release/:releaseIdParams"
           element={<StaffReleaseDetails />}
-        />
+        /> */}
 
         <Route path="/order/list" element={<StaffOrder />} />
         <Route path="/bom" element={<StaffBomRegist />} />
