@@ -25,18 +25,18 @@ const normFile = (e) => {
   return e?.fileList;
 };
 
-const standardSelectAfter = (
-  <Select defaultValue="mm" className="standard-select-after">
-    <Option value="mm">mm</Option>
-    <Option value="cm">cm</Option>
-  </Select>
-);
-
 const ProductionRegistrationPresenter = ({
   productionValue,
   onChangeHandler,
   onClickHandler,
 }) => {
+  const standardSelectAfter = (
+    <Select defaultValue="mm" className="standard-select-after">
+      <Option value="mm">mm</Option>
+      <Option value="cm">cm</Option>
+    </Select>
+  );
+
   const onChangeInputHandler = useCallback((name, e) => {
     const { value } = e.target;
     onChangeHandler({
