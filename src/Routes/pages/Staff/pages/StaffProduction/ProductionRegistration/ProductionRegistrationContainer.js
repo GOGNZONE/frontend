@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import ProductionRegistrationPresenter from './ProductionRegistrationPresenter';
 import { useDispatch } from 'react-redux';
 import { postProduction } from 'store/modules/production/productionActions';
@@ -10,8 +10,8 @@ const ProductionRegistrationContainer = () => {
   const [productionValue, setProductionValue] = useState({
     productionName: '',
     productionBrandName: '',
-    productionPrice: '',
-    productionQuantity: '',
+    productionPrice: 0,
+    productionQuantity: 1,
     productionStandard: '',
     productionUnit: '',
     productionDescription: '',
@@ -31,7 +31,7 @@ const ProductionRegistrationContainer = () => {
     setProductionValue(value);
   };
 
-  const onClickHandler = useCallback(() => {
+  const onClickHandler = useCallback((e) => {
     if (
       productionValue.productionName === '' ||
       productionValue.productionPrice === '' ||
@@ -41,7 +41,7 @@ const ProductionRegistrationContainer = () => {
     ) {
       message.error('필수 입력값을 입력해 주세요.');
     } else {
-      console.log(dispatch(postProduction(productionValue)));
+      dispatch(postProduction(productionValue));
       navigate('list');
     }
   });
