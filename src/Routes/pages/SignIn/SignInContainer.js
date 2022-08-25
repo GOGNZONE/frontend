@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import SignInPresenter from './SignInPresenter';
-import api from '../../../Apis/apiController';
+import api from 'Apis/apiController';
 import { useDispatch, useSelector } from 'react-redux';
 // import { chagneField, chagneFields } from '../../../store/modules/auth';
-import { changeField, changeFields } from '../../../modules/auth';
+import { changeField, changeFields } from 'store/modules/auth';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
