@@ -5,14 +5,18 @@ import {
   getEmployeeList,
 } from 'store/modules/employee/employeeActions';
 import AdminEmployeeListPresenter from './AdminEmployeeListPresenter';
+
 const AdminEmployeeListContainer = () => {
   const { data, loading, error } = useSelector(
     (state) => state.employee.employeeList,
   );
   const dispatch = useDispatch();
 
-  const onDeleteHandler = (employeeId) => {
+  console.log(data);
+
+  const onDeleteHandler = async (employeeId) => {
     dispatch(deleteEmployee(employeeId));
+    dispatch(getEmployeeList());
   };
 
   useEffect(() => {
