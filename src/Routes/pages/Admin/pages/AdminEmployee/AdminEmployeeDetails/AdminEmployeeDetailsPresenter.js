@@ -2,7 +2,13 @@ import React from 'react';
 import Swal from 'sweetalert2';
 import { Spin } from 'antd';
 
-const AdminEmployeeDetailsPresenter = ({ employee, loading, error }) => {
+const AdminEmployeeDetailsPresenter = ({
+  employee,
+  loading,
+  error,
+  updateEmployeeValue,
+  setPage,
+}) => {
   if (error)
     return Swal.fire({
       position: 'center',
@@ -15,7 +21,7 @@ const AdminEmployeeDetailsPresenter = ({ employee, loading, error }) => {
   return (
     <div>
       <Spin spinning={loading} size="large" />
-      AdminEmployeeDetailsPresenter
+      <button onClick={() => setPage(false)}>수정 페이지로</button>
     </div>
   );
 };
