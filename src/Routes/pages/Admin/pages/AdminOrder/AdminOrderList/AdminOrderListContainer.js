@@ -1,22 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import AdminOrderListPresenter from './AdminOrderListPresenter';
+import AdminOrderListPresenter from 'Routes/pages/Admin/pages/AdminOrder/AdminOrderList/AdminOrderListPresenter';
 import { useDispatch, useSelector } from 'react-redux';
-import * as api from '../../../../../../Apis/index';
+import { getOrderList, deleteOrder } from 'store/modules/order/orderActions';
 
 function AdminOrderListContainer() {
-  const orderList = useSelector((state) => state.order.orderList.data);
+  const { data, loading, error } = useSelector(
+    (state) => state.order.orderList,
+  );
   const dispatch = useDispatch();
+  console.log(data);
 
   useEffect(() => {
-    orderListApi();
-  }, []);
+    dispatch(getOrderList());
+  }, [dispatch]);
 
-  const orderListApi = async () => {
-    const list = await api.getOrderList();
-    dispatch({ type: 'GET_ORDER_LIST', payload: list });
+  const onDeleteHandler = (orderId) => {
+    dispatch(deleteOrder(orderId));
+    window.location.reload();
   };
 
-  return <AdminOrderListPresenter orderList={orderList} />;
+  return (
+    <AdminOrderListPresenter
+      orderList={data}
+      onDeleteHandler={onDeleteHandler}
+    />
+  );
 }
 
 export default AdminOrderListContainer;

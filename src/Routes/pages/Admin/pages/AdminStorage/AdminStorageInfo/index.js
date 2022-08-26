@@ -1,1 +1,1 @@
-export { default as AdminStorageInfo } from './AdminStorageInfoContainer';
+export { default as AdminStorageInfo } from 'Routes/pages/Admin/pages/AdminStorage/AdminStorageInfo/AdminStorageInfoContainer';

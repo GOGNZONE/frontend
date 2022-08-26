@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import AdminOrderInfoPresenter from './AdminOrderInfoPresenter';
-
+import AdminOrderInfoPresenter from 'Routes/pages/Admin/pages/AdminOrder/AdminOrderInfo/AdminOrderInfoPresenter';
 import { Link, useParams } from 'react-router-dom';
 import moment from 'moment';
 

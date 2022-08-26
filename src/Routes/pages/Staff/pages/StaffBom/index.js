@@ -1,3 +1,3 @@
-export { StaffBomList } from './StaffBomList';
-export { StaffBomInfo } from './StaffBomInfo';
-export { StaffBomRegist } from './StaffBomRegist';
+export { StaffBomList } from 'Routes/pages/Staff/pages/StaffBom/StaffBomList';
+export { StaffBomInfo } from 'Routes/pages/Staff/pages/StaffBom/StaffBomInfo';
+export { StaffBomRegist } from 'Routes/pages/Staff/pages/StaffBom/StaffBomRegist';

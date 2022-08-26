@@ -1,12 +1,30 @@
-export { default as StaffDashBoard } from './StaffDashBoard';
-export { default as StaffClienList } from './StaffClient';
-export { default as StaffProduction } from './StaffProduction';
-export { default as StaffRelease } from './StaffRelease';
-export { StaffBomRegist, StaffBomList, StaffBomInfo } from './StaffBom';
-export { StaffOrderInfo, StaffOrderList } from './StaffOrder';
+export { StaffDashBoard } from 'Routes/pages/Staff/pages/StaffDashBoard';
+export {
+  StaffBomRegist,
+  StaffBomList,
+  StaffBomInfo,
+} from 'Routes/pages/Staff/pages/StaffBom';
+export {
+  StaffOrderInfo,
+  StaffOrderList,
+} from 'Routes/pages/Staff/pages/StaffOrder';
 export {
   StaffStorageInfo,
   StaffStorageList,
   StaffStorageRegist,
-} from './StaffStorage';
-export { StaffStockInfo, StaffStockList, StaffStockRegist } from './StaffStock';
+} from 'Routes/pages/Staff/pages/StaffStorage';
+export {
+  StaffStockInfo,
+  StaffStockList,
+  StaffStockRegist,
+} from 'Routes/pages/Staff/pages/StaffStock';
+export {
+  StaffProductionList,
+  StaffProductionRegistration,
+  StaffProductionDetails,
+} from './StaffProduction';
+
+export {
+  StaffReleaseList,
+  StaffReleaseDetails,
+} from 'Routes/pages/Staff/pages/StaffRelease';

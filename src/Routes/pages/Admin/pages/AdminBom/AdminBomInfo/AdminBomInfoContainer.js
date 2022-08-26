@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import AdminBomInfoPresenter from './AdminBomInfoPresenter';
+import AdminBomInfoPresenter from 'Routes/pages/Admin/pages/AdminBom/AdminBomInfo/AdminBomInfoPresenter';
 import { useParams } from 'react-router-dom';
 
 import moment from 'moment';
@@ -31,11 +31,6 @@ function AdminBomInfoContainer() {
       value = e.target.value;
       name = e.target.name;
     }
-
-    setBom({
-      ...bom,
-      [name]: value,
-    });
   };
   return (
     <AdminBomInfoPresenter

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import StaffStockListPresenter from './StaffStockListPresenter';
+import StaffStockListPresenter from 'Routes/pages/Staff/pages/StaffStock/StaffStockList/StaffStockListPresenter';
 import { useDispatch, useSelector } from 'react-redux';
-import * as api from '../../../../../../Apis/index';
+import * as api from 'Apis/index';
 
 function StaffStockListContainer() {
   const stockList = useSelector((state) => state.stock.stockList.data);

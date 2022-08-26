@@ -7,7 +7,6 @@ function StaffStorageInfoPresenter({
   componentDisabled,
   setComponentDisabled,
   onFormLayoutChange,
-  storageIdParams,
   onChange,
   updateButton,
   onButtonNameChange,

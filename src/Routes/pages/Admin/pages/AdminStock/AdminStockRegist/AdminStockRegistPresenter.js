@@ -5,11 +5,9 @@ import { Link } from 'react-router-dom';
 function AdminStockRegistPresenter({
   registStock,
   stock,
-  onChange,
-  onChangeInputHandler2,
+  storageIdInputHandler,
   onChangeInputHandler,
 }) {
-  console.log(stock);
   return (
     <div>
       <Form
@@ -80,25 +78,27 @@ function AdminStockRegistPresenter({
           tooltip="필수 입력 필드입니다."
         >
           <Input
-            onChange={(e) => onChangeInputHandler2('storageId', e)}
+            onChange={(e) => storageIdInputHandler('storageId', e)}
             placeholder="창고"
           />
         </Form.Item>
       </Form>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            style={{
-              margin: 5,
-              backgroundColor: '#FEB139',
-              border: '#FEB139',
-            }}
-            onClick={registStock}
-          >
-            등록
-          </Button>
+          <Link to="/admin/stock/list">
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{
+                margin: 5,
+                backgroundColor: '#FEB139',
+                border: '#FEB139',
+              }}
+              onClick={registStock}
+            >
+              등록
+            </Button>
+          </Link>
         </Form.Item>
 
         <Link to="/staff/order/list">

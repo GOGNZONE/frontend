@@ -1,7 +1,7 @@
 import React from 'react';
 import './signin.css';
 import { Form, Input, Button } from 'antd';
-import LOGO from '../../../assets/logo.png';
+import LOGO from 'assets/logo.png';
 
 const SignInPresenter = ({ login, onLoginChange, onLogin }) => {
   return (

@@ -12,6 +12,7 @@ function AdminStorageInfoPresenter({
   updateButton,
   onButtonNameChange,
 }) {
+  console.log(storage);
   return (
     <div>
       <Form

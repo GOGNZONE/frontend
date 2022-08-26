@@ -1,31 +1,34 @@
-import React, { useCallback } from 'react';
-import AdminStockRegistPresenter from './AdminStockRegistPresenter';
+import React, { useState, useCallback } from 'react';
+import AdminStockRegistPresenter from 'Routes/pages/Admin/pages/AdminStock/AdminStockRegist/AdminStockRegistPresenter';
 import { useDispatch, useSelector } from 'react-redux';
-import * as api from '../../../../../../Apis/index';
+import { registerStock } from 'store/modules/stock/stockActions';
+import { message } from 'antd';
 
 function AdminStockRegistContainer() {
-  const stock = useSelector((state) => state.stock.stock);
+  const [stock, setStock] = useState({
+    stockName: '',
+    stockQuantity: '',
+    stockDescription: '',
+  });
   const dispatch = useDispatch();
 
-  const onChange = useCallback((value) => {
-    dispatch({ type: 'POST_STOCK', payload: value });
-  });
-
   const registStock = (e) => {
-    e.preventDefault();
-
-    api.registerStock(stock);
+    if (stock) {
+      dispatch(registerStock(stock));
+    } else {
+      message.error('필수값을 입력하세요');
+    }
   };
   const onChangeInputHandler = useCallback((name, e) => {
     const value = e.target.value;
-    onChange({
+    setStock({
       ...stock,
       [name]: value,
     });
   });
-  const onChangeInputHandler2 = useCallback((name, e) => {
+  const storageIdInputHandler = useCallback((name, e) => {
     const value = e.target.value;
-    onChange({
+    setStock({
       ...stock,
       storage: {
         [name]: value,
@@ -37,9 +40,8 @@ function AdminStockRegistContainer() {
     <AdminStockRegistPresenter
       registStock={registStock}
       stock={stock}
-      onChange={onChange}
       onChangeInputHandler={onChangeInputHandler}
-      onChangeInputHandler2={onChangeInputHandler2}
+      storageIdInputHandler={storageIdInputHandler}
     />
   );
 }

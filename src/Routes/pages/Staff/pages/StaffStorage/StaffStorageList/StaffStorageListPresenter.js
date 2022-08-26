@@ -3,7 +3,7 @@ import { Table, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import { v4 } from 'uuid';
 
-function StaffStorageListPresenter({ storList }) {
+function StaffStorageListPresenter({ storageList, loading, error }) {
   const columns = [
     {
       title: '창고 코드',
@@ -34,7 +34,7 @@ function StaffStorageListPresenter({ storList }) {
       <Link to="/staff/Storage">
         <Button>등록</Button>
       </Link>
-      <Table rowKey={() => v4()} columns={columns} dataSource={storList} />
+      <Table rowKey={() => v4()} columns={columns} dataSource={storageList} />
     </div>
   );
 }

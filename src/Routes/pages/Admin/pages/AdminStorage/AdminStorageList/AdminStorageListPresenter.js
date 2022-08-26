@@ -3,7 +3,7 @@ import { Table, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import { v4 } from 'uuid';
 
-function AdminStorageListPresenter({ storageList }) {
+function AdminStorageListPresenter({ storageList, onDeleteHandler }) {
   const columns = [
     {
       title: '창고 코드',
@@ -30,13 +30,15 @@ function AdminStorageListPresenter({ storageList }) {
     },
     {
       title: '삭제',
-      dataIndex: 'deleteButton',
+      dataIndex: 'storageId',
+      key: 'storageId',
       align: 'center',
-      render: () => (
+      render: (id, index) => (
         <Button
           type="primary"
           size="middle"
           style={{ backgroundColor: '#D61C4E', border: '#D61C4E' }}
+          onClick={() => onDeleteHandler(`${index.storageId}`)}
         >
           삭제
         </Button>

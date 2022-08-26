@@ -1,27 +1,34 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { AdminLayout } from '../../../Components';
-import { AdminDashBoard } from './pages';
+import { AdminLayout } from 'Components';
+import { AdminDashBoard } from 'Routes/pages/Admin/pages';
 import {
   AdminOrderInfo,
   AdminOrderList,
   AdminOrderRegist,
-} from './pages/AdminOrder';
-import { AdminBomList, AdminBomRegist, AdminBomInfo } from './pages/AdminBom';
+} from 'Routes/pages/Admin/pages/AdminOrder';
+import {
+  AdminBomList,
+  AdminBomRegist,
+  AdminBomInfo,
+} from 'Routes/pages/Admin/pages/AdminBom';
 import {
   AdminStorageInfo,
   AdminStorageList,
   AdminStorageRegist,
-} from './pages/AdminStorage';
+} from 'Routes/pages/Admin/pages/AdminStorage';
 import {
   AdminStockInfo,
   AdminStockRegist,
   AdminStockList,
-} from './pages/AdminStock';
-const Admin = () => {
+} from 'Routes/pages/Admin/pages/AdminStock';
+const Admin = ({ checkAdmin, logout }) => {
   return (
     <Routes>
-      <Route path="/" element={<AdminLayout />}>
+      <Route
+        path="/"
+        element={<AdminLayout checkAdmin={checkAdmin} logout={logout} />}
+      >
         <Route index element={<AdminDashBoard />} />
         <Route path="/stock/list" element={<AdminStockList />} />
         <Route path="/stock/list/:stockIdParams" element={<AdminStockInfo />} />
@@ -35,8 +42,6 @@ const Admin = () => {
         <Route path="/bom/list/:bomIdParams" element={<AdminBomInfo />} />
         <Route path="/bom" element={<AdminBomRegist />} />
         <Route path="/storage/list" element={<AdminStorageList />} />
-        {/* <Route path="/storage/list" element={<AdminStorageList/>}/> */}
-
         <Route
           path="/storage/list/:storageIdParams"
           element={<AdminStorageInfo />}

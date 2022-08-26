@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import StaffOrderInfoPresenter from './StaffOrderInfoPresenter';
+import StaffOrderInfoPresenter from 'Routes/pages/Staff/pages/StaffOrder/StaffOrderInfo/StaffOrderInfoPresenter';
 import { useDispatch, useSelector } from 'react-redux';
-import * as api from '../../../../../../Apis/index';
+import * as api from 'Apis/index';
 import { Link, useParams } from 'react-router-dom';
 import moment from 'moment';
 import reduxSaga from 'redux-saga';

@@ -1,24 +1,27 @@
-import React, { useCallback } from 'react';
-import AdminStorageRegistPresenter from './AdminStorageRegistPresenter';
-import { useDispatch, useSelector } from 'react-redux';
-import * as api from '../../../../../../Apis/index';
+import React, { useState, useCallback } from 'react';
+import AdminStorageRegistPresenter from 'Routes/pages/Admin/pages/AdminStorage/AdminStorageRegist/AdminStorageRegistPresenter';
+import { useDispatch } from 'react-redux';
+import { registerStorage } from 'store/modules/storage/storageActions';
+import { message } from 'antd';
 
 function AdminStorageRegistContainer() {
-  const storage = useSelector((state) => state.storage.storage);
-  const dispatch = useDispatch();
-
-  const onChange = useCallback((value) => {
-    dispatch({ type: 'POST_STORAGE', payload: value });
+  const [storage, setStorage] = useState({
+    storageAddress: '',
+    storageCategory: '',
+    storageDescription: '',
   });
-
+  const dispatch = useDispatch();
   const registStorage = (e) => {
-    e.preventDefault();
-    api.registerStorage(storage);
+    if (storage) {
+      dispatch(registerStorage(storage));
+    } else {
+      message.error('필수값을 입력하세요');
+    }
   };
 
   const onChangeInputHandler = useCallback((name, e) => {
     const value = e.target.value;
-    onChange({
+    setStorage({
       ...storage,
       [name]: value,
     });

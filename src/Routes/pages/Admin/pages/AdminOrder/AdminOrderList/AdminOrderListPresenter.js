@@ -3,7 +3,7 @@ import { Table, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import { v4 } from 'uuid';
 
-function AdminOrderListPresenter({ orderList }) {
+function AdminOrderListPresenter({ orderList, onDeleteHandler }) {
   const columns = [
     {
       title: '주문 코드',
@@ -40,16 +40,20 @@ function AdminOrderListPresenter({ orderList }) {
     },
     {
       title: '삭제',
-      dataIndex: 'deleteButton',
+      dataIndex: 'orderId',
+      key: 'orderId',
       align: 'center',
-      render: () => (
-        <Button
-          type="primary"
-          size="middle"
-          style={{ backgroundColor: '#D61C4E', border: '#D61C4E' }}
-        >
-          삭제
-        </Button>
+      render: (id, index) => (
+        <Link to="admin/order/list">
+          <Button
+            type="primary"
+            size="middle"
+            style={{ backgroundColor: '#D61C4E', border: '#D61C4E' }}
+            onClick={() => onDeleteHandler(`${index.orderId}`)}
+          >
+            삭제
+          </Button>
+        </Link>
       ),
     },
   ];

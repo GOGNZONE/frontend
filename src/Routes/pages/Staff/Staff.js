@@ -1,44 +1,75 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { StaffLayout } from '../../../Components';
+import { StaffLayout } from 'Components';
+import { StaffDashBoard } from 'Routes/pages/Staff/pages';
 import {
-  StaffClienList,
-  StaffDashBoard,
-  StaffOrder,
-  StaffProduction,
-  StaffRelease,
-} from './pages';
-import { StaffOrderInfo, StaffOrderList } from './pages/StaffOrder';
-import { StaffBomList, StaffBomRegist, StaffBomInfo } from './pages/StaffBom';
+  StaffOrderInfo,
+  StaffOrderList,
+} from 'Routes/pages/Staff/pages/StaffOrder';
+import {
+  StaffBomList,
+  StaffBomRegist,
+  StaffBomInfo,
+} from 'Routes/pages/Staff/pages/StaffBom';
 import {
   StaffStorageInfo,
   StaffStorageList,
   StaffStorageRegist,
-} from './pages/StaffStorage';
+} from 'Routes/pages/Staff/pages/StaffStorage';
 import {
   StaffStockInfo,
   StaffStockRegist,
   StaffStockList,
-} from './pages/StaffStock';
+} from 'Routes/pages/Staff/pages/StaffStock';
+import {
+  StaffProductionList,
+  StaffProductionRegistration,
+  StaffProductionDetails,
+} from 'Routes/pages/Staff/pages/StaffProduction';
+import {
+  StaffReleaseList,
+  StaffReleaseDetails,
+} from 'Routes/pages/Staff/pages/StaffRelease';
 
-const Staff = () => {
+const Staff = ({ checkAdmin, logout }) => {
   return (
     <Routes>
-      <Route path="/" element={<StaffLayout />}>
+      <Route
+        path="/"
+        element={<StaffLayout checkAdmin={checkAdmin} logout={logout} />}
+      >
         <Route index element={<StaffDashBoard />} />
-        <Route path="/client" element={<StaffClienList />} />
-        <Route path="/production/list" element={<StaffProduction />} />
+
+        {/* production */}
+        <Route path="/production" element={<StaffProductionRegistration />} />
+        <Route path="/production/list" element={<StaffProductionList />} />
+        <Route
+          path="/production/:productionIdParams"
+          element={<StaffProductionDetails />}
+        />
+
+        {/* release */}
+        {/* <Route path="/release/list" element={<StaffReleaseList />} />
+        <Route
+          path="/release/:releaseIdParams"
+          element={<StaffReleaseDetails />}
+        /> */}
+        {/* stock */}
         <Route path="/stock/list" element={<StaffStockList />} />
         <Route path="/stock/list/:stockIdParams" element={<StaffStockInfo />} />
         <Route path="/stock" element={<StaffStockRegist />} />
-        <Route path="/release/list" element={<StaffRelease />} />
+
+        {/* order */}
         <Route path="/order/list" element={<StaffOrderList />} />
         <Route path="/order/list/:orderIdParams" element={<StaffOrderInfo />} />
-        <Route path="/order/info" element={<StaffOrderInfo />} />
+
+        {/* bom */}
         <Route path="/bom" element={<StaffBomRegist />} />
         <Route path="/bom/list" element={<StaffBomList />} />
         <Route path="/bom/list/:bomIdParams" element={<StaffBomInfo />} />
         <Route path="/bom" element={<StaffBomRegist />} />
+
+        {/* storage */}
         <Route path="/storage/list" element={<StaffStorageList />} />
         <Route
           path="/storage/list/:storageIdParams"

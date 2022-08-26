@@ -1,22 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import AdminStockListPresenter from './AdminStockListPresenter';
+import AdminStockListPresenter from 'Routes/pages/Admin/pages/AdminStock/AdminStockList/AdminStockListPresenter';
 import { useDispatch, useSelector } from 'react-redux';
-import * as api from '../../../../../../Apis/index';
+import { getStockList, deleteStock } from 'store/modules/stock/stockActions';
 
 function AdminStockListContainer() {
-  const stockList = useSelector((state) => state.stock.stockList.data);
+  const { data, loading, error } = useSelector(
+    (state) => state.stock.stockList,
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    stockListApi();
-  }, []);
+    dispatch(getStockList());
+  }, [dispatch]);
 
-  const stockListApi = async () => {
-    const list = await api.getStockList();
-    dispatch({ type: 'GET_STOCK_LIST', payload: list });
+  const onDeleteHandler = (stockId) => {
+    dispatch(deleteStock(stockId));
+    window.location.reload();
   };
 
-  return <AdminStockListPresenter stockList={stockList} />;
+  return (
+    <AdminStockListPresenter
+      onDeleteHandler={onDeleteHandler}
+      stockList={data}
+    />
+  );
 }
 
 export default AdminStockListContainer;

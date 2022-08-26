@@ -1,1 +1,1 @@
-export { default as StaffBomRegist } from './StaffBomRegistContainer';
+export { default as StaffBomRegist } from 'Routes/pages/Staff/pages/StaffBom/StaffBomRegist/StaffBomRegistContainer';

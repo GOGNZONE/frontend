@@ -58,18 +58,20 @@ function AdminStorageRegistPresenter({
       </Form>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            style={{
-              margin: 5,
-              backgroundColor: '#FEB139',
-              border: '#FEB139',
-            }}
-            onClick={registStorage}
-          >
-            등록
-          </Button>
+          <Link to="/admin/storage/list">
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{
+                margin: 5,
+                backgroundColor: '#FEB139',
+                border: '#FEB139',
+              }}
+              onClick={registStorage}
+            >
+              등록
+            </Button>
+          </Link>
         </Form.Item>
 
         <Link to="/admin/storage/list">

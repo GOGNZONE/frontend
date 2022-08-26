@@ -1,8 +1,14 @@
 import React from 'react';
-import { Form, Upload, Button, Input, Typography } from 'antd';
+import { DatePicker, Form, Upload, Button, Input, Typography } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-function AdminOrderRegistPresenter() {
+import moment from 'moment';
+function AdminOrderRegistPresenter({
+  order,
+  registOrder,
+  onChangeInputHandler,
+  clientInputHandler,
+}) {
   return (
     <div>
       <Form
@@ -14,8 +20,6 @@ function AdminOrderRegistPresenter() {
         }}
         layout="horizontal"
         size="large"
-        // onValuesChange={onFormLayoutChange}
-        // disabled={componentDisabled}
       >
         <Typography.Title level={3} style={{ margin: 5 }}>
           발주 등록
@@ -32,7 +36,10 @@ function AdminOrderRegistPresenter() {
           required
           tooltip="필수 입력 필드입니다."
         >
-          <Input name="orderProductionName" placeholder="주문 상품명" />
+          <Input
+            onChange={(e) => onChangeInputHandler('stockName', e)}
+            placeholder="주문 상품명"
+          />
         </Form.Item>
         <Form.Item
           label="주문 상품 브랜드명"
@@ -46,7 +53,7 @@ function AdminOrderRegistPresenter() {
           tooltip="필수 입력 필드입니다."
         >
           <Input
-            name="orderProductionBrandName"
+            onChange={(e) => onChangeInputHandler('stockName', e)}
             placeholder="주문 상품 브랜드명"
           />
         </Form.Item>
@@ -61,7 +68,10 @@ function AdminOrderRegistPresenter() {
           required
           tooltip="필수 입력 필드입니다."
         >
-          <Input name="orderProductionPrice" placeholder="주문 상품 가격" />
+          <Input
+            onChange={(e) => onChangeInputHandler('stockName', e)}
+            placeholder="주문 상품 가격"
+          />
         </Form.Item>
         <Form.Item
           label="주문 수량"
@@ -74,7 +84,10 @@ function AdminOrderRegistPresenter() {
           required
           tooltip="필수 입력 필드입니다."
         >
-          <Input name="orderProductionQuantity" placeholder="주문 수량" />
+          <Input
+            onChange={(e) => onChangeInputHandler('stockName', e)}
+            placeholder="주문 수량"
+          />
         </Form.Item>
 
         <Form.Item
@@ -88,25 +101,39 @@ function AdminOrderRegistPresenter() {
           required
           tooltip="필수 입력 필드입니다."
         >
-          <Input name="orderProductionStandard" placeholder="주문 규격" />
+          <Input
+            onChange={(e) => onChangeInputHandler('stockName', e)}
+            placeholder="주문 규격"
+          />
         </Form.Item>
         <Form.Item label="비고">
-          <Input name="orderProductionDescription" placeholder="비고" />
+          <Input
+            onChange={(e) => onChangeInputHandler('stockName', e)}
+            placeholder="비고"
+          />
         </Form.Item>
         <Form.Item
           label="주문 마감 일자"
           rules={[
             {
               required: true,
-              message: '입력해주세요',
+              message: '입고일자를 입력해주세요!',
             },
           ]}
           required
-          tooltip="필수 입력 필드입니다."
+          tooltip="필수 입력 필드입니다"
         >
-          <Input name="orderProductionEndDate" placeholder="주문 마감 일자" />
+          <DatePicker
+            placeholder="주문 마감 일자"
+            value={
+              order.orderProductionEndDate
+                ? moment(order.orderProductionEndDate)
+                : undefined
+            }
+            // onChange={datePickerOnChangeHandler('orderProductionEndDate')}
+          />
         </Form.Item>
-        <Form.Item
+        {/* <Form.Item
           label="주문일"
           rules={[
             {
@@ -118,7 +145,7 @@ function AdminOrderRegistPresenter() {
           tooltip="필수 입력 필드입니다."
         >
           <Input name="orderDate" placeholder="주문일" />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item
           label="거래처"
           rules={[
@@ -161,6 +188,7 @@ function AdminOrderRegistPresenter() {
               backgroundColor: '#293462',
               border: '#293462',
             }}
+            onClick={registOrder}
           >
             목록
           </Button>

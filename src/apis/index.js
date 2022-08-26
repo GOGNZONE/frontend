@@ -91,16 +91,16 @@ export const getProductionList = () => {
   return instance.get(`/production/list`);
 };
 
-export const getProductionInfo = (production_id) => {
-  return instance.get(`/production/${production_id}`);
+export const getProductionInfo = (productionId) => {
+  return instance.get(`/production/${productionId}`);
 };
 
 export const registerProduction = (inData) => {
   return instance.post(`/production`, inData);
 };
 
-export const updateProduction = (production_id, inData) => {
-  return instance.put(`/production/${production_id}`, inData);
+export const updateProduction = (productionId, inData) => {
+  return instance.put(`/production/${productionId}`, inData);
 };
 
 export const deleteProduction = (production_id) => {
@@ -148,8 +148,8 @@ export const updateStorage = (storage_id, inData) => {
   return instance.get(`/storage/${storage_id}`, inData);
 };
 
-export const deleteStorage = (BOM_id) => {
-  return instance.delete(`/BOM/${BOM_id}`);
+export const deleteStorage = (storage_id) => {
+  return instance.delete(`/storage/${storage_id}`);
 };
 
 /** BOM */
@@ -182,8 +182,8 @@ export const getOrderInfo = (order_id) => {
   return instance.get(`/order/${order_id}`);
 };
 
-export const registerOrder = (instance_id, inData) => {
-  return instance.post(`/order/${instance_id}`, inData);
+export const registerOrder = (inData) => {
+  return instance.post(`/order/`, inData);
 };
 
 export const updateOrder = (order_id, inData) => {

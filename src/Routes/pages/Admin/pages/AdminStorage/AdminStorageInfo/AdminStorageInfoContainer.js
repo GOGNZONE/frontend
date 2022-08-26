@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import AdminStorageInfoPresenter from './AdminStorageInfoPresenter';
-
+import AdminStorageInfoPresenter from 'Routes/pages/Admin/pages/AdminStorage/AdminStorageInfo/AdminStorageInfoPresenter';
+import { getStorage, putStorage } from 'store/modules/storage/storageActions';
+import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 
 function AdminStorageInfoContainer() {
@@ -9,10 +10,18 @@ function AdminStorageInfoContainer() {
   const [storage, setStorage] = useState([]);
   const [componentDisabled, setComponentDisabled] = useState(true);
   const [updateButton, setUpdateButton] = useState(true);
+  const { data, loading, error } = useSelector(
+    (state) => state.storage.storage,
+  );
+  console.log(data);
+  const dispatch = useDispatch();
 
   const onFormLayoutChange = ({ disabled }) => {
     setComponentDisabled(disabled);
   };
+  useEffect(() => {
+    dispatch(getStorage(storageIdParams));
+  }, [storageIdParams, dispatch]);
 
   const onButtonNameChange = () => {
     setUpdateButton(!updateButton);
@@ -33,24 +42,21 @@ function AdminStorageInfoContainer() {
       value = e.target.value;
       name = e.target.name;
     }
-
-    setStorage({
-      ...storage,
-      [name]: value,
-    });
   };
-  return (
-    <AdminStorageInfoPresenter
-      storage={storage}
-      componentDisabled={componentDisabled}
-      setComponentDisabled={setComponentDisabled}
-      onFormLayoutChange={onFormLayoutChange}
-      storageIdParams={storageIdParams}
-      onChange={onChange}
-      updateButton={updateButton}
-      onButtonNameChange={onButtonNameChange}
-    />
-  );
+  return;
+  <div></div>;
+  // return (
+  //   <AdminStorageInfoPresenter
+  //     storage={data}
+  //     componentDisabled={componentDisabled}
+  //     setComponentDisabled={setComponentDisabled}
+  //     onFormLayoutChange={onFormLayoutChange}
+  //     storageIdParams={storageIdParams}
+  //     onChange={onChange}
+  //     updateButton={updateButton}
+  //     onButtonNameChange={onButtonNameChange}
+  //   />
+  // );
 }
 
 export default AdminStorageInfoContainer;

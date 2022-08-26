@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
-import AdminBomRegistPresenter from './AdminBomRegistPresenter';
+import AdminBomRegistPresenter from 'Routes/pages/Admin/pages/AdminBom/AdminBomRegist/AdminBomRegistPresenter';
 import { useDispatch, useSelector } from 'react-redux';
-import * as api from '../../../../../../Apis/index';
+import * as api from 'Apis/index';
 
 const AdminBomRegistContainer = () => {
   const bom = useSelector((state) => state.bom.bom);

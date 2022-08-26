@@ -1,3 +1,1 @@
-import StaffDashBoard from './StaffDashBoard';
-
-export default StaffDashBoard;
+export { default as StaffDashBoard } from 'Routes/pages/Staff/pages/StaffDashBoard/DashBoardContainer';

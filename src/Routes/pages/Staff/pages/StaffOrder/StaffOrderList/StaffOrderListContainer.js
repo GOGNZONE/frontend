@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import StaffOrderListPresenter from './StaffOrderListPresenter';
+import StaffOrderListPresenter from 'Routes/pages/Staff/pages/StaffOrder/StaffOrderList/StaffOrderListPresenter';
 import { useDispatch, useSelector } from 'react-redux';
-import * as api from '../../../../../../Apis/index';
+import * as api from 'Apis/index';
 
 function StaffOrderListContainer() {
   const orderList = useSelector((state) => state.order.orderList.data);

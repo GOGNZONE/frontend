@@ -1,21 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import AdminStorageListPresenter from './AdminStorageListPresenter';
+import AdminStorageListPresenter from 'Routes/pages/Admin/pages/AdminStorage/AdminStorageList/AdminStorageListPresenter';
 import { useDispatch, useSelector } from 'react-redux';
-import * as api from '../../../../../../Apis/index';
+import {
+  getStorageList,
+  deleteStorage,
+} from 'store/modules/storage/storageActions';
 
 function AdminStorageListContainer() {
-  const storageList = useSelector((state) => state.storage.storageList.data);
+  const { data, loading, error } = useSelector(
+    (state) => state.storage.storageList,
+  );
+
   const dispatch = useDispatch();
-
   useEffect(() => {
-    storageListApi();
-  }, []);
+    dispatch(getStorageList());
+  }, [dispatch]);
 
-  const storageListApi = async () => {
-    const list = await api.getStorageList();
-    dispatch({ type: 'GET_STOR_LIST', payload: list });
+  const onDeleteHandler = (storageId) => {
+    dispatch(deleteStorage(storageId));
+    window.location.reload();
   };
-  return <AdminStorageListPresenter storageList={storageList} />;
+
+  return (
+    <AdminStorageListPresenter
+      storageList={data}
+      loading={loading}
+      error={error}
+      onDeleteHandler={onDeleteHandler}
+    />
+  );
 }
 
 export default AdminStorageListContainer;
