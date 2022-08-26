@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getClientList } from '../../../../../modules/client';
+import { getClientList } from 'store/modules/client';
 
 const StaffClienList = () => {
   const { data, loading, error } = useSelector(
