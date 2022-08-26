@@ -1,9 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import ProductionRegistrationPresenter from './ProductionRegistrationPresenter';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { postProduction } from 'store/modules/production/productionActions';
 import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
+import { getClientList } from 'store/modules/client';
 
 const ProductionRegistrationContainer = () => {
   /***** state *****/
@@ -18,14 +19,18 @@ const ProductionRegistrationContainer = () => {
     productionReleasedDate: '',
     productionDate: '',
     productionFile: '',
+    client: { clientId: '' },
   });
+  const { data, loading, error } = useSelector(
+    (state) => state.client.clientList,
+  );
   const dispatch = useDispatch();
   /***** navigate *****/
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   dispatch(getClients());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(getClientList());
+  }, [dispatch]);
 
   const onChangeHandler = (value) => {
     setProductionValue(value);
@@ -51,6 +56,8 @@ const ProductionRegistrationContainer = () => {
       productionValue={productionValue}
       onChangeHandler={onChangeHandler}
       onClickHandler={onClickHandler}
+      clientData={data}
+      loading={loading}
     />
   );
 };
