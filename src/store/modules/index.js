@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
 
-// import productionReducer from './production';
+/** Reducer */
 import auth from './auth';
-import { employeeReducer } from './employee/employeeReducers';
 import { productionReducer } from './production/productionReducers';
 // import releaseReducer from './release';
 import { storageReducer } from './storage/storageReducers';
 import { stockReducer } from './stock/stockReducers';
 import { orderReducer } from './order/orderReducers';
 import { bomReducer } from './bom/bomReducers';
+import { employeeReducer } from './employee/employeeReducers';
 
 const reducer = combineReducers({
   employee: employeeReducer,

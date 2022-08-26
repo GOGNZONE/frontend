@@ -24,7 +24,8 @@ export {
   StaffProductionDetails,
 } from './StaffProduction';
 
-export {
-  StaffReleaseList,
-  StaffReleaseDetails,
-} from 'Routes/pages/Staff/pages/StaffRelease';
+export { default as StaffStock } from './StaffStock';
+export { StaffReleaseList, StaffReleaseDetails } from './StaffRelease';
+export { default as StaffOrder } from './StaffOrder';
+export { StaffBomRegist, StaffBomList } from './StaffBom';
+export { default as StaffMypage } from './StaffMypage';

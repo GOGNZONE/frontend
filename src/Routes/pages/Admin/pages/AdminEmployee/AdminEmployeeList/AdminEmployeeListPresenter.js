@@ -9,6 +9,7 @@ const AdminEmployeeListPresenter = ({
   error,
   onDeleteHandler,
 }) => {
+  if (loading) return <Spin spinning={loading} size="large" />;
   if (error)
     return Swal.fire({
       position: 'center',
@@ -20,7 +21,6 @@ const AdminEmployeeListPresenter = ({
   if (!employeeList) return null;
   return (
     <>
-      <Spin spinning={loading} size="large" />
       <ul>
         {employeeList.map((employee) => (
           <li key={employee.employeeId}>

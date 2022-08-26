@@ -47,10 +47,7 @@ const RootRoute = () => {
   return (
     <Routes>
       <Route path="/" element={<SignIn />} />
-      <Route
-        path="/staff/*"
-        element={<Staff checkAdmin={checkAdmin} logout={logout} />}
-      />
+      <Route path="/staff/*" element={<Staff logout={logout} />} />
       <Route
         path="/admin/*"
         element={<Admin checkAdmin={checkAdmin} logout={logout} />}

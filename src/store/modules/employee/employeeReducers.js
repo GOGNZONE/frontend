@@ -4,6 +4,7 @@ import * as types from './employeeActions';
 const initialState = {
   employeeList: reducerUtils.initial(),
   employee: reducerUtils.initial(),
+  mypage: reducerUtils.initial(),
 };
 
 export const employeeReducer = (state = initialState, action) => {
@@ -25,6 +26,11 @@ export const employeeReducer = (state = initialState, action) => {
         'employee',
       );
       return employeeReducer(state, action);
+    case types.MYPAGE:
+    case types.MYPAGE_SUCCESS:
+    case types.MYPAGE_ERROR:
+      const mypageReducer = handleAsyncActions(types.MYPAGE, 'mypage');
+      return mypageReducer(state, action);
     default:
       return state;
   }

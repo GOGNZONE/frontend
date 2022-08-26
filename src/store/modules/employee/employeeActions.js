@@ -1,5 +1,5 @@
 import * as api from 'apis';
-import { createPromiseThunk, createPromiseThunkPut } from 'lib/asyncUtils';
+import { createPromiseThunk } from 'lib/asyncUtils';
 
 export const GET_EMPLOYEE_LIST = 'GET_EMPLOYEE_LIST';
 export const GET_EMPLOYEE_LIST_SUCCESS = 'GET_EMPLOYEE_LIST_SUCCESS';
@@ -20,10 +20,6 @@ export const REGISTER_EMPLOYEE_ERROR = 'REGISTER_EMPLOYEE_ERROR';
 export const SET_PASSWORD_EMPLOYEE = 'SET_PASSWORD_EMPLOYEE';
 export const SET_PASSWORD_EMPLOYEE_SUCCESS = 'SET_PASSWORD_EMPLOYEE_SUCCESS';
 export const SET_PASSWORD_EMPLOYEE_ERROR = 'SET_PASSWORD_EMPLOYEE_ERROR';
-
-export const PUT_EMPLOYEE = 'PUT_EMPLOYEE';
-export const PUT_EMPLOYEE_SUCCESS = 'PUT_EMPLOYEE_SUCCESS';
-export const PUT_EMPLOYEE_ERROR = 'PUT_EMPLOYEE_ERROR';
 
 export const DELETE_EMPLOYEE = 'DELETE_EMPLOYEE';
 export const DELETE_EMPLOYEE_SUCCESS = 'DELETE_EMPLOYEE_SUCCESS';
@@ -46,12 +42,10 @@ export const registerEmployee = createPromiseThunk(
   api.registerEmployee,
 );
 
-export const setEmployeePassword = createPromiseThunk(
+export const updateProfile = createPromiseThunk(
   SET_PASSWORD_EMPLOYEE,
-  api.updatePassword,
+  api.updateMyProfile,
 );
-
-export const putEmployee = createPromiseThunk(PUT_EMPLOYEE, api.updateEmployee);
 
 export const deleteEmployee = createPromiseThunk(
   DELETE_EMPLOYEE,
