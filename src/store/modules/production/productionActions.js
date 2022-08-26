@@ -1,5 +1,5 @@
 import * as api from 'Apis/index';
-import { createPromiseThunk, createPromiseThunkPut } from 'lib/asyncUtils';
+import { createPromiseThunk } from 'lib/asyncUtils';
 
 export const GET_PRODUCTIONS = 'GET_PRODUCTIONS';
 export const GET_PRODUCTIONS_SUCCESS = 'GET_PRODUCTIONS_SUCCESS';
@@ -32,7 +32,7 @@ export const postProduction = createPromiseThunk(
   api.registerProduction,
 );
 
-export const putProduction = createPromiseThunkPut(
+export const putProduction = createPromiseThunk(
   PUT_PRODUCTION,
   api.updateProduction,
 );

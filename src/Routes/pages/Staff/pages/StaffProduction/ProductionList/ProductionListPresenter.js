@@ -123,7 +123,7 @@ const ProductionListPresenter = ({
       dataIndex: 'productionId',
       width: 180,
       ...getColumnSearchProps('productionId'),
-      sorter: (a, b) => a.productionQuantity - b.productionQuantity,
+      sorter: (a, b) => a.productionId - b.productionId,
     },
     {
       title: '생산품목',
@@ -159,6 +159,7 @@ const ProductionListPresenter = ({
       dataIndex: 'productionDescription',
     },
   ];
+
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -192,7 +193,7 @@ const ProductionListPresenter = ({
           </Link>
         </div>
       </div>
-      <Spin spinning={loading && !dataSource}>
+      <Spin spinning={loading}>
         <Table
           rowKey="productionId"
           columns={columns}

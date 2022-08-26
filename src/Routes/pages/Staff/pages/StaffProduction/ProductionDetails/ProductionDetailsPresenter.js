@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   Typography,
   Form,
@@ -15,6 +15,7 @@ import {
 import { UploadOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import axios from 'axios';
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -46,6 +47,13 @@ const ProductionDetailsPresenter = ({
   productionValue,
   onChangeHandler,
 }) => {
+  // const [fileList, setFileList] = useState([
+  //   {
+  //     name: 'image1.png',
+  //     status: 'done',
+  //     url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+  //   },
+  // ]);
   const onChangeInputHandler = useCallback((name, e) => {
     const { value } = e.target;
     onChangeHandler({
@@ -61,32 +69,96 @@ const ProductionDetailsPresenter = ({
     });
   });
 
+  const token = localStorage.getItem('ACCESS_TOKEN');
+
   const props = {
-    name: 'file',
-    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+    action: '/api/file/upload',
     headers: {
-      authorization: 'authorization-text',
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'multipart/form-data',
     },
 
-    onChange(info) {
-      if (info.file.status === 'done') {
-        message.success(`${info.file.name}이 성공적으로 등록되었습니다.`);
-      } else if (info.file.status === 'error') {
-        message.error(`${info.file.name}이 업로드에 실패했습니다.`);
+    onStart(file) {
+      console.log('onStart', file, file.name);
+    },
+    onSuccess(response, file) {
+      console.log('onSuccess', response, file.name);
+    },
+    onError(error) {
+      console.log('onError', error);
+    },
+    onProgress({ percent }, file) {
+      console.log('onProgress', `${percent}%`, file.name);
+    },
+
+    customRequest({
+      action,
+      data,
+      file,
+      filename,
+      headers,
+      onError,
+      onProgress,
+      onSuccess,
+      withCredentials,
+    }) {
+      // eslint-disable-next-line no-undef
+      const formData = new FormData();
+      if (data) {
+        Object.keys(data).forEach((key) => {
+          formData.append(key, data[key]);
+        });
+      }
+      formData.append(filename, file);
+
+      axios
+        .post(action, formData, {
+          withCredentials,
+          headers,
+          onUploadProgress: ({ total, loaded }) => {
+            onProgress(
+              { percent: Math.round((loaded / total) * 100).toFixed(2) },
+              file,
+            );
+          },
+        })
+        .then(({ data: response }) => {
+          onSuccess(response, file);
+        })
+        .catch(onError);
+
+      return {
+        abort() {
+          console.log('upload progress is aborted.');
+        },
+      };
+    },
+
+    defaultFileList: [
+      {
+        name: `${data?.productionFile}`,
+      },
+    ],
+
+    // onChange({ file, fileList }) {
+    //   if (file.status !== 'uploading') {
+    //     console.log(file, fileList);
+    //   }
+    // }
+
+    onChange({ file, defaultFileList }) {
+      console.log(file.status);
+      if (file.status === 'done') {
+        message.success(`${file.name}이 성공적으로 등록되었습니다.`);
+      } else if (file.status === 'error') {
+        message.error(`${file.name}이 업로드에 실패했습니다.`);
       }
       onChangeHandler({
         ...productionValue,
-        productionFile: info.file.name,
+        productionFile: file.name,
       });
     },
   };
-
-  const file = [
-    {
-      uid: '-1',
-      name: `${data ? data.productionFile : ''}`,
-    },
-  ];
 
   return (
     <>
@@ -138,7 +210,7 @@ const ProductionDetailsPresenter = ({
                 <Input
                   name="productionBrandName"
                   placeholder="생산 제품 브랜드명"
-                  defaultValue={data ? data.productionBrandName.toString() : ''}
+                  defaultValue={data.productionBrandName}
                   onChange={(e) =>
                     onChangeInputHandler('productionBrandName', e)
                   }
@@ -165,7 +237,7 @@ const ProductionDetailsPresenter = ({
                     `\￦ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                   }
                   parser={(value) => value.replace(/\￦\s?|(,*)/g, '')}
-                  defaultValue={data ? data.productionPrice.toString() : ''}
+                  defaultValue={data.productionPrice}
                   onChange={(e) => {
                     onChangeInputHandler('productionPrice', {
                       target: { value: e },
@@ -195,9 +267,7 @@ const ProductionDetailsPresenter = ({
                       `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                     }
                     parser={(value) => value.replace(/\\s?|(,*)/g, '')}
-                    defaultValue={
-                      data ? data.productionQuantity.toString() : ''
-                    }
+                    defaultValue={data.productionQuantity}
                     onChange={(e) =>
                       onChangeInputHandler('productionQuantity', {
                         target: { value: e },
@@ -207,7 +277,7 @@ const ProductionDetailsPresenter = ({
                   <Input
                     name="productionUnit"
                     placeholder="ex. mm, cm, yd, ..."
-                    defaultValue={data ? data.productionUnit.toString() : ''}
+                    defaultValue={data.productionUnit}
                     onChange={(e) => onChangeInputHandler('productionUnit', e)}
                   />
                 </Space>
@@ -217,7 +287,7 @@ const ProductionDetailsPresenter = ({
                   name="productionStandard"
                   addonAfter={standardSelectAfter}
                   placeholder="생산 제품 규격"
-                  defaultValue={data ? data.productionStandard.toString() : ''}
+                  defaultValue={data.productionStandard}
                   onChange={(e) =>
                     onChangeInputHandler('productionStandard', e)
                   }
@@ -230,9 +300,7 @@ const ProductionDetailsPresenter = ({
                   maxLength={1000}
                   rows={5}
                   placeholder="생산 제품 비고"
-                  defaultValue={
-                    data ? data.productionDescription.toString() : ''
-                  }
+                  defaultValue={data.productionDescription}
                   onChange={(e) =>
                     onChangeInputHandler('productionDescription', e)
                   }
@@ -252,11 +320,9 @@ const ProductionDetailsPresenter = ({
                 <DatePicker
                   placeholder="제품 출고 일자"
                   defaultValue={
-                    data
-                      ? data.productionReleasedDate.toString()
-                        ? moment(data.productionReleasedDate)
-                        : undefined
-                      : ''
+                    data.productionReleasedDate
+                      ? moment(data.productionReleasedDate)
+                      : undefined
                   }
                   onChange={(e) =>
                     onChangeDatePickerHandler(
@@ -270,21 +336,28 @@ const ProductionDetailsPresenter = ({
                 <DatePicker
                   placeholder="제품 생성 일자"
                   defaultValue={
-                    data
-                      ? data.productionDate.toString()
-                        ? moment(data.productionDate)
-                        : undefined
-                      : ''
+                    data.productionDate
+                      ? moment(data.productionDate)
+                      : undefined
                   }
                   disabled={true}
                 />
+              </Form.Item>
+              <Form.Item
+                name="clientId"
+                label="거래처코드"
+                initialValue={
+                  data.client.clientName + '(' + data.client.clientId + ')'
+                }
+              >
+                <Select disabled={true}></Select>
               </Form.Item>
               <Form.Item
                 label="파일"
                 valuePropName="fileList"
                 getValueFromEvent={normFile}
               >
-                <Upload {...props} defaultFileList={[file]}>
+                <Upload {...props} maxCount={1}>
                   <Button icon={<UploadOutlined />}>업로드</Button>
                 </Upload>
               </Form.Item>

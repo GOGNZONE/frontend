@@ -109,8 +109,8 @@ export const registerProduction = (inData) => {
   return instance.post(`/production`, inData);
 };
 
-export const updateProduction = (productionId, inData) => {
-  return instance.put(`/production/${productionId}`, inData);
+export const updateProduction = (inData) => {
+  return instance.put(`/production/${inData.productionId}`, inData.inData);
 };
 
 export const deleteProduction = (production_id) => {
@@ -229,3 +229,8 @@ export const deleteRelease = (release_id) => {
 export const registerDelivery = (inData) => {
   return instance.post(`/delivery`, inData);
 };
+
+/** File */
+// export const uploadFile = (file) => {
+//   return axios.post('/file/upload', file);
+// };

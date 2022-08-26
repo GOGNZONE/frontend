@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import SignInPresenter from 'Routes/pages/SignIn/SignInPresenter';
+import SignInPresenter from './SignInPresenter';
 import api from 'Apis/apiController';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeField, changeFields } from 'store/modules/auth';

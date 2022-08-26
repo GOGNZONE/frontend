@@ -1,37 +1,42 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import ProductionRegistrationPresenter from 'Routes/pages/Staff/pages/StaffProduction/ProductionRegistration/ProductionRegistrationPresenter';
-import { useDispatch } from 'react-redux';
+import ProductionRegistrationPresenter from './ProductionRegistrationPresenter';
+import { useDispatch, useSelector } from 'react-redux';
 import { postProduction } from 'store/modules/production/productionActions';
 import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
+import { getClientList } from 'store/modules/client';
 
 const ProductionRegistrationContainer = () => {
   /***** state *****/
   const [productionValue, setProductionValue] = useState({
     productionName: '',
     productionBrandName: '',
-    productionPrice: '',
-    productionQuantity: '',
+    productionPrice: 0,
+    productionQuantity: 1,
     productionStandard: '',
     productionUnit: '',
     productionDescription: '',
     productionReleasedDate: '',
     productionDate: '',
     productionFile: '',
+    client: { clientId: '' },
   });
+  const { data, loading, error } = useSelector(
+    (state) => state.client.clientList,
+  );
   const dispatch = useDispatch();
   /***** navigate *****/
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   dispatch(getClients());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(getClientList());
+  }, [dispatch]);
 
   const onChangeHandler = (value) => {
     setProductionValue(value);
   };
 
-  const onClickHandler = useCallback(() => {
+  const onClickHandler = useCallback((e) => {
     if (
       productionValue.productionName === '' ||
       productionValue.productionPrice === '' ||
@@ -41,7 +46,7 @@ const ProductionRegistrationContainer = () => {
     ) {
       message.error('필수 입력값을 입력해 주세요.');
     } else {
-      console.log(dispatch(postProduction(productionValue)));
+      dispatch(postProduction(productionValue));
       navigate('list');
     }
   });
@@ -51,6 +56,8 @@ const ProductionRegistrationContainer = () => {
       productionValue={productionValue}
       onChangeHandler={onChangeHandler}
       onClickHandler={onClickHandler}
+      clientData={data}
+      loading={loading}
     />
   );
 };

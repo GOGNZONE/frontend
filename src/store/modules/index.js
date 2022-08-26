@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
 
-/** Reducer */
 import auth from './auth';
+import client from './client';
+import { employeeReducer } from './employee/employeeReducers';
+/** Reducer */
 import { productionReducer } from './production/productionReducers';
 // import releaseReducer from './release';
 import { storageReducer } from './storage/storageReducers';
@@ -18,6 +20,7 @@ const reducer = combineReducers({
   order: orderReducer,
   bom: bomReducer,
   auth,
+  client,
 });
 
 export default reducer;

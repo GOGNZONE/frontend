@@ -26,7 +26,7 @@ import {
   StaffProductionList,
   StaffProductionRegistration,
   StaffProductionDetails,
-} from 'Routes/pages/Staff/pages/StaffProduction';
+} from './pages/StaffProduction';
 import {
   StaffReleaseList,
   StaffReleaseDetails,

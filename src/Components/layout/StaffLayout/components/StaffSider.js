@@ -74,7 +74,12 @@ const items = [
 
 const StaffSider = ({ onCollapse, collapsed }) => {
   return (
-    <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
+    <Sider
+      width={250}
+      collapsible
+      collapsed={collapsed}
+      onCollapse={onCollapse}
+    >
       <div
         className="logo"
         style={{
