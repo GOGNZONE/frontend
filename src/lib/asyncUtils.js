@@ -38,6 +38,21 @@ export const createPromiseThunk = (type, promiseCreator) => {
   };
 };
 
+export const createPromiseThunkPut = (type, promiseCreator) => {
+  const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
+
+  return (param) => async (dispatch) => {
+    const { dataId, inData } = param;
+    dispatch({ type, param });
+    try {
+      const payload = await promiseCreator(dataId, inData);
+      dispatch({ type: SUCCESS, payload });
+    } catch (e) {
+      dispatch({ type: ERROR, payload: e.message, error: true });
+    }
+  };
+};
+
 export const handleAsyncActions = (type, key, keepData = false) => {
   const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
   return (state, action) => {
@@ -62,18 +77,3 @@ export const handleAsyncActions = (type, key, keepData = false) => {
     }
   };
 };
-
-// export const createPromiseThunkPut = (type, promiseCreator) => {
-//   const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
-
-//   return (param) => async (dispatch) => {
-//     const { productionId, inData } = param;
-//     dispatch({ type, param });
-//     try {
-//       const payload = await promiseCreator(productionId, inData);
-//       dispatch({ type: SUCCESS, payload });
-//     } catch (e) {
-//       dispatch({ type: ERROR, payload: e.message, error: true });
-//     }
-//   };
-// };
