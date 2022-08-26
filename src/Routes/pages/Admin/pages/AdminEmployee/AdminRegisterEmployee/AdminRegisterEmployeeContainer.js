@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { registerEmployee } from 'store/modules/employee/employeeActions';
 import AdminRegisterEmployeePresenter from './AdminRegisterEmployeePresenter';
 import { message } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const AdminRegisterEmployeeContainer = () => {
   const [employeeInfo, setEmployeeInfo] = useState({
@@ -17,6 +18,7 @@ const AdminRegisterEmployeeContainer = () => {
     employeeRole: '',
   });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onChangeHandler = (e) => {
     console.log(e);
@@ -30,6 +32,7 @@ const AdminRegisterEmployeeContainer = () => {
   const saveEmployee = () => {
     if (employeeInfo) {
       dispatch(registerEmployee(employeeInfo));
+      navigate('/admin/employee/list');
     } else {
       message.error('필수값을 입력하세요');
     }
