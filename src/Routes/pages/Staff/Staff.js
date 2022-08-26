@@ -4,6 +4,7 @@ import { StaffLayout } from '../../../Components';
 import {
   StaffClienList,
   StaffDashBoard,
+  StaffMypage,
   StaffOrder,
   StaffStock,
 } from './pages';
@@ -15,14 +16,12 @@ import {
 } from './pages/StaffProduction';
 import { StaffReleaseList, StaffReleaseDetails } from './pages/StaffRelease';
 
-const Staff = ({ checkAdmin, logout }) => {
+const Staff = ({ logout }) => {
   return (
     <Routes>
-      <Route
-        path="/"
-        element={<StaffLayout checkAdmin={checkAdmin} logout={logout} />}
-      >
-        <Route index element={<StaffDashBoard />} />
+      <Route path="/" element={<StaffLayout logout={logout} />}>
+        <Route index element={<StaffMypage />} />
+        <Route path="/dashboard" element={<StaffDashBoard />} />
         <Route path="/client" element={<StaffClienList />} />
 
         {/* production */}

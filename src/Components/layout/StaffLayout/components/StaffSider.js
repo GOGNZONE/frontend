@@ -27,6 +27,11 @@ function getItem(label, key, icon, children, type) {
 const items = [
   getItem(<Link to="/staff">마이페이지</Link>, '/staff', <UserOutlined />),
   getItem(
+    <Link to="/staff/dashboard">대시보드</Link>,
+    '/staff/dashboard',
+    <UserOutlined />,
+  ),
+  getItem(
     <Link to="/staff/client">거래처 관리</Link>,
     '/client',
     <TeamOutlined />,
