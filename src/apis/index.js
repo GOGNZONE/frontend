@@ -9,12 +9,12 @@ export const getEmployeeInfo = (employee_id) => {
   return instance.get(`employee/${employee_id}`);
 };
 
-export const updateEmployee = (inData) => {
-  return instance.put(
-    `employee/${inData.employee_id}`,
-    inData.updateEmployeeValue,
-  );
-};
+// export const updateEmployee = (inData) => {
+//   return instance.put(
+//     `employee/${inData.employee_id}`,
+//     inData.updateEmployeeValue,
+//   );
+// };
 
 export const deleteEmployee = (employee_id) => {
   return instance.delete(`employee/${employee_id}`);
@@ -24,8 +24,15 @@ export const myEmployeeInfo = () => {
   return instance.get(`employee/mypage`);
 };
 
-export const updatePassword = (inData) => {
-  return instance.put('employee/password', inData);
+export const updateMyProfile = (inData) => {
+  return instance.post('employee/edit', {
+    employeeEmail: inData.employeeEmail,
+    newPassword: inData.newPassword,
+    employeeName: inData.employeeName,
+    employeePhone: inData.employeePhone,
+    employeeAddress: inData.employeeAddress,
+    employeeImage: inData.employeeImage,
+  });
 };
 
 export const registerEmployee = (inData) => {
@@ -144,15 +151,15 @@ export const getStorageInfo = (storage_id) => {
 };
 
 export const registerStorage = (inData) => {
-  return instance.post(`/storage`);
+  return instance.post(`/storage`, inData);
 };
 
 export const updateStorage = (storage_id, inData) => {
   return instance.get(`/storage/${storage_id}`, inData);
 };
 
-export const deleteStorage = (BOM_id) => {
-  return instance.delete(`/BOM/${BOM_id}`);
+export const deleteStorage = (storage_id) => {
+  return instance.delete(`/storage/${storage_id}`);
 };
 
 /** BOM */
@@ -185,8 +192,8 @@ export const getOrderInfo = (order_id) => {
   return instance.get(`/order/${order_id}`);
 };
 
-export const registerOrder = (instance_id, inData) => {
-  return instance.post(`/order/${instance_id}`, inData);
+export const registerOrder = (inData) => {
+  return instance.post(`/order/`, inData);
 };
 
 export const updateOrder = (order_id, inData) => {

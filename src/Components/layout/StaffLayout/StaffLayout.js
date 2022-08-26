@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Layout } from 'antd';
 import { StaffHeader, StaffSider } from './components';
@@ -6,17 +6,12 @@ import '../layout.css';
 
 const { Content, Footer } = Layout;
 
-const StaffLayout = ({ checkAdmin, logout }) => {
+const StaffLayout = ({ logout }) => {
   const [collapsed, setCollapsed] = useState(false);
 
   const onCollapse = (val) => {
     setCollapsed(val);
   };
-
-  useEffect(() => {
-    checkAdmin();
-    // eslint-disable-next-line
-  }, []);
 
   return (
     <Layout className="site-layout-container" style={{ minHeight: '100vh' }}>
@@ -28,7 +23,7 @@ const StaffLayout = ({ checkAdmin, logout }) => {
             className="site-layout-background"
             style={{
               padding: 24,
-              minHeight: 360,
+              minHeight: 200,
             }}
           >
             <Outlet />
@@ -37,7 +32,6 @@ const StaffLayout = ({ checkAdmin, logout }) => {
         <Footer
           style={{
             textAlign: 'center',
-            position: '',
           }}
         >
           GONGZONE ©2022 Created by GONGZONE TEAM

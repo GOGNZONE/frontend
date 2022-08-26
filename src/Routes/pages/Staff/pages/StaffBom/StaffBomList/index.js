@@ -1,2 +1,1 @@
-import StaffBomList from './StaffBomList';
-export default StaffBomList;
+export { default as StaffBomList } from 'Routes/pages/Staff/pages/StaffBom/StaffBomList/StaffBomListContainer';

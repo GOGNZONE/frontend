@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { Admin, SignIn, Staff } from './pages';
+import { Admin, SignIn, Staff } from 'Routes/pages';
 
 /**
  * @title RootRoute
@@ -47,10 +47,7 @@ const RootRoute = () => {
   return (
     <Routes>
       <Route path="/" element={<SignIn />} />
-      <Route
-        path="/staff/*"
-        element={<Staff checkAdmin={checkAdmin} logout={logout} />}
-      />
+      <Route path="/staff/*" element={<Staff logout={logout} />} />
       <Route
         path="/admin/*"
         element={<Admin checkAdmin={checkAdmin} logout={logout} />}
