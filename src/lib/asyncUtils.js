@@ -63,75 +63,17 @@ export const handleAsyncActions = (type, key, keepData = false) => {
   };
 };
 
-// GET PRODUCTION
-// const defaultIdSelector = (param) => param;
-// export const createPromiseThunkById = (
-//   type,
-//   promiseCreator,
-//   idSelector = defaultIdSelector,
-// ) => {
+// export const createPromiseThunkPut = (type, promiseCreator) => {
 //   const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
 
 //   return (param) => async (dispatch) => {
-//     const id = idSelector(param);
-//     dispatch({ type, meta: id });
+//     const { productionId, inData } = param;
+//     dispatch({ type, param });
 //     try {
-//       const payload = await promiseCreator(param);
-//       dispatch({ type: SUCCESS, payload, meta: id });
+//       const payload = await promiseCreator(productionId, inData);
+//       dispatch({ type: SUCCESS, payload });
 //     } catch (e) {
-//       dispatch({ type: ERROR, error: true, payload: e.message, meta: id });
+//       dispatch({ type: ERROR, payload: e.message, error: true });
 //     }
 //   };
 // };
-
-// export const handleAsyncActionsById = (type, key, keepData = false) => {
-//   const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
-//   return (state, action) => {
-//     const id = action.meta;
-//     switch (action.type) {
-//       case type:
-//         return {
-//           ...state,
-//           [key]: {
-//             ...state[key],
-//             [id]: reducerUtils.loading(
-//               keepData ? state[key][id] && state[key][id].data : null,
-//             ),
-//           },
-//         };
-//       case SUCCESS:
-//         return {
-//           ...state,
-//           [key]: {
-//             ...state[key],
-//             [id]: reducerUtils.success(action.payload.data),
-//           },
-//         };
-//       case ERROR:
-//         return {
-//           ...state,
-//           [key]: {
-//             ...state[key],
-//             [id]: reducerUtils.error(action.payload),
-//           },
-//         };
-//       default:
-//         return state;
-//     }
-//   };
-// };
-
-export const createPromiseThunkPut = (type, promiseCreator) => {
-  const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
-
-  return (param) => async (dispatch) => {
-    const { productionId, inData } = param;
-    dispatch({ type, param });
-    try {
-      const payload = await promiseCreator(productionId, inData);
-      dispatch({ type: SUCCESS, payload });
-    } catch (e) {
-      dispatch({ type: ERROR, payload: e.message, error: true });
-    }
-  };
-};
