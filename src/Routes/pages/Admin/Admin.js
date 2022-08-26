@@ -22,6 +22,7 @@ import {
   AdminStockRegist,
   AdminStockList,
 } from 'Routes/pages/Admin/pages/AdminStock';
+
 const Admin = ({ checkAdmin, logout }) => {
   return (
     <Routes>
@@ -47,6 +48,7 @@ const Admin = ({ checkAdmin, logout }) => {
           element={<AdminStorageInfo />}
         />
         <Route path="/storage" element={<AdminStorageRegist />} />
+
       </Route>
     </Routes>
   );
