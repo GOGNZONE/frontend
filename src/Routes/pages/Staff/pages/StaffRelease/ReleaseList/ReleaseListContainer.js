@@ -36,31 +36,31 @@
 // import ReleaseListPresenter from './ReleaseListPresenter';
 
 // const ReleaseListContainer = () => {
-  //   const [releases, setReleases] = useState([]);
-  //   const [searchText, setSearchText] = useState('');
-  //   const [searchedColumn, setSearchedColumn] = useState('');
-  //   const searchInput = useRef(null);
+//   const [releases, setReleases] = useState([]);
+//   const [searchText, setSearchText] = useState('');
+//   const [searchedColumn, setSearchedColumn] = useState('');
+//   const searchInput = useRef(null);
 
-  //   useEffect(() => {
-  //     getReleaseListApi();
-  //   }, []);
+//   useEffect(() => {
+//     getReleaseListApi();
+//   }, []);
 
-  //   const getReleaseListApi = () => {
-  //     getReleaseList().then((response) => {
-  //       setReleases(response.data);
-  //     });
-  //   };
-  //   return (
-  //     <ReleaseListPresenter
-  //       dataSource={releases}
-  //       setSearchText={setSearchText}
-  //       setSearchedColumn={setSearchedColumn}
-  //       searchInput={searchInput}
-  //       searchedColumn={searchedColumn}
-  //       searchText={searchText}
-  //     />
-  //   );
-  // return <ReleaseListPresenter />;
-};
+//   const getReleaseListApi = () => {
+//     getReleaseList().then((response) => {
+//       setReleases(response.data);
+//     });
+//   };
+//   return (
+//     <ReleaseListPresenter
+//       dataSource={releases}
+//       setSearchText={setSearchText}
+//       setSearchedColumn={setSearchedColumn}
+//       searchInput={searchInput}
+//       searchedColumn={searchedColumn}
+//       searchText={searchText}
+//     />
+//   );
+// return <ReleaseListPresenter />;
+// };
 
 // export default ReleaseListContainer;
