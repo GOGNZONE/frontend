@@ -1,9 +1,9 @@
-import * as api from '../apis';
+import * as api from 'Apis/index';
 import {
   createPromiseThunk,
   reducerUtils,
   handleAsyncActions,
-} from '../lib/asyncUtils';
+} from 'lib/asyncUtils';
 
 const GET_CLIENT_LIST = 'GET_CLIENT_LIST';
 const GET_CLIENT_LIST_SUCCESS = 'GET_CLIENT_LIST_SUCCESS';
