@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import {
-  getEmployee,
-  putEmployee,
-} from 'store/modules/employee/employeeActions';
+import { getEmployee } from 'store/modules/employee/employeeActions';
 import AdminEmployeeDetailsPresenter from './AdminEmployeeDetailsPresenter';
 import AdminUpdateEmployee from './AdminUpdateEmployee';
 
@@ -23,7 +20,6 @@ const AdminEmployeeDetailsContainer = () => {
   );
 
   const onChangeHandler = (e) => {
-    console.log(e);
     const { name, value } = e.target;
     setUpdateEmployeeValue({
       ...updateEmployeeValue,
@@ -31,9 +27,9 @@ const AdminEmployeeDetailsContainer = () => {
     });
   };
 
-  const onUpdateHandler = () => {
-    dispatch(putEmployee({ employee_id: employeeId, updateEmployeeValue }));
-  };
+  // const onUpdateHandler = () => {
+  //   dispatch(putEmployee({ employee_id: employeeId, updateEmployeeValue }));
+  // };
 
   useEffect(() => {
     dispatch(getEmployee(employeeId));
@@ -49,7 +45,7 @@ const AdminEmployeeDetailsContainer = () => {
   ) : (
     <AdminUpdateEmployee
       setPage={setPage}
-      onUpdateHandler={onUpdateHandler}
+      // onUpdateHandler={onUpdateHandler}
       onChangeHandler={onChangeHandler}
     />
   );

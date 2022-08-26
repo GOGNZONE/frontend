@@ -1,10 +1,25 @@
 import React from 'react';
-import { Image, Descriptions, Col, Row } from 'antd';
+import { Image, Descriptions, Col, Row, Spin, Button } from 'antd';
 import Profile from 'assets/test.png';
+import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
-const StaffMypagePresenter = ({ mypage }) => {
+const StaffMypagePresenter = ({ mypage, loading, error, setPage }) => {
+  if (loading) return <Spin spinning={loading} size="large" />;
+  if (error)
+    return Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: 'error!',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  if (!mypage) return null;
   return (
     <>
+      <Button type="primary" onClick={() => setPage(false)}>
+        정보 수정
+      </Button>
       <Row align="middle" gutter={8}>
         <Col>
           <Image width={250} height={250} src={Profile} />

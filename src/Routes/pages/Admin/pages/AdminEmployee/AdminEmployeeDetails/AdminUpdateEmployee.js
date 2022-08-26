@@ -1,7 +1,6 @@
 import React from 'react';
 
-const AdminUpdateEmployee = ({ setPage, onUpdateHandler, onChangeHandler }) => {
-  console.log(onUpdateHandler);
+const AdminUpdateEmployee = ({ setPage, onChangeHandler }) => {
   console.log(onChangeHandler);
   return (
     <div>

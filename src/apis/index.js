@@ -9,12 +9,12 @@ export const getEmployeeInfo = (employee_id) => {
   return instance.get(`employee/${employee_id}`);
 };
 
-export const updateEmployee = (inData) => {
-  return instance.put(
-    `employee/${inData.employee_id}`,
-    inData.updateEmployeeValue,
-  );
-};
+// export const updateEmployee = (inData) => {
+//   return instance.put(
+//     `employee/${inData.employee_id}`,
+//     inData.updateEmployeeValue,
+//   );
+// };
 
 export const deleteEmployee = (employee_id) => {
   return instance.delete(`employee/${employee_id}`);
@@ -24,8 +24,15 @@ export const myEmployeeInfo = () => {
   return instance.get(`employee/mypage`);
 };
 
-export const updatePassword = (inData) => {
-  return instance.put('employee/password', inData);
+export const updateMyProfile = (inData) => {
+  return instance.post('employee/edit', {
+    employeeEmail: inData.employeeEmail,
+    newPassword: inData.newPassword,
+    employeeName: inData.employeeName,
+    employeePhone: inData.employeePhone,
+    employeeAddress: inData.employeeAddress,
+    employeeImage: inData.employeeImage,
+  });
 };
 
 export const registerEmployee = (inData) => {
