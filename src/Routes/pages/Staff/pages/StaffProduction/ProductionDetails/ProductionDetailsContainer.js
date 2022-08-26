@@ -41,6 +41,7 @@ const ProductionDetailsContainer = () => {
     if (updateButton) {
       setProductionValue(data);
     } else {
+      console.log('dispatch');
       dispatch(
         putProduction({
           productionId: productionIdParams,
