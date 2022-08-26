@@ -24,6 +24,7 @@ const RootRoute = () => {
       });
       localStorage.removeItem('AUTH');
       localStorage.removeItem('ACCESS_TOKEN');
+      localStorage.removeItem('EXPIRSE');
       setTimeout(() => {
         navigate('/');
       });

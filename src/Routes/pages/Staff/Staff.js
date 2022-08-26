@@ -1,7 +1,11 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { StaffLayout } from 'Components';
-import { StaffDashBoard, StaffMypage } from 'Routes/pages/Staff/pages';
+import {
+  StaffClient,
+  StaffDashBoard,
+  StaffMypage,
+} from 'Routes/pages/Staff/pages';
 import {
   StaffOrderInfo,
   StaffOrderList,
@@ -32,7 +36,7 @@ import {
   StaffReleaseDetails,
 } from 'Routes/pages/Staff/pages/StaffRelease';
 
-const Staff = ({ logout }) => {
+const Staff = ({ logout, checkAdmin }) => {
   return (
     <Routes>
       <Route
@@ -41,7 +45,7 @@ const Staff = ({ logout }) => {
       >
         <Route index element={<StaffMypage />} />
         <Route path="/dashboard" element={<StaffDashBoard />} />
-        <Route path="/client" element={<StaffClienList />} />
+        <Route path="/client" element={<StaffClient />} />
 
         {/* production */}
         <Route path="/production" element={<StaffProductionRegistration />} />

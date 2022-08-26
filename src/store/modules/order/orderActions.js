@@ -1,4 +1,4 @@
-import * as api from 'Apis';
+import * as api from 'apis';
 import { createPromiseThunk } from 'lib/asyncUtils';
 
 export const GET_ORDER_LIST = 'GET_ORDER_LIST';

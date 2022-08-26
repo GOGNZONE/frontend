@@ -1,1 +1,2 @@
-export { default as StaffBomInfo } from 'Routes/pages/Staff/pages/StaffBom/StaffBomInfo/StaffBomInfoContainer';
+import StaffBomInfoContainer from './StaffBomInfoContainer';
+export default StaffBomInfoContainer;

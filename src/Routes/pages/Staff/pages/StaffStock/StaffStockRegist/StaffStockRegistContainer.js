@@ -1,6 +1,5 @@
 import React from 'react';
-import StaffStockRegistPresenter from 'Routes/pages/Staff/pages/StaffStock/StaffStockRegist/StaffStockRegistPresenter';
-import * as api from 'Apis/index';
+import StaffStockRegistPresenter from './StaffStockRegistPresenter';
 function StaffStockRegistContainer() {
   return <StaffStockRegistPresenter />;
 }

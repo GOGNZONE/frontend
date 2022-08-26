@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import StaffBomListPresenter from 'Routes/pages/Staff/pages/StaffBom/StaffBomList/StaffBomListPresenter';
 import { useDispatch, useSelector } from 'react-redux';
-import * as api from 'Apis/index';
+import * as api from 'apis/index';
 
 function StaffBomListContainer() {
   const bomList = useSelector((state) => state.bom.bomList.data);

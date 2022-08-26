@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import StaffStorageInfoPresenter from 'Routes/pages/Staff/pages/StaffStock/StaffStockInfo/StaffStockInfoPresenter';
 import { useDispatch, useSelector } from 'react-redux';
-import * as api from 'Apis/index';
+import * as api from 'apis/index';
 import moment from 'moment';
 
 function StaffStorageInfoContainer() {

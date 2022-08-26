@@ -1,1 +1,2 @@
-export { default as StaffReleaseList } from 'Routes/pages/Staff/pages/StaffRelease/ReleaseList/ReleaseListContainer';
+import ReleaseListContainer from './ReleaseListContainer';
+export default ReleaseListContainer;

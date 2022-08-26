@@ -1,2 +1,2 @@
-export { StaffReleaseList } from 'Routes/pages/Staff/pages/StaffRelease/ReleaseList';
-export { StaffReleaseDetails } from 'Routes/pages/Staff/pages/StaffRelease/ReleaseDetails';
+export { default as ReleaseDetail } from './ReleaseDetails';
+export { default as ReleaseList } from './ReleaseList';

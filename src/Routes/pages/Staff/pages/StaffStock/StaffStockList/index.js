@@ -1,1 +1,2 @@
-export { default as StaffStockList } from 'Routes/pages/Staff/pages/StaffStock/StaffStockList/StaffStockListContainer';
+import StaffStockListContainer from './StaffStockListContainer';
+export default StaffStockListContainer;

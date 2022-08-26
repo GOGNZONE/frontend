@@ -96,4 +96,4 @@ const ReleaseDetailsContainer = () => {
   return <ReleaseDetailsPresenter />;
 };
 
-// export default ReleaseDetailsContainer;
+export default ReleaseDetailsContainer;

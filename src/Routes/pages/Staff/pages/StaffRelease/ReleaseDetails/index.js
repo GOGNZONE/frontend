@@ -1,1 +1,2 @@
-export { default as StaffReleaseDetails } from 'Routes/pages/Staff/pages/StaffRelease/ReleaseDetails/ReleaseDetailsContainer';
+import ReleaseDetailsContainer from './ReleaseDetailsContainer';
+export default ReleaseDetailsContainer;

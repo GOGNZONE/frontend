@@ -1,3 +1,3 @@
-export { StaffStockRegist } from 'Routes/pages/Staff/pages/StaffStock/StaffStockRegist';
-export { StaffStockInfo } from 'Routes/pages/Staff/pages/StaffStock/StaffStockInfo';
-export { StaffStockList } from 'Routes/pages/Staff/pages/StaffStock/StaffStockList';
+export { default as StaffStockInfo } from './StaffStockInfo';
+export { default as StaffStockList } from './StaffStockList';
+export { default as StaffStockRegist } from './StaffStockRegist';

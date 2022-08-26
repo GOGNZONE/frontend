@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import StaffBomInfoPresenter from 'Routes/pages/Staff/pages/StaffBom/StaffBomInfo/StaffBomInfoPresenter';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import * as api from 'Apis/index';
+import * as api from 'apis/index';
 import moment from 'moment';
 
 function StaffBomInfoContainer() {

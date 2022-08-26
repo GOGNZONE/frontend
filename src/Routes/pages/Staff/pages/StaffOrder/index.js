@@ -1,2 +1,2 @@
-export { StaffOrderInfo } from 'Routes/pages/Staff/pages/StaffOrder/StaffOrderInfo';
-export { StaffOrderList } from 'Routes/pages/Staff/pages/StaffOrder/StaffOrderList';
+export { default as StaffOrderInfo } from './StaffOrderInfo';
+export { default as StaffOrderList } from './StaffOrderList';
