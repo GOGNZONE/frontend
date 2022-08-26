@@ -9,8 +9,11 @@ export const getEmployeeInfo = (employee_id) => {
   return instance.get(`employee/${employee_id}`);
 };
 
-export const updateEmployee = (employee_id, inData) => {
-  return instance.put(`employee/${employee_id}`, inData);
+export const updateEmployee = (inData) => {
+  return instance.put(
+    `employee/${inData.employee_id}`,
+    inData.updateEmployeeValue,
+  );
 };
 
 export const deleteEmployee = (employee_id) => {
