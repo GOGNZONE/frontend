@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { Admin, SignIn, Staff } from './pages';
+import { Admin, SignIn, Staff } from 'Routes/pages';
 
 /**
  * @title RootRoute

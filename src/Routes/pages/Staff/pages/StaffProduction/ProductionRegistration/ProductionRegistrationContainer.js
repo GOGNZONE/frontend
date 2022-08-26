@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import ProductionRegistrationPresenter from './ProductionRegistrationPresenter';
+import ProductionRegistrationPresenter from 'Routes/pages/Staff/pages/StaffProduction/ProductionRegistration/ProductionRegistrationPresenter';
 import { useDispatch } from 'react-redux';
 import { postProduction } from 'store/modules/production/productionActions';
 import { useNavigate } from 'react-router-dom';

@@ -1,7 +1,6 @@
-import React from //  { useEffect, useState, useRef }
-'react';
+import React from 'react'; //  { useEffect, useState, useRef }
 // import { getReleaseList } from 'apis/releaseApi';
-import ReleaseListPresenter from './ReleaseListPresenter';
+import ReleaseListPresenter from 'Routes/pages/Staff/pages/StaffRelease/ReleaseList/ReleaseListPresenter';
 
 const ReleaseListContainer = () => {
   //   const [releases, setReleases] = useState([]);

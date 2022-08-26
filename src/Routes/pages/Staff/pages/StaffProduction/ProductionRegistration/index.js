@@ -1,2 +1,2 @@
-import ProductionRegistrationContainer from './ProductionRegistrationContainer';
+import ProductionRegistrationContainer from 'Routes/pages/Staff/pages/StaffProduction/ProductionRegistration/ProductionRegistrationContainer';
 export default ProductionRegistrationContainer;
