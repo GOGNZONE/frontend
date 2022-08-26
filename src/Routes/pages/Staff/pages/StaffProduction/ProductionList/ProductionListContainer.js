@@ -18,9 +18,9 @@ const ProductionListContainer = () => {
   // const location = useLocation();
 
   useEffect(() => {
-    if (data && !loading) {
-      window.location.reload();
-    }
+    // if (data && !loading) {
+    //   window.location.reload();
+    // }
     dispatch(getProductions());
   }, [dispatch]);
 
