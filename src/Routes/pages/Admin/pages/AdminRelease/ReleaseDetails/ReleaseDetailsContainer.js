@@ -1,47 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-// import { getRelease } from '../../../../../../apis/releaseApi';
 import ReleaseDetailsPresenter from './ReleaseDetailsPresenter';
+import { useDispatch, useSelector } from 'react-redux';
+import { getRelease } from 'store/modules/release/releaseActions';
+import ReleaseUpdatePresenter from './ReleaseUpdatePresenter';
 
 const ReleaseDetailsContainer = () => {
+  /***** release id params *****/
   const { releaseIdParams } = useParams();
-  const [release, setRelease] = useState({
-    releaseDate: '',
-    releaseDescription: '',
-    releaseQuantity: '',
-    releaseTotalPrice: '',
-    releaseType: '',
-    releaseClientDto: {
-      clientId: '',
-      clientName: '',
-      clientManager: '',
-      clientTel: '',
-      clientAddress: '',
-      employeeName: '',
-    },
-    releaseProductionDto: {
-      productionName: '',
-      productionBrandName: '',
-      productionPrice: '',
-    },
-    deliveryDto: {
-      deliveryId: '',
-      deliveryCompanyName: '',
-      deliveryTrackingNumber: '',
-    },
-  });
+  /***** redux(state) *****/
+  const { data, loading, error } = useSelector(
+    (state) => state.release.release,
+  );
+  const dispatch = useDispatch();
+  const [switchToEditPage, setSwitchToEditPage] = useState(true);
 
-  // useEffect(() => {
-  //   getReleaseApi(releaseIdParams);
-  // }, [releaseIdParams]);
+  useEffect(() => {
+    dispatch(getRelease(releaseIdParams));
+  }, [releaseIdParams, dispatch]);
 
-  // const getReleaseApi = (releaseIdParams) => {
-  //   getRelease(releaseIdParams).then((response) => {
-  //     setRelease(response.data);
-  //   });
-  // };
-
-  return <ReleaseDetailsPresenter release={release} />;
+  return switchToEditPage ? (
+    <ReleaseDetailsPresenter
+      data={data}
+      loading={loading}
+      setSwitchToEditPage={setSwitchToEditPage}
+    />
+  ) : (
+    <ReleaseUpdatePresenter
+      data={data}
+      loading={loading}
+      setSwitchToEditPage={setSwitchToEditPage}
+    />
+  );
 };
 
 export default ReleaseDetailsContainer;

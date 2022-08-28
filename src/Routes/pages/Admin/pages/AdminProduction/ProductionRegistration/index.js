@@ -1,1 +1,2 @@
-export { default as AdminProductionRegistration } from './ProductionRegistrationContainer';
+import ProductionRegistrationContainer from './ProductionRegistrationContainer';
+export default ProductionRegistrationContainer;

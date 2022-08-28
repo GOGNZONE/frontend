@@ -1,14 +1,15 @@
 import { combineReducers } from 'redux';
 
+/** Reducer */
 import auth from './auth';
 import client from './client';
-/** Reducer */
 import { employeeReducer } from './employee/employeeReducers';
 import { productionReducer } from './production/productionReducers';
 import { storageReducer } from './storage/storageReducers';
 import { stockReducer } from './stock/stockReducers';
 import { orderReducer } from './order/orderReducers';
 import { bomReducer } from './bom/bomReducers';
+import { releaseReducer } from './release/releaseReducers';
 
 const reducer = combineReducers({
   employee: employeeReducer,
@@ -17,6 +18,7 @@ const reducer = combineReducers({
   stock: stockReducer,
   order: orderReducer,
   bom: bomReducer,
+  release: releaseReducer,
   auth,
   client,
 });

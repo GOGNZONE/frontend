@@ -1,1 +1,2 @@
-export { default as AdminReleaseList } from './ReleaseListContainer';
+import ReleaseListContainer from './ReleaseListContainer';
+export default ReleaseListContainer;

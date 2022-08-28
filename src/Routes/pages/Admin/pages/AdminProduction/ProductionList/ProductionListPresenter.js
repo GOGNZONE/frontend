@@ -1,7 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SearchOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { Button, Table, Typography, BackTop, Input, Space, Modal } from 'antd';
+import {
+  Button,
+  Table,
+  Typography,
+  BackTop,
+  Input,
+  Space,
+  Modal,
+  Spin,
+} from 'antd';
 
 import Highlighter from 'react-highlight-words';
 
@@ -32,6 +41,7 @@ const ProductionListPresenter = ({
   searchInput,
   searchedColumn,
   searchText,
+  loading,
 }) => {
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -140,11 +150,14 @@ const ProductionListPresenter = ({
     {
       title: '생산코드',
       dataIndex: 'productionId',
+      width: 130,
       ...getColumnSearchProps('productionId'),
+      sorter: (a, b) => a.productionId - b.productionId,
     },
     {
       title: '생산품목',
       dataIndex: 'productionName',
+      width: 130,
       ...getColumnSearchProps('productionName'),
       render: (name, record) => (
         <Link to={`/admin/production/${record.productionId}`}>{name}</Link>
@@ -153,17 +166,20 @@ const ProductionListPresenter = ({
     {
       title: '브랜드',
       dataIndex: 'productionBrandName',
+      width: 200,
       ...getColumnSearchProps('productionBrandName'),
     },
     {
       title: '제품수량',
       dataIndex: 'productionQuantity',
+      width: 130,
       defaultSortOrder: 'ascend',
       sorter: (a, b) => a.productionQuantity - b.productionQuantity,
     },
     {
       title: '단가',
       dataIndex: 'productionPrice',
+      width: 130,
       defaultSortOrder: 'ascend',
       sorter: (a, b) => a.productionPrice - b.productionPrice,
     },
@@ -174,6 +190,7 @@ const ProductionListPresenter = ({
     {
       title: '출고',
       dataIndex: 'releaseButton',
+      width: 100,
       align: 'center',
       render: () => (
         <Link to="/admin/release">
@@ -190,6 +207,7 @@ const ProductionListPresenter = ({
     {
       title: '삭제',
       dataIndex: 'deleteButton',
+      width: 100,
       align: 'center',
       render: () => (
         <Button
@@ -206,7 +224,7 @@ const ProductionListPresenter = ({
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography.Title level={3} style={{ margin: 5 }}>
+        <Typography.Title level={3} style={{ marginBottom: 25 }}>
           생산 목록
         </Typography.Title>
         <div>
@@ -236,12 +254,13 @@ const ProductionListPresenter = ({
           </Link>
         </div>
       </div>
-      <Table
-        rowKey="productionId"
-        columns={columns}
-        dataSource={dataSource}
-        tableLayout="fixed"
-      />
+      <Spin spinning={loading}>
+        <Table
+          rowKey="productionId"
+          columns={columns}
+          dataSource={dataSource}
+        />
+      </Spin>
       <BackTop visibilityHeight={100} />
     </>
   );

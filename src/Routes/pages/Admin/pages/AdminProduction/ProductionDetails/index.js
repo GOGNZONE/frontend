@@ -1,1 +1,2 @@
-export { default as AdminProductionDetails } from './ProductionDetailsContainer';
+import ProductionDetailsContainer from './ProductionDetailsContainer';
+export default ProductionDetailsContainer;

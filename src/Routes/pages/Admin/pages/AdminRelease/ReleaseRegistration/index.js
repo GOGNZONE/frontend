@@ -1,1 +1,2 @@
-export { default as AdminReleaseRegistration } from './ReleaseRegistrationContainer';
+import ReleaseRegistrationContainer from './ReleaseRegistrationContainer';
+export default ReleaseRegistrationContainer;

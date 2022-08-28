@@ -1,75 +1,55 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-// import {
-//   getProduction,
-//   putProduction,
-// } from '../../../../../../apis/productionApi';
 import ProductionDetailsPresenter from './ProductionDetailsPresenter';
-import moment from 'moment';
+import ProductionUpdatePresenter from './ProductionUpdatePresenter';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  getProduction,
+  putProduction,
+} from 'store/modules/production/productionActions';
 
 const ProductionDetailsContainer = () => {
+  /***** production id params *****/
   const { productionIdParams } = useParams();
-  const [componentDisabled, setComponentDisabled] = useState(true);
-  const [production, setProduction] = useState([]);
-  const [updateButton, setUpdateButton] = useState(true);
+  /***** redux(state) *****/
+  const { data, loading, error } = useSelector(
+    (state) => state.production.production,
+  );
+  const dispatch = useDispatch();
+  const [switchToEditPage, setSwitchToEditPage] = useState(true);
+  const [productionValue, setProductionValue] = useState({});
 
-  // useEffect(() => {
-  //   getProductionApi(productionIdParams);
-  // }, [productionIdParams]);
+  useEffect(() => {
+    dispatch(getProduction(productionIdParams));
+  }, [productionIdParams, dispatch]);
 
-  const onFormLayoutChange = ({ disabled }) => {
-    setComponentDisabled(disabled);
+  const onClickHandler = () => {
+    dispatch(
+      putProduction({
+        productionId: productionIdParams,
+        inData: productionValue,
+      }),
+    );
   };
 
-  const onButtonNameChange = () => {
-    setUpdateButton(!updateButton);
+  const onChangeHandler = (value) => {
+    setProductionValue(value);
   };
 
-  // const getProductionApi = (productionIdParams) => {
-  //   getProduction(productionIdParams).then((response) => {
-  //     setProduction(response.data);
-  //   });
-  // };
-
-  // const putProductionApi = (productionIdParams, production) => {
-  //   putProduction(productionIdParams, production);
-  // };
-
-  const onChange = (e) => {
-    let { value, name } = '';
-
-    if (e.target === undefined) {
-      if (moment.isMoment(e.value)) {
-        value = e.value.format('YYYY-MM-DD');
-        name = e.name;
-      } else {
-        value = parseInt(e.value);
-        name = e.name;
-      }
-    } else {
-      value = e.target.value;
-      name = e.target.name;
-    }
-
-    setProduction({
-      ...production,
-      [name]: value,
-    });
-  };
-
-  console.log(production);
-
-  return (
+  return switchToEditPage ? (
     <ProductionDetailsPresenter
-      componentDisabled={componentDisabled}
-      setComponentDisabled={setComponentDisabled}
-      onFormLayoutChange={onFormLayoutChange}
-      production={production}
-      productionIdParams={productionIdParams}
-      // putProductionApi={putProductionApi}
-      onChange={onChange}
-      updateButton={updateButton}
-      onButtonNameChange={onButtonNameChange}
+      data={data}
+      loading={loading}
+      setSwitchToEditPage={setSwitchToEditPage}
+    />
+  ) : (
+    <ProductionUpdatePresenter
+      data={data}
+      loading={loading}
+      setSwitchToEditPage={setSwitchToEditPage}
+      onClickHandler={onClickHandler}
+      productionValue={productionValue}
+      onChangeHandler={onChangeHandler}
     />
   );
 };

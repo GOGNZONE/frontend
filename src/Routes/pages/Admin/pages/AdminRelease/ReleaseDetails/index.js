@@ -1,1 +1,2 @@
-export { default as AdminReleaseDetails } from './ReleaseDetailsContainer';
+import ReleaseDetailsContainer from './ReleaseDetailsContainer';
+export default ReleaseDetailsContainer;

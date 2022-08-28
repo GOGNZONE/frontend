@@ -1,32 +1,26 @@
-import React, { useEffect, useState, useRef } from 'react';
-// import { getReleaseList } from '../../../../../../apis/releaseApi';
+import React, { useEffect } from 'react';
+import { getReleases } from 'store/modules/release/releaseActions';
 import ReleaseListPresenter from './ReleaseListPresenter';
+import { useSelector, useDispatch } from 'react-redux';
 
 const ReleaseListContainer = () => {
-  const [releases, setReleases] = useState([]);
-  const [searchText, setSearchText] = useState('');
-  const [searchedColumn, setSearchedColumn] = useState('');
-  const searchInput = useRef(null);
+  /***** redux (state) *****/
+  const releases = useSelector((state) => state.release.releases);
+  const { data, loading, error } = releases;
+  const dispatch = useDispatch();
+  /***** search *****/
+  // const [searchText, setSearchText] = useState('');
+  // const [searchedColumn, setSearchedColumn] = useState('');
+  // const searchInput = useRef(null);
 
-  // useEffect(() => {
-  //   getReleaseListApi();
-  // }, []);
+  useEffect(() => {
+    const callDispatch = () => {
+      dispatch(getReleases());
+    };
+    !loading && callDispatch();
+  }, []);
 
-  // const getReleaseListApi = () => {
-  //   getReleaseList().then((response) => {
-  //     setReleases(response.data);
-  //   });
-  // };
-  return (
-    <ReleaseListPresenter
-      dataSource={releases}
-      setSearchText={setSearchText}
-      setSearchedColumn={setSearchedColumn}
-      searchInput={searchInput}
-      searchedColumn={searchedColumn}
-      searchText={searchText}
-    />
-  );
+  return <ReleaseListPresenter dataSource={data} loading={loading} />;
 };
 
 export default ReleaseListContainer;

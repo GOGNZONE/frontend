@@ -1,3 +1,3 @@
-export { AdminReleaseList } from './ReleaseList';
-export { AdminReleaseDetails } from './ReleaseDetails';
-export { AdminReleaseRegistration } from './ReleaseRegistration';
+export { default as AdminReleaseList } from './ReleaseList';
+export { default as AdminReleaseDetails } from './ReleaseDetails';
+export { default as AdminReleaseRegistration } from './ReleaseRegistration';

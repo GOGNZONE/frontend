@@ -1,72 +1,65 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-// import {
-//   getProductionList,
-//   postProduction,
-// } from '../../../../../../apis/productionApi';
+import React, { useState, useCallback, useEffect } from 'react';
 import ProductionRegistrationPresenter from './ProductionRegistrationPresenter';
-import moment from 'moment';
+import { useDispatch, useSelector } from 'react-redux';
+import { postProduction } from 'store/modules/production/productionActions';
+import { useNavigate } from 'react-router-dom';
+import { message } from 'antd';
+import { getClientList } from 'store/modules/client';
 
 const ProductionRegistrationContainer = () => {
-  const [productionLen, setProductionLen] = useState(0);
-  const [newProduction, setNewProduction] = useState({
+  /***** state *****/
+  const [productionValue, setProductionValue] = useState({
     productionName: '',
     productionBrandName: '',
-    productionPrice: '',
-    productionQuantity: '',
+    productionPrice: 0,
+    productionQuantity: 1,
     productionStandard: '',
     productionUnit: '',
     productionDescription: '',
     productionReleasedDate: '',
     productionDate: '',
+    productionFile: '',
+    client: { clientId: '' },
   });
+  const { data, loading, error } = useSelector(
+    (state) => state.client.clientList,
+  );
+
+  const dispatch = useDispatch();
+  /***** navigate *****/
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   getProductionListApi();
-  // }, []);
+  useEffect(() => {
+    dispatch(getClientList());
+  }, [dispatch]);
 
-  // const getProductionListApi = () => {
-  //   getProductionList().then((response) => {
-  //     setProductionLen(response.data.length);
-  //   });
-  // };
-
-  const onChange = (e) => {
-    let { value, name } = '';
-
-    if (e.target === undefined) {
-      if (moment.isMoment(e.value)) {
-        console.log(e);
-        value = e.value.format('YYYY-MM-DD');
-        name = e.name;
-      } else {
-        value = parseInt(e.value);
-        name = e.name;
-      }
-    } else {
-      value = e.target.value;
-      name = e.target.name;
-    }
-
-    setNewProduction({
-      ...newProduction,
-      [name]: value,
-    });
+  const onChangeHandler = (value) => {
+    setProductionValue(value);
   };
 
-  // const postProductionApi = (newProduction) => {
-  //   postProduction(newProduction).then(() =>
-  //     navigate('/staff/production/list'),
-  //   );
-  // };
+  const onClickHandler = useCallback(async (e) => {
+    if (
+      productionValue.productionName === '' ||
+      productionValue.productionPrice === '' ||
+      productionValue.productionQuantity === '' ||
+      productionValue.productionReleasedDate === '' ||
+      productionValue.productionDate === '' ||
+      productionValue.client.clientId === ''
+    ) {
+      message.error('필수 입력값을 입력해 주세요.');
+    } else {
+      await dispatch(postProduction(productionValue));
+      await navigate('list');
+    }
+  });
 
   return (
     <ProductionRegistrationPresenter
-      productionLen={productionLen}
-      onChange={onChange}
-      // postProductionApi={postProductionApi}
-      newProduction={newProduction}
+      productionValue={productionValue}
+      onChangeHandler={onChangeHandler}
+      onClickHandler={onClickHandler}
+      clientData={data}
+      loading={loading}
     />
   );
 };

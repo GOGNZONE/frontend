@@ -1,13 +1,5 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import {
-  AdminProductionDetails,
-  AdminProductionList,
-  AdminProductionRegistration,
-  AdminReleaseList,
-  AdminReleaseDetails,
-  AdminReleaseRegistration,
-} from './pages';
 import { AdminLayout } from 'Components';
 import { AdminDashBoard } from 'Routes/pages/Admin/pages';
 import {
@@ -30,6 +22,16 @@ import {
   AdminStockRegist,
   AdminStockList,
 } from 'Routes/pages/Admin/pages/AdminStock';
+import {
+  AdminProductionList,
+  AdminProductionDetails,
+  AdminProductionRegistration,
+} from 'Routes/pages/Admin/pages/AdminProduction';
+import {
+  AdminReleaseList,
+  AdminReleaseDetails,
+  AdminReleaseRegistration,
+} from 'Routes/pages/Admin/pages/AdminRelease';
 const Admin = ({ checkAdmin, logout }) => {
   return (
     <Routes>

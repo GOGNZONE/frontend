@@ -38,34 +38,21 @@ export const createPromiseThunk = (type, promiseCreator) => {
   };
 };
 
-export const createPromiseThunkPut = (type, promiseCreator) => {
-  const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
-
-  return (param) => async (dispatch) => {
-    const { dataId, inData } = param;
-    dispatch({ type, param });
-    try {
-      const payload = await promiseCreator(dataId, inData);
-      dispatch({ type: SUCCESS, payload });
-    } catch (e) {
-      dispatch({ type: ERROR, payload: e.message, error: true });
-    }
-  };
-};
-
-export const handleAsyncActions = (type, key, keepData = false) => {
+export const handleAsyncActions = (type, key) => {
   const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
   return (state, action) => {
     switch (action.type) {
       case type:
         return {
           ...state,
-          [key]: reducerUtils.loading(keepData ? state[key].data : null),
+          [key]: reducerUtils.loading(state[key].data ? state[key].data : null),
         };
       case SUCCESS:
         return {
           ...state,
-          [key]: reducerUtils.success(action.payload.data),
+          [key]: reducerUtils.success(
+            action.payload.data ? action.payload.data : state[key].data,
+          ),
         };
       case ERROR:
         return {
