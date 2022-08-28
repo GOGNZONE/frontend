@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getRelease } from '../../../../../../Apis/releaseApi';
+// import { getRelease } from '../../../../../../apis/releaseApi';
 import ReleaseRegistrationPresenter from './ReleaseRegistrationPresenter';
 
 const ReleaseRegistrationContainer = () => {
@@ -31,15 +31,15 @@ const ReleaseRegistrationContainer = () => {
     },
   });
 
-  useEffect(() => {
-    getReleaseApi(releaseIdParams);
-  }, [releaseIdParams]);
+  // useEffect(() => {
+  //   getReleaseApi(releaseIdParams);
+  // }, [releaseIdParams]);
 
-  const getReleaseApi = (releaseIdParams) => {
-    getRelease(releaseIdParams).then((response) => {
-      setRelease(response.data);
-    });
-  };
+  // const getReleaseApi = (releaseIdParams) => {
+  //   getRelease(releaseIdParams).then((response) => {
+  //     setRelease(response.data);
+  //   });
+  // };
 
   return <ReleaseRegistrationPresenter release={release} />;
 };

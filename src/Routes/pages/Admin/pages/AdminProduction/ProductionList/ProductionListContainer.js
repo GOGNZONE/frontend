@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import ProductionListPresenter from './ProductionListPresenter';
-import { getProductionList } from '../../../../../../Apis/productionApi';
+// import { getProductionList } from '../../../../../../apis/productionApi';
 
 const ProductionListContainer = () => {
   const [productions, setProductions] = useState([]);
@@ -8,15 +8,15 @@ const ProductionListContainer = () => {
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
 
-  useEffect(() => {
-    getProductionListApi();
-  }, []);
+  // useEffect(() => {
+  //   getProductionListApi();
+  // }, []);
 
-  const getProductionListApi = () => {
-    getProductionList().then((response) => {
-      setProductions(response.data);
-    });
-  };
+  // const getProductionListApi = () => {
+  //   getProductionList().then((response) => {
+  //     setProductions(response.data);
+  //   });
+  // };
 
   return (
     <ProductionListPresenter

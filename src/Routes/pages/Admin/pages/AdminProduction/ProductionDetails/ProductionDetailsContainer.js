@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import {
-  getProduction,
-  putProduction,
-} from '../../../../../../Apis/productionApi';
+// import {
+//   getProduction,
+//   putProduction,
+// } from '../../../../../../apis/productionApi';
 import ProductionDetailsPresenter from './ProductionDetailsPresenter';
 import moment from 'moment';
 
@@ -13,9 +13,9 @@ const ProductionDetailsContainer = () => {
   const [production, setProduction] = useState([]);
   const [updateButton, setUpdateButton] = useState(true);
 
-  useEffect(() => {
-    getProductionApi(productionIdParams);
-  }, [productionIdParams]);
+  // useEffect(() => {
+  //   getProductionApi(productionIdParams);
+  // }, [productionIdParams]);
 
   const onFormLayoutChange = ({ disabled }) => {
     setComponentDisabled(disabled);
@@ -25,15 +25,15 @@ const ProductionDetailsContainer = () => {
     setUpdateButton(!updateButton);
   };
 
-  const getProductionApi = (productionIdParams) => {
-    getProduction(productionIdParams).then((response) => {
-      setProduction(response.data);
-    });
-  };
+  // const getProductionApi = (productionIdParams) => {
+  //   getProduction(productionIdParams).then((response) => {
+  //     setProduction(response.data);
+  //   });
+  // };
 
-  const putProductionApi = (productionIdParams, production) => {
-    putProduction(productionIdParams, production);
-  };
+  // const putProductionApi = (productionIdParams, production) => {
+  //   putProduction(productionIdParams, production);
+  // };
 
   const onChange = (e) => {
     let { value, name } = '';
@@ -66,7 +66,7 @@ const ProductionDetailsContainer = () => {
       onFormLayoutChange={onFormLayoutChange}
       production={production}
       productionIdParams={productionIdParams}
-      putProductionApi={putProductionApi}
+      // putProductionApi={putProductionApi}
       onChange={onChange}
       updateButton={updateButton}
       onButtonNameChange={onButtonNameChange}

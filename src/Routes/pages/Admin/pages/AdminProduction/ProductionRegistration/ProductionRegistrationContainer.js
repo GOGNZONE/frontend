@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  getProductionList,
-  postProduction,
-} from '../../../../../../Apis/productionApi';
+// import {
+//   getProductionList,
+//   postProduction,
+// } from '../../../../../../apis/productionApi';
 import ProductionRegistrationPresenter from './ProductionRegistrationPresenter';
 import moment from 'moment';
 
@@ -22,15 +22,15 @@ const ProductionRegistrationContainer = () => {
   });
   const navigate = useNavigate();
 
-  useEffect(() => {
-    getProductionListApi();
-  }, []);
+  // useEffect(() => {
+  //   getProductionListApi();
+  // }, []);
 
-  const getProductionListApi = () => {
-    getProductionList().then((response) => {
-      setProductionLen(response.data.length);
-    });
-  };
+  // const getProductionListApi = () => {
+  //   getProductionList().then((response) => {
+  //     setProductionLen(response.data.length);
+  //   });
+  // };
 
   const onChange = (e) => {
     let { value, name } = '';
@@ -55,17 +55,17 @@ const ProductionRegistrationContainer = () => {
     });
   };
 
-  const postProductionApi = (newProduction) => {
-    postProduction(newProduction).then(() =>
-      navigate('/staff/production/list'),
-    );
-  };
+  // const postProductionApi = (newProduction) => {
+  //   postProduction(newProduction).then(() =>
+  //     navigate('/staff/production/list'),
+  //   );
+  // };
 
   return (
     <ProductionRegistrationPresenter
       productionLen={productionLen}
       onChange={onChange}
-      postProductionApi={postProductionApi}
+      // postProductionApi={postProductionApi}
       newProduction={newProduction}
     />
   );

@@ -1,7 +1,5 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-// <<<<<<< HEAD
-// import { AdminLayout } from '../../../Components';
 import {
   AdminProductionDetails,
   AdminProductionList,
@@ -10,7 +8,6 @@ import {
   AdminReleaseDetails,
   AdminReleaseRegistration,
 } from './pages';
-// =======
 import { AdminLayout } from 'Components';
 import { AdminDashBoard } from 'Routes/pages/Admin/pages';
 import {
@@ -36,24 +33,6 @@ import {
 const Admin = ({ checkAdmin, logout }) => {
   return (
     <Routes>
-      <Route path="/" element={<AdminLayout />}>
-        {/* production */}
-        <Route path="/production" element={<AdminProductionRegistration />} />
-        <Route path="/production/list" element={<AdminProductionList />} />
-        <Route
-          path="/production/:productionIdParams"
-          element={<AdminProductionDetails />}
-        />
-        {/* release */}
-        <Route
-          path="/release/:productionIdParams"
-          element={<AdminReleaseRegistration />}
-        />
-        <Route path="/release/list" element={<AdminReleaseList />} />
-        <Route
-          path="/release/:releaseIdParams"
-          element={<AdminReleaseDetails />}
-        />
       <Route
         path="/"
         element={<AdminLayout checkAdmin={checkAdmin} logout={logout} />}
@@ -76,6 +55,23 @@ const Admin = ({ checkAdmin, logout }) => {
           element={<AdminStorageInfo />}
         />
         <Route path="/storage" element={<AdminStorageRegist />} />
+        {/* production */}
+        <Route path="/production" element={<AdminProductionRegistration />} />
+        <Route path="/production/list" element={<AdminProductionList />} />
+        <Route
+          path="/production/:productionIdParams"
+          element={<AdminProductionDetails />}
+        />
+        {/* release */}
+        <Route
+          path="/release/:productionIdParams"
+          element={<AdminReleaseRegistration />}
+        />
+        <Route path="/release/list" element={<AdminReleaseList />} />
+        <Route
+          path="/release/:releaseIdParams"
+          element={<AdminReleaseDetails />}
+        />
       </Route>
     </Routes>
   );

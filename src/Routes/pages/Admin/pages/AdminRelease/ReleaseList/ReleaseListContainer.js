@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { getReleaseList } from '../../../../../../Apis/releaseApi';
+// import { getReleaseList } from '../../../../../../apis/releaseApi';
 import ReleaseListPresenter from './ReleaseListPresenter';
 
 const ReleaseListContainer = () => {
@@ -8,15 +8,15 @@ const ReleaseListContainer = () => {
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
 
-  useEffect(() => {
-    getReleaseListApi();
-  }, []);
+  // useEffect(() => {
+  //   getReleaseListApi();
+  // }, []);
 
-  const getReleaseListApi = () => {
-    getReleaseList().then((response) => {
-      setReleases(response.data);
-    });
-  };
+  // const getReleaseListApi = () => {
+  //   getReleaseList().then((response) => {
+  //     setReleases(response.data);
+  //   });
+  // };
   return (
     <ReleaseListPresenter
       dataSource={releases}
