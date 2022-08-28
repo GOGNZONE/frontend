@@ -27,16 +27,21 @@ function getItem(label, key, icon, children, type) {
 const items = [
   getItem(<Link to="/staff">마이페이지</Link>, '/staff', <UserOutlined />),
   getItem(
+    <Link to="/staff/dashboard">대시보드</Link>,
+    '/staff/dashboard',
+    <UserOutlined />,
+  ),
+  getItem(
     <Link to="/staff/client">거래처 관리</Link>,
     '/client',
     <TeamOutlined />,
   ),
-  getItem('상품 관리', '/production', <DropboxOutlined />, [
+  getItem('생산 관리', '/production', <DropboxOutlined />, [
     getItem(
-      <Link to="/staff/production/list">상품 목록</Link>,
+      <Link to="/staff/production/list">생산 목록</Link>,
       '/staff/production/list',
     ),
-    getItem(<Link to="/staff/production">상품 등록</Link>, '/staff/production'),
+    getItem(<Link to="/staff/production">생산 등록</Link>, '/staff/production'),
   ]),
   getItem('재고 관리', '/stock', <InboxOutlined />, [
     getItem(<Link to="/staff/stock/list">재고 목록</Link>, '/staff/stock/list'),
@@ -69,7 +74,12 @@ const items = [
 
 const StaffSider = ({ onCollapse, collapsed }) => {
   return (
-    <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
+    <Sider
+      width={250}
+      collapsible
+      collapsed={collapsed}
+      onCollapse={onCollapse}
+    >
       <div
         className="logo"
         style={{

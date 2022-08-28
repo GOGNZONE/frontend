@@ -1,2 +1,2 @@
-import StaffBomList from './StaffBomList';
-export default StaffBomList;
+import StaffBomListContainer from './StaffBomListContainer';
+export default StaffBomListContainer;

@@ -1,2 +1,1 @@
-import StaffClienList from './StaffClienList';
-export default StaffClienList;
+export { default as StaffClient } from './StaffClientContainer';

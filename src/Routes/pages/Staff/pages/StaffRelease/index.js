@@ -1,2 +1,2 @@
-import StaffRelease from './StaffRelease';
-export default StaffRelease;
+export { default as ReleaseDetail } from './ReleaseDetails';
+export { default as ReleaseList } from './ReleaseList';

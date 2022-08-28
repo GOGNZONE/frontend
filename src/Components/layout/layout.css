@@ -10,16 +10,17 @@
 
 .site-layout .site-layout-background {
   background: #fff;
+  border: 1px solid rgb(235, 237, 240);
 }
 
 .site-header-logout {
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .site-header-logout:hover {
-  color: blue;
+  color: #07abf0;
   cursor: pointer;
-  text-decoration: underline;
-  font-size: 12px;
+  text-decoration: none;
+  font-size: 14px;
 }

@@ -1,2 +1,2 @@
-import StaffBomRegist from './StaffBomRegist';
-export default StaffBomRegist;
+import StaffBomRegistContainer from './StaffBomRegistContainer';
+export default StaffBomRegistContainer;

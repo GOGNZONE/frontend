@@ -1,1 +1,1 @@
-export { default as Staff } from './Staff';
+export { default as Staff } from 'Routes/pages/Staff/Staff';

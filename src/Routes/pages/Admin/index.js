@@ -1,1 +1,1 @@
-export { default as Admin } from './Admin';
+export { default as Admin } from 'Routes/pages/Admin/Admin';

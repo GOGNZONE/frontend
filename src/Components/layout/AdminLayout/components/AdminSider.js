@@ -41,12 +41,12 @@ const items = [
     ),
     getItem(<Link to="/admin/client">거래처 등록</Link>, '/admin/client'),
   ]),
-  getItem('상품 관리', '/production', <DropboxOutlined />, [
+  getItem('생산 관리', '/production', <DropboxOutlined />, [
     getItem(
-      <Link to="/admin/production/list">상품 목록</Link>,
+      <Link to="/admin/production/list">생산 목록</Link>,
       '/admin/production/list',
     ),
-    getItem(<Link to="/admin/production">상품 등록</Link>, '/admin/production'),
+    getItem(<Link to="/admin/production">생산 등록</Link>, '/admin/production'),
   ]),
   getItem('재고 관리', '/stock', <InboxOutlined />, [
     getItem(<Link to="/admin/stock/list">재고 목록</Link>, '/admin/stock/list'),

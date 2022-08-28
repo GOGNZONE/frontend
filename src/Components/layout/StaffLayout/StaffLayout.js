@@ -6,7 +6,7 @@ import '../layout.css';
 
 const { Content, Footer } = Layout;
 
-const StaffLayout = () => {
+const StaffLayout = ({ logout }) => {
   const [collapsed, setCollapsed] = useState(false);
 
   const onCollapse = (val) => {
@@ -17,13 +17,13 @@ const StaffLayout = () => {
     <Layout className="site-layout-container" style={{ minHeight: '100vh' }}>
       <StaffSider collapsed={collapsed} onCollapse={onCollapse} />
       <Layout className="site-layout">
-        <StaffHeader />
+        <StaffHeader logout={logout} />
         <Content style={{ margin: '0 16px', padding: '10px 10px 10px 10px' }}>
           <div
             className="site-layout-background"
             style={{
               padding: 24,
-              minHeight: 360,
+              minHeight: 200,
             }}
           >
             <Outlet />
@@ -32,7 +32,6 @@ const StaffLayout = () => {
         <Footer
           style={{
             textAlign: 'center',
-            position: '',
           }}
         >
           GONGZONE ©2022 Created by GONGZONE TEAM
