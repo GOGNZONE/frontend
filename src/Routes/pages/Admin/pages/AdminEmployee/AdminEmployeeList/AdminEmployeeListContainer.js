@@ -12,9 +12,7 @@ const AdminEmployeeListContainer = () => {
   );
   const dispatch = useDispatch();
 
-  // console.log(data);
-
-  const onDeleteHandler = async (employeeId) => {
+  const onDeleteHandler = (employeeId) => {
     dispatch(deleteEmployee(employeeId));
     dispatch(getEmployeeList());
   };

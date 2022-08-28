@@ -1,7 +1,13 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { AdminLayout } from 'Components';
-import { AdminDashBoard } from 'Routes/pages/Admin/pages';
+import {
+  AdminClientList,
+  AdminDashBoard,
+  AdminEmployeeList,
+  AdminRegisterEmployee,
+  AdminRetiredEmployeeList,
+} from 'Routes/pages/Admin/pages';
 import {
   AdminOrderInfo,
   AdminOrderList,
@@ -31,6 +37,13 @@ const Admin = ({ checkAdmin, logout }) => {
         element={<AdminLayout checkAdmin={checkAdmin} logout={logout} />}
       >
         <Route index element={<AdminDashBoard />} />
+        <Route path="/employee/list" element={<AdminEmployeeList />} />
+        <Route path="/employee" element={<AdminRegisterEmployee />} />
+        <Route
+          path="/retired-employee/list"
+          element={<AdminRetiredEmployeeList />}
+        />
+        <Route path="/client/list" element={<AdminClientList />} />
         <Route path="/stock/list" element={<AdminStockList />} />
         <Route path="/stock/list/:stockIdParams" element={<AdminStockInfo />} />
         <Route path="/stock" element={<AdminStockRegist />} />
@@ -48,7 +61,6 @@ const Admin = ({ checkAdmin, logout }) => {
           element={<AdminStorageInfo />}
         />
         <Route path="/storage" element={<AdminStorageRegist />} />
-
       </Route>
     </Routes>
   );

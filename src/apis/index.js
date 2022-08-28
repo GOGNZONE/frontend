@@ -2,11 +2,11 @@ import instance from './apiController';
 
 /** Employee  */
 export const getEmployeeList = () => {
-  return instance.get('employee/list');
+  return instance.get('/employee/list');
 };
 
 export const getEmployeeInfo = (employee_id) => {
-  return instance.get(`employee/${employee_id}`);
+  return instance.get(`/employee/${employee_id}`);
 };
 
 // export const updateEmployee = (inData) => {
@@ -17,15 +17,15 @@ export const getEmployeeInfo = (employee_id) => {
 // };
 
 export const deleteEmployee = (employee_id) => {
-  return instance.delete(`employee/${employee_id}`);
+  return instance.delete(`/employee/${employee_id}`);
 };
 
 export const myEmployeeInfo = () => {
-  return instance.get(`employee/mypage`);
+  return instance.get(`/employee/mypage`);
 };
 
 export const updateMyProfile = (inData) => {
-  return instance.post('employee/edit', {
+  return instance.post('/employee/edit', {
     employeeEmail: inData.employeeEmail,
     newPassword: inData.newPassword,
     employeeName: inData.employeeName,
@@ -55,13 +55,13 @@ export const deleteRetiredEmployee = (employee_id) => {
   return instance.delete(`/retired-employee/${employee_id}`);
 };
 
-/** instance  */
+/** client  */
 export const getClientList = () => {
-  return instance.get(`/client/list`);
+  return instance.get('/client/list');
 };
 
 export const getClientInfo = (client_id) => {
-  return instance.get(`client/${client_id}`);
+  return instance.get(`/client/${client_id}`);
 };
 
 export const registerClient = (inData) => {

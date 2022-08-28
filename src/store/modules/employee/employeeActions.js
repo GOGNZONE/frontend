@@ -1,6 +1,7 @@
 import * as api from 'apis';
 import { createPromiseThunk } from 'lib/asyncUtils';
 
+/** Employee */
 export const GET_EMPLOYEE_LIST = 'GET_EMPLOYEE_LIST';
 export const GET_EMPLOYEE_LIST_SUCCESS = 'GET_EMPLOYEE_LIST_SUCCESS';
 export const GET_EMPLOYEE_LIST_ERROR = 'GET_EMPLOYEE_LIST_ERROR';
@@ -25,6 +26,23 @@ export const DELETE_EMPLOYEE = 'DELETE_EMPLOYEE';
 export const DELETE_EMPLOYEE_SUCCESS = 'DELETE_EMPLOYEE_SUCCESS';
 export const DELETE_EMPLOYEE_ERROR = 'DELETE_EMPLOYEE_ERROR';
 
+/** Retired Employee */
+export const GET_RETIRED_EMPLOYEE_LIST = 'GET_RETIRED_EMPLOYEE_LIST';
+export const GET_RETIRED_EMPLOYEE_LIST_SUCCESS =
+  'GET_RETIRED_EMPLOYEE_LIST_SUCCESS';
+export const GET_RETIRED_EMPLOYEE_LIST_ERROR =
+  'GET_RETIRED_EMPLOYEE_LIST_ERROR';
+
+export const GET_RETIRED_EMPLOYEE = 'GET_RETIRED_EMPLOYEE';
+export const GET_RETIRED_EMPLOYEE_SUCCESS = 'GET_RETIRED_EMPLOYEE_SUCCESS';
+export const GET_RETIRED_EMPLOYEE_ERROR = 'GET_RETIRED_EMPLOYEE_ERROR';
+
+export const DELETE_RETIRED_EMPLOYEE = 'DELETE_RETIRED_EMPLOYEE';
+export const DELETE_RETIRED_EMPLOYEE_SUCCESS =
+  'DELETE_RETIRED_EMPLOYEE_SUCCESS';
+export const DELETE_RETIRED_EMPLOYEE_ERROR = 'DELETE_RETIRED_EMPLOYEE_ERROR';
+
+/** Employee */
 export const getEmployeeList = createPromiseThunk(
   GET_EMPLOYEE_LIST,
   api.getEmployeeList,
@@ -50,4 +68,20 @@ export const updateProfile = createPromiseThunk(
 export const deleteEmployee = createPromiseThunk(
   DELETE_EMPLOYEE,
   api.deleteEmployee,
+);
+
+/** Retired Employee */
+export const getRetiredEmployeeList = createPromiseThunk(
+  GET_RETIRED_EMPLOYEE_LIST,
+  api.getRetiredEmployeeList,
+);
+
+export const getRetiredEmployee = createPromiseThunk(
+  GET_RETIRED_EMPLOYEE,
+  api.getRetiredEmployeeInfo,
+);
+
+export const deleteRetiredEmployee = createPromiseThunk(
+  DELETE_RETIRED_EMPLOYEE,
+  api.deleteRetiredEmployee,
 );

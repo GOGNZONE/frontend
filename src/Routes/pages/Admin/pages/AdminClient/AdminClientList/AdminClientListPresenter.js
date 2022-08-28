@@ -1,7 +1,7 @@
 import React from 'react';
 
 const AdminClientListPresenter = () => {
-  return <div></div>;
+  return <div>AdminClientListPresenter</div>;
 };
 
 export default AdminClientListPresenter;

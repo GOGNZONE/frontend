@@ -21,7 +21,6 @@ const AdminRegisterEmployeeContainer = () => {
   const navigate = useNavigate();
 
   const onChangeHandler = (e) => {
-    console.log(e);
     const { name, value } = e.target;
     setEmployeeInfo({
       ...employeeInfo,
@@ -38,13 +37,11 @@ const AdminRegisterEmployeeContainer = () => {
     }
   };
 
-  const fileUpload = () => {};
   return (
     <AdminRegisterEmployeePresenter
       employeeInfo={employeeInfo}
       onChangeHandler={onChangeHandler}
       saveEmployee={saveEmployee}
-      fileUpload={fileUpload}
     />
   );
 };
