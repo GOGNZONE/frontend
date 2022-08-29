@@ -133,7 +133,7 @@ const AdminEmployeeListPresenter = ({
       width: 200,
       ...getColumnSearchProps('employeeName'),
       render: (name, record) => (
-        <Link to={`/staff/employee/${record.employeeId}`}>{name}</Link>
+        <Link to={`/admin/employee/${record.employeeId}`}>{name}</Link>
       ),
     },
     {
