@@ -6,6 +6,7 @@ import { getRelease } from 'store/modules/release/releaseActions';
 import ReleaseUpdatePresenter from './ReleaseUpdatePresenter';
 
 const ReleaseDetailsContainer = () => {
+  console.log('release details');
   /***** release id params *****/
   const { releaseIdParams } = useParams();
   /***** redux(state) *****/

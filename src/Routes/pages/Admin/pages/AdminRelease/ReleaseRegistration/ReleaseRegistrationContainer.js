@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReleaseRegistrationPresenter from './ReleaseRegistrationPresenter';
 
 const ReleaseRegistrationContainer = () => {
-  return <ReleaseRegistrationPresenter />;
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  return (
+    <ReleaseRegistrationPresenter
+      isModalVisible={isModalVisible}
+      setIsModalVisible={setIsModalVisible}
+    />
+  );
 };
 
 export default ReleaseRegistrationContainer;

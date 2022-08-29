@@ -93,16 +93,16 @@ const ReleaseListPresenter = ({ dataSource, loading }) => {
         <Typography.Title level={3} style={{ marginBottom: 25 }}>
           출고 목록
         </Typography.Title>
-        <Link to="/admin/production">
+        <Link to="/admin/production/list">
           <Button
             type="primary"
             style={{
               margin: 5,
-              backgroundColor: '#FEB139',
-              border: '#FEB139',
+              backgroundColor: '#293462',
+              border: '#293462',
             }}
           >
-            등록
+            생산 목록
           </Button>
         </Link>
       </div>

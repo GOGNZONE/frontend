@@ -24,6 +24,7 @@ const showDeleteConfirm = () => {
 };
 
 const ReleaseDetailsPresenter = ({ data, loading, setSwitchToEditPage }) => {
+  console.log(data);
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -178,6 +179,8 @@ const ReleaseDetailsPresenter = ({ data, loading, setSwitchToEditPage }) => {
                   </Descriptions.Item>
                 </Descriptions>
               </div>
+
+              {/* 택배정보 */}
               <div style={{ width: '33%' }}>
                 <Typography.Title
                   level={4}
