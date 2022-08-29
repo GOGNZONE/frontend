@@ -168,7 +168,6 @@ const ProductionRegistrationPresenter = ({
               span: 10,
             }}
             layout="horizontal"
-            size="large"
           >
             <Form.Item
               name="productionName"
@@ -282,7 +281,7 @@ const ProductionRegistrationPresenter = ({
                 }
               />
             </Form.Item>
-            <Form.Item
+            {/* <Form.Item
               name="productionReleasedDate"
               label="출고일자"
               rules={[
@@ -303,7 +302,7 @@ const ProductionRegistrationPresenter = ({
                   )
                 }
               />
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item
               name="productionDate"
               label="생성일자"

@@ -11,11 +11,10 @@ export const productionReducer = (state = initialState, action) => {
     case types.GET_PRODUCTIONS:
     case types.GET_PRODUCTIONS_SUCCESS:
     case types.GET_PRODUCTIONS_ERROR:
-      return handleAsyncActions(
-        types.GET_PRODUCTIONS,
-        'productions',
-        true,
-      )(state, action);
+      return handleAsyncActions(types.GET_PRODUCTIONS, 'productions')(
+        state,
+        action,
+      );
     case types.GET_PRODUCTION:
     case types.GET_PRODUCTION_SUCCESS:
     case types.GET_PRODUCTION_ERROR:
@@ -23,6 +22,27 @@ export const productionReducer = (state = initialState, action) => {
         state,
         action,
       );
+    case types.POST_PRODUCTION:
+    case types.POST_PRODUCTION_SUCCESS:
+    case types.POST_PRODUCTION_ERROR:
+      return handleAsyncActions(types.POST_PRODUCTION, 'productions')(
+        state,
+        action,
+      );
+    case types.PUT_PRODUCTION:
+    case types.PUT_PRODUCTION_SUCCESS:
+    case types.PUT_PRODUCTION_ERROR:
+      return handleAsyncActions(types.PUT_PRODUCTION, 'production')(
+        state,
+        action,
+      );
+    // case types.DELETE_PRODUCTION:
+    // case types.DELETE_PRODUCTION_SUCCESS:
+    // case types.DELETE_PRODUCTION_ERROR:
+    //   return handleAsyncActions(types.DELETE_PRODUCTION, 'productions')(
+    //     state,
+    //     action,
+    //   );
     default:
       return state;
   }

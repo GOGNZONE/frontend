@@ -16,7 +16,7 @@ const ProductionRegistrationContainer = () => {
     productionStandard: '',
     productionUnit: '',
     productionDescription: '',
-    productionReleasedDate: '',
+    // productionReleasedDate: '',
     productionDate: '',
     productionFile: '',
     client: { clientId: '' },
@@ -37,12 +37,12 @@ const ProductionRegistrationContainer = () => {
     setProductionValue(value);
   };
 
-  const onClickHandler = useCallback(async (e) => {
+  const onClickHandler = useCallback(async () => {
     if (
       productionValue.productionName === '' ||
       productionValue.productionPrice === '' ||
       productionValue.productionQuantity === '' ||
-      productionValue.productionReleasedDate === '' ||
+      // productionValue.productionReleasedDate === '' ||
       productionValue.productionDate === '' ||
       productionValue.client.clientId === ''
     ) {

@@ -17,6 +17,10 @@ export const PUT_PRODUCTION = 'PUT_PRODUCTION';
 export const PUT_PRODUCTION_SUCCESS = 'PUT_PRODUCTION_SUCCESS';
 export const PUT_PRODUCTION_ERROR = 'PUT_PRODUCTION_ERROR';
 
+export const DELETE_PRODUCTION = 'DELETE_PRODUCTION';
+export const DELETE_PRODUCTION_SUCCESS = 'DELETE_PRODUCTION_SUCCESS';
+export const DELETE_PRODUCTION_ERROR = 'DELETE_PRODUCTION_ERROR';
+
 export const getProductions = createPromiseThunk(
   GET_PRODUCTIONS,
   api.getProductionList,
@@ -35,4 +39,9 @@ export const postProduction = createPromiseThunk(
 export const putProduction = createPromiseThunk(
   PUT_PRODUCTION,
   api.updateProduction,
+);
+
+export const deleteProduction = createPromiseThunk(
+  DELETE_PRODUCTION,
+  api.deleteProduction,
 );
