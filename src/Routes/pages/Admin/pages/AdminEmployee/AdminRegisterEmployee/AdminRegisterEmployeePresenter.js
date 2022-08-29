@@ -10,6 +10,7 @@ import {
 } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 const { Option } = Select;
 
@@ -233,6 +234,9 @@ const AdminRegisterEmployeePresenter = ({
           </Upload>
         </Form.Item>
         <Form.Item {...tailLayout}>
+          <Button type="primary" style={{ marginRight: '15px' }}>
+            <Link to="/admin/employee/list">목록</Link>
+          </Button>
           <Button
             type="primary"
             htmlType="submit"
