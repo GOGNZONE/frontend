@@ -1,47 +1,61 @@
 import React, { useState, useEffect } from 'react';
-import AdminBomInfoPresenter from 'Routes/pages/Admin/pages/AdminBom/AdminBomInfo/AdminBomInfoPresenter';
 import { useParams } from 'react-router-dom';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { getBom, deleteBom, registerBom } from 'store/modules/bom/bomActions';
+import AdminBomInfoPresenter from './AdminBomInfoPresenter';
+import AdminBomUpdate from './AdminBomUpdate';
 import moment from 'moment';
+
 function AdminBomInfoContainer() {
-  const [bom, setBom] = useState([]);
   const { bomIdParams } = useParams();
-  const [componentDisabled, setComponentDisabled] = useState(true);
-  const [updateButton, setUpdateButton] = useState(true);
+  const [page, setPage] = useState(true);
+  const [updateBom, setUpdateBom] = useState({
+    bomName: '',
+    bomQuantity: '',
+    bomStandard: '',
+    bomUnit: '',
+    bomDescription: '',
+    bomReceivedDate: '',
+    bomFile: '',
+    storage: '',
+    bomParent: '',
+  });
+  const { data, loading, error } = useSelector((state) => state.bom.bom);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getBom(bomIdParams));
+  }, [bomIdParams, dispatch]);
 
-  const onFormLayoutChange = ({ disabled }) => {
-    setComponentDisabled(disabled);
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+
+    setUpdateBom({
+      ...updateBom,
+      [name]: value,
+    });
   };
 
-  const onButtonNameChange = () => {
-    setUpdateButton(!updateButton);
+  const changePageHandler = () => {
+    setPage(!page);
+    console.log(page);
   };
-  const onChange = (e) => {
-    let { value, name } = '';
 
-    if (e.target === undefined) {
-      if (moment.isMoment(e.value)) {
-        value = e.value.format('YYYY-MM-DD');
-        name = e.name;
-      } else {
-        value = parseInt(e.value);
-        name = e.name;
-      }
-    } else {
-      value = e.target.value;
-      name = e.target.name;
-    }
-  };
-  return (
-    <AdminBomInfoPresenter
-      onChange={onChange}
-      updateButton={updateButton}
-      componentDisabled={componentDisabled}
-      setComponentDisabled={setComponentDisabled}
-      onButtonNameChange={onButtonNameChange}
-      onFormLayoutChange={onFormLayoutChange}
-      bom={bom}
-      bomIdParams={bomIdParams}
+  // const updateHandler = () => {
+  //   dispatch(
+  //     registerBom({
+  //       bomId: bomIdParams,
+  //       inData: bom,
+  //     }),
+  //   );
+  // };
+
+  return page ? (
+    <AdminBomInfoPresenter data={data} changePageHandler={changePageHandler} />
+  ) : (
+    <AdminBomUpdate
+      data={data}
+      setPage={setPage}
+      onChangeHandler={onChangeHandler}
     />
   );
 }

@@ -31,24 +31,26 @@ const Admin = ({ checkAdmin, logout }) => {
         element={<AdminLayout checkAdmin={checkAdmin} logout={logout} />}
       >
         <Route index element={<AdminDashBoard />} />
+        {/* stock */}
         <Route path="/stock/list" element={<AdminStockList />} />
         <Route path="/stock/list/:stockIdParams" element={<AdminStockInfo />} />
         <Route path="/stock" element={<AdminStockRegist />} />
+
+        {/* order */}
         <Route path="/order" element={<AdminOrderRegist />} />
         <Route path="/order/list" element={<AdminOrderList />} />
         <Route path="/order/list/:orderIdParams" element={<AdminOrderInfo />} />
-        <Route path="/order/info" element={<AdminOrderInfo />} />
+        {/* bom */}
         <Route path="/bom" element={<AdminBomRegist />} />
         <Route path="/bom/list" element={<AdminBomList />} />
         <Route path="/bom/list/:bomIdParams" element={<AdminBomInfo />} />
-        <Route path="/bom" element={<AdminBomRegist />} />
+        {/* storage */}
         <Route path="/storage/list" element={<AdminStorageList />} />
         <Route
           path="/storage/list/:storageIdParams"
           element={<AdminStorageInfo />}
         />
         <Route path="/storage" element={<AdminStorageRegist />} />
-
       </Route>
     </Routes>
   );

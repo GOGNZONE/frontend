@@ -1,62 +1,70 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import AdminStorageInfoPresenter from 'Routes/pages/Admin/pages/AdminStorage/AdminStorageInfo/AdminStorageInfoPresenter';
 import { getStorage, putStorage } from 'store/modules/storage/storageActions';
 import { useDispatch, useSelector } from 'react-redux';
+import AdminStorageInfoPresenter from './AdminStorageInfoPresenter';
+import AdminStorageUpdate from './AdminStorageUpdate';
+import { message } from 'antd';
 import moment from 'moment';
 
 function AdminStorageInfoContainer() {
   const { storageIdParams } = useParams();
-  const [storage, setStorage] = useState([]);
-  const [componentDisabled, setComponentDisabled] = useState(true);
+  const [page, setPage] = useState(true);
+  const [storage, setStorage] = useState({
+    storagaAddress: '',
+    storagaCategory: '',
+    storagaDescription: '',
+  });
   const [updateButton, setUpdateButton] = useState(true);
   const { data, loading, error } = useSelector(
     (state) => state.storage.storage,
   );
-  console.log(data);
   const dispatch = useDispatch();
 
-  const onFormLayoutChange = ({ disabled }) => {
-    setComponentDisabled(disabled);
-  };
   useEffect(() => {
     dispatch(getStorage(storageIdParams));
   }, [storageIdParams, dispatch]);
 
-  const onButtonNameChange = () => {
-    setUpdateButton(!updateButton);
+  console.log(storage);
+
+  const changePageHandler = () => {
+    setPage(!page);
   };
 
-  const onChange = (e) => {
-    let { value, name } = '';
+  const onChange = useCallback((value) => {
+    setStorage(value);
+  });
 
-    if (e.target === undefined) {
-      if (moment.isMoment(e.value)) {
-        value = e.value.format('YYYY-MM-DD');
-        name = e.name;
-      } else {
-        value = parseInt(e.value);
-        name = e.name;
-      }
+  const onChangeInputHandler = useCallback((name, e) => {
+    const value = e.target.value;
+    onChange({
+      ...updateButton,
+      [name]: value,
+    });
+  });
+
+  const updateStorageHandler = useCallback(async (e) => {
+    if (storage.storagaAddress === '') {
+      message.error('필수 입력값을 입력해 주세요.');
     } else {
-      value = e.target.value;
-      name = e.target.name;
+      await dispatch(putStorage(storageIdParams, storage));
+      // await navigate('list');
     }
-  };
-  return;
-  <div></div>;
-  // return (
-  //   <AdminStorageInfoPresenter
-  //     storage={data}
-  //     componentDisabled={componentDisabled}
-  //     setComponentDisabled={setComponentDisabled}
-  //     onFormLayoutChange={onFormLayoutChange}
-  //     storageIdParams={storageIdParams}
-  //     onChange={onChange}
-  //     updateButton={updateButton}
-  //     onButtonNameChange={onButtonNameChange}
-  //   />
-  // );
+  });
+
+  return page ? (
+    <AdminStorageInfoPresenter
+      changePageHandler={changePageHandler}
+      data={data}
+    />
+  ) : (
+    <AdminStorageUpdate
+      updateStorageHandler={updateStorageHandler}
+      onChangeInputHandler={onChangeInputHandler}
+      changePageHandler={changePageHandler}
+      data={data}
+    />
+  );
 }
 
 export default AdminStorageInfoContainer;

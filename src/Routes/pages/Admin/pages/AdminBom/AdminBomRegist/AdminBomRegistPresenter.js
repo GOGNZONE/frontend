@@ -21,17 +21,37 @@ const normFile = (e) => {
 };
 function AdminBomRegistPresenter({
   bom,
+  bomList,
   registBom,
+  storageList,
   onChangeInputHandler,
-  bomParentInputHandler,
-  storageInputHandler,
+  onChangeSelectHandler,
+  // storageInputHandler,
   onChangeDatePickerHandler,
 }) {
   const { TextArea } = Input;
   const { confirm } = Modal;
   const { Option, OptGroup } = Select;
   const dateFormat = 'YYYY-MM-DD';
-  console.log(bom);
+
+  const standardSelectAfter = (
+    <Select
+      onChange={(e) => onChangeSelectHandler('bomUnit', e)}
+      defaultValue="mm"
+      className="standard-select-after"
+    >
+      <OptGroup label="길이">
+        <Option value="mm">mm</Option>
+        <Option value="cm">cm</Option>
+        <Option value="m">m</Option>
+      </OptGroup>
+      <OptGroup label="무게">
+        <Option value="g">g</Option>
+        <Option value="kg">kg</Option>
+      </OptGroup>
+    </Select>
+  );
+
   return (
     <div>
       <Typography.Title level={3} style={{ margin: 5 }}>
@@ -66,9 +86,9 @@ function AdminBomRegistPresenter({
         </Form.Item>
 
         <Form.Item name="bomQuantity" label="원자재 재고 수량">
-          <Input
+          <InputNumber
             onChange={(e) => onChangeInputHandler('bomQuantity', e)}
-            placeholder="원자재 재고 수량"
+            placeholder="수량"
           />
         </Form.Item>
 
@@ -94,7 +114,7 @@ function AdminBomRegistPresenter({
             formatter={(value) =>
               `￦ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
             }
-            parser={(value) => value.replace(/\\s?|(,*)/g, '')}
+            // parser={(value) => value.replace(/\\s?|(,*)/g, '')}
             onChange={(e) =>
               onChangeInputHandler('bomPrice', { target: { value: e } })
             }
@@ -102,9 +122,9 @@ function AdminBomRegistPresenter({
         </Form.Item>
 
         <Form.Item name="bomStandard" label="원자재 제품 규격">
-          <Input
+          <InputNumber
+            addonAfter={standardSelectAfter}
             onChange={(e) => onChangeInputHandler('bomStandard', e)}
-            // addonAfter={standardSelectAfter}
             placeholder="원자재 제품 규격"
           />
         </Form.Item>
@@ -140,18 +160,18 @@ function AdminBomRegistPresenter({
           />
         </Form.Item>
 
-        <Form.Item name="bomId" label="부모ID">
-          <Input
-            onChange={(e) => bomParentInputHandler('bomId', e)}
-            placeholder="부모ID"
-          />
-        </Form.Item>
-
         <Form.Item name="storageId" label="창고">
-          <Input
+          <Select />
+          {/* <Select
             onChange={(e) => storageInputHandler('storageId', e)}
-            placeholder="창고"
-          />
+            placeholder="창고 코드"
+          >
+            {storageList.map((data) => (
+              <Option key={data.storageId} value={data.storageId}>
+                {data.storageAddress}({data.storageId})
+              </Option>
+            ))}
+          </Select> */}
         </Form.Item>
 
         <Form.Item

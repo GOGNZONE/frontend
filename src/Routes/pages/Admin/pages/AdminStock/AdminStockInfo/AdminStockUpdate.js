@@ -1,13 +1,15 @@
-import React from 'react';
-import { Typography, Form, Input, Button, InputNumber, Modal } from 'antd';
-import { Link } from 'react-router-dom';
-
-function StaffStockRegistPresenter({
-  registStock,
-  storageIdInputHandler,
-  onChangeInputHandler,
-}) {
-  const { TextArea } = Input;
+import React, { useEffect } from 'react';
+import {
+  Typography,
+  Form,
+  Input,
+  Button,
+  InputNumber,
+  Modal,
+  Select,
+} from 'antd';
+import { Link, useParams } from 'react-router-dom';
+function AdminStockUpdate({ changePageHandler }) {
   return (
     <div>
       <Form
@@ -21,11 +23,12 @@ function StaffStockRegistPresenter({
         size="large"
       >
         <Typography.Title level={3} style={{ margin: 5 }}>
-          재고 등록
+          재고 상세정보
         </Typography.Title>
-
+        <Form.Item label="재고코드">
+          <Input disabled={true} name="stockId" />
+        </Form.Item>
         <Form.Item
-          name="stockName"
           label="재고 상품명"
           rules={[
             {
@@ -36,13 +39,9 @@ function StaffStockRegistPresenter({
           required
           tooltip="필수 입력 필드입니다."
         >
-          <Input
-            onChange={(e) => onChangeInputHandler('stockName', e)}
-            placeholder="재고 상품명"
-          />
+          <Input name="stockName" placeholder="재고 상품명" />
         </Form.Item>
         <Form.Item
-          name="stockQuantity"
           label="재고 수량"
           rules={[
             {
@@ -53,21 +52,13 @@ function StaffStockRegistPresenter({
           required
           tooltip="필수 입력 필드입니다."
         >
-          <InputNumber
-            style={{ width: 340 }}
-            onChange={(e) => onChangeInputHandler('stockQuantity', e)}
-            placeholder="재고 수량"
-          />
+          <Input name="stockQuantity" placeholder="재고 수량" />
         </Form.Item>
-        <Form.Item name="stockDescription" label="비고">
-          <TextArea
-            onChange={(e) => onChangeInputHandler('stockDescription', e)}
-            placeholder="비고"
-          />
+        <Form.Item label="비고">
+          <Input name="stockDescription" placeholder="비고" />
         </Form.Item>
 
         <Form.Item
-          name="storageId"
           label="창고"
           rules={[
             {
@@ -78,31 +69,29 @@ function StaffStockRegistPresenter({
           required
           tooltip="필수 입력 필드입니다."
         >
-          <Input
-            onChange={(e) => storageIdInputHandler('storageId', e)}
-            placeholder="창고"
-          />
+          <Select></Select>
         </Form.Item>
       </Form>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Form.Item>
-          <Link to="/staff/stock/list">
-            <Button
-              type="primary"
-              htmlType="submit"
-              style={{
-                margin: 5,
-                backgroundColor: '#FEB139',
-                border: '#FEB139',
-              }}
-              onClick={registStock}
-            >
-              등록
-            </Button>
-          </Link>
+          <Button
+            type="primary"
+            htmlType="submit"
+            style={{
+              margin: 5,
+              backgroundColor: '#FEB139',
+              border: '#FEB139',
+            }}
+            onClick={() => {
+              changePageHandler();
+              // putProductionApi(productionIdParams, production);
+            }}
+          >
+            수정
+          </Button>
         </Form.Item>
 
-        <Link to="/staff/stock/list">
+        <Link to="/admin/order/list">
           <Button
             type="primary"
             style={{
@@ -118,5 +107,4 @@ function StaffStockRegistPresenter({
     </div>
   );
 }
-
-export default StaffStockRegistPresenter;
+export default AdminStockUpdate;

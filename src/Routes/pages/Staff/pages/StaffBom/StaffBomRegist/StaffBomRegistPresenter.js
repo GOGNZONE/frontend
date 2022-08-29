@@ -12,49 +12,50 @@ import {
   DatePicker,
   Upload,
 } from 'antd';
+import moment from 'moment';
 const normFile = (e) => {
   if (Array.isArray(e)) {
     return e;
   }
-
   return e?.fileList;
 };
-function StaffBomRegistPresenter() {
+function StaffBomRegistPresenter({
+  bom,
+  bomList,
+  registBom,
+  storageList,
+  onChangeInputHandler,
+  onChangeSelectHandler,
+  // storageInputHandler,
+  onChangeDatePickerHandler,
+}) {
   const { TextArea } = Input;
   const { confirm } = Modal;
   const { Option, OptGroup } = Select;
   const dateFormat = 'YYYY-MM-DD';
-  const addBom = () => {
-    const name = document.getElementById('bomName').value;
-    const quantity = document.getElementById('bomQuantity').value;
-    const price = document.getElementById('bomPrice').value;
-    const standard = document.getElementById('bomStandard').value;
-    const unit = document.getElementById('bomUnit').value;
-    const desc = document.getElementById('bomDescription').value;
-    const file = document.getElementById('bomFile').value;
-    const storageId = document.getElementById('bomStorage').value;
-    const parent = document.getElementById('bomParent').value;
-    const bomdata = {
-      bomName: name,
-      bomQuantity: quantity,
-      bomPrice: price,
-      bomStandard: standard,
-      bomUnit: unit,
-      bomDescription: desc,
-      bomFile: file,
-      storage: {
-        storageId: storageId,
-      },
-      bomParent: {
-        bomId: parent,
-      },
-    };
-  };
+
+  const standardSelectAfter = (
+    <Select
+      onChange={(e) => onChangeSelectHandler('bomUnit', e)}
+      defaultValue="mm"
+      className="standard-select-after"
+    >
+      <OptGroup label="길이">
+        <Option value="mm">mm</Option>
+        <Option value="cm">cm</Option>
+        <Option value="m">m</Option>
+      </OptGroup>
+      <OptGroup label="무게">
+        <Option value="g">g</Option>
+        <Option value="kg">kg</Option>
+      </OptGroup>
+    </Select>
+  );
 
   return (
     <div>
       <Typography.Title level={3} style={{ margin: 5 }}>
-        원자재 상세정보
+        원자재 등록
       </Typography.Title>
       <Form
         labelCol={{
@@ -67,6 +68,7 @@ function StaffBomRegistPresenter() {
         size="large"
       >
         <Form.Item
+          name="bomName"
           label="원자재 제품명"
           rules={[
             {
@@ -77,14 +79,21 @@ function StaffBomRegistPresenter() {
           required
           tooltip="필수 입력 필드입니다"
         >
-          <Input placeholder="원자재 제품명" />
+          <Input
+            onChange={(e) => onChangeInputHandler('bomName', e)}
+            placeholder="원자재 제품명"
+          />
         </Form.Item>
 
-        <Form.Item label="원자재 재고 수량">
-          <Input placeholder="원자재 재고 수량" />
+        <Form.Item name="bomQuantity" label="원자재 재고 수량">
+          <InputNumber
+            onChange={(e) => onChangeInputHandler('bomQuantity', e)}
+            placeholder="수량"
+          />
         </Form.Item>
 
         <Form.Item
+          name="bomPrice"
           label="원자재 단가"
           rules={[
             {
@@ -105,20 +114,31 @@ function StaffBomRegistPresenter() {
             formatter={(value) =>
               `￦ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
             }
-            parser={(value) => value.replace(/\\s?|(,*)/g, '')}
+            // parser={(value) => value.replace(/\\s?|(,*)/g, '')}
+            onChange={(e) =>
+              onChangeInputHandler('bomPrice', { target: { value: e } })
+            }
           />
         </Form.Item>
 
-        <Form.Item label="원자재 제품 규격">
-          <Input
-            // addonAfter={standardSelectAfter}
+        <Form.Item name="bomStandard" label="원자재 제품 규격">
+          <InputNumber
+            addonAfter={standardSelectAfter}
+            onChange={(e) => onChangeInputHandler('bomStandard', e)}
             placeholder="원자재 제품 규격"
           />
         </Form.Item>
-        <Form.Item label="비고">
-          <TextArea showCount maxLength={1000} rows={5} placeholder="비고" />
+        <Form.Item name="bomDescription" label="비고">
+          <TextArea
+            onChange={(e) => onChangeInputHandler('bomDescription', e)}
+            showCount
+            maxLength={1000}
+            rows={5}
+            placeholder="비고"
+          />
         </Form.Item>
         <Form.Item
+          name="bomReceivedDate"
           label="원자재 입고 일자"
           rules={[
             {
@@ -129,14 +149,31 @@ function StaffBomRegistPresenter() {
           required
           tooltip="필수 입력 필드입니다"
         >
-          <DatePicker placeholder="원자재 입고 일자" format={dateFormat} />
+          <DatePicker
+            placeholder="원자재 입고 일자"
+            onChange={(e) =>
+              onChangeDatePickerHandler(
+                'bomReceivedDate',
+                moment(e).format('YYYY-MM-DD'),
+              )
+            }
+          />
         </Form.Item>
-        <Form.Item label="부모ID">
-          <Input placeholder="부모ID" />
+
+        <Form.Item name="storageId" label="창고">
+          <Select />
+          {/* <Select
+            onChange={(e) => storageInputHandler('storageId', e)}
+            placeholder="창고 코드"
+          >
+            {storageList.map((data) => (
+              <Option key={data.storageId} value={data.storageId}>
+                {data.storageAddress}({data.storageId})
+              </Option>
+            ))}
+          </Select> */}
         </Form.Item>
-        <Form.Item label="창고">
-          <Input placeholder="창고" />
-        </Form.Item>
+
         <Form.Item
           label="원자재 관련 파일"
           valuePropName="fileList"

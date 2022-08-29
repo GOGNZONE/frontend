@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import AdminOrderListPresenter from 'Routes/pages/Admin/pages/AdminOrder/AdminOrderList/AdminOrderListPresenter';
+import AdminOrderListPresenter from './AdminOrderListPresenter';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrderList, deleteOrder } from 'store/modules/order/orderActions';
 

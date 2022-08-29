@@ -1,15 +1,16 @@
 import React from 'react';
-import { Table } from 'antd';
+import { Table, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import { v4 } from 'uuid';
-function StaffOrderListPresenter({ orderList }) {
+
+function StaffOrderListPresenter({ orderList, onDeleteHandler }) {
   const columns = [
     {
       title: '주문 코드',
       dataIndex: 'orderId',
       key: 'orderId',
       render: (id, index) => (
-        <Link to={`/staff/order/list/${index.orderId}`}>{id}</Link>
+        <Link to={`/Staff/order/list/${index.orderId}`}>{id}</Link>
       ),
     },
     {
@@ -38,7 +39,12 @@ function StaffOrderListPresenter({ orderList }) {
       key: 'orderProductionDescription',
     },
   ];
-  return <Table rowKey={() => v4()} columns={columns} dataSource={orderList} />;
+  return (
+    <div>
+      <h2>발주 리스트</h2>
+      <Table rowKey={() => v4()} columns={columns} dataSource={orderList} />
+    </div>
+  );
 }
 
 export default StaffOrderListPresenter;

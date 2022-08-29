@@ -2,6 +2,7 @@ import React from 'react';
 import { Table, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import { v4 } from 'uuid';
+
 function StaffStockListPresenter({ stockList }) {
   const columns = [
     {
@@ -9,7 +10,7 @@ function StaffStockListPresenter({ stockList }) {
       dataIndex: 'stockId',
       key: 'stockId',
       render: (id, index) => (
-        <Link to={`/staff/stock/list/${index.stockId}`}>{id}</Link>
+        <Link to={`/Staff/stock/list/${index.stockId}`}>{id}</Link>
       ),
     },
     {

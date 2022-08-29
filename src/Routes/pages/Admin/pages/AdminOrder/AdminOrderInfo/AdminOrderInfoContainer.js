@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import AdminOrderInfoPresenter from 'Routes/pages/Admin/pages/AdminOrder/AdminOrderInfo/AdminOrderInfoPresenter';
+import AdminOrderInfoPresenter from './AdminOrderInfoPresenter';
+import AdminOrderUpdate from './AdminOrderUpdate';
 import { Link, useParams } from 'react-router-dom';
 import moment from 'moment';
+import { useDispatch } from 'react-redux';
 
 function AdminOrderInfoContainer() {
-  const [order, setOrder] = useState([]);
   const { orderIdParams } = useParams();
-  const [componentDisabled, setComponentDisabled] = useState(true);
-  const [updateButton, setUpdateButton] = useState(true);
-
-  const onFormLayoutChange = ({ disabled }) => {
-    setComponentDisabled(disabled);
+  const [order, setOrder] = useState([]);
+  const [page, setPage] = useState(true);
+  const dispatch = useDispatch();
+  const changePageHandler = () => {
+    setPage(!page);
+    console.log(page);
   };
 
-  const onButtonNameChange = () => {
-    setUpdateButton(!updateButton);
-  };
   const onChange = (e) => {
     let { value, name } = '';
 
@@ -38,17 +37,10 @@ function AdminOrderInfoContainer() {
     });
   };
 
-  return (
-    <AdminOrderInfoPresenter
-      order={order}
-      onChange={onChange}
-      updateButton={updateButton}
-      componentDisabled={componentDisabled}
-      setComponentDisabled={setComponentDisabled}
-      onButtonNameChange={onButtonNameChange}
-      onFormLayoutChange={onFormLayoutChange}
-      orderIdParams={orderIdParams}
-    />
+  return page ? (
+    <AdminOrderInfoPresenter changePageHandler={changePageHandler} />
+  ) : (
+    <AdminOrderUpdate changePageHandler={changePageHandler} />
   );
 }
 

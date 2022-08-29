@@ -1,8 +1,14 @@
-import React, { useCallback } from 'react';
-import { Typography, Form, Button, Input } from 'antd';
+import React from 'react';
+import { Form, Button, Input, Typography } from 'antd';
 import { Link } from 'react-router-dom';
 
-function StaffStorageRegistPresenter({ registStorage, onChangeInputHandler }) {
+function AdminStorageInfoPresenter({
+  onChangeHandler,
+  changePageHandler,
+  onChangeInputHandler,
+  updateStorageHandler,
+  data,
+}) {
   const { TextArea } = Input;
   return (
     <div>
@@ -17,11 +23,13 @@ function StaffStorageRegistPresenter({ registStorage, onChangeInputHandler }) {
         size="large"
       >
         <Typography.Title level={3} style={{ margin: 5 }}>
-          창고 등록
+          창고 상세정보
         </Typography.Title>
+        <Form.Item label="창고코드">
+          <Input disabled={true} value={data.storageId} />
+        </Form.Item>
         <Form.Item
           label="창고 주소"
-          name="storageAddress"
           rules={[
             {
               required: true,
@@ -31,11 +39,14 @@ function StaffStorageRegistPresenter({ registStorage, onChangeInputHandler }) {
           required
           tooltip="필수 입력 필드입니다."
         >
-          <Input onChange={(e) => onChangeInputHandler('storageAddress', e)} />
+          <Input
+            name="storageAddress"
+            defaultValue={data.storageAddress}
+            onChange={(e) => onChangeInputHandler('storageAddress', e)}
+          />
         </Form.Item>
         <Form.Item
           label="창고 종류"
-          name="storageCategory"
           rules={[
             {
               required: true,
@@ -45,37 +56,40 @@ function StaffStorageRegistPresenter({ registStorage, onChangeInputHandler }) {
           required
           tooltip="필수 입력 필드입니다."
         >
-          <Input onChange={(e) => onChangeInputHandler('storageCategory', e)} />
+          <Input
+            name="storageCategory"
+            onChange={(e) => onChangeInputHandler('storageCategory', e)}
+            defaultValue={data.storageCategory}
+          />
         </Form.Item>
-        <Form.Item name="storageDescription" label="비고">
+        <Form.Item label="비고">
           <TextArea
+            name="storageDescription"
             onChange={(e) => onChangeInputHandler('storageDescription', e)}
-            showCount
-            maxLength={1000}
-            rows={5}
-            placeholder="비고"
+            defaultValue={data.storageDescription}
           />
         </Form.Item>
       </Form>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Form.Item>
-          <Link to="/Staff/storage/list">
-            <Button
-              type="primary"
-              htmlType="submit"
-              style={{
-                margin: 5,
-                backgroundColor: '#FEB139',
-                border: '#FEB139',
-              }}
-              onClick={registStorage}
-            >
-              등록
-            </Button>
-          </Link>
+          <Button
+            type="primary"
+            htmlType="submit"
+            style={{
+              margin: 5,
+              backgroundColor: '#FEB139',
+              border: '#FEB139',
+            }}
+            onClick={() => {
+              changePageHandler();
+              updateStorageHandler();
+            }}
+          >
+            수정
+          </Button>
         </Form.Item>
 
-        <Link to="/staff/storage/list">
+        <Link to="/admin/storage/list">
           <Button
             type="primary"
             style={{
@@ -92,4 +106,4 @@ function StaffStorageRegistPresenter({ registStorage, onChangeInputHandler }) {
   );
 }
 
-export default StaffStorageRegistPresenter;
+export default AdminStorageInfoPresenter;

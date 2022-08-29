@@ -1,13 +1,13 @@
 import React from 'react';
-import { Form, Button, Input, Typography } from 'antd';
+import { Typography, Form, Input, Button, InputNumber, Modal } from 'antd';
 import { Link } from 'react-router-dom';
 
 function AdminStockRegistPresenter({
   registStock,
-  stock,
   storageIdInputHandler,
   onChangeInputHandler,
 }) {
+  const { TextArea } = Input;
   return (
     <div>
       <Form
@@ -53,13 +53,14 @@ function AdminStockRegistPresenter({
           required
           tooltip="필수 입력 필드입니다."
         >
-          <Input
+          <InputNumber
+            style={{ width: 340 }}
             onChange={(e) => onChangeInputHandler('stockQuantity', e)}
             placeholder="재고 수량"
           />
         </Form.Item>
         <Form.Item name="stockDescription" label="비고">
-          <Input
+          <TextArea
             onChange={(e) => onChangeInputHandler('stockDescription', e)}
             placeholder="비고"
           />

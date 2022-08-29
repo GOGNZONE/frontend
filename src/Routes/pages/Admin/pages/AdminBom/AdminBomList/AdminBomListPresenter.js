@@ -2,7 +2,7 @@ import React from 'react';
 import { Table, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import { v4 } from 'uuid';
-function BomListPresenter({ bomList }) {
+function AdminBomListPresenter({ bomList, onDeleteHandler }) {
   const columns = [
     {
       title: '원자재코드',
@@ -36,11 +36,14 @@ function BomListPresenter({ bomList }) {
       title: '삭제',
       dataIndex: 'deleteButton',
       align: 'center',
-      render: () => (
+      dataIndex: 'bomId',
+      key: 'bomId',
+      render: (id, index) => (
         <Button
           type="primary"
           size="middle"
           style={{ backgroundColor: '#D61C4E', border: '#D61C4E' }}
+          onClick={() => onDeleteHandler(`${index.bomId}`)}
         >
           삭제
         </Button>
@@ -59,4 +62,4 @@ function BomListPresenter({ bomList }) {
   );
 }
 
-export default BomListPresenter;
+export default AdminBomListPresenter;

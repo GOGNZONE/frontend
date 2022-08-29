@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import AdminStorageListPresenter from 'Routes/pages/Admin/pages/AdminStorage/AdminStorageList/AdminStorageListPresenter';
+import AdminStorageListPresenter from './AdminStorageListPresenter';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getStorageList,

@@ -125,8 +125,8 @@ export const getStockList = () => {
   return instance.get(`/stock/list`);
 };
 
-export const getStockInfo = (stock_id) => {
-  return instance.get(`/stock/${stock_id}`);
+export const getStockInfo = (stockId) => {
+  return instance.get(`/stock/${stockId}`);
 };
 
 export const registerStock = (inData) => {

@@ -1,54 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import AdminStorageInfoPresenter from 'Routes/pages/Admin/pages/AdminStock/AdminStockInfo/AdminStockInfoPresenter';
+import { getStock, putStock } from 'store/modules/stock/stockActions';
+import AdminStorageInfoPresenter from './AdminStockInfoPresenter';
+import AdminStockUpdate from './AdminStockUpdate';
+import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 
 function AdminStorageInfoContainer() {
   const { stockIdParams } = useParams();
-  const [stock, setStock] = useState([]);
-  const [componentDisabled, setComponentDisabled] = useState(true);
-  const [updateButton, setUpdateButton] = useState(true);
+  const [page, setPage] = useState(true);
+  const [stock, setStock] = useState({
+    stockName: '',
+    stockQuantity: '',
+    stockDescription: '',
+  });
+  const dispatch = useDispatch();
+  const { data, loading, error } = useSelector((state) => state.stock.stock);
+  console.log(data);
+  useEffect(() => {
+    dispatch(getStock(stockIdParams));
+  }, [stockIdParams, dispatch]);
 
-  const onFormLayoutChange = ({ disabled }) => {
-    setComponentDisabled(disabled);
+  const changePageHandler = () => {
+    setPage(!page);
   };
 
-  const onButtonNameChange = () => {
-    setUpdateButton(!updateButton);
-  };
-
-  const onChange = (e) => {
-    let { value, name } = '';
-
-    if (e.target === undefined) {
-      if (moment.isMoment(e.value)) {
-        value = e.value.format('YYYY-MM-DD');
-        name = e.name;
-      } else {
-        value = parseInt(e.value);
-        name = e.name;
-      }
-    } else {
-      value = e.target.value;
-      name = e.target.name;
-    }
-
-    setStock({
-      ...stock,
-      [name]: value,
-    });
-  };
-  return (
+  return page ? (
     <AdminStorageInfoPresenter
-      stock={stock}
-      componentDisabled={componentDisabled}
-      setComponentDisabled={setComponentDisabled}
-      onFormLayoutChange={onFormLayoutChange}
-      stockIdParams={stockIdParams}
-      onChange={onChange}
-      updateButton={updateButton}
-      onButtonNameChange={onButtonNameChange}
+      changePageHandler={changePageHandler}
+      // componentDisabled={componentDisabled}
+      // setComponentDisabled={setComponentDisabled}
+      // onFormLayoutChange={onFormLayoutChange}
+      // stockIdParams={stockIdParams}
+      // onChange={onChange}
+      // updateButton={updateButton}
+      // onButtonNameChange={onButtonNameChange}
     />
+  ) : (
+    <AdminStockUpdate changePageHandler={changePageHandler} />
   );
 }
 
