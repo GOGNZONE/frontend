@@ -31,6 +31,7 @@ import {
   AdminReleaseList,
   AdminReleaseDetails,
   AdminReleaseRegistration,
+  AdminReleaseRegistrationInProduction,
 } from 'Routes/pages/Admin/pages/AdminRelease';
 const Admin = ({ checkAdmin, logout }) => {
   return (
@@ -66,9 +67,10 @@ const Admin = ({ checkAdmin, logout }) => {
         />
         {/* release */}
         <Route
-          path="/release/:productionIdParams"
-          element={<AdminReleaseRegistration />}
+          path="/production/release/:productionIdParams"
+          element={<AdminReleaseRegistrationInProduction />}
         />
+        <Route path="/release" element={<AdminReleaseRegistration />} />
         <Route path="/release/list" element={<AdminReleaseList />} />
         <Route
           path="/release/:releaseIdParams"
