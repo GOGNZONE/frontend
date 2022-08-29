@@ -1,0 +1,2 @@
+import AdminRetiredEmployeeListContainer from './AdminRetiredEmployeeListContainer';
+export default AdminRetiredEmployeeListContainer;

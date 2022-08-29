@@ -5,10 +5,10 @@ import { SearchOutlined } from '@ant-design/icons';
 import { Button, Table, Typography, BackTop, Input, Space, Spin } from 'antd';
 import Highlighter from 'react-highlight-words';
 
-const AdminEmployeeListPresenter = ({
-  employeeList,
-  loading,
+const AdminRetiredEmployeeListPresenter = ({
+  retiredEmployee,
   error,
+  loading,
   onDeleteHandler,
   setSearchText,
   setSearchedColumn,
@@ -133,7 +133,7 @@ const AdminEmployeeListPresenter = ({
       width: 200,
       ...getColumnSearchProps('employeeName'),
       render: (name, record) => (
-        <Link to={`/admin/employee/${record.employeeId}`}>{name}</Link>
+        <Link to={`/staff/employee/${record.employeeId}`}>{name}</Link>
       ),
     },
     {
@@ -148,8 +148,8 @@ const AdminEmployeeListPresenter = ({
       width: 200,
     },
     {
-      title: '입사일',
-      dataIndex: 'employeeHiredate',
+      title: '퇴사일',
+      dataIndex: 'employeeRetiredDate',
       defaultSortOrder: 'ascend',
       width: 200,
     },
@@ -174,33 +174,19 @@ const AdminEmployeeListPresenter = ({
       showConfirmButton: false,
       timer: 1500,
     });
-  if (!employeeList) return null;
+  if (!retiredEmployee) return null;
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography.Title level={3} style={{ margin: 5 }}>
           사원 목록
         </Typography.Title>
-        <div>
-          <Link to="/admin/employee">
-            <Button
-              type="primary"
-              style={{
-                margin: 5,
-                backgroundColor: '#FEB139',
-                border: '#FEB139',
-              }}
-            >
-              등록
-            </Button>
-          </Link>
-        </div>
       </div>
       <Spin spinning={loading}>
         <Table
           rowKey="employeeId"
           columns={columns}
-          dataSource={employeeList}
+          dataSource={retiredEmployee}
         />
       </Spin>
       <BackTop visibilityHeight={100} />
@@ -208,4 +194,4 @@ const AdminEmployeeListPresenter = ({
   );
 };
 
-export default AdminEmployeeListPresenter;
+export default AdminRetiredEmployeeListPresenter;

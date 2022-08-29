@@ -1,32 +1,33 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  deleteEmployee,
-  getEmployeeList,
+  deleteRetiredEmployee,
+  getRetiredEmployeeList,
 } from 'store/modules/employee/employeeActions';
-import AdminEmployeeListPresenter from './AdminEmployeeListPresenter';
+import AdminRetiredEmployeeListPresenter from './AdminRetiredEmployeeListPresenter';
 
-const AdminEmployeeListContainer = () => {
+const AdminRetiredEmployeeListContainer = () => {
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
   const { data, loading, error } = useSelector(
-    (state) => state.employee.employeeList,
+    (state) => state.employee.retiredEmployeeList,
   );
   const dispatch = useDispatch();
 
-  const onDeleteHandler = async (employeeId) => {
-    await dispatch(deleteEmployee(employeeId));
-    dispatch(getEmployeeList());
+  const onDeleteHandler = async (retiredEmployeeId) => {
+    await dispatch(deleteRetiredEmployee(retiredEmployeeId));
+    dispatch(getRetiredEmployeeList());
   };
 
   useEffect(() => {
-    dispatch(getEmployeeList());
+    dispatch(getRetiredEmployeeList());
+    dispatch(getRetiredEmployeeList());
   }, [dispatch]);
 
   return (
-    <AdminEmployeeListPresenter
-      employeeList={data}
+    <AdminRetiredEmployeeListPresenter
+      retiredEmployee={data}
       loading={loading}
       error={error}
       onDeleteHandler={onDeleteHandler}
@@ -39,4 +40,4 @@ const AdminEmployeeListContainer = () => {
   );
 };
 
-export default AdminEmployeeListContainer;
+export default AdminRetiredEmployeeListContainer;
