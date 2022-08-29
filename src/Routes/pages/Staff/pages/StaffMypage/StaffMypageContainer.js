@@ -9,6 +9,11 @@ import {
 import Swal from 'sweetalert2';
 
 const StaffMypageContainer = () => {
+  const [page, setPage] = useState(true);
+  const dispatch = useDispatch();
+  const { data, loading, error } = useSelector(
+    (state) => state.employee.mypage,
+  );
   const [updateMyProfile, setUpdateMyProfile] = useState({
     employeeEmail: '',
     newPassword: '',
@@ -18,11 +23,6 @@ const StaffMypageContainer = () => {
     employeeAddress: '',
     employeeImage: '',
   });
-  const [page, setPage] = useState(true);
-  const { data, loading, error } = useSelector(
-    (state) => state.employee.mypage,
-  );
-  const dispatch = useDispatch();
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -34,7 +34,7 @@ const StaffMypageContainer = () => {
 
   const onUpdateHandler = () => {
     const { newPassword, confirmPassword } = updateMyProfile;
-    if (newPassword === confirmPassword) {
+    if (newPassword && newPassword === confirmPassword) {
       dispatch(updateProfile(updateMyProfile));
       Swal.fire({
         position: 'center',
@@ -55,18 +55,6 @@ const StaffMypageContainer = () => {
     }
   };
 
-  const onResetInput = () => {
-    setUpdateMyProfile({
-      employeeEmail: '',
-      newPassword: '',
-      confirmPassword: '',
-      employeeName: '',
-      employeePhone: '',
-      employeeAddress: '',
-      employeeImage: '',
-    });
-  };
-
   useEffect(() => {
     dispatch(getMypage());
   }, [dispatch]);
@@ -81,11 +69,11 @@ const StaffMypageContainer = () => {
   ) : (
     <UpdateMyProfileInfo
       mypage={data}
+      loading={loading}
+      error={error}
       setPage={setPage}
       onChangeHandler={onChangeHandler}
       onUpdateHandler={onUpdateHandler}
-      updateMyProfile={updateMyProfile}
-      onResetInput={onResetInput}
     />
   );
 };
