@@ -113,11 +113,8 @@ export const updateProduction = (inData) => {
   return instance.put(`/production/${inData.productionId}`, inData.inData);
 };
 
-export const deleteProduction = (production_id) => {
-  instance({
-    url: `/production/${production_id}`,
-    method: 'delete',
-  });
+export const deleteProduction = (productionId) => {
+  return instance.delete(`/production/${productionId}`);
 };
 
 /** Stock */
