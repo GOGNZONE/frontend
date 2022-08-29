@@ -1,7 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import ProductionListPresenter from './ProductionListPresenter';
 import { useSelector, useDispatch } from 'react-redux';
-import { getProductions } from 'store/modules/production/productionActions';
+import {
+  deleteProduction,
+  getProductions,
+} from 'store/modules/production/productionActions';
 
 const ProductionListContainer = () => {
   /***** redux (state) *****/
@@ -20,6 +23,10 @@ const ProductionListContainer = () => {
     !loading && callDispatch();
   }, []);
 
+  const onDeleteProduction = (productionId) => {
+    dispatch(deleteProduction(productionId));
+  };
+
   return (
     <ProductionListPresenter
       dataSource={data}
@@ -29,6 +36,7 @@ const ProductionListContainer = () => {
       searchedColumn={searchedColumn}
       searchText={searchText}
       loading={loading}
+      onDeleteProduction={onDeleteProduction}
     />
   );
 };

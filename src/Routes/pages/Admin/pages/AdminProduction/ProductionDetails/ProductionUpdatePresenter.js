@@ -120,12 +120,6 @@ const ProductionUpdatePresenter = ({
       };
     },
 
-    // defaultFileList: [
-    //   {
-    //     name: `${data?.productionFile}`,
-    //   },
-    // ],
-
     onChange({ file, fileList, onProgress }) {
       const newFileList = fileList.slice(-1);
       setFileList(newFileList);
@@ -373,14 +367,13 @@ const ProductionUpdatePresenter = ({
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Button
                 type="primary"
-                htmlType="submit"
+                htmlType="button"
                 style={{
                   margin: 5,
                   backgroundColor: '#FEB139',
                   border: '#FEB139',
                 }}
                 onClick={() => {
-                  setSwitchToEditPage(true);
                   onClickHandler();
                 }}
               >

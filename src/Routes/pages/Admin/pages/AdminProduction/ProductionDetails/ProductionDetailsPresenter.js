@@ -25,7 +25,12 @@ const showDeleteConfirm = () => {
   });
 };
 
-const ProductionDetailsPresenter = ({ data, loading, setSwitchToEditPage }) => {
+const ProductionDetailsPresenter = ({
+  data,
+  loading,
+  setSwitchToEditPage,
+  onSetProductionValue,
+}) => {
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -41,7 +46,10 @@ const ProductionDetailsPresenter = ({ data, loading, setSwitchToEditPage }) => {
               backgroundColor: '#FEB139',
               border: '#FEB139',
             }}
-            onClick={() => setSwitchToEditPage(false)}
+            onClick={() => {
+              setSwitchToEditPage(false);
+              onSetProductionValue(data);
+            }}
           >
             수정
           </Button>
@@ -105,9 +113,9 @@ const ProductionDetailsPresenter = ({ data, loading, setSwitchToEditPage }) => {
             <Descriptions.Item label="생성일자">
               {data.productionDate}
             </Descriptions.Item>
-            <Descriptions.Item label="출고일자" span={2}>
+            {/* <Descriptions.Item label="출고일자" span={2}>
               {data.productionReleasedDate}
-            </Descriptions.Item>
+            </Descriptions.Item> */}
             <Descriptions.Item label="거래처코드" span={3}>
               {data.client.clientName + '(' + data.client.clientId + ')'}
             </Descriptions.Item>

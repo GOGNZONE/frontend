@@ -16,24 +16,6 @@ import Highlighter from 'react-highlight-words';
 
 const { confirm } = Modal;
 
-const showDeleteConfirm = () => {
-  confirm({
-    title: '해당 제품을 삭제하시겠습니까?',
-    icon: <ExclamationCircleOutlined />,
-    okText: '확인',
-    okType: 'danger',
-    cancelText: '취소',
-
-    onOk() {
-      console.log('OK');
-    },
-
-    onCancel() {
-      console.log('Cancel');
-    },
-  });
-};
-
 const ProductionListPresenter = ({
   dataSource,
   setSearchText,
@@ -42,7 +24,26 @@ const ProductionListPresenter = ({
   searchedColumn,
   searchText,
   loading,
+  onDeleteProduction,
 }) => {
+  const showDeleteConfirm = (productionId) => {
+    confirm({
+      title: '해당 제품을 삭제하시겠습니까?',
+      icon: <ExclamationCircleOutlined />,
+      okText: '확인',
+      okType: 'danger',
+      cancelText: '취소',
+
+      onOk() {
+        onDeleteProduction(productionId);
+      },
+
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  };
+
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -192,8 +193,8 @@ const ProductionListPresenter = ({
       dataIndex: 'releaseButton',
       width: 100,
       align: 'center',
-      render: () => (
-        <Link to="/admin/release">
+      render: (name, record) => (
+        <Link to={`/admin/production/release/${record.productionId}`}>
           <Button
             type="primary"
             size="middle"
@@ -209,12 +210,14 @@ const ProductionListPresenter = ({
       dataIndex: 'deleteButton',
       width: 100,
       align: 'center',
-      render: () => (
+      render: (name, record) => (
         <Button
           type="primary"
           size="middle"
           style={{ backgroundColor: '#D61C4E', border: '#D61C4E' }}
-          onClick={showDeleteConfirm}
+          onClick={() => {
+            showDeleteConfirm(record.productionId);
+          }}
         >
           삭제
         </Button>
