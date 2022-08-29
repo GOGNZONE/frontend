@@ -20,18 +20,14 @@ const AdminRegisterEmployeeContainer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onChangeHandler = (e) => {
-    const { name, value } = e.target;
-    setEmployeeInfo({
-      ...employeeInfo,
-      [name]: value,
-    });
+  const onChangeHandler = (value) => {
+    setEmployeeInfo(value);
   };
 
-  const saveEmployee = () => {
+  const saveEmployee = async () => {
     if (employeeInfo) {
-      dispatch(registerEmployee(employeeInfo));
-      navigate('/admin/employee/list');
+      await dispatch(registerEmployee(employeeInfo));
+      await navigate('/admin/employee/list');
     } else {
       message.error('필수값을 입력하세요');
     }
@@ -46,4 +42,4 @@ const AdminRegisterEmployeeContainer = () => {
   );
 };
 
-export default AdminRegisterEmployeeContainer;
+export default React.memo(AdminRegisterEmployeeContainer);
