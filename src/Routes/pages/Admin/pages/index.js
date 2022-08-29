@@ -5,10 +5,12 @@ export {
 } from './AdminProduction';
 
 export {
-  AdminReleaseList,
   AdminReleaseDetails,
+  AdminReleaseList,
   AdminReleaseRegistration,
+  AdminReleaseRegistrationInProduction,
 } from './AdminRelease';
+
 export { default as AdminDashBoard } from 'Routes/pages/Admin/pages/AdminDashBoard';
 export {
   AdminBomRegist,
