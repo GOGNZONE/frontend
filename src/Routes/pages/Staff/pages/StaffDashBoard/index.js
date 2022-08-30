@@ -1,1 +1,1 @@
-export { default as StaffDashBoard } from 'Routes/pages/Staff/pages/StaffDashBoard/DashBoardContainer';
+export { default as StaffDashBoard } from './DashBoardContainer';

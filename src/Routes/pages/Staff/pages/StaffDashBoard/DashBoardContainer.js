@@ -1,5 +1,5 @@
 import React from 'react';
-import DashBoardPresenter from 'Routes/pages/Staff/pages/StaffDashBoard/DashBoardPresenter';
+import DashBoardPresenter from './DashBoardPresenter';
 
 const DashBoardContainer = () => {
   return <DashBoardPresenter />;

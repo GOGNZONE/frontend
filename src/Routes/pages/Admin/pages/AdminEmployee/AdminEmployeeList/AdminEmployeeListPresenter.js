@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { SearchOutlined } from '@ant-design/icons';
@@ -10,12 +10,11 @@ const AdminEmployeeListPresenter = ({
   loading,
   error,
   onDeleteHandler,
-  setSearchText,
-  setSearchedColumn,
-  searchInput,
-  searchedColumn,
-  searchText,
 }) => {
+  const [searchText, setSearchText] = useState('');
+  const [searchedColumn, setSearchedColumn] = useState('');
+  const searchInput = useRef(null);
+
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -41,7 +40,7 @@ const AdminEmployeeListPresenter = ({
       >
         <Input
           ref={searchInput}
-          placeholder={'생산 코드를 입력해 주세요.'}
+          placeholder={'사원 번호를 입력해 주세요.'}
           value={selectedKeys[0]}
           onChange={(e) =>
             setSelectedKeys(e.target.value ? [e.target.value] : [])
@@ -144,7 +143,6 @@ const AdminEmployeeListPresenter = ({
     {
       title: '전화번호',
       dataIndex: 'employeePhone',
-      defaultSortOrder: 'ascend',
       width: 200,
     },
     {
