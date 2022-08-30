@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   getProduction,
   putProduction,
+  clearProduction,
 } from 'store/modules/production/productionActions';
 import { message } from 'antd';
 
@@ -19,13 +20,24 @@ const ProductionDetailsContainer = () => {
   const dispatch = useDispatch();
   const [switchToEditPage, setSwitchToEditPage] = useState(true);
   const [productionValue, setProductionValue] = useState({});
+  const [visible, setVisible] = useState(false);
+
+  const showDrawer = () => {
+    setVisible(true);
+  };
+
+  const onClose = () => {
+    setVisible(false);
+  };
 
   useEffect(() => {
     dispatch(getProduction(productionIdParams));
+    return () => {
+      dispatch(clearProduction());
+    };
   }, [productionIdParams, dispatch, switchToEditPage]);
 
   const onClickHandler = useCallback(async () => {
-    console.log(productionValue);
     if (
       productionValue.productionName === '' ||
       productionValue.productionPrice === null ||
@@ -58,6 +70,9 @@ const ProductionDetailsContainer = () => {
       loading={loading}
       setSwitchToEditPage={setSwitchToEditPage}
       onSetProductionValue={onSetProductionValue}
+      showDrawer={showDrawer}
+      onClose={onClose}
+      visible={visible}
     />
   ) : (
     <ProductionUpdatePresenter
