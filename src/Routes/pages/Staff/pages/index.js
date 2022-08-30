@@ -1,4 +1,4 @@
-export { StaffDashBoard } from 'Routes/pages/Staff/pages/StaffDashBoard';
+export { StaffDashBoard } from 'routes/pages/Staff/pages/StaffDashBoard';
 export { StaffClient } from './StaffClient';
 export { StaffBomRegist, StaffBomList, StaffBomInfo } from './StaffBom';
 export { StaffOrderInfo, StaffOrderList } from './StaffOrder';

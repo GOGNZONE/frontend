@@ -11,24 +11,24 @@ export {
   AdminReleaseRegistrationInProduction,
 } from './AdminRelease';
 
-export { default as AdminDashBoard } from 'Routes/pages/Admin/pages/AdminDashBoard';
+export { default as AdminDashBoard } from 'routes/pages/Admin/pages/AdminDashBoard';
 export {
   AdminBomRegist,
   AdminBomList,
   AdminBomInfo,
-} from 'Routes/pages/Admin/pages/AdminBom';
+} from 'routes/pages/Admin/pages/AdminBom';
 export {
   AdminOrderInfo,
   AdminOrderList,
   AdminOrderRegist,
-} from 'Routes/pages/Admin/pages/AdminOrder';
+} from 'routes/pages/Admin/pages/AdminOrder';
 export {
   AdminStorageInfo,
   AdminStorageList,
   AdminStorageRegist,
-} from 'Routes/pages/Admin/pages/AdminStorage';
+} from 'routes/pages/Admin/pages/AdminStorage';
 export {
   AdminStockInfo,
   AdminStockList,
   AdminStockRegist,
-} from 'Routes/pages/Admin/pages/AdminStock';
+} from 'routes/pages/Admin/pages/AdminStock';

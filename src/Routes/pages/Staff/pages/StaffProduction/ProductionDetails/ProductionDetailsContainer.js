@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import ProductionDetailsPresenter from 'Routes/pages/Staff/pages/StaffProduction/ProductionDetails/ProductionDetailsPresenter';
+import ProductionDetailsPresenter from 'routes/pages/Staff/pages/StaffProduction/ProductionDetails/ProductionDetailsPresenter';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   getProduction,
@@ -18,7 +18,6 @@ const ProductionDetailsContainer = () => {
   const { data, loading, error } = useSelector(
     (state) => state.production.production,
   );
-
   const dispatch = useDispatch();
 
   useEffect(() => {
