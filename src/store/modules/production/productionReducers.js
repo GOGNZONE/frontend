@@ -36,13 +36,20 @@ export const productionReducer = (state = initialState, action) => {
         state,
         action,
       );
-    // case types.DELETE_PRODUCTION:
-    // case types.DELETE_PRODUCTION_SUCCESS:
-    // case types.DELETE_PRODUCTION_ERROR:
-    //   return handleAsyncActions(types.DELETE_PRODUCTION, 'productions')(
-    //     state,
-    //     action,
-    //   );
+    case types.DELETE_PRODUCTION:
+      return {
+        productions: {
+          loading: false,
+          data: state.productions.data.filter(
+            (production) => production.productionId !== action.param,
+          ),
+        },
+      };
+    case types.CLEAR_PRODUCTION:
+      return {
+        ...state,
+        production: reducerUtils.initial(),
+      };
     default:
       return state;
   }
