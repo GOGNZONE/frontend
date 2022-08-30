@@ -218,7 +218,7 @@ const AdminRegisterEmployeePresenter = ({
           required
         >
           <Select
-            defaultValue="선택하세요"
+            placeholder="선택하세요"
             onChange={(e) => onChangeEmployeeRole(e)}
             value={employeeRole}
           >
