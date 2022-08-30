@@ -4,20 +4,22 @@ import { getClientList } from 'store/modules/client/clientActions';
 import AdminClientListPresenter from './AdminClientListPresenter';
 
 const AdminClientListContainer = () => {
+  const dispatch = useDispatch();
   const { data, loading, error } = useSelector(
     (state) => state.client.clientList,
   );
-  const dispatch = useDispatch();
-
-  console.log(data);
-  console.log(loading);
-  console.log(error);
 
   useEffect(() => {
     dispatch(getClientList());
   }, [dispatch]);
 
-  return <AdminClientListPresenter />;
+  return (
+    <AdminClientListPresenter
+      clientList={data}
+      loading={loading}
+      error={error}
+    />
+  );
 };
 
 export default AdminClientListContainer;
