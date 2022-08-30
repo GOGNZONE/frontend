@@ -15,6 +15,7 @@ import {
 import Highlighter from 'react-highlight-words';
 
 const { confirm } = Modal;
+const { Text } = Typography;
 
 const ProductionListPresenter = ({
   dataSource,
@@ -167,7 +168,7 @@ const ProductionListPresenter = ({
     {
       title: '브랜드',
       dataIndex: 'productionBrandName',
-      width: 200,
+      width: 150,
       ...getColumnSearchProps('productionBrandName'),
     },
     {
@@ -185,26 +186,46 @@ const ProductionListPresenter = ({
       sorter: (a, b) => a.productionPrice - b.productionPrice,
     },
     {
+      title: '출고일자',
+      dataIndex: 'releases',
+      width: 170,
+      render: (_, { releases }) => (
+        <>
+          {releases.length === 0 ? (
+            <Text type="danger">출고 정보 없음</Text>
+          ) : (
+            releases.map((release) => {
+              return (
+                <Text mark key={release.releaseId}>
+                  {release.releaseDate}
+                </Text>
+              );
+            })
+          )}
+        </>
+      ),
+    },
+    {
       title: '비고',
       dataIndex: 'productionDescription',
     },
-    {
-      title: '출고',
-      dataIndex: 'releaseButton',
-      width: 100,
-      align: 'center',
-      render: (name, record) => (
-        <Link to={`/admin/production/release/${record.productionId}`}>
-          <Button
-            type="primary"
-            size="middle"
-            style={{ backgroundColor: '#293462', border: '#293462' }}
-          >
-            출고
-          </Button>
-        </Link>
-      ),
-    },
+    // {
+    //   title: '출고',
+    //   dataIndex: 'releaseButton',
+    //   width: 100,
+    //   align: 'center',
+    //   render: (name, record) => (
+    //     <Link to={`/admin/production/release/${record.productionId}`}>
+    //       <Button
+    //         type="primary"
+    //         size="middle"
+    //         style={{ backgroundColor: '#293462', border: '#293462' }}
+    //       >
+    //         출고
+    //       </Button>
+    //     </Link>
+    //   ),
+    // },
     {
       title: '삭제',
       dataIndex: 'deleteButton',
