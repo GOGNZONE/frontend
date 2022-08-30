@@ -52,13 +52,6 @@ const ProductionUpdatePresenter = ({
     });
   });
 
-  const onChangeDatePickerHandler = useCallback((name, value) => {
-    onChangeHandler({
-      ...productionValue,
-      [name]: value,
-    });
-  });
-
   const token = localStorage.getItem('ACCESS_TOKEN');
 
   const props = {
@@ -194,7 +187,7 @@ const ProductionUpdatePresenter = ({
                   },
                 ]}
                 required
-                tooltip="필수 입력 필드입니다"
+                tooltip="생산 제품명은 필수 입력 필드입니다"
               >
                 <Input
                   name="productionName"
@@ -222,7 +215,7 @@ const ProductionUpdatePresenter = ({
                   },
                 ]}
                 required
-                tooltip="필수 입력 필드입니다"
+                tooltip="단가는 필수 입력 필드입니다"
               >
                 <InputNumber
                   min={0}
@@ -303,7 +296,7 @@ const ProductionUpdatePresenter = ({
                   }
                 />
               </Form.Item>
-              <Form.Item
+              {/* <Form.Item
                 label="출고일자"
                 rules={[
                   {
@@ -328,7 +321,7 @@ const ProductionUpdatePresenter = ({
                     )
                   }
                 />
-              </Form.Item>
+              </Form.Item> */}
               <Form.Item label="생성일자">
                 <DatePicker
                   placeholder="제품 생성 일자"
