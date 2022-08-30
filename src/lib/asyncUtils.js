@@ -50,9 +50,7 @@ export const handleAsyncActions = (type, key) => {
       case SUCCESS:
         return {
           ...state,
-          [key]: reducerUtils.success(
-            action.payload.data ? action.payload.data : state[key].data,
-          ),
+          [key]: reducerUtils.success(action.payload.data),
         };
       case ERROR:
         return {
