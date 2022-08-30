@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import StaffStorageInfoPresenter from 'Routes/pages/Staff/pages/StaffStorage/StaffStorageInfo/StaffStorageInfoPresenter';
+import StaffStorageInfoPresenter from 'routes/pages/Staff/pages/StaffStorage/StaffStorageInfo/StaffStorageInfoPresenter';
 import { useDispatch, useSelector } from 'react-redux';
 import { getStorage } from 'store/modules/storage/storageActions';
 

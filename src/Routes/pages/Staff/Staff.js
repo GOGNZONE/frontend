@@ -1,30 +1,30 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { StaffLayout } from 'Components';
+import { StaffLayout } from 'components';
 import {
   StaffClient,
   StaffDashBoard,
   StaffMypage,
-} from 'Routes/pages/Staff/pages';
+} from 'routes/pages/Staff/pages';
 import {
   StaffOrderInfo,
   StaffOrderList,
-} from 'Routes/pages/Staff/pages/StaffOrder';
+} from 'routes/pages/Staff/pages/StaffOrder';
 import {
   StaffBomList,
   StaffBomRegist,
   StaffBomInfo,
-} from 'Routes/pages/Staff/pages/StaffBom';
+} from 'routes/pages/Staff/pages/StaffBom';
 import {
   StaffStorageInfo,
   StaffStorageList,
   StaffStorageRegist,
-} from 'Routes/pages/Staff/pages/StaffStorage';
+} from 'routes/pages/Staff/pages/StaffStorage';
 import {
   StaffStockInfo,
   StaffStockRegist,
   StaffStockList,
-} from 'Routes/pages/Staff/pages/StaffStock';
+} from 'routes/pages/Staff/pages/StaffStock';
 
 import {
   StaffProductionList,
@@ -34,7 +34,7 @@ import {
 import {
   StaffReleaseList,
   StaffReleaseDetails,
-} from 'Routes/pages/Staff/pages/StaffRelease';
+} from 'routes/pages/Staff/pages/StaffRelease';
 
 const Staff = ({ logout, checkAdmin }) => {
   return (

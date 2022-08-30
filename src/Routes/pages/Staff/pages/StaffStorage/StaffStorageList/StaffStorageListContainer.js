@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import StaffStorageListPresenter from 'Routes/pages/Staff/pages/StaffStorage/StaffStorageList/StaffStorageListPresenter';
+import StaffStorageListPresenter from 'routes/pages/Staff/pages/StaffStorage/StaffStorageList/StaffStorageListPresenter';
 import { getStorageList } from 'store/modules/storage/storageActions';
 import { useDispatch, useSelector } from 'react-redux';
 

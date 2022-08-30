@@ -1,5 +1,5 @@
 import React from 'react';
-import StaffStorageRegistPresenter from 'Routes/pages/Staff/pages/StaffStorage/StaffStorageRegist/StaffStorageRegistPresenter';
+import StaffStorageRegistPresenter from 'routes/pages/Staff/pages/StaffStorage/StaffStorageRegist/StaffStorageRegistPresenter';
 function StaffStorageRegistContainer() {
   return <StaffStorageRegistPresenter />;
 }
