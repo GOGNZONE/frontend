@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import AdminStorageInfoPresenter from 'Routes/pages/Admin/pages/AdminStock/AdminStockInfo/AdminStockInfoPresenter';
+import AdminStorageInfoPresenter from 'routes/pages/Admin/pages/AdminStock/AdminStockInfo/AdminStockInfoPresenter';
 import moment from 'moment';
 
 function AdminStorageInfoContainer() {

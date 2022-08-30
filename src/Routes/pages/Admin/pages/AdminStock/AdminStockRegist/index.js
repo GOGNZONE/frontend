@@ -1,1 +1,1 @@
-export { default as AdminStockRegist } from 'Routes/pages/Admin/pages/AdminStock/AdminStockRegist/AdminStockRegistContainer';
+export { default as AdminStockRegist } from 'routes/pages/Admin/pages/AdminStock/AdminStockRegist/AdminStockRegistContainer';
