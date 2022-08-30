@@ -55,6 +55,18 @@ const StaffMypageContainer = () => {
     }
   };
 
+  const onResetHandler = () => {
+    setUpdateMyProfile({
+      employeeEmail: '',
+      newPassword: '',
+      confirmPassword: '',
+      employeeName: '',
+      employeePhone: '',
+      employeeAddress: '',
+      employeeImage: '',
+    });
+  };
+
   useEffect(() => {
     dispatch(getMypage());
   }, [dispatch]);
@@ -74,6 +86,7 @@ const StaffMypageContainer = () => {
       setPage={setPage}
       onChangeHandler={onChangeHandler}
       onUpdateHandler={onUpdateHandler}
+      onResetHandler={onResetHandler}
     />
   );
 };

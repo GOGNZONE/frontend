@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import {
   Form,
   Input,
@@ -19,6 +19,7 @@ const UpdateMyProfileInfo = ({
   error,
   onChangeHandler,
   onUpdateHandler,
+  onResetHandler,
 }) => {
   if (loading) return <Spin spinning={loading} size="large" />;
   if (error)
@@ -82,6 +83,7 @@ const UpdateMyProfileInfo = ({
                 name="newPassword"
                 placeholder="새 비밀번호"
                 onChange={onChangeHandler}
+                type="password"
               />
             </Form.Item>
             <Form.Item
@@ -99,6 +101,7 @@ const UpdateMyProfileInfo = ({
                 name="confirmPassword"
                 placeholder="새 비밀번호 확인"
                 onChange={onChangeHandler}
+                type="password"
               />
             </Form.Item>
             <Form.Item
@@ -186,7 +189,10 @@ const UpdateMyProfileInfo = ({
                 backgroundColor: '#293462',
                 border: '#293462',
               }}
-              onClick={() => setPage(true)}
+              onClick={() => {
+                onResetHandler();
+                setPage(true);
+              }}
             >
               취소
             </Button>
