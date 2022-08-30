@@ -168,6 +168,7 @@ const ProductionRegistrationPresenter = ({
               span: 10,
             }}
             layout="horizontal"
+            size="large"
           >
             <Form.Item
               name="productionName"
