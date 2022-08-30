@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { Typography, Button, Spin, Descriptions, Modal } from 'antd';
+import { Typography, Button, Spin, Descriptions, Modal, Empty } from 'antd';
 
 const { confirm } = Modal;
 
@@ -23,8 +23,12 @@ const showDeleteConfirm = () => {
   });
 };
 
-const ReleaseDetailsPresenter = ({ data, loading, setSwitchToEditPage }) => {
-  console.log(data);
+const ReleaseDetailsPresenter = ({
+  data,
+  loading,
+  setSwitchToEditPage,
+  onSetReleaseValue,
+}) => {
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -40,7 +44,10 @@ const ReleaseDetailsPresenter = ({ data, loading, setSwitchToEditPage }) => {
               backgroundColor: '#FEB139',
               border: '#FEB139',
             }}
-            onClick={() => setSwitchToEditPage(false)}
+            onClick={() => {
+              setSwitchToEditPage(false);
+              onSetReleaseValue(data);
+            }}
           >
             수정
           </Button>
@@ -112,7 +119,7 @@ const ReleaseDetailsPresenter = ({ data, loading, setSwitchToEditPage }) => {
                 <Typography.Title
                   level={4}
                   style={{
-                    margin: 5,
+                    marginRight: 5,
                     borderRadius: '5px',
                     backgroundColor: '#5A8F7B',
                     color: '#fff',
@@ -125,7 +132,7 @@ const ReleaseDetailsPresenter = ({ data, loading, setSwitchToEditPage }) => {
                   bordered
                   column={1}
                   labelStyle={{ width: '140px' }}
-                  style={{ marginLeft: '7px', width: '373px' }}
+                  style={{ width: '380px' }}
                 >
                   <Descriptions.Item label="거래처코드">
                     {data.releaseClientDto.clientId}
@@ -153,7 +160,7 @@ const ReleaseDetailsPresenter = ({ data, loading, setSwitchToEditPage }) => {
                 <Typography.Title
                   level={4}
                   style={{
-                    margin: 5,
+                    marginRight: 5,
                     borderRadius: '5px',
                     backgroundColor: '#5A8F7B',
                     color: '#fff',
@@ -166,7 +173,7 @@ const ReleaseDetailsPresenter = ({ data, loading, setSwitchToEditPage }) => {
                   bordered
                   column={1}
                   labelStyle={{ width: '160px' }}
-                  style={{ marginLeft: '7px', width: '384px' }}
+                  style={{ width: '391px' }}
                 >
                   <Descriptions.Item label="생산 제품명">
                     {data.releaseProductionDto.productionName}
@@ -185,7 +192,6 @@ const ReleaseDetailsPresenter = ({ data, loading, setSwitchToEditPage }) => {
                 <Typography.Title
                   level={4}
                   style={{
-                    margin: 5,
                     borderRadius: '5px',
                     backgroundColor: '#5A8F7B',
                     color: '#fff',
@@ -194,22 +200,26 @@ const ReleaseDetailsPresenter = ({ data, loading, setSwitchToEditPage }) => {
                 >
                   택배정보
                 </Typography.Title>
-                <Descriptions
-                  bordered
-                  column={1}
-                  labelStyle={{ width: '140px' }}
-                  style={{ marginLeft: '7px', width: '373px' }}
-                >
-                  <Descriptions.Item label="택배 ID">
-                    {data.deliveryDto.deliveryId}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="택배사">
-                    {data.deliveryDto.deliveryCompanyName}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="운송장번호">
-                    {data.deliveryDto.deliveryTrackingNumber}
-                  </Descriptions.Item>
-                </Descriptions>
+                {data.deliveryDto === null ? (
+                  <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                ) : (
+                  <Descriptions
+                    bordered
+                    column={1}
+                    labelStyle={{ width: '140px' }}
+                    style={{ width: '380px' }}
+                  >
+                    <Descriptions.Item label="택배 ID">
+                      {data.deliveryDto.deliveryId}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="택배사">
+                      {data.deliveryDto.deliveryCompanyName}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="운송장번호">
+                      {data.deliveryDto.deliveryTrackingNumber}
+                    </Descriptions.Item>
+                  </Descriptions>
+                )}
               </div>
             </div>
           </div>

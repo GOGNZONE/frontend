@@ -2,16 +2,13 @@ import React, { useEffect } from 'react';
 import { getReleases } from 'store/modules/release/releaseActions';
 import ReleaseListPresenter from './ReleaseListPresenter';
 import { useSelector, useDispatch } from 'react-redux';
+import { deleteRelease } from 'store/modules/release/releaseActions';
 
 const ReleaseListContainer = () => {
   /***** redux (state) *****/
   const releases = useSelector((state) => state.release.releases);
   const { data, loading, error } = releases;
   const dispatch = useDispatch();
-  /***** search *****/
-  // const [searchText, setSearchText] = useState('');
-  // const [searchedColumn, setSearchedColumn] = useState('');
-  // const searchInput = useRef(null);
 
   useEffect(() => {
     const callDispatch = () => {
@@ -20,7 +17,17 @@ const ReleaseListContainer = () => {
     !loading && callDispatch();
   }, []);
 
-  return <ReleaseListPresenter dataSource={data} loading={loading} />;
+  const onDeleteRelease = (releaseId) => {
+    dispatch(deleteRelease(releaseId));
+  };
+
+  return (
+    <ReleaseListPresenter
+      dataSource={data}
+      loading={loading}
+      onDeleteRelease={onDeleteRelease}
+    />
+  );
 };
 
 export default ReleaseListContainer;

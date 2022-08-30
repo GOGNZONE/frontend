@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { message } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { getProduction } from 'store/modules/production/productionActions';
+import { postRelease } from 'store/modules/release/releaseActions';
 import ReleaseRegistrationInProductionPresenter from './ReleaseRegistrationInProductionPresenter';
 
 const ReleaseRegistrationInProductionContainer = () => {
@@ -16,7 +17,7 @@ const ReleaseRegistrationInProductionContainer = () => {
     releaseTotalPrice: 0,
     releaseType: '배송',
     production: { productionId: '' },
-    delivery: { deliveryId: '' },
+    deliveryDto: { deliveryCompanyName: '', deliveryTrackingNumber: '' },
   });
   const { data, loading, error } = useSelector(
     (state) => state.production.production,
@@ -42,8 +43,14 @@ const ReleaseRegistrationInProductionContainer = () => {
     ) {
       message.error('필수 입력값을 입력해 주세요.');
     } else {
-      // await dispatch(postRelease(releaseValue));
-      await navigate('/admin/release/list');
+      await dispatch(
+        postRelease({
+          productionId: productionIdParams,
+          releaseData: releaseValue,
+          deliveryData: releaseValue.deliveryDto,
+        }),
+      );
+      await navigate('/admin/production/list');
     }
   });
 

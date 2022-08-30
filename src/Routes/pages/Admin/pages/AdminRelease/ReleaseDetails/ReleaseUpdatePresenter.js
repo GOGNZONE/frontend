@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import {
@@ -10,7 +10,10 @@ import {
   DatePicker,
   InputNumber,
   Input,
+  Empty,
+  Form,
 } from 'antd';
+import moment from 'moment';
 
 const { confirm } = Modal;
 const { TextArea } = Input;
@@ -33,8 +36,29 @@ const showDeleteConfirm = () => {
   });
 };
 
-const ReleaseUpdatePresenter = ({ data, loading, setSwitchToEditPage }) => {
-  console.log(data);
+const ReleaseUpdatePresenter = ({
+  data,
+  loading,
+  setSwitchToEditPage,
+  onClickHandler,
+  releaseValue,
+  onChangeHandler,
+}) => {
+  const onChangeInputHandler = useCallback((name, e) => {
+    const { value } = e.target;
+    onChangeHandler({
+      ...releaseValue,
+      [name]: value,
+    });
+  });
+
+  const onChangeDatePickerHandler = useCallback((name, value) => {
+    onChangeHandler({
+      ...releaseValue,
+      [name]: value,
+    });
+  });
+
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -50,7 +74,10 @@ const ReleaseUpdatePresenter = ({ data, loading, setSwitchToEditPage }) => {
               backgroundColor: '#FEB139',
               border: '#FEB139',
             }}
-            onClick={() => setSwitchToEditPage(true)}
+            onClick={() => {
+              setSwitchToEditPage(true);
+              onClickHandler();
+            }}
           >
             확인
           </Button>
@@ -96,17 +123,19 @@ const ReleaseUpdatePresenter = ({ data, loading, setSwitchToEditPage }) => {
               <Descriptions.Item label="출고일자">
                 <DatePicker
                   placeholder="제품 출고 일자"
-                  // onChange={(e) =>
-                  //   onChangeDatePickerHandler(
-                  //     'releaseDate',
-                  //     moment(e).format('YYYY-MM-DD'),
-                  //   )
-                  // }
+                  defaultValue={
+                    data.releaseDate ? moment(data.releaseDate) : undefined
+                  }
+                  onChange={(e) =>
+                    onChangeDatePickerHandler(
+                      'releaseDate',
+                      moment(e).format('YYYY-MM-DD'),
+                    )
+                  }
                 />
               </Descriptions.Item>
               <Descriptions.Item label="수량">
                 <InputNumber
-                  defaultValue={1}
                   min={1}
                   style={{
                     width: '100%',
@@ -116,11 +145,12 @@ const ReleaseUpdatePresenter = ({ data, loading, setSwitchToEditPage }) => {
                     `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                   }
                   parser={(value) => value.replace(/\\s?|(,*)/g, '')}
-                  // onChange={(e) =>
-                  //   onChangeInputHandler('releaseQuantity', {
-                  //     target: { value: e },
-                  //   })
-                  // }
+                  defaultValue={data.releaseQuantity}
+                  onChange={(e) =>
+                    onChangeInputHandler('releaseQuantity', {
+                      target: { value: e },
+                    })
+                  }
                 />
               </Descriptions.Item>
               <Descriptions.Item label="공급가액(합계)">
@@ -134,11 +164,12 @@ const ReleaseUpdatePresenter = ({ data, loading, setSwitchToEditPage }) => {
                     `\￦ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                   }
                   parser={(value) => value.replace(/\￦\s?|(,*)/g, '')}
-                  // onChange={(e) => {
-                  //   onChangeInputHandler('releaseTotalPrice', {
-                  //     target: { value: e },
-                  //   });
-                  // }}
+                  defaultValue={data.releaseTotalPrice}
+                  onChange={(e) => {
+                    onChangeInputHandler('releaseTotalPrice', {
+                      target: { value: e },
+                    });
+                  }}
                 />
               </Descriptions.Item>
               <Descriptions.Item label="출고방식" span={2}>
@@ -151,10 +182,10 @@ const ReleaseUpdatePresenter = ({ data, loading, setSwitchToEditPage }) => {
                   maxLength={1000}
                   rows={5}
                   placeholder="출고 관련 비고사항"
-                  // defaultValue={production.productionDescription}
-                  // onChange={(e) =>
-                  //   onChangeInputHandler('productionDescription', e)
-                  // }
+                  defaultValue={data.releaseDescription}
+                  onChange={(e) =>
+                    onChangeInputHandler('releaseDescription', e)
+                  }
                 />
               </Descriptions.Item>
             </Descriptions>
@@ -171,7 +202,7 @@ const ReleaseUpdatePresenter = ({ data, loading, setSwitchToEditPage }) => {
                 <Typography.Title
                   level={4}
                   style={{
-                    margin: 5,
+                    marginRight: 5,
                     borderRadius: '5px',
                     backgroundColor: '#5A8F7B',
                     color: '#fff',
@@ -184,7 +215,7 @@ const ReleaseUpdatePresenter = ({ data, loading, setSwitchToEditPage }) => {
                   bordered
                   column={1}
                   labelStyle={{ width: '140px' }}
-                  style={{ marginLeft: '7px', width: '373px' }}
+                  style={{ width: '380px' }}
                 >
                   <Descriptions.Item label="거래처코드">
                     {data.releaseClientDto.clientId}
@@ -212,7 +243,7 @@ const ReleaseUpdatePresenter = ({ data, loading, setSwitchToEditPage }) => {
                 <Typography.Title
                   level={4}
                   style={{
-                    margin: 5,
+                    marginRight: 5,
                     borderRadius: '5px',
                     backgroundColor: '#5A8F7B',
                     color: '#fff',
@@ -225,7 +256,7 @@ const ReleaseUpdatePresenter = ({ data, loading, setSwitchToEditPage }) => {
                   bordered
                   column={1}
                   labelStyle={{ width: '160px' }}
-                  style={{ marginLeft: '7px', width: '384px' }}
+                  style={{ width: '391px' }}
                 >
                   <Descriptions.Item label="생산 제품명">
                     {data.releaseProductionDto.productionName}
@@ -244,7 +275,6 @@ const ReleaseUpdatePresenter = ({ data, loading, setSwitchToEditPage }) => {
                 <Typography.Title
                   level={4}
                   style={{
-                    margin: 5,
                     borderRadius: '5px',
                     backgroundColor: '#5A8F7B',
                     color: '#fff',
@@ -253,22 +283,26 @@ const ReleaseUpdatePresenter = ({ data, loading, setSwitchToEditPage }) => {
                 >
                   택배정보
                 </Typography.Title>
-                <Descriptions
-                  bordered
-                  column={1}
-                  labelStyle={{ width: '140px' }}
-                  style={{ marginLeft: '7px', width: '373px' }}
-                >
-                  <Descriptions.Item label="택배 ID">
-                    {data.deliveryDto.deliveryId}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="택배사">
-                    {data.deliveryDto.deliveryCompanyName}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="운송장번호">
-                    {data.deliveryDto.deliveryTrackingNumber}
-                  </Descriptions.Item>
-                </Descriptions>
+                {data.deliveryDto === null ? (
+                  <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                ) : (
+                  <Descriptions
+                    bordered
+                    column={1}
+                    labelStyle={{ width: '140px' }}
+                    style={{ width: '380px' }}
+                  >
+                    <Descriptions.Item label="택배 ID">
+                      {data.deliveryDto.deliveryId}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="택배사">
+                      {data.deliveryDto.deliveryCompanyName}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="운송장번호">
+                      {data.deliveryDto.deliveryTrackingNumber}
+                    </Descriptions.Item>
+                  </Descriptions>
+                )}
               </div>
             </div>
           </div>

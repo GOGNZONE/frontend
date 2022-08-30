@@ -5,25 +5,21 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 const { confirm } = Modal;
 
-const showDeleteConfirm = () => {
-  confirm({
-    title: '해당 제품을 삭제하시겠습니까?',
-    icon: <ExclamationCircleOutlined />,
-    okText: '확인',
-    okType: 'danger',
-    cancelText: '취소',
+const ReleaseListPresenter = ({ dataSource, loading, onDeleteRelease }) => {
+  const showDeleteConfirm = (releaseId) => {
+    confirm({
+      title: '해당 출고를 삭제하시겠습니까?',
+      icon: <ExclamationCircleOutlined />,
+      okText: '확인',
+      okType: 'danger',
+      cancelText: '취소',
 
-    onOk() {
-      console.log('OK');
-    },
+      onOk() {
+        onDeleteRelease(releaseId);
+      },
+    });
+  };
 
-    onCancel() {
-      console.log('Cancel');
-    },
-  });
-};
-
-const ReleaseListPresenter = ({ dataSource, loading }) => {
   const columns = [
     {
       title: '출고코드',
@@ -33,12 +29,10 @@ const ReleaseListPresenter = ({ dataSource, loading }) => {
     {
       title: '출고일자',
       dataIndex: 'releaseDate',
-      defaultSortOrder: 'ascend',
     },
     {
       title: '출고수량',
       dataIndex: 'releaseQuantity',
-      defaultSortOrder: 'ascend',
     },
     {
       title: '출고방식',
@@ -75,12 +69,14 @@ const ReleaseListPresenter = ({ dataSource, loading }) => {
       dataIndex: 'deleteButton',
       width: 100,
       align: 'center',
-      render: () => (
+      render: (name, record) => (
         <Button
           type="primary"
           size="middle"
           style={{ backgroundColor: '#D61C4E', border: '#D61C4E' }}
-          onClick={showDeleteConfirm}
+          onClick={() => {
+            showDeleteConfirm(record.releaseId);
+          }}
         >
           삭제
         </Button>

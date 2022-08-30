@@ -37,6 +37,14 @@ const ReleaseRegistrationInProductionPresenter = ({
     setIsModalVisible(false);
   };
 
+  const onChangeDeliveryInputHandler = useCallback((name, e) => {
+    const { value } = e.target;
+    onChangeHandler({
+      ...releaseValue,
+      deliveryDto: { ...releaseValue.deliveryDto, [name]: value },
+    });
+  });
+
   const onChangeInputHandler = useCallback((name, e) => {
     const { value } = e.target;
     onChangeHandler({
@@ -54,37 +62,41 @@ const ReleaseRegistrationInProductionPresenter = ({
 
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography.Title level={3} style={{ marginBottom: 25 }}>
-          출고 등록
-        </Typography.Title>
-        <div>
-          <Button
-            type="primary"
-            htmlType="button"
-            style={{
-              margin: 5,
-              backgroundColor: '#FEB139',
-              border: '#FEB139',
-            }}
-            onClick={() => onClickHandler()}
-          >
-            등록
-          </Button>
-          <Link to="/admin/production/list">
+      {productionData ? (
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Typography.Title level={3} style={{ marginBottom: 25 }}>
+            {productionData.productionName} 출고 등록
+          </Typography.Title>
+          <div>
             <Button
               type="primary"
+              htmlType="button"
               style={{
                 margin: 5,
-                backgroundColor: '#D61C4E',
-                border: '#D61C4E',
+                backgroundColor: '#FEB139',
+                border: '#FEB139',
               }}
+              onClick={() => onClickHandler()}
             >
-              취소
+              등록
             </Button>
-          </Link>
+            <Link to={`/admin/production/${productionData.productionId}`}>
+              <Button
+                type="primary"
+                style={{
+                  margin: 5,
+                  backgroundColor: '#D61C4E',
+                  border: '#D61C4E',
+                }}
+              >
+                취소
+              </Button>
+            </Link>
+          </div>
         </div>
-      </div>
+      ) : (
+        ''
+      )}
       <Spin
         tip="Loading..."
         spinning={loading && !productionData}
@@ -98,11 +110,26 @@ const ReleaseRegistrationInProductionPresenter = ({
               span: 3,
             }}
             wrapperCol={{
-              span: 5,
+              span: 7,
             }}
             layout="horizontal"
             size="large"
           >
+            <Form.Item
+              name="releaseId"
+              label="출고코드"
+              rules={[
+                {
+                  required: true,
+                  message: '출고코드를 입력해주세요!',
+                },
+              ]}
+            >
+              <Input
+                placeholder="출고코드"
+                onChange={(e) => onChangeInputHandler('releaseId', e)}
+              />
+            </Form.Item>
             <Form.Item
               name="releaseDate"
               label="출고일자"
@@ -136,9 +163,9 @@ const ReleaseRegistrationInProductionPresenter = ({
               ]}
               required
               tooltip="출고 수량은 필수 입력 필드입니다"
+              initialValue={1}
             >
               <InputNumber
-                defaultValue={1}
                 min={1}
                 style={{
                   width: '100%',
@@ -238,9 +265,9 @@ const ReleaseRegistrationInProductionPresenter = ({
                     >
                       <Input
                         placeholder="택배사명"
-                        // onChange={(e) =>
-                        //   onChangeInputHandler('productionName', e)
-                        // }
+                        onChange={(e) =>
+                          onChangeDeliveryInputHandler('deliveryCompanyName', e)
+                        }
                       />
                     </Form.Item>
                     <Form.Item
@@ -257,9 +284,12 @@ const ReleaseRegistrationInProductionPresenter = ({
                     >
                       <Input
                         placeholder="운송장 번호"
-                        // onChange={(e) =>
-                        //   onChangeInputHandler('productionName', e)
-                        // }
+                        onChange={(e) =>
+                          onChangeDeliveryInputHandler(
+                            'deliveryTrackingNumber',
+                            e,
+                          )
+                        }
                       />
                     </Form.Item>
                   </Form>
@@ -273,10 +303,7 @@ const ReleaseRegistrationInProductionPresenter = ({
                 maxLength={1000}
                 rows={5}
                 placeholder="출고 관련 비고사항"
-                // defaultValue={production.productionDescription}
-                // onChange={(e) =>
-                //   onChangeInputHandler('productionDescription', e)
-                // }
+                onChange={(e) => onChangeInputHandler('releaseDescription', e)}
               />
             </Form.Item>
 
@@ -328,9 +355,6 @@ const ReleaseRegistrationInProductionPresenter = ({
                   <Descriptions.Item label="생성일자">
                     {productionData.productionDate}
                   </Descriptions.Item>
-                  {/* <Descriptions.Item label="출고일자" span={2}>
-                {productionData.productionReleasedDate}
-              </Descriptions.Item> */}
                   <Descriptions.Item label="거래처코드">
                     {productionData.client.clientName +
                       '(' +
