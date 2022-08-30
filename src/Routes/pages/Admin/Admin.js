@@ -1,38 +1,38 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { AdminLayout } from 'Components';
-import { AdminDashBoard } from 'Routes/pages/Admin/pages';
+import { AdminLayout } from 'components';
+import { AdminDashBoard } from 'routes/pages/Admin/pages';
 import {
   AdminOrderInfo,
   AdminOrderList,
   AdminOrderRegist,
-} from 'Routes/pages/Admin/pages/AdminOrder';
+} from 'routes/pages/Admin/pages/AdminOrder';
 import {
   AdminBomList,
   AdminBomRegist,
   AdminBomInfo,
-} from 'Routes/pages/Admin/pages/AdminBom';
+} from 'routes/pages/Admin/pages/AdminBom';
 import {
   AdminStorageInfo,
   AdminStorageList,
   AdminStorageRegist,
-} from 'Routes/pages/Admin/pages/AdminStorage';
+} from 'routes/pages/Admin/pages/AdminStorage';
 import {
   AdminStockInfo,
   AdminStockRegist,
   AdminStockList,
-} from 'Routes/pages/Admin/pages/AdminStock';
+} from 'routes/pages/Admin/pages/AdminStock';
 import {
   AdminProductionList,
   AdminProductionDetails,
   AdminProductionRegistration,
-} from 'Routes/pages/Admin/pages/AdminProduction';
+} from 'routes/pages/Admin/pages/AdminProduction';
 import {
   AdminReleaseList,
   AdminReleaseDetails,
   AdminReleaseRegistration,
   AdminReleaseRegistrationInProduction,
-} from 'Routes/pages/Admin/pages/AdminRelease';
+} from 'routes/pages/Admin/pages/AdminRelease';
 const Admin = ({ checkAdmin, logout }) => {
   return (
     <Routes>
