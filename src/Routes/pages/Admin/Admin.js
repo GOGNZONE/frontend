@@ -2,33 +2,27 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { AdminLayout } from 'Components';
 import {
-  AdminClientList,
   AdminDashBoard,
   AdminEmployeeDetails,
   AdminEmployeeList,
   AdminRegisterEmployee,
   AdminRetiredEmployeeList,
-} from 'Routes/pages/Admin/pages';
-import {
+  AdminClientList,
+  AdminClientInfo,
+  AdminRegisterClient,
   AdminOrderInfo,
   AdminOrderList,
   AdminOrderRegist,
-} from 'Routes/pages/Admin/pages/AdminOrder';
-import {
   AdminBomList,
   AdminBomRegist,
   AdminBomInfo,
-} from 'Routes/pages/Admin/pages/AdminBom';
-import {
   AdminStorageInfo,
   AdminStorageList,
   AdminStorageRegist,
-} from 'Routes/pages/Admin/pages/AdminStorage';
-import {
   AdminStockInfo,
   AdminStockRegist,
   AdminStockList,
-} from 'Routes/pages/Admin/pages/AdminStock';
+} from './pages';
 
 const Admin = ({ checkAdmin, logout }) => {
   return (
@@ -51,6 +45,8 @@ const Admin = ({ checkAdmin, logout }) => {
         />
         {/* Client */}
         <Route path="/client/list" element={<AdminClientList />} />
+        <Route path="/client" element={<AdminRegisterClient />} />
+        <Route path="/client/:clientId" element={<AdminClientInfo />} />
         {/* Stock */}
         <Route path="/stock/list" element={<AdminStockList />} />
         <Route path="/stock/list/:stockIdParams" element={<AdminStockInfo />} />
