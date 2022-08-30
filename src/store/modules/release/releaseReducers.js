@@ -20,6 +20,24 @@ export const releaseReducer = (state = initialState, action) => {
     case types.POST_RELEASE_SUCCESS:
     case types.POST_RELEASE_ERROR:
       return handleAsyncActions(types.POST_RELEASE, 'releases')(state, action);
+    case types.PUT_RELEASE:
+    case types.PUT_RELEASE_SUCCESS:
+    case types.PUT_RELEASE_ERROR:
+      return handleAsyncActions(types.PUT_RELEASE, 'release')(state, action);
+    case types.DELETE_RELEASE:
+      return {
+        releases: {
+          loading: false,
+          data: state.releases.data.filter(
+            (release) => release.releaseId !== action.param,
+          ),
+        },
+      };
+    case types.CLAER_RELEASE:
+      return {
+        ...state,
+        release: reducerUtils.initial(),
+      };
     default:
       return state;
   }
