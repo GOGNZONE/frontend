@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import AdminOrderRegistPresenter from 'Routes/pages/Admin/pages/AdminOrder/AdminOrderRegist/AdminOrderRegistPresenter';
+import AdminOrderRegistPresenter from 'routes/pages/Admin/pages/AdminOrder/AdminOrderRegist/AdminOrderRegistPresenter';
 import { useDispatch } from 'react-redux';
 import { registerOrder } from 'store/modules/order/orderActions';
 import { message } from 'antd';

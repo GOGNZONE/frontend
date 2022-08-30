@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import AdminBomInfoPresenter from 'Routes/pages/Admin/pages/AdminBom/AdminBomInfo/AdminBomInfoPresenter';
+import AdminBomInfoPresenter from 'routes/pages/Admin/pages/AdminBom/AdminBomInfo/AdminBomInfoPresenter';
 import { useParams } from 'react-router-dom';
 
 import moment from 'moment';
