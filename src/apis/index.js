@@ -210,21 +210,20 @@ export const getReleaseInfo = (release_id) => {
   return instance.get(`/release/${release_id}`);
 };
 
-export const registerRelease = (production_id, inData) => {
-  return instance.post(`/release/${production_id}`, inData);
+export const registerRelease = (inData) => {
+  return instance.post(
+    `/release/${inData.productionId}`,
+    inData.releaseData,
+    inData.deliveryData,
+  );
 };
 
-export const updateRelease = (release_id, inData) => {
-  return instance.put(`/release/${release_id}`, inData);
+export const updateRelease = (inData) => {
+  return instance.put(`/release/${inData.releaseId}`, inData.inData);
 };
 
 export const deleteRelease = (release_id) => {
   return instance.delete(`/release/${release_id}`);
-};
-
-/** Delivery */
-export const registerDelivery = (inData) => {
-  return instance.post(`/delivery`, inData);
 };
 
 /** File */
