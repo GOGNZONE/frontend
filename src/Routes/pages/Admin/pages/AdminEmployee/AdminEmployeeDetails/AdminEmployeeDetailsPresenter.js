@@ -1,22 +1,22 @@
 import React from 'react';
-import { Image, Descriptions, Col, Row, Spin, Button } from 'antd';
+import { Image, Descriptions, Col, Row, Button } from 'antd';
 import Profile from 'assets/test.png';
-import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import Loading from 'Components/Loading';
 
 const AdminEmployeeDetailsPresenter = ({ employee, loading, error }) => {
   const navigate = useNavigate();
-  if (loading) return <Spin spinning={loading} size="large" />;
-  if (error)
-    return Swal.fire({
-      position: 'center',
-      icon: 'error',
-      title: 'error!',
-      showConfirmButton: false,
-      timer: 1500,
-    });
-  if (!employee) return null;
-  return (
+  return loading ? (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: ' center',
+      }}
+    >
+      <Loading loading={loading} error={error} data={employee} />
+    </div>
+  ) : (
     <>
       <Row align="middle" gutter={8}>
         <Col>

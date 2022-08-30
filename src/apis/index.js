@@ -55,9 +55,8 @@ export const registerClient = (inData) => {
 };
 
 export const updateClient = (inData) => {
-  console.log(inData);
-  const { client_id } = inData;
-  return instance.put(`/client/${client_id}`, inData.updateClientInfo);
+  const { client_id, updateClientInfo } = inData;
+  return instance.put(`/client/${client_id}`, updateClientInfo);
 };
 
 export const deleteClient = (client_id) => {
@@ -76,8 +75,9 @@ export const registerAccount = (instance_id, inData) => {
   return instance.post(`/account/${instance_id}`, inData);
 };
 
-export const updateAccount = (account_id, inData) => {
-  return instance.put(`/account/${account_id}`, inData);
+export const updateAccount = (inData) => {
+  const { account_id, updateClientAccountInfo } = inData;
+  return instance.put(`/account/${account_id}`, updateClientAccountInfo);
 };
 
 export const deleteAccount = (account_id) => {

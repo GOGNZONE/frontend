@@ -1,37 +1,28 @@
 import React from 'react';
-import {
-  Form,
-  Input,
-  Button,
-  Upload,
-  Typography,
-  DatePicker,
-  Spin,
-} from 'antd';
+import { Form, Input, Button, Upload, Typography } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import moment from 'moment';
-import Swal from 'sweetalert2';
+import Loading from 'Components/Loading';
 
 const AdminClientUpdate = ({
   clientInfo,
   loading,
   error,
   setPage,
-  onChangeHandler,
-  onUpdateHandler,
-  onResetHandler,
+  onClientInfoChangeHandler,
+  onClientInfoUpdateHandler,
+  onClientInfoResetHandler,
 }) => {
-  if (loading) return <Spin spinning={loading} size="large" />;
-  if (error)
-    return Swal.fire({
-      position: 'center',
-      icon: 'error',
-      title: 'error!',
-      showConfirmButton: false,
-      timer: 1500,
-    });
-  if (!clientInfo) return null;
-  return (
+  return loading ? (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: ' center',
+      }}
+    >
+      <Loading loading={loading} error={error} data={clientInfo} />
+    </div>
+  ) : (
     <>
       <Typography.Title level={3} style={{ margin: 5 }}>
         거래처 정보 수정
@@ -62,7 +53,7 @@ const AdminClientUpdate = ({
               <Input
                 name="clientName"
                 placeholder="거래처 이름"
-                onChange={onChangeHandler}
+                onChange={onClientInfoChangeHandler}
               />
             </Form.Item>
             <Form.Item
@@ -79,7 +70,7 @@ const AdminClientUpdate = ({
               <Input
                 name="clientAddress"
                 placeholder="주소"
-                onChange={onChangeHandler}
+                onChange={onClientInfoChangeHandler}
               />
             </Form.Item>
             <Form.Item
@@ -96,7 +87,7 @@ const AdminClientUpdate = ({
               <Input
                 name="clientManager"
                 placeholder="거래처 담당자"
-                onChange={onChangeHandler}
+                onChange={onClientInfoChangeHandler}
               />
             </Form.Item>
             <Form.Item
@@ -113,7 +104,7 @@ const AdminClientUpdate = ({
               <Input
                 name="clientTel"
                 placeholder="전화번호"
-                onChange={onChangeHandler}
+                onChange={onClientInfoChangeHandler}
               />
             </Form.Item>
 
@@ -134,7 +125,7 @@ const AdminClientUpdate = ({
                   border: '#FEB139',
                 }}
                 onClick={() => {
-                  onUpdateHandler();
+                  onClientInfoUpdateHandler();
                 }}
               >
                 수정
@@ -148,8 +139,8 @@ const AdminClientUpdate = ({
                 border: '#293462',
               }}
               onClick={() => {
-                onResetHandler();
-                setPage(true);
+                onClientInfoResetHandler();
+                setPage('info');
               }}
             >
               취소

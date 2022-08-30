@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { getEmployee } from 'store/modules/employee/employeeActions';
@@ -16,11 +16,13 @@ const AdminEmployeeDetailsContainer = () => {
   }, [employeeId, dispatch]);
 
   return (
-    <AdminEmployeeDetailsPresenter
-      employee={data}
-      loading={loading}
-      error={error}
-    />
+    data && (
+      <AdminEmployeeDetailsPresenter
+        employee={data}
+        loading={loading}
+        error={error}
+      />
+    )
   );
 };
 

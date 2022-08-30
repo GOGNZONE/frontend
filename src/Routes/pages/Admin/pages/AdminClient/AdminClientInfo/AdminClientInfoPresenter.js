@@ -1,21 +1,22 @@
 import React from 'react';
-import { Image, Descriptions, Col, Row, Spin, Button } from 'antd';
-import Swal from 'sweetalert2';
-import { Link, useNavigate } from 'react-router-dom';
+import { Descriptions, Col, Row, Button } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import Loading from 'Components/Loading';
 
 const AdminClientInfoPresenter = ({ clientInfo, loading, error, setPage }) => {
   const navigate = useNavigate();
-  if (loading) return <Spin spinning={loading} size="large" />;
-  if (error)
-    return Swal.fire({
-      position: 'center',
-      icon: 'error',
-      title: 'error!',
-      showConfirmButton: false,
-      timer: 1500,
-    });
-  if (!clientInfo) return null;
-  return (
+  const { account } = clientInfo;
+  return loading ? (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: ' center',
+      }}
+    >
+      <Loading loading={loading} error={error} data={clientInfo} />
+    </div>
+  ) : (
     <>
       <Row align="middle" gutter={6}>
         <Col flex={4}>
@@ -41,21 +42,43 @@ const AdminClientInfoPresenter = ({ clientInfo, loading, error, setPage }) => {
           </Descriptions>
         </Col>
       </Row>
-      <Row align="middle" gutter={6} style={{ marginTop: '20px' }}>
-        <Col flex={6}>
-          <Descriptions title="거래처 계좌 정보" bordered>
-            <Descriptions.Item label="은행" span={2}>
-              {clientInfo.account.accountBank}
-            </Descriptions.Item>
-            <Descriptions.Item label="예금주">
-              {clientInfo.account.accountDepositor}
-            </Descriptions.Item>
-            <Descriptions.Item label="계좌번호">
-              {clientInfo.account.accountNumber}
-            </Descriptions.Item>
-          </Descriptions>
-        </Col>
-      </Row>
+      {account ? (
+        <Row align="middle" gutter={6} style={{ marginTop: '20px' }}>
+          <Col flex={6}>
+            <Descriptions title="거래처 계좌 정보" bordered>
+              <Descriptions.Item label="은행" span={2}>
+                {clientInfo.account.accountBank}
+              </Descriptions.Item>
+              <Descriptions.Item label="예금주">
+                {clientInfo.account.accountDepositor}
+              </Descriptions.Item>
+              <Descriptions.Item label="계좌번호">
+                {clientInfo.account.accountNumber}
+              </Descriptions.Item>
+            </Descriptions>
+          </Col>
+        </Row>
+      ) : (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '10px',
+          }}
+        >
+          <Button
+            type="primary"
+            size="large"
+            style={{
+              margin: 5,
+              backgroundColor: '#5FBC17',
+              border: '#5FBC17',
+            }}
+          >
+            계좌정보를 등록해주세요
+          </Button>
+        </div>
+      )}
       <div
         style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}
       >
@@ -77,10 +100,25 @@ const AdminClientInfoPresenter = ({ clientInfo, loading, error, setPage }) => {
             backgroundColor: '#9BA923',
             border: '#293462',
           }}
-          onClick={() => setPage(false)}
+          onClick={() => setPage('updateInfo')}
         >
           수정
         </Button>
+        {account ? (
+          <Button
+            type="primary"
+            style={{
+              margin: 5,
+              backgroundColor: '#9BA923',
+              border: '#293462',
+            }}
+            onClick={() => setPage('updateAccount')}
+          >
+            계좌 정보 수정
+          </Button>
+        ) : (
+          <></>
+        )}
       </div>
     </>
   );

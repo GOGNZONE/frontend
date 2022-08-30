@@ -22,12 +22,14 @@ const AdminEmployeeListContainer = () => {
   }, [dispatch]);
 
   return (
-    <AdminEmployeeListPresenter
-      employeeList={data}
-      loading={loading}
-      error={error}
-      onDeleteHandler={onDeleteHandler}
-    />
+    data && (
+      <AdminEmployeeListPresenter
+        employeeList={data}
+        loading={loading}
+        error={error}
+        onDeleteHandler={onDeleteHandler}
+      />
+    )
   );
 };
 

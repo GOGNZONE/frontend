@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import { SearchOutlined } from '@ant-design/icons';
-import { Button, Table, Typography, BackTop, Input, Space, Spin } from 'antd';
+import { Button, Table, Typography, BackTop, Input, Space } from 'antd';
 import Highlighter from 'react-highlight-words';
+import Loading from 'Components/Loading';
 
 const AdminEmployeeListPresenter = ({
   employeeList,
@@ -163,44 +163,24 @@ const AdminEmployeeListPresenter = ({
     },
   ];
 
-  if (loading) return <Spin spinning={loading} size="large" />;
-  if (error)
-    return Swal.fire({
-      position: 'center',
-      icon: 'error',
-      title: 'error',
-      showConfirmButton: false,
-      timer: 1500,
-    });
-  if (!employeeList) return null;
-  return (
+  return loading ? (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: ' center',
+      }}
+    >
+      <Loading loading={loading} error={error} data={employeeList} />
+    </div>
+  ) : (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography.Title level={3} style={{ margin: 5 }}>
           사원 목록
         </Typography.Title>
-        <div>
-          <Link to="/admin/employee">
-            <Button
-              type="primary"
-              style={{
-                margin: 5,
-                backgroundColor: '#FEB139',
-                border: '#FEB139',
-              }}
-            >
-              등록
-            </Button>
-          </Link>
-        </div>
       </div>
-      <Spin spinning={loading}>
-        <Table
-          rowKey="employeeId"
-          columns={columns}
-          dataSource={employeeList}
-        />
-      </Spin>
+      <Table rowKey="employeeId" columns={columns} dataSource={employeeList} />
       <BackTop visibilityHeight={100} />
     </>
   );

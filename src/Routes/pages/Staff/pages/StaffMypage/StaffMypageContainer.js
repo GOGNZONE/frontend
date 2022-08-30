@@ -32,27 +32,44 @@ const StaffMypageContainer = () => {
     });
   };
 
-  const onUpdateHandler = () => {
-    const { newPassword, confirmPassword } = updateMyProfile;
-    if (newPassword && newPassword === confirmPassword) {
-      dispatch(updateProfile(updateMyProfile));
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: '수정완료',
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      window.location.reload();
-    } else {
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: '비밀번호를 확인해주세요',
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    }
+  const onUpdateHandler = async () => {
+    const {
+      newPassword,
+      confirmPassword,
+      employeeEmail,
+      employeeName,
+      employeePhone,
+    } = updateMyProfile;
+
+    employeeEmail !== '' &&
+    employeeName !== '' &&
+    employeePhone !== '' &&
+    newPassword !== '' &&
+    confirmPassword !== ''
+      ? newPassword === confirmPassword
+        ? await (dispatch(updateProfile(updateMyProfile)),
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: '수정완료',
+            showConfirmButton: false,
+            timer: 1500,
+          }),
+          window.location.reload())
+        : Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '비밀번호를 확인해주세요',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+      : Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: '필수값을 입력해주세요',
+          showConfirmButton: false,
+          timer: 1500,
+        });
   };
 
   const onResetHandler = () => {

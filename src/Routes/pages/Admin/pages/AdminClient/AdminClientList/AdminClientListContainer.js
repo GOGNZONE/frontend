@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getClientList } from 'store/modules/client/clientActions';
+import {
+  deleteClient,
+  getClientList,
+} from 'store/modules/client/clientActions';
 import AdminClientListPresenter from './AdminClientListPresenter';
 
 const AdminClientListContainer = () => {
@@ -9,16 +12,24 @@ const AdminClientListContainer = () => {
     (state) => state.client.clientList,
   );
 
+  const onDeleteHandler = async (clientId) => {
+    await dispatch(deleteClient(clientId));
+    dispatch(getClientList());
+  };
+
   useEffect(() => {
     dispatch(getClientList());
   }, [dispatch]);
 
   return (
-    <AdminClientListPresenter
-      clientList={data}
-      loading={loading}
-      error={error}
-    />
+    data && (
+      <AdminClientListPresenter
+        clientList={data}
+        onDeleteHandler={onDeleteHandler}
+        loading={loading}
+        error={error}
+      />
+    )
   );
 };
 
