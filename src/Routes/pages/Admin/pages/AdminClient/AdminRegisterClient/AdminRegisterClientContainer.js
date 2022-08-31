@@ -67,7 +67,7 @@ const AdminRegisterClientContainer = () => {
       employee: { employeeId: '' },
     });
     navigate('/admin/client/list');
-  }, [clientInfo]);
+  }, [navigate]);
 
   useEffect(() => {
     dispatch(getEmployeeList());
