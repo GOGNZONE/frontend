@@ -2,39 +2,25 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { StaffLayout } from 'Components';
 import {
-  StaffClient,
-  StaffDashBoard,
   StaffMypage,
-} from 'Routes/pages/Staff/pages';
-import {
+  StaffDashBoard,
   StaffOrderInfo,
   StaffOrderList,
-} from 'Routes/pages/Staff/pages/StaffOrder';
-import {
   StaffBomList,
   StaffBomRegist,
   StaffBomInfo,
-} from 'Routes/pages/Staff/pages/StaffBom';
-import {
   StaffStorageInfo,
   StaffStorageList,
   StaffStorageRegist,
-} from 'Routes/pages/Staff/pages/StaffStorage';
-import {
   StaffStockInfo,
   StaffStockRegist,
   StaffStockList,
-} from 'Routes/pages/Staff/pages/StaffStock';
-
-import {
   StaffProductionList,
   StaffProductionRegistration,
   StaffProductionDetails,
-} from './pages/StaffProduction';
-import {
-  StaffReleaseList,
-  StaffReleaseDetails,
-} from 'Routes/pages/Staff/pages/StaffRelease';
+  StaffClientList,
+  StaffClientInfo,
+} from './pages';
 
 const Staff = ({ logout, checkAdmin }) => {
   return (
@@ -45,8 +31,9 @@ const Staff = ({ logout, checkAdmin }) => {
       >
         <Route index element={<StaffMypage />} />
         <Route path="/dashboard" element={<StaffDashBoard />} />
-        <Route path="/client" element={<StaffClient />} />
-
+        {/* Client */}
+        <Route path="/client/list" element={<StaffClientList />} />
+        <Route path="/client/:clientId" element={<StaffClientInfo />} />
         {/* production */}
         <Route path="/production" element={<StaffProductionRegistration />} />
         <Route path="/production/list" element={<StaffProductionList />} />
@@ -54,7 +41,6 @@ const Staff = ({ logout, checkAdmin }) => {
           path="/production/:productionIdParams"
           element={<StaffProductionDetails />}
         />
-
         {/* release */}
         {/* <Route path="/release/list" element={<StaffReleaseList />} />
         <Route
@@ -65,17 +51,14 @@ const Staff = ({ logout, checkAdmin }) => {
         <Route path="/stock/list" element={<StaffStockList />} />
         <Route path="/stock/list/:stockIdParams" element={<StaffStockInfo />} />
         <Route path="/stock" element={<StaffStockRegist />} />
-
         {/* order */}
         <Route path="/order/list" element={<StaffOrderList />} />
         <Route path="/order/list/:orderIdParams" element={<StaffOrderInfo />} />
-
         {/* bom */}
         <Route path="/bom" element={<StaffBomRegist />} />
         <Route path="/bom/list" element={<StaffBomList />} />
         <Route path="/bom/list/:bomIdParams" element={<StaffBomInfo />} />
         <Route path="/bom" element={<StaffBomRegist />} />
-
         {/* storage */}
         <Route path="/storage/list" element={<StaffStorageList />} />
         <Route

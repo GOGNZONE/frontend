@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import {
   Form,
   Input,
@@ -16,15 +16,13 @@ const { Option } = Select;
 
 const AdminRegisterEmployeePresenter = ({
   employeeInfo,
-  onChangeHandler,
   saveEmployee,
   fileUpload,
+  onChangeDatePickerHandler,
+  onChangeEmployeeRole,
+  onResetHandler,
+  onChangeInputHandler,
 }) => {
-  const tailLayout = {
-    wrapperCol: {
-      offset: 7,
-    },
-  };
   const {
     employeeId,
     employeeName,
@@ -34,42 +32,6 @@ const AdminRegisterEmployeePresenter = ({
     employeePhone,
     employeeRole,
   } = employeeInfo;
-
-  const onChangeInputHandler = useCallback((name, e) => {
-    const { value } = e.target;
-    onChangeHandler({
-      ...employeeInfo,
-      [name]: value,
-    });
-  });
-
-  const onChangeDatePickerHandler = useCallback((name, value) => {
-    onChangeHandler({
-      ...employeeInfo,
-      [name]: value,
-    });
-  });
-
-  const onChangeEmployeeRole = useCallback((value) => {
-    onChangeHandler({
-      ...employeeInfo,
-      employeeRole: value,
-    });
-  });
-
-  const onResetHandler = () => {
-    onChangeHandler({
-      employeeId: '',
-      employeeName: '',
-      employeePassword: '',
-      employeeAddress: '',
-      employeeEmail: '',
-      employeePhone: '',
-      employeeHiredate: '',
-      employeeImage: '',
-      employeeRole: '',
-    });
-  };
 
   return (
     <>
@@ -218,7 +180,7 @@ const AdminRegisterEmployeePresenter = ({
           required
         >
           <Select
-            defaultValue="선택하세요"
+            placeholder="선택하세요"
             onChange={(e) => onChangeEmployeeRole(e)}
             value={employeeRole}
           >
@@ -233,7 +195,13 @@ const AdminRegisterEmployeePresenter = ({
             </Button>
           </Upload>
         </Form.Item>
-        <Form.Item {...tailLayout}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '10px',
+          }}
+        >
           <Button type="primary" style={{ marginRight: '15px' }}>
             <Link to="/admin/employee/list">목록</Link>
           </Button>
@@ -247,7 +215,7 @@ const AdminRegisterEmployeePresenter = ({
           <Button type="primary" onClick={onResetHandler} danger>
             취소
           </Button>
-        </Form.Item>
+        </div>
       </Form>
     </>
   );

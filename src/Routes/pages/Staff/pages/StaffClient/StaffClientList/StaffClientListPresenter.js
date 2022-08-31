@@ -1,16 +1,11 @@
 import React, { useState, useRef } from 'react';
-import { Button, Table, Typography, BackTop, Input, Space } from 'antd';
+import { Button, Table, Typography, BackTop, Input, Space, Spin } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
 import { Link } from 'react-router-dom';
-import Loading from 'Components/Loading';
+import Swal from 'sweetalert2';
 
-const AdminClientListPresenter = ({
-  clientList,
-  loading,
-  error,
-  onDeleteHandler,
-}) => {
+const StaffClientListPresenter = ({ clientList, loading, error }) => {
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
@@ -125,7 +120,7 @@ const AdminClientListPresenter = ({
       width: 200,
       ...getColumnSearchProps('clientName'),
       render: (name, record) => (
-        <Link to={`/admin/client/${record.clientId}`}>{name}</Link>
+        <Link to={`/staff/client/${record.clientId}`}>{name}</Link>
       ),
     },
     {
@@ -150,25 +145,19 @@ const AdminClientListPresenter = ({
       defaultSortOrder: 'ascend',
       width: 200,
     },
-    {
-      title: '비고',
-      render: (record) => (
-        <Button onClick={() => onDeleteHandler(record.clientId)}>삭제</Button>
-      ),
-    },
   ];
 
-  return loading ? (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: ' center',
-      }}
-    >
-      <Loading loading={loading} error={error} data={clientList} />
-    </div>
-  ) : (
+  if (loading) return <Spin spinning={loading} size="large" />;
+  if (error)
+    return Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: 'error!',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  if (!clientList) return null;
+  return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography.Title level={3} style={{ margin: 5 }}>
@@ -181,4 +170,4 @@ const AdminClientListPresenter = ({
   );
 };
 
-export default AdminClientListPresenter;
+export default StaffClientListPresenter;

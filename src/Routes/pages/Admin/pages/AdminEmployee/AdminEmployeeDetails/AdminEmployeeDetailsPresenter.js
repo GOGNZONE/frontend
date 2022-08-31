@@ -1,25 +1,23 @@
 import React from 'react';
-import { Image, Descriptions, Col, Row, Spin, Button } from 'antd';
+import { Image, Descriptions, Col, Row, Button } from 'antd';
 import Profile from 'assets/test.png';
-import Swal from 'sweetalert2';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Loading from 'Components/Loading';
 
 const AdminEmployeeDetailsPresenter = ({ employee, loading, error }) => {
-  if (loading) return <Spin spinning={loading} size="large" />;
-  if (error)
-    return Swal.fire({
-      position: 'center',
-      icon: 'error',
-      title: 'error!',
-      showConfirmButton: false,
-      timer: 1500,
-    });
-  if (!employee) return null;
-  return (
+  const navigate = useNavigate();
+  return loading ? (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: ' center',
+      }}
+    >
+      <Loading loading={loading} error={error} data={employee} />
+    </div>
+  ) : (
     <>
-      <Button type="primary">
-        <Link to="/admin/employee/list">목록</Link>
-      </Button>
       <Row align="middle" gutter={8}>
         <Col>
           <Image width={250} height={250} src={Profile} />
@@ -50,6 +48,21 @@ const AdminEmployeeDetailsPresenter = ({ employee, loading, error }) => {
           </Descriptions>
         </Col>
       </Row>
+      <div
+        style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}
+      >
+        <Button
+          type="primary"
+          style={{
+            margin: 5,
+            backgroundColor: '#293462',
+            border: '#293462',
+          }}
+          onClick={() => navigate('/admin/employee/list')}
+        >
+          목록
+        </Button>
+      </div>
     </>
   );
 };

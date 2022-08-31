@@ -9,13 +9,6 @@ export const getEmployeeInfo = (employee_id) => {
   return instance.get(`/employee/${employee_id}`);
 };
 
-// export const updateEmployee = (inData) => {
-//   return instance.put(
-//     `employee/${inData.employee_id}`,
-//     inData.updateEmployeeValue,
-//   );
-// };
-
 export const deleteEmployee = (employee_id) => {
   return instance.delete(`/employee/${employee_id}`);
 };
@@ -25,14 +18,7 @@ export const myEmployeeInfo = () => {
 };
 
 export const updateMyProfile = (inData) => {
-  return instance.post('/employee/edit', {
-    employeeEmail: inData.employeeEmail,
-    newPassword: inData.newPassword,
-    employeeName: inData.employeeName,
-    employeePhone: inData.employeePhone,
-    employeeAddress: inData.employeeAddress,
-    employeeImage: inData.employeeImage,
-  });
+  return instance.post('/employee/edit', inData);
 };
 
 export const registerEmployee = (inData) => {
@@ -68,8 +54,9 @@ export const registerClient = (inData) => {
   return instance.post(`/client`, inData);
 };
 
-export const updateClient = (client_id, inData) => {
-  return instance.put(`/client/${client_id}`, inData);
+export const updateClient = (inData) => {
+  const { client_id, updateClientInfo } = inData;
+  return instance.put(`/client/${client_id}`, updateClientInfo);
 };
 
 export const deleteClient = (client_id) => {
@@ -84,12 +71,14 @@ export const getAccountInfo = (account_id) => {
   return instance.get(`/account/${account_id}`);
 };
 
-export const registerAccount = (instance_id, inData) => {
-  return instance.post(`/account/${instance_id}`, inData);
+export const registerAccount = (inData) => {
+  const { clientId, accountInfo } = inData;
+  return instance.post(`/account/${clientId}`, accountInfo);
 };
 
-export const updateAccount = (account_id, inData) => {
-  return instance.put(`/account/${account_id}`, inData);
+export const updateAccount = (inData) => {
+  const { account_id, updateClientAccountInfo } = inData;
+  return instance.put(`/account/${account_id}`, updateClientAccountInfo);
 };
 
 export const deleteAccount = (account_id) => {

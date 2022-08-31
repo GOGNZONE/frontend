@@ -13,4 +13,9 @@ export {
   AdminRegisterEmployee,
 } from './AdminEmployee';
 export { AdminRetiredEmployeeList } from './AdminRetiredEmployee';
-export { AdminClientList } from './AdminClient';
+export {
+  AdminClientList,
+  AdminClientInfo,
+  AdminRegisterClient,
+  AdminRegisterClientAccount,
+} from './AdminClient';
