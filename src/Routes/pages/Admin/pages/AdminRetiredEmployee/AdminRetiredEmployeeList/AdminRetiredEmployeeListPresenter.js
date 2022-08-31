@@ -139,7 +139,7 @@ const AdminRetiredEmployeeListPresenter = ({
     {
       title: '주소',
       dataIndex: 'employeeAddress',
-      width: 200,
+      width: 500,
     },
     {
       title: '전화번호',
