@@ -12,10 +12,8 @@ const AdminEmployeeListContainer = () => {
   );
   const dispatch = useDispatch();
 
-  // console.log(data);
-
   const onDeleteHandler = async (employeeId) => {
-    dispatch(deleteEmployee(employeeId));
+    await dispatch(deleteEmployee(employeeId));
     dispatch(getEmployeeList());
   };
 
@@ -24,12 +22,14 @@ const AdminEmployeeListContainer = () => {
   }, [dispatch]);
 
   return (
-    <AdminEmployeeListPresenter
-      employeeList={data}
-      loading={loading}
-      error={error}
-      onDeleteHandler={onDeleteHandler}
-    />
+    data && (
+      <AdminEmployeeListPresenter
+        employeeList={data}
+        loading={loading}
+        error={error}
+        onDeleteHandler={onDeleteHandler}
+      />
+    )
   );
 };
 

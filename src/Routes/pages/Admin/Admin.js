@@ -1,38 +1,37 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { AdminLayout } from 'components';
-import { AdminDashBoard } from 'routes/pages/Admin/pages';
 import {
+  AdminDashBoard,
+  AdminEmployeeDetails,
+  AdminEmployeeList,
+  AdminRegisterEmployee,
+  AdminRetiredEmployeeList,
+  AdminClientList,
+  AdminClientInfo,
+  AdminRegisterClient,
+  AdminRegisterClientAccount,
   AdminOrderInfo,
   AdminOrderList,
   AdminOrderRegist,
-} from 'routes/pages/Admin/pages/AdminOrder';
-import {
   AdminBomList,
   AdminBomRegist,
   AdminBomInfo,
-} from 'routes/pages/Admin/pages/AdminBom';
-import {
   AdminStorageInfo,
   AdminStorageList,
   AdminStorageRegist,
-} from 'routes/pages/Admin/pages/AdminStorage';
-import {
   AdminStockInfo,
   AdminStockRegist,
   AdminStockList,
-} from 'routes/pages/Admin/pages/AdminStock';
-import {
+  AdminProductionRegistration,
   AdminProductionList,
   AdminProductionDetails,
-  AdminProductionRegistration,
-} from 'routes/pages/Admin/pages/AdminProduction';
-import {
+  AdminReleaseRegistrationInProduction,
+  AdminReleaseRegistration,
   AdminReleaseList,
   AdminReleaseDetails,
-  AdminReleaseRegistration,
-  AdminReleaseRegistrationInProduction,
-} from 'routes/pages/Admin/pages/AdminRelease';
+} from './pages';
+
 const Admin = ({ checkAdmin, logout }) => {
   return (
     <Routes>
@@ -41,17 +40,40 @@ const Admin = ({ checkAdmin, logout }) => {
         element={<AdminLayout checkAdmin={checkAdmin} logout={logout} />}
       >
         <Route index element={<AdminDashBoard />} />
+        {/* Employee */}
+        <Route path="/employee/list" element={<AdminEmployeeList />} />
+        <Route
+          path="/employee/:employeeId"
+          element={<AdminEmployeeDetails />}
+        />
+        <Route path="/employee" element={<AdminRegisterEmployee />} />
+        <Route
+          path="/retired-employee/list"
+          element={<AdminRetiredEmployeeList />}
+        />
+        {/* Client */}
+        <Route path="/client/list" element={<AdminClientList />} />
+        <Route path="/client" element={<AdminRegisterClient />} />
+        <Route path="/client/:clientId" element={<AdminClientInfo />} />
+        <Route
+          path="/client/account/:clientId"
+          element={<AdminRegisterClientAccount />}
+        />
+        {/* Stock */}
         <Route path="/stock/list" element={<AdminStockList />} />
         <Route path="/stock/list/:stockIdParams" element={<AdminStockInfo />} />
         <Route path="/stock" element={<AdminStockRegist />} />
+        {/* Order */}
         <Route path="/order" element={<AdminOrderRegist />} />
         <Route path="/order/list" element={<AdminOrderList />} />
         <Route path="/order/list/:orderIdParams" element={<AdminOrderInfo />} />
         <Route path="/order/info" element={<AdminOrderInfo />} />
+        {/* BOM */}
         <Route path="/bom" element={<AdminBomRegist />} />
         <Route path="/bom/list" element={<AdminBomList />} />
         <Route path="/bom/list/:bomIdParams" element={<AdminBomInfo />} />
         <Route path="/bom" element={<AdminBomRegist />} />
+        {/* Storage */}
         <Route path="/storage/list" element={<AdminStorageList />} />
         <Route
           path="/storage/list/:storageIdParams"

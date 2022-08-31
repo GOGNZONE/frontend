@@ -33,6 +33,10 @@ const items = [
       '/admin/employee/list',
     ),
     getItem(<Link to="/admin/employee">사원 등록</Link>, '/admin/employee'),
+    getItem(
+      <Link to="/admin/retired-employee/list">퇴사자 목록</Link>,
+      '/admin/retired-employee/list',
+    ),
   ]),
   getItem('거래처 관리', '/client', <TeamOutlined />, [
     getItem(
