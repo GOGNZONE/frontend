@@ -131,7 +131,7 @@ const AdminClientListPresenter = ({
     {
       title: '주소',
       dataIndex: 'clientAddress',
-      width: 200,
+      width: 500,
     },
     {
       title: '전화번호',
