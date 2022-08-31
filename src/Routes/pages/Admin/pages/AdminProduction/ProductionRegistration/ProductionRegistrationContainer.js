@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { postProduction } from 'store/modules/production/productionActions';
 import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
-import { getClientList } from 'store/modules/client';
+import { getClientList } from 'store/modules/client/clientActions';
 
 const ProductionRegistrationContainer = () => {
   /***** state *****/

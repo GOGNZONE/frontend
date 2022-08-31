@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, Descriptions, Col, Row, Button } from 'antd';
 import Profile from 'assets/test.png';
 import { useNavigate } from 'react-router-dom';
-import Loading from 'Components/Loading';
+import Loading from 'components/Loading';
 
 const AdminEmployeeDetailsPresenter = ({ employee, loading, error }) => {
   const navigate = useNavigate();

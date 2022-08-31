@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Table, Typography, BackTop, Input, Space } from 'antd';
 import Highlighter from 'react-highlight-words';
-import Loading from 'Components/Loading';
+import Loading from 'components/Loading';
 
 const AdminEmployeeListPresenter = ({
   employeeList,

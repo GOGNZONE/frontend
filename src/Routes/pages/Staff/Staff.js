@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { StaffLayout } from 'Components';
+import { StaffLayout } from 'components';
 import {
   StaffMypage,
   StaffDashBoard,

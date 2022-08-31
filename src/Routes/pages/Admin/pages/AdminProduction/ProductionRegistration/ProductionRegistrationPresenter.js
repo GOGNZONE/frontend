@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   Typography,
   Form,
@@ -34,6 +34,12 @@ const ProductionRegistrationPresenter = ({
   clientData,
   loading,
 }) => {
+  const [fileList, setFileList] = useState([
+    {
+      name: '  ',
+    },
+  ]);
+
   const standardSelectAfter = (
     <Select className="standard-select-after">
       <Option value="mm">mm</Option>
@@ -70,6 +76,11 @@ const ProductionRegistrationPresenter = ({
   const props = {
     name: 'file',
     action: '/api/file/upload',
+    // data: [
+    //   {
+    //     name: '',
+    //   },
+    // ],
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'multipart/form-data',
@@ -89,6 +100,8 @@ const ProductionRegistrationPresenter = ({
     },
 
     onChange(info) {
+      const newFileList = info.fileList.slice(-1);
+      setFileList(newFileList);
       if (info.file.status !== 'uploading') {
         console.log(info.file, info.fileList);
       }
@@ -115,7 +128,6 @@ const ProductionRegistrationPresenter = ({
       onSuccess,
       withCredentials,
     }) {
-      // eslint-disable-next-line no-undef
       const formData = new FormData();
       if (data) {
         Object.keys(data).forEach((key) => {
@@ -129,10 +141,9 @@ const ProductionRegistrationPresenter = ({
           withCredentials,
           headers,
           onUploadProgress: ({ total, loaded }) => {
-            onProgress(
-              { percent: Math.round((loaded / total) * 100).toFixed(2) },
-              file,
-            );
+            onProgress({
+              percent: Math.round((loaded / total) * 100).toFixed(2),
+            });
           },
         })
         .then(({ data: response }) => {
@@ -146,6 +157,15 @@ const ProductionRegistrationPresenter = ({
         },
       };
     },
+
+    // progress: {
+    //   strokeColor: {
+    //     '0%': '#108ee9',
+    //     '100%': '#87d068',
+    //   },
+    //   strokeWidth: 3,
+    //   format: (percent) => percent && `${parseFloat(percent.toFixed(2))}%`,
+    // },
   };
 
   return (
@@ -352,7 +372,7 @@ const ProductionRegistrationPresenter = ({
               </Select>
             </Form.Item>
             <Form.Item label="파일" getValueFromEvent={normFile}>
-              <Upload {...props} maxCount={1}>
+              <Upload {...props} fileList={fileList} maxCount={1}>
                 <Button icon={<UploadOutlined />}>업로드</Button>
               </Upload>
             </Form.Item>
