@@ -71,8 +71,9 @@ export const getAccountInfo = (account_id) => {
   return instance.get(`/account/${account_id}`);
 };
 
-export const registerAccount = (instance_id, inData) => {
-  return instance.post(`/account/${instance_id}`, inData);
+export const registerAccount = (inData) => {
+  const { clientId, accountInfo } = inData;
+  return instance.post(`/account/${clientId}`, accountInfo);
 };
 
 export const updateAccount = (inData) => {

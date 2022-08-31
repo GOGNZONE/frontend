@@ -7,10 +7,16 @@ import AdminClientInfoPresenter from './AdminClientInfoPresenter';
 import AdminClientUpdate from './components/AdminClientUpdate';
 import Swal from 'sweetalert2';
 import AdminUpdateClientAccount from './components/AdminUpdateClientAccount';
+import AdminRegisterClientAccount from '../AdminRegisterClientAccount';
 
 const AdminClientInfoContainer = () => {
   const { data, loading, error } = useSelector((state) => state.client.client);
-  const [page, setPage] = useState('info', 'updateInfo', 'updateAccount');
+  const [page, setPage] = useState(
+    'info',
+    'updateInfo',
+    'updateAccount',
+    'registerAccount',
+  );
   const { clientId } = useParams();
   const dispatch = useDispatch();
 
@@ -160,6 +166,15 @@ const AdminClientInfoContainer = () => {
         onClientAccountChangeHandler={onClientAccountChangeHandler}
         onClientAccountUpdateHandler={onClientAccountUpdateHandler}
         onClientAccountResetHandler={onClientAccountResetHandler}
+      />
+    );
+  if (data && page === 'registerAccount')
+    return (
+      <AdminRegisterClientAccount
+        clientInfo={data}
+        loading={loading}
+        error={error}
+        setPage={setPage}
       />
     );
 };

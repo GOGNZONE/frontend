@@ -10,6 +10,7 @@ import {
   AdminClientList,
   AdminClientInfo,
   AdminRegisterClient,
+  AdminRegisterClientAccount,
   AdminOrderInfo,
   AdminOrderList,
   AdminOrderRegist,
@@ -47,6 +48,10 @@ const Admin = ({ checkAdmin, logout }) => {
         <Route path="/client/list" element={<AdminClientList />} />
         <Route path="/client" element={<AdminRegisterClient />} />
         <Route path="/client/:clientId" element={<AdminClientInfo />} />
+        <Route
+          path="/client/account/:clientId"
+          element={<AdminRegisterClientAccount />}
+        />
         {/* Stock */}
         <Route path="/stock/list" element={<AdminStockList />} />
         <Route path="/stock/list/:stockIdParams" element={<AdminStockInfo />} />

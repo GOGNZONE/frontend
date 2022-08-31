@@ -74,6 +74,7 @@ const AdminClientInfoPresenter = ({ clientInfo, loading, error, setPage }) => {
               backgroundColor: '#5FBC17',
               border: '#5FBC17',
             }}
+            onClick={() => setPage('registerAccount')}
           >
             계좌정보를 등록해주세요
           </Button>

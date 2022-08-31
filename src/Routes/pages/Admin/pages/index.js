@@ -17,4 +17,5 @@ export {
   AdminClientList,
   AdminClientInfo,
   AdminRegisterClient,
+  AdminRegisterClientAccount,
 } from './AdminClient';
