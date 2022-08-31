@@ -14,11 +14,13 @@ const StaffClientInfoContainer = () => {
   }, [clientId, dispatch]);
 
   return (
-    <StaffClientInfoPresenter
-      clientInfo={data}
-      loading={loading}
-      error={error}
-    />
+    data && (
+      <StaffClientInfoPresenter
+        clientInfo={data}
+        loading={loading}
+        error={error}
+      />
+    )
   );
 };
 

@@ -1,21 +1,22 @@
 import React from 'react';
-import { Image, Descriptions, Col, Row, Spin, Button } from 'antd';
-import Swal from 'sweetalert2';
-import { Link, useNavigate } from 'react-router-dom';
+import { Descriptions, Col, Row, Button } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import Loading from 'Components/Loading';
 
 const StaffClientInfoPresenter = ({ clientInfo, loading, error }) => {
   const navigate = useNavigate();
-  if (loading) return <Spin spinning={loading} size="large" />;
-  if (error)
-    return Swal.fire({
-      position: 'center',
-      icon: 'error',
-      title: 'error!',
-      showConfirmButton: false,
-      timer: 1500,
-    });
-  if (!clientInfo) return null;
-  return (
+  const { account } = clientInfo;
+  return loading ? (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <Loading data={(clientInfo, loading, error)} />
+    </div>
+  ) : (
     <>
       <Row align="middle" gutter={6}>
         <Col flex={4}>
@@ -41,21 +42,36 @@ const StaffClientInfoPresenter = ({ clientInfo, loading, error }) => {
           </Descriptions>
         </Col>
       </Row>
-      <Row align="middle" gutter={6} style={{ marginTop: '20px' }}>
-        <Col flex={6}>
-          <Descriptions title="거래처 계좌 정보" bordered>
-            <Descriptions.Item label="은행" span={2}>
-              {clientInfo.account.accountBank}
-            </Descriptions.Item>
-            <Descriptions.Item label="예금주">
-              {clientInfo.account.accountDepositor}
-            </Descriptions.Item>
-            <Descriptions.Item label="계좌번호">
-              {clientInfo.account.accountNumber}
-            </Descriptions.Item>
-          </Descriptions>
-        </Col>
-      </Row>
+      {account ? (
+        <Row align="middle" gutter={6} style={{ marginTop: '20px' }}>
+          <Col flex={6}>
+            <Descriptions title="거래처 계좌 정보" bordered>
+              <Descriptions.Item label="은행" span={2}>
+                {clientInfo.account.accountBank}
+              </Descriptions.Item>
+              <Descriptions.Item label="예금주">
+                {clientInfo.account.accountDepositor}
+              </Descriptions.Item>
+              <Descriptions.Item label="계좌번호">
+                {clientInfo.account.accountNumber}
+              </Descriptions.Item>
+            </Descriptions>
+          </Col>
+        </Row>
+      ) : (
+        <Row align="middle" gutter={6} style={{ marginTop: '20px' }}>
+          <Col flex={6}>
+            <Descriptions title="거래처 계좌 정보" bordered>
+              <Descriptions.Item label="은행" span={2}>
+                등록 전
+              </Descriptions.Item>
+              <Descriptions.Item label="예금주">등록 전</Descriptions.Item>
+              <Descriptions.Item label="계좌번호">등록 전</Descriptions.Item>
+            </Descriptions>
+          </Col>
+        </Row>
+      )}
+
       <div
         style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}
       >
