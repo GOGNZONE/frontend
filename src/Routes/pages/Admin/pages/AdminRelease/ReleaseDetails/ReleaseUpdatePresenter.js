@@ -11,31 +11,11 @@ import {
   InputNumber,
   Input,
   Empty,
-  message,
   Form,
 } from 'antd';
 import moment from 'moment';
 
-const { confirm } = Modal;
 const { TextArea } = Input;
-
-const showDeleteConfirm = () => {
-  confirm({
-    title: '해당 제품을 삭제하시겠습니까?',
-    icon: <ExclamationCircleOutlined />,
-    okText: '확인',
-    okType: 'danger',
-    cancelText: '취소',
-
-    onOk() {
-      console.log('OK');
-    },
-
-    onCancel() {
-      console.log('Cancel');
-    },
-  });
-};
 
 const ReleaseUpdatePresenter = ({
   data,
