@@ -2,7 +2,7 @@ import { handleAsyncActions, reducerUtils } from 'lib/asyncUtils';
 import * as types from './releaseActions';
 
 const initialState = {
-  releases: reducerUtils.initial([]),
+  releases: reducerUtils.initial(),
   release: reducerUtils.initial(),
 };
 
@@ -28,9 +28,15 @@ export const releaseReducer = (state = initialState, action) => {
       return {
         releases: {
           loading: false,
-          data: state.releases.data.filter(
-            (release) => release.releaseId !== action.param,
-          ),
+          data: state.releases.data
+            ? state.releases.data.filter(
+                (release) => release.releaseId !== action.param,
+              )
+            : null,
+        },
+        release: {
+          loading: false,
+          data: null,
         },
       };
     case types.CLAER_RELEASE:
