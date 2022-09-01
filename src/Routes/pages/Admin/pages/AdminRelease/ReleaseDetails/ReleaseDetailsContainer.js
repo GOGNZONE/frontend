@@ -1,22 +1,27 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import ReleaseDetailsPresenter from './ReleaseDetailsPresenter';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearRelease, getRelease } from 'store/modules/release/releaseActions';
 import ReleaseUpdatePresenter from './ReleaseUpdatePresenter';
 import { message } from 'antd';
-import { putRelease } from 'store/modules/release/releaseActions';
+import {
+  putRelease,
+  deleteRelease,
+} from 'store/modules/release/releaseActions';
 
 const ReleaseDetailsContainer = () => {
   /***** release id params *****/
   const { releaseIdParams } = useParams();
   /***** redux(state) *****/
-  const { data, loading, error } = useSelector(
-    (state) => state.release.release,
-  );
+  const release = useSelector((state) => state.release.release);
+  const { data, loading } = release;
   const dispatch = useDispatch();
   const [switchToEditPage, setSwitchToEditPage] = useState(true);
   const [releaseValue, setReleaseValue] = useState({});
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  /***** navigate *****/
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getRelease(releaseIdParams));
@@ -27,22 +32,22 @@ const ReleaseDetailsContainer = () => {
 
   const onClickHandler = useCallback(async () => {
     if (
-      releaseValue.productionName === '' ||
-      releaseValue.productionPrice === null ||
-      releaseValue.productionQuantity === null ||
-      releaseValue.productionReleasedDate === 'Invalid date'
+      releaseValue.releaseTotalPrice === null ||
+      releaseValue.releaseQuantity === null ||
+      releaseValue.releaseDate === 'Invalid date'
     ) {
       message.error('필수 입력값을 입력해 주세요.');
     } else {
       await dispatch(
         putRelease({
           releaseId: releaseIdParams,
-          inData: releaseValue,
+          releaseData: releaseValue,
+          deliveryData: releaseValue.deliveryDto,
         }),
       );
       await setSwitchToEditPage(true);
     }
-  });
+  }, [dispatch, switchToEditPage, releaseValue]);
 
   const onChangeHandler = (value) => {
     setReleaseValue(value);
@@ -52,12 +57,37 @@ const ReleaseDetailsContainer = () => {
     setReleaseValue(data);
   };
 
+  const onDeleteRelease = async (releaseId) => {
+    await dispatch(deleteRelease(releaseId));
+    await navigate('/admin/release/list');
+  };
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    if (
+      releaseValue.deliveryDto.deliveryCompanyName === '' ||
+      releaseValue.deliveryDto.deliveryTrackingNumber === ''
+    ) {
+      message.error('필수 입력값을 입력해 주세요.');
+    } else {
+      setIsModalVisible(false);
+    }
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   return switchToEditPage ? (
     <ReleaseDetailsPresenter
       data={data}
       loading={loading}
       setSwitchToEditPage={setSwitchToEditPage}
       onSetReleaseValue={onSetReleaseValue}
+      onDeleteRelease={onDeleteRelease}
     />
   ) : (
     <ReleaseUpdatePresenter
@@ -67,6 +97,11 @@ const ReleaseDetailsContainer = () => {
       onClickHandler={onClickHandler}
       releaseValue={releaseValue}
       onChangeHandler={onChangeHandler}
+      setIsModalVisible={setIsModalVisible}
+      isModalVisible={isModalVisible}
+      showModal={showModal}
+      handleOk={handleOk}
+      handleCancel={handleCancel}
     />
   );
 };
