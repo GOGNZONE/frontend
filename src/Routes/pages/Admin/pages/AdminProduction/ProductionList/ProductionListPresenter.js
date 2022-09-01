@@ -29,7 +29,7 @@ const ProductionListPresenter = ({
 }) => {
   const showDeleteConfirm = (productionId) => {
     confirm({
-      title: '해당 제품을 삭제하시겠습니까?',
+      title: '해당 품목을 삭제하시겠습니까?',
       icon: <ExclamationCircleOutlined />,
       okText: '확인',
       okType: 'danger',
@@ -37,10 +37,6 @@ const ProductionListPresenter = ({
 
       onOk() {
         onDeleteProduction(productionId);
-      },
-
-      onCancel() {
-        console.log('Cancel');
       },
     });
   };
@@ -209,23 +205,6 @@ const ProductionListPresenter = ({
       title: '비고',
       dataIndex: 'productionDescription',
     },
-    // {
-    //   title: '출고',
-    //   dataIndex: 'releaseButton',
-    //   width: 100,
-    //   align: 'center',
-    //   render: (name, record) => (
-    //     <Link to={`/admin/production/release/${record.productionId}`}>
-    //       <Button
-    //         type="primary"
-    //         size="middle"
-    //         style={{ backgroundColor: '#293462', border: '#293462' }}
-    //       >
-    //         출고
-    //       </Button>
-    //     </Link>
-    //   ),
-    // },
     {
       title: '삭제',
       dataIndex: 'deleteButton',
