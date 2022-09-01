@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { registerEmployee } from 'store/modules/employee/employeeActions';
 import AdminRegisterEmployeePresenter from './AdminRegisterEmployeePresenter';
@@ -20,31 +20,71 @@ const AdminRegisterEmployeeContainer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onChangeHandler = (e) => {
-    console.log(e);
-    const { name, value } = e.target;
-    setEmployeeInfo({
-      ...employeeInfo,
-      [name]: value,
-    });
+  const onChangeHandler = (value) => {
+    setEmployeeInfo(value);
   };
 
-  const saveEmployee = () => {
+  const saveEmployee = async () => {
     if (employeeInfo) {
-      dispatch(registerEmployee(employeeInfo));
+      await dispatch(registerEmployee(employeeInfo));
       navigate('/admin/employee/list');
     } else {
       message.error('필수값을 입력하세요');
     }
   };
 
-  const fileUpload = () => {};
+  const onChangeInputHandler = useCallback(
+    (name, e) => {
+      const { value } = e.target;
+      onChangeHandler({
+        ...employeeInfo,
+        [name]: value,
+      });
+    },
+    [employeeInfo],
+  );
+
+  const onChangeDatePickerHandler = useCallback(
+    (name, value) => {
+      onChangeHandler({
+        ...employeeInfo,
+        [name]: value,
+      });
+    },
+    [employeeInfo],
+  );
+
+  const onChangeEmployeeRole = useCallback(
+    (value) => {
+      onChangeHandler({
+        ...employeeInfo,
+        employeeRole: value,
+      });
+    },
+    [employeeInfo],
+  );
+
+  const onResetHandler = () => {
+    onChangeHandler({
+      employeeId: '',
+      employeeName: '',
+      employeePassword: '',
+      employeeAddress: '',
+      employeeEmail: '',
+      employeePhone: '',
+      employeeHiredate: '',
+      employeeImage: '',
+      employeeRole: '',
+    });
+  };
   return (
     <AdminRegisterEmployeePresenter
       employeeInfo={employeeInfo}
-      onChangeHandler={onChangeHandler}
       saveEmployee={saveEmployee}
-      fileUpload={fileUpload}
+      onChangeInputHandler={onChangeInputHandler}
+      onChangeDatePickerHandler={onChangeDatePickerHandler}
+      onChangeEmployeeRole={onChangeEmployeeRole}
+      onResetHandler={onResetHandler}
     />
   );
 };

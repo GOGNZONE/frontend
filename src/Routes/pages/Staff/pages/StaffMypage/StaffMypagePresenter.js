@@ -2,7 +2,6 @@ import React from 'react';
 import { Image, Descriptions, Col, Row, Spin, Button } from 'antd';
 import Profile from 'assets/test.png';
 import Swal from 'sweetalert2';
-import { Link } from 'react-router-dom';
 
 const StaffMypagePresenter = ({ mypage, loading, error, setPage }) => {
   if (loading) return <Spin spinning={loading} size="large" />;
@@ -17,9 +16,6 @@ const StaffMypagePresenter = ({ mypage, loading, error, setPage }) => {
   if (!mypage) return null;
   return (
     <>
-      <Button type="primary" onClick={() => setPage(false)}>
-        정보 수정
-      </Button>
       <Row align="middle" gutter={8}>
         <Col>
           <Image width={250} height={250} src={Profile} />
@@ -47,6 +43,21 @@ const StaffMypagePresenter = ({ mypage, loading, error, setPage }) => {
           </Descriptions>
         </Col>
       </Row>
+      <div
+        style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}
+      >
+        <Button
+          type="primary"
+          style={{
+            margin: 5,
+            backgroundColor: '#293462',
+            border: '#293462',
+          }}
+          onClick={() => setPage(false)}
+        >
+          수정
+        </Button>
+      </div>
     </>
   );
 };

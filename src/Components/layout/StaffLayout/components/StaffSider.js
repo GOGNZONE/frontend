@@ -32,7 +32,7 @@ const items = [
     <UserOutlined />,
   ),
   getItem(
-    <Link to="/staff/client">거래처 관리</Link>,
+    <Link to="/staff/client/list">거래처 관리</Link>,
     '/client',
     <TeamOutlined />,
   ),

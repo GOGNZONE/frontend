@@ -1,21 +1,21 @@
-export { default as AdminDashBoard } from 'Routes/pages/Admin/pages/AdminDashBoard';
-export {
-  AdminBomRegist,
-  AdminBomList,
-  AdminBomInfo,
-} from 'Routes/pages/Admin/pages/AdminBom';
-export {
-  AdminOrderInfo,
-  AdminOrderList,
-  AdminOrderRegist,
-} from 'Routes/pages/Admin/pages/AdminOrder';
+export { default as AdminDashBoard } from './AdminDashBoard';
+export { AdminBomRegist, AdminBomList, AdminBomInfo } from './AdminBom';
+export { AdminOrderInfo, AdminOrderList, AdminOrderRegist } from './AdminOrder';
 export {
   AdminStorageInfo,
   AdminStorageList,
   AdminStorageRegist,
-} from 'Routes/pages/Admin/pages/AdminStorage';
+} from './AdminStorage';
+export { AdminStockInfo, AdminStockList, AdminStockRegist } from './AdminStock';
 export {
-  AdminStockInfo,
-  AdminStockList,
-  AdminStockRegist,
-} from 'Routes/pages/Admin/pages/AdminStock';
+  AdminEmployeeDetails,
+  AdminEmployeeList,
+  AdminRegisterEmployee,
+} from './AdminEmployee';
+export { AdminRetiredEmployeeList } from './AdminRetiredEmployee';
+export {
+  AdminClientList,
+  AdminClientInfo,
+  AdminRegisterClient,
+  AdminRegisterClientAccount,
+} from './AdminClient';
