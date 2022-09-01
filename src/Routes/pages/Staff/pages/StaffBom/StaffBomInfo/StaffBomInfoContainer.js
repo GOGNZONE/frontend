@@ -8,8 +8,8 @@ import moment from 'moment';
 function StaffBomInfoContainer() {
   const { bomIdParams } = useParams();
   const { data, loading, error } = useSelector((state) => state.bom.bom);
+
   const dispatch = useDispatch();
-  console.log(data);
   useEffect(() => {
     dispatch(getBom(bomIdParams));
   }, [bomIdParams, dispatch]);

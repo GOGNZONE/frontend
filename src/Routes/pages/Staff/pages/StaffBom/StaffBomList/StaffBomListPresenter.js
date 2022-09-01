@@ -3,6 +3,7 @@ import { Table, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import { v4 } from 'uuid';
 function StaffBomListPresenter({ bomList }) {
+  console.log(bomList);
   const columns = [
     {
       title: '원자재코드',
@@ -23,9 +24,9 @@ function StaffBomListPresenter({ bomList }) {
       key: 'bomQuantity',
     },
     {
-      title: '창고코드',
-      key: 'storage',
-      dataIndex: 'storage',
+      title: '원자재 단가 ',
+      dataIndex: 'bomPrice',
+      key: 'bomPrice',
     },
     {
       title: '비고',

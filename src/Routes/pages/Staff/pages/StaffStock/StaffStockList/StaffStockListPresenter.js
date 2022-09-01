@@ -10,7 +10,7 @@ function StaffStockListPresenter({ stockList }) {
       dataIndex: 'stockId',
       key: 'stockId',
       render: (id, index) => (
-        <Link to={`/Staff/stock/list/${index.stockId}`}>{id}</Link>
+        <Link to={`/staff/stock/list/${index.stockId}`}>{id}</Link>
       ),
     },
     {

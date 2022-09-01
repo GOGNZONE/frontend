@@ -1,25 +1,40 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getStorage, putStorage } from 'store/modules/storage/storageActions';
+import {
+  getStorage,
+  putStorage,
+  deleteStorage,
+} from 'store/modules/storage/storageActions';
 import { useDispatch, useSelector } from 'react-redux';
 import AdminStorageInfoPresenter from './AdminStorageInfoPresenter';
 import AdminStorageUpdate from './AdminStorageUpdate';
 import { message } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 
 function AdminStorageInfoContainer() {
   const { storageIdParams } = useParams();
   const [page, setPage] = useState(true);
   const [storage, setStorage] = useState({
-    storagaAddress: '',
-    storagaCategory: '',
-    storagaDescription: '',
+    storageAddress: '',
+    storageCategory: '',
+    storageDescription: '',
   });
+
   const [updateButton, setUpdateButton] = useState(true);
   const { data, loading, error } = useSelector(
     (state) => state.storage.storage,
   );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const dataInsert = () => {
+    setStorage({
+      storageId: data.storageId,
+      storageAddress: data.storageAddress,
+      storageCategory: data.storageCategory,
+      storageDescription: data.storageDescription,
+    });
+  };
 
   useEffect(() => {
     dispatch(getStorage(storageIdParams));
@@ -38,24 +53,31 @@ function AdminStorageInfoContainer() {
   const onChangeInputHandler = useCallback((name, e) => {
     const value = e.target.value;
     onChange({
-      ...updateButton,
+      ...storage,
       [name]: value,
     });
   });
 
   const updateStorageHandler = useCallback(async (e) => {
-    if (storage.storagaAddress === '') {
+    if (storage.storageAddress === '') {
       message.error('필수 입력값을 입력해 주세요.');
     } else {
-      await dispatch(putStorage(storageIdParams, storage));
-      // await navigate('list');
+      await dispatch(putStorage({ storageIdParams, storage }));
+      changePageHandler();
+      window.location.reload();
     }
   });
+  const onDeleteHandler = (storageId) => {
+    dispatch(deleteStorage(storageId));
+    navigate('/admin/storage/list');
+    window.location.reload();
+  };
 
   return page ? (
     <AdminStorageInfoPresenter
       changePageHandler={changePageHandler}
       data={data}
+      onDeleteHandler={onDeleteHandler}
     />
   ) : (
     <AdminStorageUpdate
@@ -63,6 +85,7 @@ function AdminStorageInfoContainer() {
       onChangeInputHandler={onChangeInputHandler}
       changePageHandler={changePageHandler}
       data={data}
+      dataInsert={dataInsert}
     />
   );
 }

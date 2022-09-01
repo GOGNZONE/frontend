@@ -1,49 +1,103 @@
-import React from 'react';
-import { Descriptions, Col, Row, Button } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
+import { Descriptions, Col, Row, Button, Modal } from 'antd';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-function AdminStockInfoPresenter({ changePageHandler }) {
+function AdminStockInfoPresenter({ data, changePageHandler, onDeleteHandler }) {
+  const [deleteModal, setDeleteModal] = useState(false);
   return (
     <>
-      <Row align="middle" gutter={8}>
-        <Col flex={4}>
-          <Descriptions title="재고 정보" bordered>
-            <Descriptions.Item label="재고 코드"></Descriptions.Item>
-            <Descriptions.Item label="재고 상품명"></Descriptions.Item>
-            <Descriptions.Item label="재고 수량" span={2}></Descriptions.Item>
-            <Descriptions.Item label="비고"></Descriptions.Item>
-          </Descriptions>
-          <br />
-          <Descriptions title="창고 정보" bordered>
-            <Descriptions.Item label="창고 번호"></Descriptions.Item>
-          </Descriptions>
-        </Col>
-      </Row>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <Button
-          type="primary"
-          style={{
-            margin: 5,
-            border: '#293462',
-          }}
-          onClick={changePageHandler}
-        >
-          정보 수정
-        </Button>
-        <Link to="/admin/order/list">
-          <Button
-            type="primary"
-            style={{
-              margin: 5,
-              backgroundColor: '#293462',
-              border: '#293462',
-            }}
-          >
-            목록
-          </Button>
-        </Link>
-      </div>
+      {data ? (
+        <>
+          <Row align="middle" gutter={8}>
+            <Col flex={4}>
+              <Descriptions title="재고 정보" bordered>
+                <Descriptions.Item label="재고 코드">
+                  {data.stockId}
+                </Descriptions.Item>
+                <Descriptions.Item label="재고 상품명">
+                  {data.stockName}
+                </Descriptions.Item>
+                <Descriptions.Item label="재고 수량" span={2}>
+                  {data.stockQuantity}
+                </Descriptions.Item>
+                <Descriptions.Item label="비고">
+                  {data.stockDescription}
+                </Descriptions.Item>
+              </Descriptions>
+            </Col>
+
+            <br />
+            <Col flex={4}>
+              <Descriptions title="보관 창고 정보" bordered>
+                <Descriptions.Item label="창고 번호">
+                  {data.storage.storageId}
+                </Descriptions.Item>
+                <Descriptions.Item label="창고 주소">
+                  {data.storage.storageAddress}
+                </Descriptions.Item>
+                <Descriptions.Item label="창고 종류">
+                  {data.storage.storageCategory}
+                </Descriptions.Item>
+                <Descriptions.Item label="비고">
+                  {data.storage.storageDescription}
+                </Descriptions.Item>
+              </Descriptions>
+            </Col>
+          </Row>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Button
+              type="primary"
+              style={{
+                margin: 5,
+                border: '#293462',
+              }}
+              onClick={changePageHandler}
+            >
+              정보 수정
+            </Button>
+            <Button
+              type="primary"
+              size="middle"
+              style={{
+                backgroundColor: '#D61C4E',
+                margin: 5,
+                border: '#D61C4E',
+              }}
+              onClick={() => setDeleteModal(true)}
+              // onClick={() => {
+              //   onDeleteHandler();
+              // }}
+            >
+              삭제
+            </Button>
+            <Modal
+              title="삭제"
+              centered
+              visible={deleteModal}
+              onOk={() => onDeleteHandler(data.stock)}
+              okText="삭제"
+              onCancel={() => setDeleteModal(false)}
+              cancelText="취소"
+            >
+              <p>정말로 삭제하시겠습니까?</p>
+            </Modal>
+            <Link to="/admin/stock/list">
+              <Button
+                type="primary"
+                style={{
+                  margin: 5,
+                  backgroundColor: '#293462',
+                  border: '#293462',
+                }}
+              >
+                목록
+              </Button>
+            </Link>
+          </div>
+        </>
+      ) : (
+        <div>data loading...</div>
+      )}
     </>
   );
 }

@@ -7,7 +7,7 @@ function StaffStockInfoPresenter({ data }) {
     <>
       {data ? (
         <>
-          <Row align="middle" gutter={8}>
+          <Row align="middle">
             <Col flex={4}>
               <Descriptions title="재고 정보" bordered>
                 <Descriptions.Item label="재고 코드">
@@ -24,9 +24,10 @@ function StaffStockInfoPresenter({ data }) {
                 </Descriptions.Item>
               </Descriptions>
             </Col>
-
+          </Row>
+          <br />
+          <Row align="middle">
             <Col flex={4}>
-              <br />
               <Descriptions title="보관 창고 정보" bordered>
                 <Descriptions.Item label="창고 번호">
                   {data.storage.storageId}

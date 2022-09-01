@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import AdminStorageRegistPresenter from './AdminStorageRegistPresenter';
 import { useDispatch } from 'react-redux';
 import { registerStorage } from 'store/modules/storage/storageActions';
+import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
 
 function AdminStorageRegistContainer() {
@@ -10,12 +11,16 @@ function AdminStorageRegistContainer() {
     storageCategory: '',
     storageDescription: '',
   });
+  console.log(storage);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const registStorage = (e) => {
-    if (storage) {
-      dispatch(registerStorage(storage));
-    } else {
+    if (storage.storageAddress === '' || storage.storageCategory === '') {
       message.error('필수값을 입력하세요');
+    } else {
+      dispatch(registerStorage(storage));
+      navigate('/admin/storage/list');
+      window.location.reload();
     }
   };
 

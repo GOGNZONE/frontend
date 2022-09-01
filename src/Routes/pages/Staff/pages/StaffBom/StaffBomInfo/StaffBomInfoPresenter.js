@@ -3,6 +3,7 @@ import { Descriptions, Col, Row, Button } from 'antd';
 import { Link } from 'react-router-dom';
 
 const StaffBomInfoPresenter = ({ data }) => {
+  console.log(data);
   return (
     <>
       {data ? (
@@ -32,7 +33,7 @@ const StaffBomInfoPresenter = ({ data }) => {
                   {data.bomReceivedDate}
                 </Descriptions.Item>
                 <Descriptions.Item label="부모 객체">
-                  {data.bomParent == null ? '없음' : data.bomParent.bomId}
+                  {data.bomParent == null ? '없음' : data.bomParent}
                 </Descriptions.Item>
                 <Descriptions.Item label="창고 번호">
                   {data.storage.storageId}
@@ -45,7 +46,7 @@ const StaffBomInfoPresenter = ({ data }) => {
             </Col>
           </Row>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Link to="/Staff/bom/list">
+            <Link to="/staff/bom/list">
               <Button
                 type="primary"
                 style={{
@@ -60,7 +61,7 @@ const StaffBomInfoPresenter = ({ data }) => {
           </div>
         </>
       ) : (
-        <div></div>
+        <div>data loading...</div>
       )}
     </>
   );

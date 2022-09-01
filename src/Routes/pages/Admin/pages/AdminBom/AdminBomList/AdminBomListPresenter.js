@@ -1,8 +1,10 @@
-import React from 'react';
-import { Table, Button } from 'antd';
+import React, { useState } from 'react';
+import { Table, Button, Modal } from 'antd';
 import { Link } from 'react-router-dom';
 import { v4 } from 'uuid';
 function AdminBomListPresenter({ bomList, onDeleteHandler }) {
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [tmpId, setTmpId] = useState();
   const columns = [
     {
       title: '원자재코드',
@@ -18,14 +20,14 @@ function AdminBomListPresenter({ bomList, onDeleteHandler }) {
       key: 'bomName',
     },
     {
-      title: '원자재수량',
+      title: '원자재 수량',
       dataIndex: 'bomQuantity',
       key: 'bomQuantity',
     },
     {
-      title: '창고코드',
-      key: 'storage',
-      dataIndex: 'storage',
+      title: '원자재 단가',
+      key: 'bomPrice',
+      dataIndex: 'bomPrice',
     },
     {
       title: '비고',
@@ -43,7 +45,11 @@ function AdminBomListPresenter({ bomList, onDeleteHandler }) {
           type="primary"
           size="middle"
           style={{ backgroundColor: '#D61C4E', border: '#D61C4E' }}
-          onClick={() => onDeleteHandler(`${index.bomId}`)}
+          // onClick={() => onDeleteHandler(`${index.bomId}`)}
+          onClick={() => {
+            setDeleteModal(true);
+            setTmpId(`${index.bomId}`);
+          }}
         >
           삭제
         </Button>
@@ -58,6 +64,17 @@ function AdminBomListPresenter({ bomList, onDeleteHandler }) {
         <Button>등록</Button>
       </Link>
       <Table rowKey={() => v4()} columns={columns} dataSource={bomList} />
+      <Modal
+        title="삭제"
+        centered
+        visible={deleteModal}
+        onOk={() => onDeleteHandler(tmpId)}
+        okText="삭제"
+        onCancel={() => setDeleteModal(false)}
+        cancelText="취소"
+      >
+        <p>정말로 삭제하시겠습니까?</p>
+      </Modal>
     </div>
   );
 }

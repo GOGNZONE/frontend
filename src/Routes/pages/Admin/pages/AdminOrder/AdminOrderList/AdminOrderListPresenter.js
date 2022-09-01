@@ -1,9 +1,15 @@
-import React from 'react';
-import { Table, Button } from 'antd';
+import React, { useState } from 'react';
+import { Table, Button, Modal } from 'antd';
 import { Link } from 'react-router-dom';
 import { v4 } from 'uuid';
 
-function AdminOrderListPresenter({ orderList, onDeleteHandler }) {
+function AdminOrderListPresenter({
+  orderList,
+  onDeleteHandler,
+  setDeleteModal,
+  deleteModal,
+}) {
+  const [tmpId, setTmpId] = useState();
   const columns = [
     {
       title: '주문 코드',
@@ -44,16 +50,17 @@ function AdminOrderListPresenter({ orderList, onDeleteHandler }) {
       key: 'orderId',
       align: 'center',
       render: (id, index) => (
-        <Link to="admin/order/list">
-          <Button
-            type="primary"
-            size="middle"
-            style={{ backgroundColor: '#D61C4E', border: '#D61C4E' }}
-            onClick={() => onDeleteHandler(`${index.orderId}`)}
-          >
-            삭제
-          </Button>
-        </Link>
+        <Button
+          type="primary"
+          size="middle"
+          style={{ backgroundColor: '#D61C4E', border: '#D61C4E' }}
+          onClick={() => {
+            setDeleteModal(true);
+            setTmpId(`${index.orderId}`);
+          }}
+        >
+          삭제
+        </Button>
       ),
     },
   ];
@@ -64,6 +71,17 @@ function AdminOrderListPresenter({ orderList, onDeleteHandler }) {
         <Button>등록</Button>
       </Link>
       <Table rowKey={() => v4()} columns={columns} dataSource={orderList} />
+      <Modal
+        title="삭제"
+        centered
+        visible={deleteModal}
+        onOk={() => onDeleteHandler(tmpId)}
+        okText="삭제"
+        onCancel={() => setDeleteModal(false)}
+        cancelText="취소"
+      >
+        <p>정말로 삭제하시겠습니까?</p>
+      </Modal>
     </div>
   );
 }

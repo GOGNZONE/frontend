@@ -7,9 +7,8 @@ function AdminOrderListContainer() {
   const { data, loading, error } = useSelector(
     (state) => state.order.orderList,
   );
+  const [deleteModal, setDeleteModal] = useState(false);
   const dispatch = useDispatch();
-  console.log(data);
-
   useEffect(() => {
     dispatch(getOrderList());
   }, [dispatch]);
@@ -23,6 +22,8 @@ function AdminOrderListContainer() {
     <AdminOrderListPresenter
       orderList={data}
       onDeleteHandler={onDeleteHandler}
+      setDeleteModal={setDeleteModal}
+      deleteModal={deleteModal}
     />
   );
 }

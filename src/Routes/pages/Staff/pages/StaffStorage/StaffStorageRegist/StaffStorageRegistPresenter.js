@@ -59,20 +59,18 @@ function StaffStorageRegistPresenter({ registStorage, onChangeInputHandler }) {
       </Form>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Form.Item>
-          <Link to="/Staff/storage/list">
-            <Button
-              type="primary"
-              htmlType="submit"
-              style={{
-                margin: 5,
-                backgroundColor: '#FEB139',
-                border: '#FEB139',
-              }}
-              onClick={registStorage}
-            >
-              등록
-            </Button>
-          </Link>
+          <Button
+            type="primary"
+            htmlType="submit"
+            style={{
+              margin: 5,
+              backgroundColor: '#FEB139',
+              border: '#FEB139',
+            }}
+            onClick={registStorage}
+          >
+            등록
+          </Button>
         </Form.Item>
 
         <Link to="/staff/storage/list">
