@@ -1,68 +1,33 @@
-import React from 'react';
-// import { getReleaseList } from '../../../../../../Apis/releaseApi';
-// import ReleaseListPresenter from './ReleaseListPresenter';
-// import React from 'react'; //  { useEffect, useState, useRef }
-// import { getReleaseList } from 'apis/releaseApi';
+import React, { useEffect } from 'react';
+import { getReleases } from 'store/modules/release/releaseActions';
+import ReleaseListPresenter from './ReleaseListPresenter';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteRelease } from 'store/modules/release/releaseActions';
 
 const ReleaseListContainer = () => {
-  return <div></div>;
+  /***** redux (state) *****/
+  const releases = useSelector((state) => state.release.releases);
+  const { data, loading } = releases;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const callDispatch = () => {
+      dispatch(getReleases());
+    };
+    !loading && callDispatch();
+  }, []);
+
+  const onDeleteRelease = (releaseId) => {
+    dispatch(deleteRelease(releaseId));
+  };
+
+  return (
+    <ReleaseListPresenter
+      dataSource={data}
+      loading={loading}
+      onDeleteRelease={onDeleteRelease}
+    />
+  );
 };
-//   const [releases, setReleases] = useState([]);
-//   const [searchText, setSearchText] = useState('');
-//   const [searchedColumn, setSearchedColumn] = useState('');
-//   const searchInput = useRef(null);
-
-//   useEffect(() => {
-//     getReleaseListApi();
-//   }, []);
-
-//   const getReleaseListApi = () => {
-//     getReleaseList().then((response) => {
-//       setReleases(response.data);
-//     });
-//   };
-//   return (
-//     <ReleaseListPresenter
-//       dataSource={releases}
-//       setSearchText={setSearchText}
-//       setSearchedColumn={setSearchedColumn}
-//       searchInput={searchInput}
-//       searchedColumn={searchedColumn}
-//       searchText={searchText}
-//     />
-//   );
-// };
-// import React from //  { useEffect, useState, useRef }
-// 'react';
-// import { getReleaseList } from 'apis/releaseApi';
-// import ReleaseListPresenter from './ReleaseListPresenter';
-
-// const ReleaseListContainer = () => {
-//   const [releases, setReleases] = useState([]);
-//   const [searchText, setSearchText] = useState('');
-//   const [searchedColumn, setSearchedColumn] = useState('');
-//   const searchInput = useRef(null);
-
-//   useEffect(() => {
-//     getReleaseListApi();
-//   }, []);
-
-//   const getReleaseListApi = () => {
-//     getReleaseList().then((response) => {
-//       setReleases(response.data);
-//     });
-//   };
-//   return (
-//     <ReleaseListPresenter
-//       dataSource={releases}
-//       setSearchText={setSearchText}
-//       setSearchedColumn={setSearchedColumn}
-//       searchInput={searchInput}
-//       searchedColumn={searchedColumn}
-//       searchText={searchText}
-//     />
-//   );
-// return <ReleaseListPresenter />;
-// };
 
 export default ReleaseListContainer;
