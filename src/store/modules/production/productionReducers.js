@@ -40,9 +40,15 @@ export const productionReducer = (state = initialState, action) => {
       return {
         productions: {
           loading: false,
-          data: state.productions.data.filter(
-            (production) => production.productionId !== action.param,
-          ),
+          data: state.productions.data
+            ? state.productions.data.filter(
+                (production) => production.productionId !== action.param,
+              )
+            : null,
+        },
+        production: {
+          loading: false,
+          data: null,
         },
       };
     case types.CLEAR_PRODUCTION:
