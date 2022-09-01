@@ -25,6 +25,7 @@ const ReleaseRegistrationInProductionPresenter = ({
   isModalVisible,
   setIsModalVisible,
 }) => {
+  console.log(productionData);
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -105,12 +106,11 @@ const ReleaseRegistrationInProductionPresenter = ({
       >
         {productionData ? (
           <Form
-            labelAlign="left"
             labelCol={{
-              span: 3,
+              span: 7,
             }}
             wrapperCol={{
-              span: 7,
+              span: 10,
             }}
             layout="horizontal"
             size="large"
@@ -306,12 +306,12 @@ const ReleaseRegistrationInProductionPresenter = ({
                 onChange={(e) => onChangeInputHandler('releaseDescription', e)}
               />
             </Form.Item>
-
             <div
               style={{
                 display: 'flex',
                 justifyContent: 'space-between',
                 width: '100%',
+                marginTop: 50,
               }}
             >
               <div style={{ width: '50%' }}>
@@ -356,9 +356,9 @@ const ReleaseRegistrationInProductionPresenter = ({
                     {productionData.productionDate}
                   </Descriptions.Item>
                   <Descriptions.Item label="거래처코드">
-                    {productionData.client.clientName +
+                    {productionData.releaseClientDto.clientName +
                       '(' +
-                      productionData.client.clientId +
+                      productionData.releaseClientDto.clientId +
                       ')'}
                   </Descriptions.Item>
                   <Descriptions.Item label="비고">
@@ -385,22 +385,22 @@ const ReleaseRegistrationInProductionPresenter = ({
                   style={{ width: '100%' }}
                 >
                   <Descriptions.Item label="거래처코드">
-                    {productionData.client.clientId}
+                    {productionData.releaseClientDto.clientId}
                   </Descriptions.Item>
                   <Descriptions.Item label="거래처명">
-                    {productionData.client.clientName}
+                    {productionData.releaseClientDto.clientName}
                   </Descriptions.Item>
                   <Descriptions.Item label="담당자">
-                    {productionData.client.clientManager}
+                    {productionData.releaseClientDto.clientManager}
                   </Descriptions.Item>
                   <Descriptions.Item label="연락처">
-                    {productionData.client.clientTel}
+                    {productionData.releaseClientDto.clientTel}
                   </Descriptions.Item>
                   <Descriptions.Item label="주소">
-                    {productionData.client.clientAddress}
+                    {productionData.releaseClientDto.clientAddress}
                   </Descriptions.Item>
                   <Descriptions.Item label="담당자(자사)">
-                    {productionData.client.employeeName}
+                    {productionData.releaseClientDto.employeeName}
                   </Descriptions.Item>
                 </Descriptions>
               </div>
