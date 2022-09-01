@@ -25,7 +25,6 @@ const ProductionListContainer = () => {
 
   const onDeleteProduction = (productionId) => {
     dispatch(deleteProduction(productionId));
-    // await dispatch(getProductions());
   };
 
   return (
