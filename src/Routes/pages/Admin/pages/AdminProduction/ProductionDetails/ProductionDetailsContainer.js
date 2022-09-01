@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ProductionDetailsPresenter from './ProductionDetailsPresenter';
 import ProductionUpdatePresenter from './ProductionUpdatePresenter';
 import { useSelector, useDispatch } from 'react-redux';
@@ -7,6 +7,7 @@ import {
   getProduction,
   putProduction,
   clearProduction,
+  deleteProduction,
 } from 'store/modules/production/productionActions';
 import { message } from 'antd';
 
@@ -14,13 +15,20 @@ const ProductionDetailsContainer = () => {
   /***** production id params *****/
   const { productionIdParams } = useParams();
   /***** redux(state) *****/
-  const { data, loading, error } = useSelector(
-    (state) => state.production.production,
-  );
+  const { data, loading } = useSelector((state) => state.production.production);
   const dispatch = useDispatch();
   const [switchToEditPage, setSwitchToEditPage] = useState(true);
   const [productionValue, setProductionValue] = useState({});
   const [visible, setVisible] = useState(false);
+  /***** navigate *****/
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(getProduction(productionIdParams));
+    return () => {
+      dispatch(clearProduction());
+    };
+  }, [productionIdParams, dispatch, switchToEditPage]);
 
   const showDrawer = () => {
     setVisible(true);
@@ -29,13 +37,6 @@ const ProductionDetailsContainer = () => {
   const onClose = () => {
     setVisible(false);
   };
-
-  useEffect(() => {
-    dispatch(getProduction(productionIdParams));
-    return () => {
-      dispatch(clearProduction());
-    };
-  }, [productionIdParams, dispatch, switchToEditPage]);
 
   const onClickHandler = useCallback(async () => {
     if (
@@ -54,7 +55,7 @@ const ProductionDetailsContainer = () => {
       );
       await setSwitchToEditPage(true);
     }
-  });
+  }, [dispatch, productionIdParams, productionValue]);
 
   const onChangeHandler = (value) => {
     setProductionValue(value);
@@ -62,6 +63,11 @@ const ProductionDetailsContainer = () => {
 
   const onSetProductionValue = (data) => {
     setProductionValue(data);
+  };
+
+  const onDeleteProduction = async (productionId) => {
+    await dispatch(deleteProduction(productionId));
+    await navigate('/admin/production/list');
   };
 
   return switchToEditPage ? (
@@ -73,6 +79,7 @@ const ProductionDetailsContainer = () => {
       showDrawer={showDrawer}
       onClose={onClose}
       visible={visible}
+      onDeleteProduction={onDeleteProduction}
     />
   ) : (
     <ProductionUpdatePresenter
