@@ -7,7 +7,7 @@ import { deleteRelease } from 'store/modules/release/releaseActions';
 const ReleaseListContainer = () => {
   /***** redux (state) *****/
   const releases = useSelector((state) => state.release.releases);
-  const { data, loading, error } = releases;
+  const { data, loading } = releases;
   const dispatch = useDispatch();
 
   useEffect(() => {
