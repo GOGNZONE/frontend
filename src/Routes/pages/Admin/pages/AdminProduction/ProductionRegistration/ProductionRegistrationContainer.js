@@ -16,7 +16,6 @@ const ProductionRegistrationContainer = () => {
     productionStandard: '',
     productionUnit: '',
     productionDescription: '',
-    // productionReleasedDate: '',
     productionDate: '',
     productionFile: '',
     client: { clientId: '' },
@@ -42,7 +41,6 @@ const ProductionRegistrationContainer = () => {
       productionValue.productionName === '' ||
       productionValue.productionPrice === '' ||
       productionValue.productionQuantity === '' ||
-      // productionValue.productionReleasedDate === '' ||
       productionValue.productionDate === '' ||
       productionValue.client.clientId === ''
     ) {
