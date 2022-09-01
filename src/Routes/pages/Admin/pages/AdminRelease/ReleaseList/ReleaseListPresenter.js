@@ -2,8 +2,10 @@ import React from 'react';
 import { Typography, Table, BackTop, Button, Modal, Spin } from 'antd';
 import { Link } from 'react-router-dom';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+import Today from 'components/Today';
 
 const { confirm } = Modal;
+const { Text } = Typography;
 
 const ReleaseListPresenter = ({ dataSource, loading, onDeleteRelease }) => {
   const showDeleteConfirm = (releaseId) => {
@@ -29,6 +31,18 @@ const ReleaseListPresenter = ({ dataSource, loading, onDeleteRelease }) => {
     {
       title: '출고일자',
       dataIndex: 'releaseDate',
+      width: 180,
+      render: (date, record) => (
+        <div
+          style={{ display: 'flex', alignItems: 'center' }}
+          key={record.releaseId}
+        >
+          <Text mark style={{ marginRight: 5 }}>
+            {date}
+          </Text>
+          <Today releaseDate={date} />
+        </div>
+      ),
     },
     {
       title: '출고수량',
