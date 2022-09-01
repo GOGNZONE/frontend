@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import {
   Typography,
   Form,
@@ -7,15 +7,13 @@ import {
   InputNumber,
   Select,
   DatePicker,
-  Upload,
   Space,
   Spin,
-  message,
 } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import axios from 'axios';
+import FileUpload from 'components/FileUpload';
+import FileDownload from 'components/FileDownload';
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -43,7 +41,6 @@ const ProductionUpdatePresenter = ({
   productionValue,
   onChangeHandler,
 }) => {
-  const [fileList, setFileList] = useState([]);
   const onChangeInputHandler = useCallback((name, e) => {
     const { value } = e.target;
     onChangeHandler({
@@ -51,106 +48,6 @@ const ProductionUpdatePresenter = ({
       [name]: value,
     });
   });
-
-  const token = localStorage.getItem('ACCESS_TOKEN');
-
-  const props = {
-    action: '/api/file/upload',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'multipart/form-data',
-    },
-
-    onStart(file) {
-      console.log('onStart', file, file.name);
-    },
-    onSuccess(response, file) {
-      console.log('onSuccess', response, file.name);
-    },
-    onError(error) {
-      console.log('onError', error);
-    },
-    onProgress({ percent }, file) {
-      console.log('onProgress', `${percent}%`, file.name);
-    },
-
-    customRequest({
-      action,
-      data,
-      file,
-      filename,
-      headers,
-      onError,
-      onProgress,
-      onSuccess,
-    }) {
-      // eslint-disable-next-line no-undef
-      const formData = new FormData();
-      if (data) {
-        Object.keys(data).forEach((key) => {
-          formData.append(key, data[key]);
-        });
-      }
-      formData.append(filename, file);
-
-      console.log('file', file);
-
-      axios
-        .post(action, formData, {
-          headers,
-          onUploadProgress: ({ loaded, total }) =>
-            onProgress({ percent: (loaded / total) * 100 }, file),
-        })
-        .then(({ data: response }) => {
-          onSuccess(response, file);
-        })
-        .catch(onError);
-
-      return {
-        abort() {
-          console.log('upload progress is aborted.');
-        },
-      };
-    },
-
-    onChange({ file, fileList, onProgress }) {
-      const newFileList = fileList.slice(-1);
-      setFileList(newFileList);
-      console.log(file.status);
-
-      console.log(onProgress);
-
-      if (file.status === 'done') {
-        message.success(`${file.name}이 성공적으로 등록되었습니다.`);
-      } else if (file.status === 'error') {
-        message.error(`${file.name}이 업로드에 실패했습니다.`);
-      }
-      onChangeHandler({
-        ...productionValue,
-        productionFile: file.name,
-      });
-    },
-  };
-
-  const onDownloadClick = () => {
-    axios({
-      method: 'GET',
-      url: '/api/file/download/예영이의 편지.txt',
-      responseType: 'blob',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((res) => {
-      const url = window.URL.createObjectURL(
-        new Blob([res.data], { type: res.headers['content-type'] }),
-      );
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', `letter.txt`);
-      document.body.appendChild(link);
-      link.click();
-    });
-  };
 
   return (
     <>
@@ -296,32 +193,6 @@ const ProductionUpdatePresenter = ({
                   }
                 />
               </Form.Item>
-              {/* <Form.Item
-                label="출고일자"
-                rules={[
-                  {
-                    required: true,
-                    message: '출고일자를 입력해주세요!',
-                  },
-                ]}
-                required
-                tooltip="필수 입력 필드입니다"
-              >
-                <DatePicker
-                  placeholder="제품 출고 일자"
-                  defaultValue={
-                    data.productionReleasedDate
-                      ? moment(data.productionReleasedDate)
-                      : undefined
-                  }
-                  onChange={(e) =>
-                    onChangeDatePickerHandler(
-                      'productionReleasedDate',
-                      moment(e).format('YYYY-MM-DD'),
-                    )
-                  }
-                />
-              </Form.Item> */}
               <Form.Item label="생성일자">
                 <DatePicker
                   placeholder="제품 생성 일자"
@@ -337,24 +208,25 @@ const ProductionUpdatePresenter = ({
                 name="clientId"
                 label="거래처코드"
                 initialValue={
-                  data.client.clientName + '(' + data.client.clientId + ')'
+                  data.releaseClientDto.clientName +
+                  '(' +
+                  data.releaseClientDto.clientId +
+                  ')'
                 }
               >
                 <Select disabled={true}></Select>
               </Form.Item>
-              <Form.Item
-                label="파일"
-                // valuePropName="fileList"
-                getValueFromEvent={normFile}
-              >
-                <Upload fileList={fileList} {...props} maxCount={1}>
-                  <Button icon={<UploadOutlined />}>업로드</Button>
-                </Upload>
+              <Form.Item label="파일" getValueFromEvent={normFile}>
+                <FileUpload
+                  onChangeHandler={onChangeHandler}
+                  productionValue={productionValue}
+                />
+                {productionValue.productionFile !== data.productionFile ? (
+                  ''
+                ) : (
+                  <FileDownload file={data.productionFile} />
+                )}
               </Form.Item>
-
-              <Button icon={<UploadOutlined />} onClick={onDownloadClick}>
-                다운로드
-              </Button>
             </Form>
 
             <div style={{ display: 'flex', justifyContent: 'center' }}>
