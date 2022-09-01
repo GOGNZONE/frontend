@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, Table, BackTop, Button, Spin } from 'antd';
 import { Link } from 'react-router-dom';
+import Today from 'components/Today';
 
 const { Text } = Typography;
 
@@ -14,10 +15,16 @@ const ReleaseListPresenter = ({ dataSource, loading }) => {
     {
       title: '출고일자',
       dataIndex: 'releaseDate',
-      render: (date) => (
-        <>
-          <Text mark>{date}</Text>
-        </>
+      render: (date, record) => (
+        <div
+          style={{ display: 'flex', alignItems: 'center' }}
+          key={record.releaseId}
+        >
+          <Text mark style={{ marginRight: 5 }}>
+            {date}
+          </Text>
+          <Today releaseDate={date} />
+        </div>
       ),
     },
     {
