@@ -11,8 +11,8 @@ import {
   Modal,
   Spin,
 } from 'antd';
-
 import Highlighter from 'react-highlight-words';
+import Today from 'components/Today';
 
 const { confirm } = Modal;
 const { Text } = Typography;
@@ -192,9 +192,15 @@ const ProductionListPresenter = ({
           ) : (
             releases.map((release) => {
               return (
-                <Text mark key={release.releaseId}>
-                  {release.releaseDate}
-                </Text>
+                <div
+                  style={{ display: 'flex', alignItems: 'center' }}
+                  key={release.releaseId}
+                >
+                  <Text mark style={{ marginRight: 5 }}>
+                    {release.releaseDate}
+                  </Text>
+                  <Today releaseDate={release.releaseDate} />
+                </div>
               );
             })
           )}
