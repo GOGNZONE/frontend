@@ -1,2 +1,2 @@
-import ProductionListContainer from 'routes/pages/Staff/pages/StaffProduction/ProductionList/ProductionListContainer';
+import ProductionListContainer from './ProductionListContainer';
 export default ProductionListContainer;
