@@ -11,6 +11,7 @@ import {
   InputNumber,
   Input,
   Empty,
+  message,
   Form,
 } from 'antd';
 import moment from 'moment';
@@ -39,10 +40,14 @@ const showDeleteConfirm = () => {
 const ReleaseUpdatePresenter = ({
   data,
   loading,
-  setSwitchToEditPage,
   onClickHandler,
   releaseValue,
   onChangeHandler,
+  isModalVisible,
+  showModal,
+  handleOk,
+  handleCancel,
+  setSwitchToEditPage,
 }) => {
   const onChangeInputHandler = useCallback((name, e) => {
     const { value } = e.target;
@@ -56,6 +61,14 @@ const ReleaseUpdatePresenter = ({
     onChangeHandler({
       ...releaseValue,
       [name]: value,
+    });
+  });
+
+  const onChangeDeliveryInputHandler = useCallback((name, e) => {
+    const { value } = e.target;
+    onChangeHandler({
+      ...releaseValue,
+      deliveryDto: { ...releaseValue.deliveryDto, [name]: value },
     });
   });
 
@@ -75,7 +88,6 @@ const ReleaseUpdatePresenter = ({
               border: '#FEB139',
             }}
             onClick={() => {
-              setSwitchToEditPage(true);
               onClickHandler();
             }}
           >
@@ -85,9 +97,9 @@ const ReleaseUpdatePresenter = ({
             type="primary"
             size="middle"
             style={{ backgroundColor: '#D61C4E', border: '#D61C4E' }}
-            onClick={showDeleteConfirm}
+            onClick={() => setSwitchToEditPage(true)}
           >
-            삭제
+            취소
           </Button>
           <Link to="/admin/release/list">
             <Button
@@ -175,7 +187,7 @@ const ReleaseUpdatePresenter = ({
               <Descriptions.Item label="출고방식" span={2}>
                 {data.releaseType}
               </Descriptions.Item>
-              <Descriptions.Item label="비고">
+              <Descriptions.Item label="비고" span={2}>
                 <TextArea
                   name="releaseDescription"
                   showCount
@@ -187,6 +199,97 @@ const ReleaseUpdatePresenter = ({
                     onChangeInputHandler('releaseDescription', e)
                   }
                 />
+              </Descriptions.Item>
+              <Descriptions.Item label="배송">
+                <Button
+                  type="primary"
+                  style={{
+                    marginLeft: '5px',
+                    backgroundColor: '#797A7E',
+                    border: '#797A7E',
+                  }}
+                  onClick={showModal}
+                >
+                  {data.deliveryDto.deliveryCompanyName === ''
+                    ? '택배사등록'
+                    : '택배사수정'}
+                </Button>
+                <Modal
+                  title="택배사 등록"
+                  centered
+                  visible={isModalVisible}
+                  onOk={handleOk}
+                  onCancel={handleCancel}
+                  footer={[]}
+                >
+                  <Form
+                    labelCol={{
+                      span: 6,
+                    }}
+                  >
+                    <Form.Item
+                      name="deliveryCompanyName"
+                      label="택배사"
+                      rules={[
+                        {
+                          required: true,
+                          message: '택배사를 입력해주세요!',
+                        },
+                      ]}
+                      required
+                      tooltip="택배사는 필수 입력 필드입니다."
+                    >
+                      <Input
+                        placeholder="택배사명"
+                        onChange={(e) =>
+                          onChangeDeliveryInputHandler('deliveryCompanyName', e)
+                        }
+                        defaultValue={data.deliveryDto.deliveryCompanyName}
+                      />
+                    </Form.Item>
+                    <Form.Item
+                      name="deliveryTrackingNumber"
+                      label="운송장번호"
+                      rules={[
+                        {
+                          required: true,
+                          message: '운송장 번호를 입력해주세요!',
+                        },
+                      ]}
+                      required
+                      tooltip="운송장 번호는 필수 입력 필드입니다."
+                    >
+                      <Input
+                        placeholder="운송장 번호"
+                        onChange={(e) =>
+                          onChangeDeliveryInputHandler(
+                            'deliveryTrackingNumber',
+                            e,
+                          )
+                        }
+                        defaultValue={data.deliveryDto.deliveryTrackingNumber}
+                      />
+                    </Form.Item>
+                  </Form>
+                  <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <Button
+                      key="back"
+                      onClick={handleCancel}
+                      style={{ margin: 5 }}
+                    >
+                      취소
+                    </Button>
+                    <Button
+                      type="primary"
+                      ghost
+                      key="submit"
+                      onClick={() => handleOk()}
+                      style={{ margin: 5 }}
+                    >
+                      등록
+                    </Button>
+                  </div>
+                </Modal>
               </Descriptions.Item>
             </Descriptions>
 
@@ -270,7 +373,7 @@ const ReleaseUpdatePresenter = ({
                 </Descriptions>
               </div>
 
-              {/* 택배정보 */}
+              {/* 배송정보 */}
               <div style={{ width: '33%' }}>
                 <Typography.Title
                   level={4}
@@ -281,9 +384,10 @@ const ReleaseUpdatePresenter = ({
                     padding: '4px',
                   }}
                 >
-                  택배정보
+                  배송정보
                 </Typography.Title>
-                {data.deliveryDto === null ? (
+                {data.deliveryDto.deliveryCompanyName === '' ||
+                data.deliveryDto.deliveryTrackingNumber === '' ? (
                   <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
                 ) : (
                   <Descriptions
@@ -292,9 +396,6 @@ const ReleaseUpdatePresenter = ({
                     labelStyle={{ width: '140px' }}
                     style={{ width: '380px' }}
                   >
-                    <Descriptions.Item label="택배 ID">
-                      {data.deliveryDto.deliveryId}
-                    </Descriptions.Item>
                     <Descriptions.Item label="택배사">
                       {data.deliveryDto.deliveryCompanyName}
                     </Descriptions.Item>
