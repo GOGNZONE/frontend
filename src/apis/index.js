@@ -208,14 +208,13 @@ export const registerRelease = (inData) => {
 };
 
 export const updateRelease = (inData) => {
-  return instance.put(`/release/${inData.releaseId}`, inData.inData);
+  return instance.put(
+    `/release/${inData.releaseId}`,
+    inData.releaseData,
+    inData.deliveryData,
+  );
 };
 
 export const deleteRelease = (release_id) => {
   return instance.delete(`/release/${release_id}`);
 };
-
-/** File */
-// export const uploadFile = (file) => {
-//   return axios.post('/file/upload', file);
-// };
