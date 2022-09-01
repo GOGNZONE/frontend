@@ -11,6 +11,7 @@ const ReleaseRegistrationInProductionContainer = () => {
   const { productionIdParams } = useParams();
   /***** state *****/
   const [releaseValue, setReleaseValue] = useState({
+    releaseId: '',
     releaseDate: '',
     releaseDescription: '',
     releaseQuantity: 1,
