@@ -16,14 +16,12 @@ const ProductionRegistrationContainer = () => {
     productionStandard: '',
     productionUnit: '',
     productionDescription: '',
-    productionReleasedDate: '',
     productionDate: '',
     productionFile: '',
     client: { clientId: '' },
   });
-  const { data, loading, error } = useSelector(
-    (state) => state.client.clientList,
-  );
+  const { data, loading } = useSelector((state) => state.client.clientList);
+
   const dispatch = useDispatch();
   /***** navigate *****/
   const navigate = useNavigate();
@@ -36,20 +34,20 @@ const ProductionRegistrationContainer = () => {
     setProductionValue(value);
   };
 
-  const onClickHandler = useCallback((e) => {
+  const onClickHandler = useCallback(async () => {
     if (
       productionValue.productionName === '' ||
       productionValue.productionPrice === '' ||
       productionValue.productionQuantity === '' ||
-      productionValue.productionReleasedDate === '' ||
-      productionValue.productionDate === ''
+      productionValue.productionDate === '' ||
+      productionValue.client.clientId === ''
     ) {
       message.error('필수 입력값을 입력해 주세요.');
     } else {
-      dispatch(postProduction(productionValue));
-      navigate('list');
+      await dispatch(postProduction(productionValue));
+      await navigate('list');
     }
-  });
+  }, [dispatch, navigate, productionValue]);
 
   return (
     <ProductionRegistrationPresenter
