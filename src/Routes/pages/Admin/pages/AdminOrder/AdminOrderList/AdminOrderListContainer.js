@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import AdminOrderListPresenter from 'routes/pages/Admin/pages/AdminOrder/AdminOrderList/AdminOrderListPresenter';
+import AdminOrderListPresenter from './AdminOrderListPresenter';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrderList, deleteOrder } from 'store/modules/order/orderActions';
 
@@ -7,9 +7,8 @@ function AdminOrderListContainer() {
   const { data, loading, error } = useSelector(
     (state) => state.order.orderList,
   );
+  const [deleteModal, setDeleteModal] = useState(false);
   const dispatch = useDispatch();
-  console.log(data);
-
   useEffect(() => {
     dispatch(getOrderList());
   }, [dispatch]);
@@ -23,6 +22,8 @@ function AdminOrderListContainer() {
     <AdminOrderListPresenter
       orderList={data}
       onDeleteHandler={onDeleteHandler}
+      setDeleteModal={setDeleteModal}
+      deleteModal={deleteModal}
     />
   );
 }

@@ -1,21 +1,9 @@
-import React from 'react';
-import { Form, Button, Input, Typography } from 'antd';
+import React, { useCallback } from 'react';
+import { Typography, Form, Button, Input } from 'antd';
 import { Link } from 'react-router-dom';
 
-function StaffStorageRegistPresenter() {
-  const insertStorage = () => {
-    const category = document.getElementById('storageCategory').value;
-    const address = document.getElementById('storageAddress').value;
-    const description = document.getElementById('storageDescription').value;
-
-    const data = {
-      storageCategory: category,
-      storageAddress: address,
-      storageDescription: description,
-    };
-    console.log(data);
-  };
-
+function StaffStorageRegistPresenter({ registStorage, onChangeInputHandler }) {
+  const { TextArea } = Input;
   return (
     <div>
       <Form
@@ -33,6 +21,7 @@ function StaffStorageRegistPresenter() {
         </Typography.Title>
         <Form.Item
           label="창고 주소"
+          name="storageAddress"
           rules={[
             {
               required: true,
@@ -42,10 +31,11 @@ function StaffStorageRegistPresenter() {
           required
           tooltip="필수 입력 필드입니다."
         >
-          <Input name="storageAddress" />
+          <Input onChange={(e) => onChangeInputHandler('storageAddress', e)} />
         </Form.Item>
         <Form.Item
           label="창고 종류"
+          name="storageCategory"
           rules={[
             {
               required: true,
@@ -55,10 +45,16 @@ function StaffStorageRegistPresenter() {
           required
           tooltip="필수 입력 필드입니다."
         >
-          <Input name="storageCategory" />
+          <Input onChange={(e) => onChangeInputHandler('storageCategory', e)} />
         </Form.Item>
-        <Form.Item label="비고">
-          <Input name="storageDescription" />
+        <Form.Item name="storageDescription" label="비고">
+          <TextArea
+            onChange={(e) => onChangeInputHandler('storageDescription', e)}
+            showCount
+            maxLength={1000}
+            rows={5}
+            placeholder="비고"
+          />
         </Form.Item>
       </Form>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -71,6 +67,7 @@ function StaffStorageRegistPresenter() {
               backgroundColor: '#FEB139',
               border: '#FEB139',
             }}
+            onClick={registStorage}
           >
             등록
           </Button>

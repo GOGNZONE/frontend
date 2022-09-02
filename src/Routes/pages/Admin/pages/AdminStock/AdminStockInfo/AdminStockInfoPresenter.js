@@ -1,155 +1,104 @@
-import React from 'react';
-import {
-  Typography,
-  Form,
-  Input,
-  Button,
-  InputNumber,
-  Modal,
-  Select,
-  DatePicker,
-  Upload,
-} from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
+import { Descriptions, Col, Row, Button, Modal } from 'antd';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-function AdminStockInfoPresenter({
-  stock,
-  componentDisabled,
-  setComponentDisabled,
-  onFormLayoutChange,
-  storageIdParams,
-  onChange,
-  updateButton,
-  onButtonNameChange,
-}) {
+function AdminStockInfoPresenter({ data, changePageHandler, onDeleteHandler }) {
+  const [deleteModal, setDeleteModal] = useState(false);
   return (
-    <div>
-      <Form
-        labelCol={{
-          span: 7,
-        }}
-        wrapperCol={{
-          span: 10,
-        }}
-        layout="horizontal"
-        size="large"
-        onValuesChange={onFormLayoutChange}
-        disabled={componentDisabled}
-      >
-        <Typography.Title level={3} style={{ margin: 5 }}>
-          재고 상세정보
-        </Typography.Title>
-        <Form.Item label="재고코드">
-          <Input disabled={true} name="stockId" value={stock.stockId} />
-        </Form.Item>
-        <Form.Item
-          label="재고 상품명"
-          rules={[
-            {
-              required: true,
-              message: '입력해주세요',
-            },
-          ]}
-          required
-          tooltip="필수 입력 필드입니다."
-        >
-          <Input
-            name="stockName"
-            placeholder="재고 상품명"
-            onChange={onChange}
-            value={stock.stockName}
-          />
-        </Form.Item>
-        <Form.Item
-          label="재고 수량"
-          rules={[
-            {
-              required: true,
-              message: '입력해주세요',
-            },
-          ]}
-          required
-          tooltip="필수 입력 필드입니다."
-        >
-          <Input
-            name="stockQuantity"
-            placeholder="재고 수량"
-            onChange={onChange}
-            value={stock.stockQuantity}
-          />
-        </Form.Item>
-        <Form.Item label="비고">
-          <Input
-            name="stockDescription"
-            placeholder="비고"
-            onChange={onChange}
-            value={stock.stockDescription}
-          />
-        </Form.Item>
+    <>
+      {data ? (
+        <>
+          <Row align="middle" gutter={8}>
+            <Col flex={4}>
+              <Descriptions title="재고 정보" bordered>
+                <Descriptions.Item label="재고 코드">
+                  {data.stockId}
+                </Descriptions.Item>
+                <Descriptions.Item label="재고 상품명">
+                  {data.stockName}
+                </Descriptions.Item>
+                <Descriptions.Item label="재고 수량" span={2}>
+                  {data.stockQuantity}
+                </Descriptions.Item>
+                <Descriptions.Item label="비고">
+                  {data.stockDescription}
+                </Descriptions.Item>
+              </Descriptions>
+            </Col>
 
-        <Form.Item
-          label="창고"
-          rules={[
-            {
-              required: true,
-              message: '입력해주세요',
-            },
-          ]}
-          required
-          tooltip="필수 입력 필드입니다."
-        >
-          <Input
-            name="storage"
-            placeholder="창고"
-            onChange={onChange}
-            value={stock.storage}
-          />
-        </Form.Item>
-      </Form>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            style={{
-              margin: 5,
-              backgroundColor: '#FEB139',
-              border: '#FEB139',
-            }}
-            onClick={() => {
-              setComponentDisabled(!componentDisabled);
-              // putProductionApi(productionIdParams, production);
-              onButtonNameChange();
-            }}
-          >
-            {updateButton ? '수정' : '확인'}
-          </Button>
-        </Form.Item>
-        <Button
-          type="primary"
-          style={{
-            margin: 5,
-            backgroundColor: '#D61C4E',
-            border: '#D61C4E',
-          }}
-        >
-          삭제
-        </Button>
-        <Link to="/admin/order/list">
-          <Button
-            type="primary"
-            style={{
-              margin: 5,
-              backgroundColor: '#293462',
-              border: '#293462',
-            }}
-          >
-            목록
-          </Button>
-        </Link>
-      </div>
-    </div>
+            <br />
+            <Col flex={4}>
+              <Descriptions title="보관 창고 정보" bordered>
+                <Descriptions.Item label="창고 번호">
+                  {data.storage.storageId}
+                </Descriptions.Item>
+                <Descriptions.Item label="창고 주소">
+                  {data.storage.storageAddress}
+                </Descriptions.Item>
+                <Descriptions.Item label="창고 종류">
+                  {data.storage.storageCategory}
+                </Descriptions.Item>
+                <Descriptions.Item label="비고">
+                  {data.storage.storageDescription}
+                </Descriptions.Item>
+              </Descriptions>
+            </Col>
+          </Row>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Button
+              type="primary"
+              style={{
+                margin: 5,
+                border: '#293462',
+              }}
+              onClick={changePageHandler}
+            >
+              정보 수정
+            </Button>
+            <Button
+              type="primary"
+              size="middle"
+              style={{
+                backgroundColor: '#D61C4E',
+                margin: 5,
+                border: '#D61C4E',
+              }}
+              onClick={() => setDeleteModal(true)}
+              // onClick={() => {
+              //   onDeleteHandler();
+              // }}
+            >
+              삭제
+            </Button>
+            <Modal
+              title="삭제"
+              centered
+              visible={deleteModal}
+              onOk={() => onDeleteHandler(data.stock)}
+              okText="삭제"
+              onCancel={() => setDeleteModal(false)}
+              cancelText="취소"
+            >
+              <p>정말로 삭제하시겠습니까?</p>
+            </Modal>
+            <Link to="/admin/stock/list">
+              <Button
+                type="primary"
+                style={{
+                  margin: 5,
+                  backgroundColor: '#293462',
+                  border: '#293462',
+                }}
+              >
+                목록
+              </Button>
+            </Link>
+          </div>
+        </>
+      ) : (
+        <div>data loading...</div>
+      )}
+    </>
   );
 }
 

@@ -40,6 +40,20 @@ const Admin = ({ checkAdmin, logout }) => {
         element={<AdminLayout checkAdmin={checkAdmin} logout={logout} />}
       >
         <Route index element={<AdminDashBoard />} />
+        {/* Stock */}
+        <Route path="/stock/list" element={<AdminStockList />} />
+        <Route path="/stock/list/:stockIdParams" element={<AdminStockInfo />} />
+        <Route path="/stock" element={<AdminStockRegist />} />
+
+        {/* Order */}
+        <Route path="/order" element={<AdminOrderRegist />} />
+        <Route path="/order/list" element={<AdminOrderList />} />
+        <Route path="/order/list/:orderIdParams" element={<AdminOrderInfo />} />
+        {/* BOM */}
+        <Route path="/bom" element={<AdminBomRegist />} />
+        <Route path="/bom/list" element={<AdminBomList />} />
+        <Route path="/bom/list/:bomIdParams" element={<AdminBomInfo />} />
+
         {/* Employee */}
         <Route path="/employee/list" element={<AdminEmployeeList />} />
         <Route
@@ -59,20 +73,6 @@ const Admin = ({ checkAdmin, logout }) => {
           path="/client/account/:clientId"
           element={<AdminRegisterClientAccount />}
         />
-        {/* Stock */}
-        <Route path="/stock/list" element={<AdminStockList />} />
-        <Route path="/stock/list/:stockIdParams" element={<AdminStockInfo />} />
-        <Route path="/stock" element={<AdminStockRegist />} />
-        {/* Order */}
-        <Route path="/order" element={<AdminOrderRegist />} />
-        <Route path="/order/list" element={<AdminOrderList />} />
-        <Route path="/order/list/:orderIdParams" element={<AdminOrderInfo />} />
-        <Route path="/order/info" element={<AdminOrderInfo />} />
-        {/* BOM */}
-        <Route path="/bom" element={<AdminBomRegist />} />
-        <Route path="/bom/list" element={<AdminBomList />} />
-        <Route path="/bom/list/:bomIdParams" element={<AdminBomInfo />} />
-        <Route path="/bom" element={<AdminBomRegist />} />
         {/* Storage */}
         <Route path="/storage/list" element={<AdminStorageList />} />
         <Route

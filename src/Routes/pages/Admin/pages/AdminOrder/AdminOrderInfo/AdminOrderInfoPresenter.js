@@ -1,239 +1,104 @@
 import React, { useState } from 'react';
-import { Form, Upload, Button, Input, Typography } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { Descriptions, Col, Row, Modal, Button } from 'antd';
 import { Link } from 'react-router-dom';
 
-function AdminOrderInfoPresenter({
-  order,
-  componentDisabled,
-  setComponentDisabled,
-  onFormLayoutChange,
-  orderIdParams,
-  onChange,
-  updateButton,
-  onButtonNameChange,
-}) {
+function AdminOrderInfoPresenter({ data, changePageHandler, onDeleteHandler }) {
+  const [deleteModal, setDeleteModal] = useState(false);
   return (
-    <div>
-      <Form
-        labelCol={{
-          span: 7,
-        }}
-        wrapperCol={{
-          span: 10,
-        }}
-        layout="horizontal"
-        size="large"
-        onValuesChange={onFormLayoutChange}
-        disabled={componentDisabled}
-      >
-        <Typography.Title level={3} style={{ margin: 5 }}>
-          발주 상세정보
-        </Typography.Title>
-        <Form.Item label="주문코드">
-          <Input disabled={true} name="orderId" value={order.orderId} />
-        </Form.Item>
-        <Form.Item
-          label="주문 상품명"
-          rules={[
-            {
-              required: true,
-              message: '입력해주세요',
-            },
-          ]}
-          required
-          tooltip="필수 입력 필드입니다."
-        >
-          <Input
-            name="orderProductionName"
-            placeholder="주문 상품명"
-            onChange={onChange}
-            value={order.orderProductionName}
-          />
-        </Form.Item>
-        <Form.Item
-          label="주문 상품 브랜드명"
-          rules={[
-            {
-              required: true,
-              message: '입력해주세요',
-            },
-          ]}
-          required
-          tooltip="필수 입력 필드입니다."
-        >
-          <Input
-            name="orderProductionBrandName"
-            placeholder="주문 상품 브랜드명"
-            onChange={onChange}
-            value={order.orderProductionBrandName}
-          />
-        </Form.Item>
-        <Form.Item
-          label="주문 상품 가격"
-          rules={[
-            {
-              required: true,
-              message: '입력해주세요',
-            },
-          ]}
-          required
-          tooltip="필수 입력 필드입니다."
-        >
-          <Input
-            name="orderProductionPrice"
-            placeholder="주문 상품 가격"
-            onChange={onChange}
-            value={order.orderProductionPrice}
-          />
-        </Form.Item>
-        <Form.Item
-          label="주문 수량"
-          rules={[
-            {
-              required: true,
-              message: '입력해주세요',
-            },
-          ]}
-          required
-          tooltip="필수 입력 필드입니다."
-        >
-          <Input
-            name="orderProductionQuantity"
-            placeholder="주문 수량"
-            onChange={onChange}
-            value={order.orderProductionQuantity}
-          />
-        </Form.Item>
-
-        <Form.Item
-          label="주문 규격"
-          rules={[
-            {
-              required: true,
-              message: '입력해주세요',
-            },
-          ]}
-          required
-          tooltip="필수 입력 필드입니다."
-        >
-          <Input
-            name="orderProductionStandard"
-            placeholder="주문 규격"
-            onChange={onChange}
-            value={order.orderProductionStandard}
-          />
-        </Form.Item>
-        <Form.Item label="비고">
-          <Input
-            name="orderProductionDescription"
-            placeholder="비고"
-            onChange={onChange}
-            value={order.orderProductionDescription}
-          />
-        </Form.Item>
-        <Form.Item
-          label="주문 마감 일자"
-          rules={[
-            {
-              required: true,
-              message: '입력해주세요',
-            },
-          ]}
-          required
-          tooltip="필수 입력 필드입니다."
-        >
-          <Input
-            name="orderProductionEndDate"
-            placeholder="주문 마감 일자"
-            onChange={onChange}
-            value={order.orderProductionEndDate}
-          />
-        </Form.Item>
-        <Form.Item
-          label="주문일"
-          rules={[
-            {
-              required: true,
-              message: '입력해주세요',
-            },
-          ]}
-          required
-          tooltip="필수 입력 필드입니다."
-        >
-          <Input
-            name="orderDate"
-            placeholder="주문일"
-            onChange={onChange}
-            value={order.orderDate}
-          />
-        </Form.Item>
-        <Form.Item
-          label="거래처"
-          rules={[
-            {
-              required: true,
-              message: '입력해주세요',
-            },
-          ]}
-          required
-          tooltip="필수 입력 필드입니다."
-        >
-          <Input
-            name="client"
-            placeholder="거래처"
-            onChange={onChange}
-            value={order.client}
-          />
-        </Form.Item>
-        <Form.Item label="주문 파일">
-          <Upload name="logo" action="/upload.do" listType="picture">
-            <Button icon={<UploadOutlined />}>업로드</Button>
-          </Upload>
-        </Form.Item>
-      </Form>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            style={{
-              margin: 5,
-              backgroundColor: '#FEB139',
-              border: '#FEB139',
-            }}
-            onClick={() => {
-              setComponentDisabled(!componentDisabled);
-              onButtonNameChange();
-            }}
-          >
-            {updateButton ? '수정' : '확인'}
-          </Button>
-        </Form.Item>
-        <Button
-          type="primary"
-          style={{
-            margin: 5,
-            backgroundColor: '#D61C4E',
-            border: '#D61C4E',
-          }}
-        >
-          삭제
-        </Button>
-        <Link to="/admin/order/list">
-          <Button
-            type="primary"
-            style={{
-              margin: 5,
-              backgroundColor: '#293462',
-              border: '#293462',
-            }}
-          >
-            목록
-          </Button>
-        </Link>
-      </div>
-    </div>
+    <>
+      {data ? (
+        <>
+          <Row align="middle" gutter={8}>
+            <Col flex={4}>
+              <Descriptions title="발주 상세 정보" bordered>
+                <Descriptions.Item label="주문 제품 코드" span={3}>
+                  {data.orderId}
+                </Descriptions.Item>
+                <Descriptions.Item label="주문 제품명" span={2}>
+                  {data.orderProductionName}
+                </Descriptions.Item>
+                <Descriptions.Item label="주문 제품 브랜드명" span={2}>
+                  {data.orderProductionBrandName}
+                </Descriptions.Item>
+                <Descriptions.Item label="주문 제품 단가" span={2}>
+                  {data.orderProductionPrice}
+                </Descriptions.Item>
+                <Descriptions.Item label="주문 제품 수량" span={2}>
+                  {data.orderProductionQuantity}
+                </Descriptions.Item>
+                <Descriptions.Item label="주문 제품 규격" span={2}>
+                  {data.orderProductionStandard}
+                </Descriptions.Item>
+                <Descriptions.Item label="주문 제품 규격 단위" span={2}>
+                  {data.orderProductionUnit}
+                </Descriptions.Item>
+                <Descriptions.Item label="주문 생성 일자" span={3}>
+                  {data.orderDate}
+                </Descriptions.Item>
+                <Descriptions.Item label="주문 제품 마감 일자" span={2}>
+                  {data.orderProductionEndDate}
+                </Descriptions.Item>
+                <Descriptions.Item label="주문 제품 파일" span={2}>
+                  {data.orderProuctionFile}
+                </Descriptions.Item>
+                <Descriptions.Item label="비고">
+                  {data.orderProductionDescription}
+                </Descriptions.Item>
+              </Descriptions>
+            </Col>
+          </Row>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Button
+              type="primary"
+              style={{
+                margin: 5,
+                border: '#293462',
+              }}
+              onClick={changePageHandler}
+            >
+              정보 수정
+            </Button>
+            <Button
+              type="primary"
+              size="middle"
+              style={{
+                backgroundColor: '#D61C4E',
+                margin: 5,
+                border: '#D61C4E',
+              }}
+              onClick={() => setDeleteModal(true)}
+            >
+              삭제
+            </Button>
+            <Modal
+              title="삭제"
+              centered
+              visible={deleteModal}
+              onOk={() => onDeleteHandler(data.orderId)}
+              okText="삭제"
+              onCancel={() => setDeleteModal(false)}
+              cancelText="취소"
+            >
+              <p>정말로 삭제하시겠습니까?</p>
+            </Modal>
+            <Link to="/admin/order/list">
+              <Button
+                type="primary"
+                style={{
+                  margin: 5,
+                  backgroundColor: '#293462',
+                  border: '#293462',
+                }}
+              >
+                목록
+              </Button>
+            </Link>
+          </div>
+        </>
+      ) : (
+        <div>data loading...</div>
+      )}
+    </>
   );
 }
 

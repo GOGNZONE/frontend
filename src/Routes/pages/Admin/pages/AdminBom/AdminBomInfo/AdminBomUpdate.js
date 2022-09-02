@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import { ExclamationCircleOutlined, UploadOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
 import {
   Typography,
   Form,
@@ -12,33 +10,62 @@ import {
   DatePicker,
   Upload,
 } from 'antd';
+import { ExclamationCircleOutlined, UploadOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
+
+const { TextArea } = Input;
+const { confirm } = Modal;
+const { Option, OptGroup } = Select;
+const dateFormat = 'YYYY-MM-DD';
+const showDeleteConfirm = () => {
+  confirm({
+    title: '해당 제품을 삭제하시겠습니까?',
+    icon: <ExclamationCircleOutlined />,
+    okText: '확인',
+    okType: 'danger',
+    cancelText: '취소',
+
+    onOk() {
+      console.log('OK');
+    },
+
+    onCancel() {
+      console.log('Cancel');
+    },
+  });
+};
+
 const normFile = (e) => {
   if (Array.isArray(e)) {
     return e;
   }
+
   return e?.fileList;
 };
-function AdminBomRegistPresenter({
-  bom,
+
+const AdminBomUpdate = ({
+  data,
   bomList,
-  registBom,
+  upBom,
   storageList,
   onChangeInputHandler,
   onChangeSelectHandler,
   storageInputHandler,
   bomParentInputHandler,
   onChangeDatePickerHandler,
-}) {
-  const { TextArea } = Input;
-  const { confirm } = Modal;
-  const { Option, OptGroup } = Select;
-  const dateFormat = 'YYYY-MM-DD';
+  dataInsert,
+  changePageHandler,
+}) => {
+  const initaialdata = '';
+  useEffect(() => {
+    dataInsert();
+  }, []);
   const standardSelectAfter = (
     <Select
       style={{ width: 80 }}
       onChange={(e) => onChangeSelectHandler('bomUnit', e)}
-      defaultValue="단위"
+      defaultValue={data.bomUnit}
       className="standard-select-after"
     >
       <OptGroup label="길이">
@@ -52,12 +79,13 @@ function AdminBomRegistPresenter({
       </OptGroup>
     </Select>
   );
+
   return (
     <>
-      {bomList && storageList ? (
+      {data || bomList || storageList ? (
         <div>
           <Typography.Title level={3} style={{ margin: 5 }}>
-            원자재 등록
+            원자재 상세정보
           </Typography.Title>
           <Form
             labelCol={{
@@ -70,7 +98,18 @@ function AdminBomRegistPresenter({
             size="large"
           >
             <Form.Item
-              name="bomName"
+              label="원자재 제품 코드"
+              rules={[
+                {
+                  required: true,
+                  message: '원자재 코드를 가져올 수 없습니다!',
+                },
+              ]}
+            >
+              <Input disabled={true} value={data.bomId} />
+            </Form.Item>
+
+            <Form.Item
               label="원자재 제품명"
               rules={[
                 {
@@ -82,30 +121,33 @@ function AdminBomRegistPresenter({
               tooltip="필수 입력 필드입니다"
             >
               <Input
-                onChange={(e) => onChangeInputHandler('bomName', e)}
+                name="bomName"
                 placeholder="원자재 제품명"
+                defaultValue={data.bomName}
+                onChange={(e) => onChangeInputHandler('bomName', e)}
               />
             </Form.Item>
 
             <Form.Item
-              name="bomQuantity"
               label="원자재 재고 수량"
               required
               tooltip="필수 입력 필드입니다"
+              initialValue={0}
             >
               <InputNumber
                 style={{
                   width: '100%',
                 }}
+                name="bomQuantity"
+                placeholder="원자재 재고 수량"
+                defaultValue={data.bomQuantity}
                 onChange={(e) =>
                   onChangeInputHandler('bomQuantity', { target: { value: e } })
                 }
-                placeholder="수량"
               />
             </Form.Item>
 
             <Form.Item
-              name="bomPrice"
               label="원자재 단가"
               rules={[
                 {
@@ -118,6 +160,7 @@ function AdminBomRegistPresenter({
               initialValue={0}
             >
               <InputNumber
+                name="bomPrice"
                 min={0}
                 style={{
                   width: '100%',
@@ -126,7 +169,7 @@ function AdminBomRegistPresenter({
                 formatter={(value) =>
                   `￦ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                 }
-                // parser={(value) => value.replace(/\\s?|(,*)/g, '')}
+                defaultValue={data.bomPrice}
                 onChange={(e) =>
                   onChangeInputHandler('bomPrice', { target: { value: e } })
                 }
@@ -134,7 +177,6 @@ function AdminBomRegistPresenter({
             </Form.Item>
 
             <Form.Item
-              name="bomStandard"
               label="원자재 제품 규격"
               required
               tooltip="필수 입력 필드입니다"
@@ -143,16 +185,27 @@ function AdminBomRegistPresenter({
                 style={{
                   width: '100%',
                 }}
-                addonAfter={standardSelectAfter}
+                name="bomStandard"
                 onChange={(e) =>
                   onChangeInputHandler('bomStandard', { target: { value: e } })
                 }
+                addonAfter={standardSelectAfter}
+                defaultValue={data.bomStandard}
                 placeholder="원자재 제품 규격"
               />
             </Form.Item>
-
+            <Form.Item label="비고">
+              <TextArea
+                name="bomDescription"
+                defaultValue={data.bomDescription}
+                onChange={(e) => onChangeInputHandler('bomDescription', e)}
+                showCount
+                maxLength={1000}
+                rows={5}
+                placeholder="비고"
+              />
+            </Form.Item>
             <Form.Item
-              name="bomReceivedDate"
               label="원자재 입고 일자"
               rules={[
                 {
@@ -167,7 +220,8 @@ function AdminBomRegistPresenter({
                 style={{
                   width: '100%',
                 }}
-                placeholder="원자재 입고 일자"
+                placeholder="제품 출고 일자"
+                defaultValue={moment(data.bomReceivedDate)}
                 onChange={(e) =>
                   onChangeDatePickerHandler(
                     'bomReceivedDate',
@@ -176,28 +230,15 @@ function AdminBomRegistPresenter({
                 }
               />
             </Form.Item>
-
-            <Form.Item
-              name="storageId"
-              label="재료"
-              required
-              tooltip="필수 입력 필드입니다"
-            >
+            <Form.Item label="부모ID">
               <Select
-                onChange={(e) => storageInputHandler('storageId', e)}
-                placeholder="재료 코드"
-              >
-                {storageList.map((data) => (
-                  <Option key={data.storageId} value={data.storageId}>
-                    {data.storageAddress}({data.storageId})
-                  </Option>
-                ))}
-              </Select>
-            </Form.Item>
-            <Form.Item name="bomParent" label="부모 객체?">
-              <Select
+                name="bom"
+                defaultValue={
+                  data.bomParent
+                    ? data.bomParent.bomId
+                    : (data.bomParent = initaialdata)
+                }
                 onChange={(e) => bomParentInputHandler('bomId', e)}
-                placeholder="창고 코드"
               >
                 {bomList.map((data) => (
                   <Option key={data.bomId} value={data.bomId}>
@@ -206,30 +247,26 @@ function AdminBomRegistPresenter({
                 ))}
               </Select>
             </Form.Item>
-            <Form.Item name="bomDescription" label="비고">
-              <TextArea
-                onChange={(e) => onChangeInputHandler('bomDescription', e)}
-                showCount
-                maxLength={1000}
-                rows={5}
-                placeholder="비고"
-              />
+
+            <Form.Item label="창고" required tooltip="필수 입력 필드입니다">
+              <Select
+                name="storage"
+                defaultValue={data.storage.storageId}
+                onChange={(e) => storageInputHandler('storageId', e)}
+              >
+                {storageList.map((data) => (
+                  <Option key={data.storageId} value={data.storageId}>
+                    {data.storageAddress}({data.storageId})
+                  </Option>
+                ))}
+              </Select>
             </Form.Item>
             <Form.Item
-              name="bomFile"
               label="원자재 관련 파일"
               valuePropName="fileList"
               getValueFromEvent={normFile}
             >
-              <Upload
-                onChange={(e) =>
-                  onChangeInputHandler('bomFile', {
-                    target: { value: e.file.name },
-                  })
-                }
-                name="logo"
-                listType="text"
-              >
+              <Upload name="logo" action="/upload.do" listType="picture">
                 <Button icon={<UploadOutlined />}>업로드</Button>
               </Upload>
             </Form.Item>
@@ -244,24 +281,22 @@ function AdminBomRegistPresenter({
                   backgroundColor: '#FEB139',
                   border: '#FEB139',
                 }}
-                onClick={registBom}
+                onClick={upBom}
               >
-                등록
+                수정
               </Button>
             </Form.Item>
-
-            <Link to="/admin/bom/list">
-              <Button
-                type="primary"
-                style={{
-                  margin: 5,
-                  backgroundColor: '#293462',
-                  border: '#293462',
-                }}
-              >
-                목록
-              </Button>
-            </Link>
+            <Button
+              type="primary"
+              style={{
+                margin: 5,
+                backgroundColor: '#D61C4E',
+                border: '#D61C4E',
+              }}
+              onClick={() => changePageHandler()}
+            >
+              취소
+            </Button>
           </div>
         </div>
       ) : (
@@ -269,6 +304,5 @@ function AdminBomRegistPresenter({
       )}
     </>
   );
-}
-
-export default AdminBomRegistPresenter;
+};
+export default AdminBomUpdate;

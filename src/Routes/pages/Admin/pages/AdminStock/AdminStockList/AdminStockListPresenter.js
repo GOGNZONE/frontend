@@ -1,9 +1,11 @@
-import React from 'react';
-import { Table, Button } from 'antd';
+import React, { useState } from 'react';
+import { Table, Button, Modal } from 'antd';
 import { Link } from 'react-router-dom';
 import { v4 } from 'uuid';
 
 function AdminStockListPresenter({ stockList, onDeleteHandler }) {
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [tmpId, setTmpId] = useState();
   const columns = [
     {
       title: '재고 코드',
@@ -38,7 +40,10 @@ function AdminStockListPresenter({ stockList, onDeleteHandler }) {
           type="primary"
           size="middle"
           style={{ backgroundColor: '#D61C4E', border: '#D61C4E' }}
-          onClick={() => onDeleteHandler(`${index.stockId}`)}
+          onClick={() => {
+            setDeleteModal(true);
+            setTmpId(`${index.stockId}`);
+          }}
         >
           삭제
         </Button>
@@ -51,6 +56,17 @@ function AdminStockListPresenter({ stockList, onDeleteHandler }) {
         <Button>등록</Button>
       </Link>
       <Table rowKey={() => v4()} columns={columns} dataSource={stockList} />
+      <Modal
+        title="삭제"
+        centered
+        visible={deleteModal}
+        onOk={() => onDeleteHandler(tmpId)}
+        okText="삭제"
+        onCancel={() => setDeleteModal(false)}
+        cancelText="취소"
+      >
+        <p>정말로 삭제하시겠습니까?</p>
+      </Modal>
     </div>
   );
 }

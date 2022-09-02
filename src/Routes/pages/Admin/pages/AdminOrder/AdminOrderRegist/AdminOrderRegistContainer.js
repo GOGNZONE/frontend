@@ -1,12 +1,14 @@
-import React, { useState, useCallback } from 'react';
-import AdminOrderRegistPresenter from 'routes/pages/Admin/pages/AdminOrder/AdminOrderRegist/AdminOrderRegistPresenter';
-import { useDispatch } from 'react-redux';
+import React, { useState, useCallback, useEffect } from 'react';
+import AdminOrderRegistPresenter from 'Routes/pages/Admin/pages/AdminOrder/AdminOrderRegist/AdminOrderRegistPresenter';
+import { useSelector, useDispatch } from 'react-redux';
 import { registerOrder } from 'store/modules/order/orderActions';
+import { getClientList } from 'store/modules/client';
+import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
 
 const AdminOrderRegistContainer = () => {
-  const dispatch = useDispatch();
   const [order, setOrder] = useState({
+    orderId: '',
     orderProductionName: '',
     orderProductionBrandName: '',
     orderProductionPrice: '',
@@ -16,37 +18,87 @@ const AdminOrderRegistContainer = () => {
     orderProductionDescription: '',
     orderProductionEndDate: '',
     orderProuctionFile: '',
+    client: '',
   });
+  const clientList = useSelector((state) => state.client.clientList.data);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  console.log(order);
+
+  useEffect(() => {
+    dispatch(getClientList());
+  }, [dispatch]);
+
   const registOrder = (e) => {
-    if (order) {
-      dispatch(registerOrder(order));
-    } else {
+    if (
+      order.orderProductionName === '' ||
+      order.orderProductionBrandName === '' ||
+      order.orderProductionPrice === '' ||
+      order.orderProductionQuantity === '' ||
+      order.orderProductionStandard === '' ||
+      order.orderProductionUnit === '' ||
+      order.orderProductionEndDate === '' ||
+      order.client === ''
+    ) {
       message.error('필수값을 입력하세요');
+    } else {
+      dispatch(registerOrder(order));
+      // navigate('/admin/order/list');
+      // window.location.reload();
     }
   };
+
+  const orderIdHandler = () => {
+    const milli = Math.floor(Date.now() / 1000);
+    onChange({
+      ...order,
+      orderId: milli,
+    });
+  };
+
+  const onChange = useCallback((value) => {
+    setOrder(value);
+  });
+
+  const onChangeSelectHandler = useCallback((name, value) => {
+    onChange({
+      ...order,
+      [name]: value,
+    });
+  });
+
   const onChangeInputHandler = useCallback((name, e) => {
     const value = e.target.value;
-    setOrder({
+    onChange({
       ...order,
       [name]: value,
     });
   });
   const clientInputHandler = useCallback((name, e) => {
-    const value = e.target.value;
-    setOrder({
+    onChange({
       ...order,
       client: {
-        [name]: value,
+        [name]: e,
       },
+    });
+  });
+  const onChangeDatePickerHandler = useCallback((name, value) => {
+    onChange({
+      ...order,
+      [name]: value,
     });
   });
 
   return (
     <AdminOrderRegistPresenter
+      clientList={clientList}
       order={order}
       registOrder={registOrder}
+      onChangeDatePickerHandler={onChangeDatePickerHandler}
+      onChangeSelectHandler={onChangeSelectHandler}
       onChangeInputHandler={onChangeInputHandler}
       clientInputHandler={clientInputHandler}
+      orderIdHandler={orderIdHandler}
     />
   );
 };

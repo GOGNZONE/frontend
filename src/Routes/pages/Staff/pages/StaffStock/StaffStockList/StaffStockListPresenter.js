@@ -2,6 +2,7 @@ import React from 'react';
 import { Table, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import { v4 } from 'uuid';
+
 function StaffStockListPresenter({ stockList }) {
   const columns = [
     {

@@ -1,33 +1,39 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  DatePicker,
   Form,
   Upload,
   Button,
   Input,
   Typography,
-  Select,
   InputNumber,
+  Modal,
+  Select,
+  DatePicker,
 } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-function AdminOrderRegistPresenter({
-  clientList,
-  registOrder,
+
+function AdminOrderUpdate({
+  data,
+  changePageHandler,
   onChangeInputHandler,
-  clientInputHandler,
-  onChangeSelectHandler,
+  clientList,
   onChangeDatePickerHandler,
-  orderIdHandler,
+  clientInputHandler,
+  dataInsert,
+  onUpdateOrderHandler,
+  onChangeSelectHandler,
 }) {
   const { TextArea } = Input;
+  const { confirm } = Modal;
   const { Option, OptGroup } = Select;
-
+  const dateFormat = 'YYYY-MM-DD';
   const standardSelectAfter = (
     <Select
+      style={{ width: 80 }}
       onChange={(e) => onChangeSelectHandler('orderProductionUnit', e)}
-      defaultValue="단위"
+      defaultValue={data.orderProductionUnit}
       className="standard-select-after"
     >
       <OptGroup label="길이">
@@ -42,11 +48,12 @@ function AdminOrderRegistPresenter({
     </Select>
   );
   useEffect(() => {
-    orderIdHandler();
+    dataInsert();
   }, []);
+
   return (
     <>
-      {clientList ? (
+      {data || clientList ? (
         <div>
           <Form
             labelCol={{
@@ -59,9 +66,11 @@ function AdminOrderRegistPresenter({
             size="large"
           >
             <Typography.Title level={3} style={{ margin: 5 }}>
-              발주 등록
+              발주 수정
             </Typography.Title>
-
+            <Form.Item label="주문코드">
+              <Input disabled={true} name="orderId" value={data.orderId} />
+            </Form.Item>
             <Form.Item
               label="주문 상품명"
               rules={[
@@ -74,8 +83,12 @@ function AdminOrderRegistPresenter({
               tooltip="필수 입력 필드입니다."
             >
               <Input
-                onChange={(e) => onChangeInputHandler('orderProductionName', e)}
+                name="orderProductionName"
                 placeholder="주문 상품명"
+                onChange={(e) => {
+                  onChangeInputHandler('orderProductionName', e);
+                }}
+                defaultValue={data.orderProductionName}
               />
             </Form.Item>
             <Form.Item
@@ -90,10 +103,12 @@ function AdminOrderRegistPresenter({
               tooltip="필수 입력 필드입니다."
             >
               <Input
-                onChange={(e) =>
-                  onChangeInputHandler('orderProductionBrandName', e)
-                }
+                name="orderProductionBrandName"
                 placeholder="주문 상품 브랜드명"
+                onChange={(e) => {
+                  onChangeInputHandler('orderProductionBrandName', e);
+                }}
+                defaultValue={data.orderProductionBrandName}
               />
             </Form.Item>
             <Form.Item
@@ -108,24 +123,30 @@ function AdminOrderRegistPresenter({
               tooltip="필수 입력 필드입니다."
             >
               <InputNumber
+                name="orderProductionPrice"
                 min={0}
                 style={{
                   width: '100%',
                 }}
-                placeholder="원자재 단가"
+                placeholder="주문 상품 가격"
                 formatter={(value) =>
                   `￦ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                 }
-                // parser={(value) => value.replace(/\\s?|(,*)/g, '')}
-                onChange={(e) =>
+                onChange={(e) => {
                   onChangeInputHandler('orderProductionPrice', {
                     target: { value: e },
-                  })
-                }
+                  });
+                }}
+                defaultValue={data.orderProductionPrice}
+                // onChange={(e) =>
+                //   onChangeInputHandler('orderProductionPrice', {
+                //     target: { value: e },
+                //   })
+                // }
               />
             </Form.Item>
             <Form.Item
-              label="수량"
+              label="주문 수량"
               rules={[
                 {
                   required: true,
@@ -139,17 +160,19 @@ function AdminOrderRegistPresenter({
                 style={{
                   width: '100%',
                 }}
-                onChange={(e) =>
+                name="orderProductionQuantity"
+                placeholder="주문 수량"
+                onChange={(e) => {
                   onChangeInputHandler('orderProductionQuantity', {
                     target: { value: e },
-                  })
-                }
-                placeholder="주문 수량"
+                  });
+                }}
+                defaultValue={data.orderProductionQuantity}
               />
             </Form.Item>
 
             <Form.Item
-              label="상품 규격"
+              label="주문 규격"
               rules={[
                 {
                   required: true,
@@ -164,16 +187,20 @@ function AdminOrderRegistPresenter({
                   width: '100%',
                 }}
                 addonAfter={standardSelectAfter}
-                onChange={(e) =>
+                name="orderProductionStandard"
+                placeholder="주문 규격"
+                onChange={(e) => {
                   onChangeInputHandler('orderProductionStandard', {
                     target: { value: e },
-                  })
-                }
-                placeholder="주문 상품 규격"
+                  });
+                }}
+                defaultValue={data.orderProductionStandard}
               />
             </Form.Item>
-            <Form.Item name="orderProductionDescription" label="비고">
+            <Form.Item label="비고">
               <TextArea
+                name="orderProductionDescription"
+                defaultValue={data.orderProductionDescription}
                 onChange={(e) =>
                   onChangeInputHandler('orderProductionDescription', e)
                 }
@@ -188,17 +215,18 @@ function AdminOrderRegistPresenter({
               rules={[
                 {
                   required: true,
-                  message: '입고일자를 입력해주세요!',
+                  message: '입력해주세요',
                 },
               ]}
               required
-              tooltip="필수 입력 필드입니다"
+              tooltip="필수 입력 필드입니다."
             >
               <DatePicker
                 style={{
                   width: '100%',
                 }}
-                placeholder="주문 마감 일자"
+                placeholder="제품 출고 일자"
+                defaultValue={moment(data.orderProductionEndDate)}
                 onChange={(e) =>
                   onChangeDatePickerHandler(
                     'orderProductionEndDate',
@@ -207,21 +235,7 @@ function AdminOrderRegistPresenter({
                 }
               />
             </Form.Item>
-            {/* <Form.Item
-          label="주문일"
-          rules={[
-            {
-              required: true,
-              message: '입력해주세요',
-            },
-          ]}
-          required
-          tooltip="필수 입력 필드입니다."
-        >
-          <Input name="orderDate" placeholder="주문일" />
-        </Form.Item> */}
             <Form.Item
-              name="clientId"
               label="거래처"
               rules={[
                 {
@@ -233,9 +247,9 @@ function AdminOrderRegistPresenter({
               tooltip="필수 입력 필드입니다."
             >
               <Select
-                onChange={(e) => {
-                  clientInputHandler('clientId', e);
-                }}
+                name="client"
+                defaultValue={data.client.clientId}
+                onChange={(e) => clientInputHandler('clientId', e)}
               >
                 {clientList.map((data) => (
                   <Option key={data.clientId} value={data.clientId}>
@@ -260,25 +274,27 @@ function AdminOrderRegistPresenter({
                   backgroundColor: '#FEB139',
                   border: '#FEB139',
                 }}
-                onClick={registOrder}
+                onClick={() => {
+                  onUpdateOrderHandler();
+                }}
               >
-                등록
+                수정
               </Button>
             </Form.Item>
 
-            <Link to="/admin/order/list">
-              <Button
-                type="primary"
-                style={{
-                  margin: 5,
-                  backgroundColor: '#293462',
-                  border: '#293462',
-                }}
-                onClick={registOrder}
-              >
-                목록
-              </Button>
-            </Link>
+            <Button
+              type="primary"
+              style={{
+                margin: 5,
+                backgroundColor: '#293462',
+                border: '#293462',
+              }}
+              onClick={() => {
+                changePageHandler();
+              }}
+            >
+              취소
+            </Button>
           </div>
         </div>
       ) : (
@@ -288,4 +304,4 @@ function AdminOrderRegistPresenter({
   );
 }
 
-export default AdminOrderRegistPresenter;
+export default AdminOrderUpdate;

@@ -1,21 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import StaffStockListPresenter from 'routes/pages/Staff/pages/StaffStock/StaffStockList/StaffStockListPresenter';
+import StaffStockListPresenter from './StaffStockListPresenter';
 import { useDispatch, useSelector } from 'react-redux';
-import * as api from 'apis/index';
+import { getStockList, deleteStock } from 'store/modules/stock/stockActions';
 
 function StaffStockListContainer() {
-  const stockList = useSelector((state) => state.stock.stockList.data);
+  const { data, loading, error } = useSelector(
+    (state) => state.stock.stockList,
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    stockListApi();
-  }, []);
+    dispatch(getStockList());
+  }, [dispatch]);
 
-  const stockListApi = async () => {
-    const list = await api.getStockList();
-    dispatch({ type: 'GET_STOCK_LIST', payload: list });
+  const onDeleteHandler = (stockId) => {
+    dispatch(deleteStock(stockId));
+    window.location.reload();
   };
-  return <StaffStockListPresenter stockList={stockList} />;
+
+  return (
+    <StaffStockListPresenter
+      onDeleteHandler={onDeleteHandler}
+      stockList={data}
+    />
+  );
 }
 
 export default StaffStockListContainer;
