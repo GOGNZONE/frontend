@@ -1,5 +1,5 @@
 import React from 'react';
-import RootRoute from '../Routes';
+import RootRoute from '../routes';
 
 /**
  * @title AppPresenter

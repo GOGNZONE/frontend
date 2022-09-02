@@ -13,6 +13,7 @@ import AdminBomInfoPresenter from './AdminBomInfoPresenter';
 import AdminBomUpdate from './AdminBomUpdate';
 import { message } from 'antd';
 
+
 function AdminBomInfoContainer() {
   const { bomIdParams } = useParams();
   const [page, setPage] = useState(true);

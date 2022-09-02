@@ -1,1 +1,1 @@
-export { default as AdminBomList } from 'Routes/pages/Admin/pages/AdminBom/AdminBomList/AdminBomListContainer';
+export { default as AdminBomList } from 'routes/pages/Admin/pages/AdminBom/AdminBomList/AdminBomListContainer';

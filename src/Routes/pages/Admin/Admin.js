@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { AdminLayout } from 'Components';
+import { AdminLayout } from 'components';
 import {
   AdminDashBoard,
   AdminEmployeeDetails,
@@ -23,6 +23,13 @@ import {
   AdminStockInfo,
   AdminStockRegist,
   AdminStockList,
+  AdminProductionRegistration,
+  AdminProductionList,
+  AdminProductionDetails,
+  AdminReleaseRegistrationInProduction,
+  AdminReleaseRegistration,
+  AdminReleaseList,
+  AdminReleaseDetails,
 } from './pages';
 
 const Admin = ({ checkAdmin, logout }) => {
@@ -73,6 +80,24 @@ const Admin = ({ checkAdmin, logout }) => {
           element={<AdminStorageInfo />}
         />
         <Route path="/storage" element={<AdminStorageRegist />} />
+        {/* production */}
+        <Route path="/production" element={<AdminProductionRegistration />} />
+        <Route path="/production/list" element={<AdminProductionList />} />
+        <Route
+          path="/production/:productionIdParams"
+          element={<AdminProductionDetails />}
+        />
+        {/* release */}
+        <Route
+          path="/production/release/:productionIdParams"
+          element={<AdminReleaseRegistrationInProduction />}
+        />
+        <Route path="/release" element={<AdminReleaseRegistration />} />
+        <Route path="/release/list" element={<AdminReleaseList />} />
+        <Route
+          path="/release/:releaseIdParams"
+          element={<AdminReleaseDetails />}
+        />
       </Route>
     </Routes>
   );

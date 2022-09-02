@@ -1,7 +1,7 @@
 import React from 'react';
 import { Descriptions, Col, Row, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import Loading from 'Components/Loading';
+import Loading from 'components/Loading';
 
 const AdminClientInfoPresenter = ({ clientInfo, loading, error, setPage }) => {
   const navigate = useNavigate();

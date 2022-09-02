@@ -9,6 +9,7 @@ import { storageReducer } from './storage/storageReducers';
 import { stockReducer } from './stock/stockReducers';
 import { orderReducer } from './order/orderReducers';
 import { bomReducer } from './bom/bomReducers';
+import { releaseReducer } from './release/releaseReducers';
 
 const reducer = combineReducers({
   employee: employeeReducer,
@@ -18,6 +19,7 @@ const reducer = combineReducers({
   stock: stockReducer,
   order: orderReducer,
   bom: bomReducer,
+  release: releaseReducer,
   auth,
 });
 

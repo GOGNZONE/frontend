@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Input, Button, Typography } from 'antd';
-import Loading from 'Components/Loading';
+import Loading from 'components/Loading';
 
 const AdminUpdateClientAccount = ({
   clientInfo,

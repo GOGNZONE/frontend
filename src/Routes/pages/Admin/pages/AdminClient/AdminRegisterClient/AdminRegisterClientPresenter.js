@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Input, Button, Typography, Select } from 'antd';
 import { Link } from 'react-router-dom';
-import Loading from 'Components/Loading';
+import Loading from 'components/Loading';
 
 const { Option } = Select;
 

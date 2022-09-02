@@ -2,8 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Table, Typography, BackTop, Input, Space, Spin } from 'antd';
-
 import Highlighter from 'react-highlight-words';
+import Today from 'components/Today';
+
+const { Text } = Typography;
 
 const ProductionListPresenter = ({
   dataSource,
@@ -121,14 +123,14 @@ const ProductionListPresenter = ({
     {
       title: '생산코드',
       dataIndex: 'productionId',
-      width: 180,
+      width: 150,
       ...getColumnSearchProps('productionId'),
       sorter: (a, b) => a.productionId - b.productionId,
     },
     {
       title: '생산품목',
       dataIndex: 'productionName',
-      width: 200,
+      width: 150,
       ...getColumnSearchProps('productionName'),
       render: (name, record) => (
         <Link to={`/staff/production/${record.productionId}`}>{name}</Link>
@@ -137,33 +139,58 @@ const ProductionListPresenter = ({
     {
       title: '브랜드',
       dataIndex: 'productionBrandName',
-      width: 200,
+      width: 170,
       ...getColumnSearchProps('productionBrandName'),
     },
     {
       title: '제품수량',
       dataIndex: 'productionQuantity',
+      width: 150,
       defaultSortOrder: 'ascend',
-      width: 200,
       sorter: (a, b) => a.productionQuantity - b.productionQuantity,
     },
     {
       title: '단가',
       dataIndex: 'productionPrice',
+      width: 150,
       defaultSortOrder: 'ascend',
-      width: 200,
       sorter: (a, b) => a.productionPrice - b.productionPrice,
+    },
+    {
+      title: '출고일자',
+      dataIndex: 'releaseDate',
+      width: 190,
+      render: (_, { releases }) => (
+        <>
+          {releases.length === 0 ? (
+            <Text type="danger">출고 정보 없음</Text>
+          ) : (
+            releases.map((release) => {
+              return (
+                <div
+                  style={{ display: 'flex', alignItems: 'center' }}
+                  key={release.releaseId}
+                >
+                  <Text mark style={{ marginRight: 5 }}>
+                    {release.releaseDate}
+                  </Text>
+                  <Today releaseDate={release.releaseDate} />
+                </div>
+              );
+            })
+          )}
+        </>
+      ),
     },
     {
       title: '비고',
       dataIndex: 'productionDescription',
     },
   ];
-
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography.Title level={3} style={{ margin: 5 }}>
+        <Typography.Title level={3} style={{ marginBottom: 25 }}>
           생산 목록
         </Typography.Title>
         <div>

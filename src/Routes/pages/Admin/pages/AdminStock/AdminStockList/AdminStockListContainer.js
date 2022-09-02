@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import AdminStockListPresenter from 'Routes/pages/Admin/pages/AdminStock/AdminStockList/AdminStockListPresenter';
+import AdminStockListPresenter from 'routes/pages/Admin/pages/AdminStock/AdminStockList/AdminStockListPresenter';
 import { useDispatch, useSelector } from 'react-redux';
 import { getStockList, deleteStock } from 'store/modules/stock/stockActions';
 

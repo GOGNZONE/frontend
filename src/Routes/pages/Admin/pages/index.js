@@ -19,3 +19,16 @@ export {
   AdminRegisterClient,
   AdminRegisterClientAccount,
 } from './AdminClient';
+
+export {
+  AdminProductionDetails,
+  AdminProductionList,
+  AdminProductionRegistration,
+} from './AdminProduction';
+
+export {
+  AdminReleaseDetails,
+  AdminReleaseList,
+  AdminReleaseRegistration,
+  AdminReleaseRegistrationInProduction,
+} from './AdminRelease';

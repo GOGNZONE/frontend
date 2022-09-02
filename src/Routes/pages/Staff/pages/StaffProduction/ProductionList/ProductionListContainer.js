@@ -1,28 +1,32 @@
 import React, { useEffect, useState, useRef } from 'react';
-import ProductionListPresenter from 'Routes/pages/Staff/pages/StaffProduction/ProductionList/ProductionListPresenter';
+import ProductionListPresenter from './ProductionListPresenter';
 import { useSelector, useDispatch } from 'react-redux';
-import { getProductions } from 'store/modules/production/productionActions';
-// import { useLocation } from 'react-router-dom';
+import {
+  deleteProduction,
+  getProductions,
+} from 'store/modules/production/productionActions';
 
 const ProductionListContainer = () => {
   /***** redux (state) *****/
-  const { data, loading, error } = useSelector(
-    (state) => state.production.productions,
-  );
+  const productions = useSelector((state) => state.production.productions);
+  const { data, loading } = productions;
   const dispatch = useDispatch();
-  /***** search *****/
+  //   /***** search *****/
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
 
-  // const location = useLocation();
-
   useEffect(() => {
-    // if (data && !loading) {
-    //   window.location.reload();
-    // }
-    dispatch(getProductions());
+    const callDispatch = () => {
+      dispatch(getProductions());
+    };
+    !loading && callDispatch();
   }, [dispatch]);
+
+  const onDeleteProduction = (productionId) => {
+    dispatch(deleteProduction(productionId));
+    // await dispatch(getProductions());
+  };
 
   return (
     <ProductionListPresenter
@@ -33,6 +37,7 @@ const ProductionListContainer = () => {
       searchedColumn={searchedColumn}
       searchText={searchText}
       loading={loading}
+      onDeleteProduction={onDeleteProduction}
     />
   );
 };
