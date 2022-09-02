@@ -10,6 +10,7 @@ import {
 } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import FileDownload from 'components/FileDownload';
 
 const { confirm } = Modal;
 const { Title, Text } = Typography;
@@ -261,8 +262,11 @@ const ProductionDetailsPresenter = ({
                     </div>
                   )}
                 </Descriptions.Item>
-                <Descriptions.Item label="비고">
+                <Descriptions.Item label="비고" span={3}>
                   {data.productionDescription}
+                </Descriptions.Item>
+                <Descriptions.Item label="첨부파일">
+                  <FileDownload file={data.productionFile} />
                 </Descriptions.Item>
               </Descriptions>
             </>
