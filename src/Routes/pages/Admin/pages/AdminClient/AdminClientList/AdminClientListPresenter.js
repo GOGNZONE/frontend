@@ -3,7 +3,7 @@ import { Button, Table, Typography, BackTop, Input, Space } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
 import { Link } from 'react-router-dom';
-import Loading from 'Components/Loading';
+import Loading from 'components/Loading';
 
 const AdminClientListPresenter = ({
   clientList,

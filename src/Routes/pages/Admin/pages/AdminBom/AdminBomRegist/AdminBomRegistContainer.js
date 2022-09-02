@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import AdminBomRegistPresenter from 'Routes/pages/Admin/pages/AdminBom/AdminBomRegist/AdminBomRegistPresenter';
+import AdminBomRegistPresenter from 'routes/pages/Admin/pages/AdminBom/AdminBomRegist/AdminBomRegistPresenter';
 import { useDispatch, useSelector } from 'react-redux';
 import * as api from 'apis/index';
 

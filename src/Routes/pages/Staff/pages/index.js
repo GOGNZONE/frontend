@@ -1,9 +1,9 @@
-export { StaffDashBoard } from 'Routes/pages/Staff/pages/StaffDashBoard';
+export { StaffDashBoard } from 'routes/pages/Staff/pages/StaffDashBoard';
 export { StaffClientList, StaffClientInfo } from './StaffClient';
 export { StaffBomRegist, StaffBomList, StaffBomInfo } from './StaffBom';
 export { StaffOrderInfo, StaffOrderList } from './StaffOrder';
 export { StaffStockInfo, StaffStockList, StaffStockRegist } from './StaffStock';
-export { ReleaseDetail, ReleaseList } from './StaffRelease';
+export { StaffReleaseDetails, StaffReleaseList } from './StaffRelease';
 export { default as StaffMypage } from './StaffMypage';
 export {
   StaffProductionList,

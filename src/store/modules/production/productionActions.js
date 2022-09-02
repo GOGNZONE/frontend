@@ -1,4 +1,4 @@
-import * as api from 'apis/index';
+import * as api from 'apis';
 import { createPromiseThunk } from 'lib/asyncUtils';
 
 export const GET_PRODUCTIONS = 'GET_PRODUCTIONS';
@@ -16,6 +16,10 @@ export const POST_PRODUCTION_ERROR = 'POST_PRODUCTION_ERROR';
 export const PUT_PRODUCTION = 'PUT_PRODUCTION';
 export const PUT_PRODUCTION_SUCCESS = 'PUT_PRODUCTION_SUCCESS';
 export const PUT_PRODUCTION_ERROR = 'PUT_PRODUCTION_ERROR';
+
+export const DELETE_PRODUCTION = 'DELETE_PRODUCTION';
+
+export const CLEAR_PRODUCTION = 'CLEAR_PRODUCTION';
 
 export const getProductions = createPromiseThunk(
   GET_PRODUCTIONS,
@@ -36,3 +40,10 @@ export const putProduction = createPromiseThunk(
   PUT_PRODUCTION,
   api.updateProduction,
 );
+
+export const deleteProduction = createPromiseThunk(
+  DELETE_PRODUCTION,
+  api.deleteProduction,
+);
+
+export const clearProduction = () => ({ type: CLEAR_PRODUCTION });

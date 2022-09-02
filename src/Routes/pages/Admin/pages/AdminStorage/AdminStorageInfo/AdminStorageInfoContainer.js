@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import AdminStorageInfoPresenter from 'Routes/pages/Admin/pages/AdminStorage/AdminStorageInfo/AdminStorageInfoPresenter';
+import AdminStorageInfoPresenter from 'routes/pages/Admin/pages/AdminStorage/AdminStorageInfo/AdminStorageInfoPresenter';
 import { getStorage, putStorage } from 'store/modules/storage/storageActions';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';

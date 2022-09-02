@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import AdminBomListPresenter from 'Routes/pages/Admin/pages/AdminBom/AdminBomList/AdminBomListContainer';
+import AdminBomListPresenter from 'routes/pages/Admin/pages/AdminBom/AdminBomList/AdminBomListContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import * as api from 'apis/index';
 

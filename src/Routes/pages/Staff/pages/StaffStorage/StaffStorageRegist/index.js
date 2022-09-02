@@ -1,1 +1,1 @@
-export { default as StaffStorageRegist } from 'Routes/pages/Staff/pages/StaffStorage/StaffStorageRegist/StaffStorageRegistContainer';
+export { default as StaffStorageRegist } from 'routes/pages/Staff/pages/StaffStorage/StaffStorageRegist/StaffStorageRegistContainer';

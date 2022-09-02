@@ -1,1 +1,1 @@
-export { production } from 'store/modules/production/productionReducers';
+export { production } from './productionReducers';

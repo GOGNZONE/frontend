@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { StaffLayout } from 'Components';
+import { StaffLayout } from 'components';
 import {
   StaffMypage,
   StaffDashBoard,
@@ -20,6 +20,8 @@ import {
   StaffProductionDetails,
   StaffClientList,
   StaffClientInfo,
+  StaffReleaseList,
+  StaffReleaseDetails,
 } from './pages';
 
 const Staff = ({ logout, checkAdmin }) => {
@@ -42,11 +44,11 @@ const Staff = ({ logout, checkAdmin }) => {
           element={<StaffProductionDetails />}
         />
         {/* release */}
-        {/* <Route path="/release/list" element={<StaffReleaseList />} />
+        <Route path="/release/list" element={<StaffReleaseList />} />
         <Route
           path="/release/:releaseIdParams"
           element={<StaffReleaseDetails />}
-        /> */}
+        />
         {/* stock */}
         <Route path="/stock/list" element={<StaffStockList />} />
         <Route path="/stock/list/:stockIdParams" element={<StaffStockInfo />} />

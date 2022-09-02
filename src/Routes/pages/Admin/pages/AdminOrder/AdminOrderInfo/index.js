@@ -1,1 +1,1 @@
-export { default as AdminOrderInfo } from 'Routes/pages/Admin/pages/AdminOrder/AdminOrderInfo/AdminOrderInfoContainer';
+export { default as AdminOrderInfo } from 'routes/pages/Admin/pages/AdminOrder/AdminOrderInfo/AdminOrderInfoContainer';

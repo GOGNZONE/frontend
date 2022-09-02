@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import StaffBomListPresenter from 'Routes/pages/Staff/pages/StaffBom/StaffBomList/StaffBomListPresenter';
+import StaffBomListPresenter from 'routes/pages/Staff/pages/StaffBom/StaffBomList/StaffBomListPresenter';
 import { useDispatch, useSelector } from 'react-redux';
 import * as api from 'apis/index';
 

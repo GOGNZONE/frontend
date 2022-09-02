@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import AdminStorageRegistPresenter from 'Routes/pages/Admin/pages/AdminStorage/AdminStorageRegist/AdminStorageRegistPresenter';
+import AdminStorageRegistPresenter from 'routes/pages/Admin/pages/AdminStorage/AdminStorageRegist/AdminStorageRegistPresenter';
 import { useDispatch } from 'react-redux';
 import { registerStorage } from 'store/modules/storage/storageActions';
 import { message } from 'antd';

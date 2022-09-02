@@ -1,2 +1,2 @@
-export { default as ReleaseDetail } from './ReleaseDetails';
-export { default as ReleaseList } from './ReleaseList';
+export { default as StaffReleaseDetails } from './ReleaseDetails';
+export { default as StaffReleaseList } from './ReleaseList';

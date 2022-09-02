@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Input, Button, Upload, Typography } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import Loading from 'Components/Loading';
+import Loading from 'components/Loading';
 
 const AdminClientUpdate = ({
   clientInfo,

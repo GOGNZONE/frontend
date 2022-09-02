@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import StaffOrderListPresenter from 'Routes/pages/Staff/pages/StaffOrder/StaffOrderList/StaffOrderListPresenter';
+import StaffOrderListPresenter from 'routes/pages/Staff/pages/StaffOrder/StaffOrderList/StaffOrderListPresenter';
 import { useDispatch, useSelector } from 'react-redux';
 import * as api from 'apis/index';
 

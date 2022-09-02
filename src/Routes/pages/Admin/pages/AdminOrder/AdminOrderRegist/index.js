@@ -1,1 +1,1 @@
-export { default as AdminOrderRegist } from 'Routes/pages/Admin/pages/AdminOrder/AdminOrderRegist/AdminOrderRegistContainer';
+export { default as AdminOrderRegist } from 'routes/pages/Admin/pages/AdminOrder/AdminOrderRegist/AdminOrderRegistContainer';

@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import AdminStockRegistPresenter from 'Routes/pages/Admin/pages/AdminStock/AdminStockRegist/AdminStockRegistPresenter';
+import AdminStockRegistPresenter from 'routes/pages/Admin/pages/AdminStock/AdminStockRegist/AdminStockRegistPresenter';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerStock } from 'store/modules/stock/stockActions';
 import { message } from 'antd';
