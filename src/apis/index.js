@@ -111,16 +111,17 @@ export const getStockList = () => {
   return instance.get(`/stock/list`);
 };
 
-export const getStockInfo = (stock_id) => {
-  return instance.get(`/stock/${stock_id}`);
+export const getStockInfo = (stockId) => {
+  return instance.get(`/stock/${stockId}`);
 };
 
 export const registerStock = (inData) => {
   return instance.post(`/stock`, inData);
 };
 
-export const updateStock = (stock_id, inData) => {
-  return instance.put(`/stock/${stock_id}`, inData);
+export const updateStock = (inData) => {
+  const { stockIdParams, stock } = inData;
+  return instance.put(`/stock/${stockIdParams}`, stock);
 };
 
 export const deleteStock = (stock_id) => {
@@ -140,8 +141,9 @@ export const registerStorage = (inData) => {
   return instance.post(`/storage`, inData);
 };
 
-export const updateStorage = (storage_id, inData) => {
-  return instance.get(`/storage/${storage_id}`, inData);
+export const updateStorage = (inData) => {
+  const { storageIdParams, storage } = inData;
+  return instance.put(`/storage/${storageIdParams}`, storage);
 };
 
 export const deleteStorage = (storage_id) => {
@@ -161,8 +163,11 @@ export const registerBom = (inData) => {
   return instance.post(`/BOM`, inData);
 };
 
-export const updateBom = (BOM_id, inData) => {
-  return instance.put(`/BOM/${BOM_id}`, inData);
+export const updateBom = (inData) => {
+  const { bomIdParams, updateBom } = inData;
+  // console.log(bomIdParams);
+  // console.log(updateBom);
+  return instance.put(`/BOM/${bomIdParams}`, updateBom);
 };
 
 export const deleteBom = (BOM_id) => {
@@ -179,11 +184,12 @@ export const getOrderInfo = (order_id) => {
 };
 
 export const registerOrder = (inData) => {
-  return instance.post(`/order/`, inData);
+  return instance.post(`/order`, inData);
 };
 
-export const updateOrder = (order_id, inData) => {
-  return instance.put(`/order/${order_id}`, inData);
+export const updateOrder = (inData) => {
+  const { orderIdParams, order } = inData;
+  return instance.put(`/order/${orderIdParams}`, order);
 };
 
 export const deleteOrder = (order_id) => {

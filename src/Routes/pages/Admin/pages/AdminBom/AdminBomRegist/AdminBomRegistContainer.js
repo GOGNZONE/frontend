@@ -1,20 +1,59 @@
-import React, { useCallback } from 'react';
-import AdminBomRegistPresenter from 'routes/pages/Admin/pages/AdminBom/AdminBomRegist/AdminBomRegistPresenter';
+import React, { useState, useCallback, useEffect } from 'react';
+import AdminBomRegistPresenter from 'Routes/pages/Admin/pages/AdminBom/AdminBomRegist/AdminBomRegistPresenter';
 import { useDispatch, useSelector } from 'react-redux';
-import * as api from 'apis/index';
+import { getBomList, registerBom } from 'store/modules/bom/bomActions';
+import { getStorageList } from 'store/modules/storage/storageActions';
+import { useNavigate } from 'react-router-dom';
+import { message } from 'antd';
 
 const AdminBomRegistContainer = () => {
-  const bom = useSelector((state) => state.bom.bom);
+  const [bom, setBom] = useState({
+    bomName: '',
+    bomQuantity: '',
+    bomStandard: '',
+    bomUnit: '',
+    bomDescription: '',
+    bomReceivedDate: '',
+    bomFile: '',
+    storage: '',
+  });
+  const storageList = useSelector((state) => state.storage.storageList.data);
+  const bomList = useSelector((state) => state.bom.bomList.data);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getBomList());
+    dispatch(getStorageList());
+  }, [dispatch]);
+
   const onChange = useCallback((value) => {
-    dispatch({ type: 'POST_BOM', payload: value });
+    setBom(value);
   });
 
-  const registBom = (e) => {
-    e.preventDefault();
-    api.registerBom(bom);
-  };
+  const registBom = useCallback(async (e) => {
+    if (
+      bom.bomName === '' ||
+      bom.bomQuantity === '' ||
+      bom.bomStandard === '' ||
+      bom.bomUnit === '' ||
+      bom.bomReceivedDate === '' ||
+      bom.storage === ''
+    ) {
+      message.error('필수 입력값을 입력해 주세요.');
+    } else {
+      dispatch(registerBom(bom));
+      navigate('/admin/bom/list');
+      window.location.reload();
+    }
+  });
+
+  const onChangeSelectHandler = useCallback((name, value) => {
+    onChange({
+      ...bom,
+      [name]: value,
+    });
+  });
 
   const onChangeInputHandler = useCallback((name, e) => {
     const value = e.target.value;
@@ -23,23 +62,20 @@ const AdminBomRegistContainer = () => {
       [name]: value,
     });
   });
-
-  const bomParentInputHandler = useCallback((name, e) => {
-    const value = e.target.value;
+  const storageInputHandler = useCallback((name, e) => {
     onChange({
       ...bom,
-      bomParent: {
-        [name]: value,
+      storage: {
+        [name]: e,
       },
     });
   });
 
-  const storageInputHandler = useCallback((name, e) => {
-    const value = e.target.value;
+  const bomParentInputHandler = useCallback((name, e) => {
     onChange({
       ...bom,
-      storage: {
-        [name]: value,
+      bomParent: {
+        [name]: e,
       },
     });
   });
@@ -52,7 +88,10 @@ const AdminBomRegistContainer = () => {
 
   return (
     <AdminBomRegistPresenter
+      onChangeSelectHandler={onChangeSelectHandler}
       bom={bom}
+      bomList={bomList}
+      storageList={storageList}
       onChangeInputHandler={onChangeInputHandler}
       bomParentInputHandler={bomParentInputHandler}
       storageInputHandler={storageInputHandler}

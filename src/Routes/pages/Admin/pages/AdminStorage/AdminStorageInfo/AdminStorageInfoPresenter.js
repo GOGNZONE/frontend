@@ -1,123 +1,91 @@
-import React from 'react';
-import { Form, Button, Input, Typography } from 'antd';
+import React, { useState } from 'react';
+import { Descriptions, Col, Row, Button, Modal } from 'antd';
 import { Link } from 'react-router-dom';
-
+import Swal from 'sweetalert2';
 function AdminStorageInfoPresenter({
-  storage,
-  componentDisabled,
-  setComponentDisabled,
-  onFormLayoutChange,
-  storageIdParams,
-  onChange,
-  updateButton,
-  onButtonNameChange,
+  changePageHandler,
+  data,
+  onDeleteHandler,
 }) {
-  console.log(storage);
+  const [deleteModal, setDeleteModal] = useState(false);
   return (
-    <div>
-      <Form
-        labelCol={{
-          span: 7,
-        }}
-        wrapperCol={{
-          span: 10,
-        }}
-        layout="horizontal"
-        size="large"
-        onValuesChange={onFormLayoutChange}
-        disabled={componentDisabled}
-      >
-        <Typography.Title level={3} style={{ margin: 5 }}>
-          창고 상세정보
-        </Typography.Title>
-        <Form.Item label="창고코드">
-          <Input disabled={true} name="storageId" value={storage.storageId} />
-        </Form.Item>
-        <Form.Item
-          label="창고 주소"
-          rules={[
-            {
-              required: true,
-              message: '입력해주세요',
-            },
-          ]}
-          required
-          tooltip="필수 입력 필드입니다."
-        >
-          <Input
-            name="storageAddress"
-            onChange={onChange}
-            value={storage.storageAddress}
-          />
-        </Form.Item>
-        <Form.Item
-          label="창고 종류"
-          rules={[
-            {
-              required: true,
-              message: '입력해주세요',
-            },
-          ]}
-          required
-          tooltip="필수 입력 필드입니다."
-        >
-          <Input
-            name="storageCategory"
-            onChange={onChange}
-            value={storage.storageCategory}
-          />
-        </Form.Item>
-        <Form.Item label="비고">
-          <Input
-            name="storageDescription"
-            onChange={onChange}
-            value={storage.storageDescription}
-          />
-        </Form.Item>
-      </Form>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            style={{
-              margin: 5,
-              backgroundColor: '#FEB139',
-              border: '#FEB139',
-            }}
-            onClick={() => {
-              setComponentDisabled(!componentDisabled);
-              // putProductionApi(storageIdParams, storage);
-              onButtonNameChange();
-            }}
-          >
-            {updateButton ? '수정' : '확인'}
-          </Button>
-        </Form.Item>
-        <Button
-          type="primary"
-          style={{
-            margin: 5,
-            backgroundColor: '#D61C4E',
-            border: '#D61C4E',
-          }}
-        >
-          삭제
-        </Button>
-        <Link to="/admin/storage/list">
-          <Button
-            type="primary"
-            style={{
-              margin: 5,
-              backgroundColor: '#293462',
-              border: '#293462',
-            }}
-          >
-            목록
-          </Button>
-        </Link>
-      </div>
-    </div>
+    <>
+      {data ? (
+        <div>
+          <Row align="middle">
+            <Col flex={4}>
+              <Descriptions title="창고 상세 정보" bordered>
+                <Descriptions.Item label="창고 코드" span={2}>
+                  {data.storageId}
+                </Descriptions.Item>
+                <Descriptions.Item label="창고 주소" span={2}>
+                  {data.storageAddress}
+                </Descriptions.Item>
+                <Descriptions.Item label="창고 유형" span={2}>
+                  {data.storageCategory}
+                </Descriptions.Item>
+                <Descriptions.Item label="비고" span={2}>
+                  {data.storageDescription}
+                </Descriptions.Item>
+              </Descriptions>
+            </Col>
+          </Row>
+
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Button
+              type="primary"
+              style={{
+                margin: 5,
+                border: '#293462',
+              }}
+              onClick={changePageHandler}
+            >
+              정보 수정
+            </Button>
+            <Button
+              type="primary"
+              size="middle"
+              style={{
+                backgroundColor: '#D61C4E',
+                margin: 5,
+                border: '#D61C4E',
+              }}
+              onClick={() => {
+                setDeleteModal(true);
+              }}
+            >
+              삭제
+            </Button>
+            <Modal
+              title="삭제"
+              centered
+              visible={deleteModal}
+              onOk={() => onDeleteHandler(data.storageId)}
+              okText="삭제"
+              onCancel={() => setDeleteModal(false)}
+              cancelText="취소"
+            >
+              <p>정말로 삭제하시겠습니까?</p>
+            </Modal>
+
+            <Link to="/admin/storage/list">
+              <Button
+                type="primary"
+                style={{
+                  margin: 5,
+                  backgroundColor: '#293462',
+                  border: '#293462',
+                }}
+              >
+                목록
+              </Button>
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <div></div>
+      )}
+    </>
   );
 }
 

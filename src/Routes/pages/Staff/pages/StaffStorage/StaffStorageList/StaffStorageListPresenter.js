@@ -3,7 +3,7 @@ import { Table, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import { v4 } from 'uuid';
 
-function StaffStorageListPresenter({ storageList, loading, error }) {
+function StaffStorageListPresenter({ storageList, onDeleteHandler }) {
   const columns = [
     {
       title: '창고 코드',

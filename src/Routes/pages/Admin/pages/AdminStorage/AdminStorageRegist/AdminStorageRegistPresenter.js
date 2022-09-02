@@ -1,12 +1,9 @@
 import React, { useCallback } from 'react';
-import { Form, Button, Input, Typography } from 'antd';
+import { Typography, Form, Button, Input } from 'antd';
 import { Link } from 'react-router-dom';
 
-function AdminStorageRegistPresenter({
-  storage,
-  registStorage,
-  onChangeInputHandler,
-}) {
+function AdminStorageRegistPresenter({ registStorage, onChangeInputHandler }) {
+  const { TextArea } = Input;
   return (
     <div>
       <Form
@@ -51,27 +48,29 @@ function AdminStorageRegistPresenter({
           <Input onChange={(e) => onChangeInputHandler('storageCategory', e)} />
         </Form.Item>
         <Form.Item name="storageDescription" label="비고">
-          <Input
+          <TextArea
             onChange={(e) => onChangeInputHandler('storageDescription', e)}
+            showCount
+            maxLength={1000}
+            rows={5}
+            placeholder="비고"
           />
         </Form.Item>
       </Form>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Form.Item>
-          <Link to="/admin/storage/list">
-            <Button
-              type="primary"
-              htmlType="submit"
-              style={{
-                margin: 5,
-                backgroundColor: '#FEB139',
-                border: '#FEB139',
-              }}
-              onClick={registStorage}
-            >
-              등록
-            </Button>
-          </Link>
+          <Button
+            type="primary"
+            htmlType="submit"
+            style={{
+              margin: 5,
+              backgroundColor: '#FEB139',
+              border: '#FEB139',
+            }}
+            onClick={registStorage}
+          >
+            등록
+          </Button>
         </Form.Item>
 
         <Link to="/admin/storage/list">
