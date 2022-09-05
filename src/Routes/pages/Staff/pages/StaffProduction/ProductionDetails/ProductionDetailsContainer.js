@@ -9,16 +9,19 @@ import {
   clearProduction,
 } from 'store/modules/production/productionActions';
 import { message } from 'antd';
+import { getClientList } from 'store/modules/client/clientActions';
 
 const ProductionDetailsContainer = () => {
   /***** production id params *****/
   const { productionIdParams } = useParams();
   /***** redux(state) *****/
   const { data, loading } = useSelector((state) => state.production.production);
+  const { data: clientData } = useSelector((state) => state.client.clientList);
   const dispatch = useDispatch();
   const [switchToEditPage, setSwitchToEditPage] = useState(true);
   const [productionValue, setProductionValue] = useState({});
   const [visible, setVisible] = useState(false);
+  const [abledEndDate, setAbledEndDate] = useState(0);
 
   const showDrawer = () => {
     setVisible(true);
@@ -30,6 +33,7 @@ const ProductionDetailsContainer = () => {
 
   useEffect(() => {
     dispatch(getProduction(productionIdParams));
+    dispatch(getClientList());
     return () => {
       dispatch(clearProduction());
     };
@@ -80,6 +84,9 @@ const ProductionDetailsContainer = () => {
       onClickHandler={onClickHandler}
       productionValue={productionValue}
       onChangeHandler={onChangeHandler}
+      clientData={clientData}
+      abledEndDate={abledEndDate}
+      setAbledEndDate={setAbledEndDate}
     />
   );
 };

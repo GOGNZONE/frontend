@@ -25,6 +25,7 @@ const ReleaseRegistrationContainer = () => {
   );
   const dispatch = useDispatch();
   const [index, setIndex] = useState(0);
+  const timestamp = new Date().getTime();
   /***** navigate *****/
   const navigate = useNavigate();
 
@@ -45,11 +46,11 @@ const ReleaseRegistrationContainer = () => {
     ) {
       message.error('필수 입력값을 입력해 주세요.');
     } else {
+      releaseValue.releaseId = timestamp;
       releaseValue.releaseTotalPrice =
         releaseValue.releaseQuantity * data[index].productionPrice;
       releaseValue.production.productionId = data[index].productionId;
       await dispatch(
-        // releaseValue.production.productionId = data[index].productionId;
         postRelease({
           productionId: releaseValue.production.productionId,
           releaseData: releaseValue,

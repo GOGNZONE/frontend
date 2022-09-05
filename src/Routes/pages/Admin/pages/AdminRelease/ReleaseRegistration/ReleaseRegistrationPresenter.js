@@ -131,12 +131,6 @@ const ReleaseRegistrationPresenter = ({
                   option.children.toLowerCase().includes(input.toLowerCase())
                 }
                 onSelect={onSelect}
-                // onChange={(e) => {
-                //   onChangeProductionInputHandler(
-                //     'productionId',
-                //     productionData[index].productionId,
-                //   );
-                // }}
               >
                 {productionData.map((production, index) => {
                   if (
@@ -154,21 +148,6 @@ const ReleaseRegistrationPresenter = ({
                   }
                 })}
               </Select>
-            </Form.Item>
-            <Form.Item
-              name="releaseId"
-              label="출고코드"
-              rules={[
-                {
-                  required: true,
-                  message: '출고코드를 입력해주세요!',
-                },
-              ]}
-            >
-              <Input
-                placeholder="출고코드"
-                onChange={(e) => onChangeInputHandler('releaseId', e)}
-              />
             </Form.Item>
             <Form.Item
               name="releaseDate"

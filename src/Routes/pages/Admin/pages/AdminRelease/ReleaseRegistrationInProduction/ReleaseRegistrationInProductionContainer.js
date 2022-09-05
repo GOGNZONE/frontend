@@ -24,6 +24,7 @@ const ReleaseRegistrationInProductionContainer = () => {
   const { data, loading } = useSelector((state) => state.production.production);
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const timestamp = new Date().getTime();
   /***** navigate *****/
   const navigate = useNavigate();
 
@@ -43,9 +44,9 @@ const ReleaseRegistrationInProductionContainer = () => {
     ) {
       message.error('필수 입력값을 입력해 주세요.');
     } else {
+      releaseValue.releaseId = timestamp;
       releaseValue.releaseTotalPrice =
         releaseValue.releaseQuantity * data.productionPrice;
-      console.log(releaseValue);
       await dispatch(
         postRelease({
           productionId: productionIdParams,

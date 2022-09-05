@@ -160,7 +160,7 @@ const ProductionListCompletedPresenter = ({
       width: 130,
       ...getColumnSearchProps('productionName'),
       render: (name, record) => (
-        <Link to={`/admin/production/${record.productionId}`}>{name}</Link>
+        <Link to={`/staff/production/${record.productionId}`}>{name}</Link>
       ),
     },
     {
@@ -284,7 +284,7 @@ const ProductionListCompletedPresenter = ({
         <Typography.Title level={3} style={{ marginBottom: 25 }}>
           생산완료 목록
         </Typography.Title>
-        <Link to="/admin/release/list">
+        <Link to="/staff/release/list">
           <Button
             type="primary"
             style={{

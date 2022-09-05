@@ -126,21 +126,6 @@ const ReleaseRegistrationInProductionPresenter = ({
             size="large"
           >
             <Form.Item
-              name="releaseId"
-              label="출고코드"
-              rules={[
-                {
-                  required: true,
-                  message: '출고코드를 입력해주세요!',
-                },
-              ]}
-            >
-              <Input
-                placeholder="출고코드"
-                onChange={(e) => onChangeInputHandler('releaseId', e)}
-              />
-            </Form.Item>
-            <Form.Item
               name="releaseDate"
               label="출고일자"
               rules={[
