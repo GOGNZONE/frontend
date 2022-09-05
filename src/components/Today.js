@@ -6,11 +6,11 @@ const Today = ({ releaseDate }) => {
   const date = releaseDate;
   const dateArr = date.split('-');
   const todayYear = today.getFullYear();
-  const todayMonth = today.getMonth();
-  const todayDay = today.getDay() - 3;
+  const todayMonth = today.getMonth() + 1;
+  const todayDate = today.getDate();
 
-  const startDate = new Date(todayYear, todayMonth, todayDay);
-  const endDate = new Date(dateArr[0], dateArr[1] - 1, dateArr[2]);
+  const startDate = new Date(todayYear, todayMonth, todayDate);
+  const endDate = new Date(dateArr[0], dateArr[1], dateArr[2]);
 
   const betweenMs = endDate.getTime() - startDate.getTime();
   const betweenDay = betweenMs / (1000 * 60 * 60 * 24);

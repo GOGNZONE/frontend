@@ -3,26 +3,21 @@ import ProductionRegistrationPresenter from './ProductionRegistrationPresenter';
 import { useDispatch, useSelector } from 'react-redux';
 import { postProduction } from 'store/modules/production/productionActions';
 import { useNavigate } from 'react-router-dom';
-import { message } from 'antd';
 import { getClientList } from 'store/modules/client/clientActions';
+import { message } from 'antd';
 
 const ProductionRegistrationContainer = () => {
   /***** state *****/
   const [productionValue, setProductionValue] = useState({
-    productionName: '',
-    productionBrandName: '',
+    productionName: null,
     productionPrice: 0,
     productionQuantity: 1,
-    productionStandard: '',
-    productionUnit: '',
-    productionDescription: '',
-    productionDate: '',
-    productionFile: '',
-    client: { clientId: '' },
+    productionStartDate: null,
+    productionReleasedDate: null,
+    productionProgress: 0,
+    client: { clientId: null },
   });
-  const { data, loading, error } = useSelector(
-    (state) => state.client.clientList,
-  );
+  const { data, loading } = useSelector((state) => state.client.clientList);
 
   const dispatch = useDispatch();
   /***** navigate *****/
@@ -38,11 +33,14 @@ const ProductionRegistrationContainer = () => {
 
   const onClickHandler = useCallback(async () => {
     if (
-      productionValue.productionName === '' ||
-      productionValue.productionPrice === '' ||
-      productionValue.productionQuantity === '' ||
-      productionValue.productionDate === '' ||
-      productionValue.client.clientId === ''
+      productionValue.productionName === null ||
+      productionValue.productionPrice === null ||
+      productionValue.productionQuantity === null ||
+      productionValue.productionStartDate === null ||
+      productionValue.productionStartDate === 'Invalid date' ||
+      productionValue.productionReleasedDate === null ||
+      productionValue.productionReleasedDate === 'Invalid date' ||
+      productionValue.client.clientId === null
     ) {
       message.error('필수 입력값을 입력해 주세요.');
     } else {

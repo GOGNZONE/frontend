@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import AdminBomRegistPresenter from 'Routes/pages/Admin/pages/AdminBom/AdminBomRegist/AdminBomRegistPresenter';
+import AdminBomRegistPresenter from './AdminBomRegistPresenter';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBomList, registerBom } from 'store/modules/bom/bomActions';
 import { getStorageList } from 'store/modules/storage/storageActions';
