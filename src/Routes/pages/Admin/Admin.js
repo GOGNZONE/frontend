@@ -26,6 +26,7 @@ import {
   AdminProductionRegistration,
   AdminProductionList,
   AdminProductionDetails,
+  AdminProductionListCompleted,
   AdminReleaseRegistrationInProduction,
   AdminReleaseRegistration,
   AdminReleaseList,
@@ -86,6 +87,10 @@ const Admin = ({ checkAdmin, logout }) => {
         <Route
           path="/production/:productionIdParams"
           element={<AdminProductionDetails />}
+        />
+        <Route
+          path="/production/list-completed"
+          element={<AdminProductionListCompleted />}
         />
         {/* release */}
         <Route

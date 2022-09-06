@@ -45,12 +45,35 @@ const items = [
     ),
     getItem(<Link to="/admin/client">거래처 등록</Link>, '/admin/client'),
   ]),
-  getItem('생산 관리', '/production', <DropboxOutlined />, [
+  getItem('생산 관리', 'sub1', <DropboxOutlined />, [
     getItem(
-      <Link to="/admin/production/list">생산 목록</Link>,
-      '/admin/production/list',
+      '시작전/진행중',
+      'g1',
+      null,
+      [
+        getItem(
+          <Link to="/admin/production/list">생산 목록</Link>,
+          '/admin/production/list',
+        ),
+        getItem(
+          <Link to="/admin/production">생산 등록</Link>,
+          '/admin/production',
+        ),
+      ],
+      'group',
     ),
-    getItem(<Link to="/admin/production">생산 등록</Link>, '/admin/production'),
+    getItem(
+      '완료',
+      'g2',
+      null,
+      [
+        getItem(
+          <Link to="/admin/production/list-completed">생산 목록</Link>,
+          '/admin/production/list-completed',
+        ),
+      ],
+      'group',
+    ),
   ]),
   getItem('재고 관리', '/stock', <InboxOutlined />, [
     getItem(<Link to="/admin/stock/list">재고 목록</Link>, '/admin/stock/list'),
@@ -62,10 +85,6 @@ const items = [
       '/release/stock/list',
     ),
     getItem(<Link to="/admin/release">출고 등록</Link>, '/release/stock'),
-  ]),
-  getItem('BOM 관리', '/bom', <FileDoneOutlined />, [
-    getItem(<Link to="/admin/bom/list">BOM 목록</Link>, '/admin/bom/list'),
-    getItem(<Link to="/admin/bom">BOM 등록</Link>, '/admin/bom'),
   ]),
   getItem('발주 관리', '/order', <PhoneOutlined />, [
     getItem(

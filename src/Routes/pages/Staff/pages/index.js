@@ -9,6 +9,7 @@ export {
   StaffProductionList,
   StaffProductionRegistration,
   StaffProductionDetails,
+  StaffProductionListCompleted,
 } from './StaffProduction';
 export {
   StaffStorageInfo,

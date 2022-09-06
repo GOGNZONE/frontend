@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import AdminOrderRegistPresenter from 'Routes/pages/Admin/pages/AdminOrder/AdminOrderRegist/AdminOrderRegistPresenter';
+import AdminOrderRegistPresenter from './AdminOrderRegistPresenter';
 import { useSelector, useDispatch } from 'react-redux';
 import { registerOrder } from 'store/modules/order/orderActions';
-import { getClientList } from 'store/modules/client';
+import { getClientList } from 'store/modules/client/clientActions';
 import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
 

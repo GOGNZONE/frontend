@@ -10,11 +10,13 @@ import {
   Spin,
   Modal,
   BackTop,
+  message,
 } from 'antd';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 const { TextArea } = Input;
+const { Text } = Typography;
 
 const ReleaseRegistrationInProductionPresenter = ({
   releaseValue,
@@ -25,7 +27,6 @@ const ReleaseRegistrationInProductionPresenter = ({
   isModalVisible,
   setIsModalVisible,
 }) => {
-  console.log(productionData);
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -42,12 +43,17 @@ const ReleaseRegistrationInProductionPresenter = ({
     const { value } = e.target;
     onChangeHandler({
       ...releaseValue,
-      deliveryDto: { ...releaseValue.deliveryDto, [name]: value },
+      delivery: { ...releaseValue.delivery, [name]: value },
     });
   });
 
   const onChangeInputHandler = useCallback((name, e) => {
     const { value } = e.target;
+
+    if (value == `${productionData.productionQuantity}`) {
+      message.warning('출고수량은 생산 수량을 초과할 수 없습니다.');
+    }
+
     onChangeHandler({
       ...releaseValue,
       [name]: value,
@@ -60,6 +66,10 @@ const ReleaseRegistrationInProductionPresenter = ({
       [name]: value,
     });
   });
+
+  const disabledDate = (current) => {
+    return current < moment(productionData.productionEndDate).endOf('day');
+  };
 
   return (
     <>
@@ -116,21 +126,6 @@ const ReleaseRegistrationInProductionPresenter = ({
             size="large"
           >
             <Form.Item
-              name="releaseId"
-              label="출고코드"
-              rules={[
-                {
-                  required: true,
-                  message: '출고코드를 입력해주세요!',
-                },
-              ]}
-            >
-              <Input
-                placeholder="출고코드"
-                onChange={(e) => onChangeInputHandler('releaseId', e)}
-              />
-            </Form.Item>
-            <Form.Item
               name="releaseDate"
               label="출고일자"
               rules={[
@@ -150,6 +145,7 @@ const ReleaseRegistrationInProductionPresenter = ({
                     moment(e).format('YYYY-MM-DD'),
                   )
                 }
+                disabledDate={disabledDate}
               />
             </Form.Item>
             <Form.Item
@@ -167,6 +163,7 @@ const ReleaseRegistrationInProductionPresenter = ({
             >
               <InputNumber
                 min={1}
+                max={`${productionData.productionQuantity}`}
                 style={{
                   width: '100%',
                 }}
@@ -181,22 +178,16 @@ const ReleaseRegistrationInProductionPresenter = ({
                   })
                 }
               />
+              <Text type="danger">
+                출고가능수량 : {productionData.productionQuantity}개
+              </Text>
             </Form.Item>
-            <Form.Item
-              name="releaseTotalPrice"
-              label="공급가액(합계)"
-              rules={[
-                {
-                  required: true,
-                  message: '공급 가액을 입력해주세요!',
-                },
-              ]}
-              required
-              tooltip="공급 가액은 필수 입력 필드입니다"
-              initialValue={0}
-            >
+            <Form.Item name="releaseTotalPrice" label="공급가액(합계)">
               <InputNumber
-                min={0}
+                value={
+                  releaseValue.releaseQuantity *
+                  `${productionData.productionPrice}`
+                }
                 style={{
                   width: '100%',
                 }}
@@ -205,14 +196,13 @@ const ReleaseRegistrationInProductionPresenter = ({
                   `\￦ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                 }
                 parser={(value) => value.replace(/\￦\s?|(,*)/g, '')}
-                onChange={(e) => {
-                  onChangeInputHandler('releaseTotalPrice', {
-                    target: { value: e },
-                  });
-                }}
+                disabled={true}
               />
+              <div style={{ display: 'none' }}>
+                {releaseValue.releaseQuantity}
+              </div>
             </Form.Item>
-            <Form.Item label="출고방식">
+            <Form.Item name="releaseType" label="출고방식">
               <div style={{ display: 'flex' }}>
                 <Input disabled={true} value="배송" />
                 <Button
@@ -296,7 +286,7 @@ const ReleaseRegistrationInProductionPresenter = ({
                 </Modal>
               </div>
             </Form.Item>
-            <Form.Item label="비고">
+            <Form.Item name="releaseDescription" label="비고">
               <TextArea
                 name="releaseDescription"
                 showCount
@@ -343,22 +333,25 @@ const ReleaseRegistrationInProductionPresenter = ({
                     {productionData.productionBrandName}
                   </Descriptions.Item>
                   <Descriptions.Item label="단가">
-                    {productionData.productionPrice}
+                    {productionData.productionPrice}원
                   </Descriptions.Item>
-                  <Descriptions.Item label="제품수량/단위">
-                    {productionData.productionQuantity}
+                  <Descriptions.Item label="제품수량">
+                    {productionData.productionQuantity}개
+                  </Descriptions.Item>
+                  <Descriptions.Item label="규격/단위">
+                    {productionData.productionStandard}
                     {productionData.productionUnit}
                   </Descriptions.Item>
-                  <Descriptions.Item label="규격">
-                    {productionData.productionStandard}
+                  <Descriptions.Item label="생산 시작 일자">
+                    {productionData.productionStartDate}
                   </Descriptions.Item>
-                  <Descriptions.Item label="생성일자">
-                    {productionData.productionDate}
+                  <Descriptions.Item label="생산 완료 일자">
+                    {productionData.productionEndDate}
                   </Descriptions.Item>
                   <Descriptions.Item label="거래처코드">
-                    {productionData.releaseClientDto.clientName +
+                    {productionData.client.clientName +
                       '(' +
-                      productionData.releaseClientDto.clientId +
+                      productionData.client.clientId +
                       ')'}
                   </Descriptions.Item>
                   <Descriptions.Item label="비고">
@@ -385,22 +378,22 @@ const ReleaseRegistrationInProductionPresenter = ({
                   style={{ width: '100%' }}
                 >
                   <Descriptions.Item label="거래처코드">
-                    {productionData.releaseClientDto.clientId}
+                    {productionData.client.clientId}
                   </Descriptions.Item>
                   <Descriptions.Item label="거래처명">
-                    {productionData.releaseClientDto.clientName}
+                    {productionData.client.clientName}
                   </Descriptions.Item>
                   <Descriptions.Item label="담당자">
-                    {productionData.releaseClientDto.clientManager}
+                    {productionData.client.clientManager}
                   </Descriptions.Item>
                   <Descriptions.Item label="연락처">
-                    {productionData.releaseClientDto.clientTel}
+                    {productionData.client.clientTel}
                   </Descriptions.Item>
                   <Descriptions.Item label="주소">
-                    {productionData.releaseClientDto.clientAddress}
+                    {productionData.client.clientAddress}
                   </Descriptions.Item>
                   <Descriptions.Item label="담당자(자사)">
-                    {productionData.releaseClientDto.employeeName}
+                    {productionData.client.employeeName}
                   </Descriptions.Item>
                 </Descriptions>
               </div>
