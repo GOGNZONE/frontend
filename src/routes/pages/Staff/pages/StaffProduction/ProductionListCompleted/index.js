@@ -1,0 +1,2 @@
+import ProductionListCompletedContainer from './ProductionListCompletedContainer';
+export default ProductionListCompletedContainer;

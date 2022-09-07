@@ -14,12 +14,12 @@ const ReleaseDetailsContainer = () => {
   /***** release id params *****/
   const { releaseIdParams } = useParams();
   /***** redux(state) *****/
-  const release = useSelector((state) => state.release.release);
-  const { data, loading } = release;
+  const { data, loading } = useSelector((state) => state.release.release);
   const dispatch = useDispatch();
   const [switchToEditPage, setSwitchToEditPage] = useState(true);
   const [releaseValue, setReleaseValue] = useState({});
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isButtonVisible, setIsButtonVisible] = useState(false);
   /***** navigate *****/
   const navigate = useNavigate();
 
@@ -38,11 +38,13 @@ const ReleaseDetailsContainer = () => {
     ) {
       message.error('필수 입력값을 입력해 주세요.');
     } else {
+      releaseValue.releaseTotalPrice =
+        releaseValue.releaseQuantity * data.production.productionPrice;
       await dispatch(
         putRelease({
           releaseId: releaseIdParams,
           releaseData: releaseValue,
-          deliveryData: releaseValue.deliveryDto,
+          deliveryData: releaseValue.delivery,
         }),
       );
       await setSwitchToEditPage(true);
@@ -68,8 +70,8 @@ const ReleaseDetailsContainer = () => {
 
   const handleOk = () => {
     if (
-      releaseValue.deliveryDto.deliveryCompanyName === '' ||
-      releaseValue.deliveryDto.deliveryTrackingNumber === ''
+      releaseValue.delivery.deliveryCompanyName === '' ||
+      releaseValue.delivery.deliveryTrackingNumber === ''
     ) {
       message.error('필수 입력값을 입력해 주세요.');
     } else {
@@ -81,6 +83,18 @@ const ReleaseDetailsContainer = () => {
     setIsModalVisible(false);
   };
 
+  const onSetReleaseConfirmed = async () => {
+    releaseValue.releaseConfirmed = 1;
+    await dispatch(
+      putRelease({
+        releaseId: releaseIdParams,
+        releaseData: releaseValue,
+        deliveryData: releaseValue.delivery,
+      }),
+    );
+    await dispatch(getRelease(releaseIdParams));
+  };
+
   return switchToEditPage ? (
     <ReleaseDetailsPresenter
       data={data}
@@ -88,6 +102,9 @@ const ReleaseDetailsContainer = () => {
       setSwitchToEditPage={setSwitchToEditPage}
       onSetReleaseValue={onSetReleaseValue}
       onDeleteRelease={onDeleteRelease}
+      isButtonVisible={isButtonVisible}
+      setIsButtonVisible={setIsButtonVisible}
+      onSetReleaseConfirmed={onSetReleaseConfirmed}
     />
   ) : (
     <ReleaseUpdatePresenter

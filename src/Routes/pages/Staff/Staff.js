@@ -18,6 +18,7 @@ import {
   StaffProductionList,
   StaffProductionRegistration,
   StaffProductionDetails,
+  StaffProductionListCompleted,
   StaffClientList,
   StaffClientInfo,
   StaffReleaseList,
@@ -42,6 +43,10 @@ const Staff = ({ logout, checkAdmin }) => {
         <Route
           path="/production/:productionIdParams"
           element={<StaffProductionDetails />}
+        />
+        <Route
+          path="/production/list-completed"
+          element={<StaffProductionListCompleted />}
         />
         {/* release */}
         <Route path="/release/list" element={<StaffReleaseList />} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Table, BackTop, Button, Modal, Spin } from 'antd';
+import { Typography, Table, BackTop, Button, Modal, Spin, Tag } from 'antd';
 import { Link } from 'react-router-dom';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import Today from 'components/Today';
@@ -37,10 +37,20 @@ const ReleaseListPresenter = ({ dataSource, loading, onDeleteRelease }) => {
           style={{ display: 'flex', alignItems: 'center' }}
           key={record.releaseId}
         >
-          <Text mark style={{ marginRight: 5 }}>
-            {date}
-          </Text>
-          <Today releaseDate={date} />
+          {record.releaseConfirmed ? (
+            <Text style={{ marginRight: 5 }} delete>
+              {date}
+            </Text>
+          ) : (
+            <Text mark style={{ marginRight: 5 }}>
+              {date}
+            </Text>
+          )}
+          {record.releaseConfirmed ? (
+            <Tag color="#f50">출고확정</Tag>
+          ) : (
+            <Today releaseDate={date} />
+          )}
         </div>
       ),
     },
@@ -87,10 +97,12 @@ const ReleaseListPresenter = ({ dataSource, loading, onDeleteRelease }) => {
         <Button
           type="primary"
           size="middle"
-          style={{ backgroundColor: '#D61C4E', border: '#D61C4E' }}
+          danger
+          ghost
           onClick={() => {
             showDeleteConfirm(record.releaseId);
           }}
+          disabled={record.releaseConfirmed ? true : false}
         >
           삭제
         </Button>
@@ -103,7 +115,7 @@ const ReleaseListPresenter = ({ dataSource, loading, onDeleteRelease }) => {
         <Typography.Title level={3} style={{ marginBottom: 25 }}>
           출고 목록
         </Typography.Title>
-        <Link to="/admin/production/list">
+        <Link to="/admin/production/list-completed">
           <Button
             type="primary"
             style={{

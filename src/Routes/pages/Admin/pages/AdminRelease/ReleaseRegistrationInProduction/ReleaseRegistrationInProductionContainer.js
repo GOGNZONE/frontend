@@ -16,15 +16,15 @@ const ReleaseRegistrationInProductionContainer = () => {
     releaseDescription: '',
     releaseQuantity: 1,
     releaseTotalPrice: 0,
+    releaseConfirmed: 0,
     releaseType: '배송',
     production: { productionId: '' },
-    deliveryDto: { deliveryCompanyName: '', deliveryTrackingNumber: '' },
+    delivery: { deliveryCompanyName: '', deliveryTrackingNumber: '' },
   });
-  const { data, loading, error } = useSelector(
-    (state) => state.production.production,
-  );
+  const { data, loading } = useSelector((state) => state.production.production);
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const timestamp = new Date().getTime();
   /***** navigate *****/
   const navigate = useNavigate();
 
@@ -44,14 +44,17 @@ const ReleaseRegistrationInProductionContainer = () => {
     ) {
       message.error('필수 입력값을 입력해 주세요.');
     } else {
+      releaseValue.releaseId = timestamp;
+      releaseValue.releaseTotalPrice =
+        releaseValue.releaseQuantity * data.productionPrice;
       await dispatch(
         postRelease({
           productionId: productionIdParams,
           releaseData: releaseValue,
-          deliveryData: releaseValue.deliveryDto,
+          deliveryData: releaseValue.delivery,
         }),
       );
-      await navigate('/admin/production/list');
+      await navigate('/admin/release/list');
     }
   });
 

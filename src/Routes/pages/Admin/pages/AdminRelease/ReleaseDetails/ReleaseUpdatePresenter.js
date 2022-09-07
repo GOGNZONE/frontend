@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
 import {
   Typography,
   Button,
@@ -12,10 +11,12 @@ import {
   Input,
   Empty,
   Form,
+  message,
 } from 'antd';
 import moment from 'moment';
 
 const { TextArea } = Input;
+const { Text } = Typography;
 
 const ReleaseUpdatePresenter = ({
   data,
@@ -29,8 +30,14 @@ const ReleaseUpdatePresenter = ({
   handleCancel,
   setSwitchToEditPage,
 }) => {
+  console.log(data);
   const onChangeInputHandler = useCallback((name, e) => {
     const { value } = e.target;
+
+    // if (value > `${data.production.productionQuantity}`) {
+    //   message.warning('출고수량은 생산 수량을 초과할 수 없습니다.');
+    // }
+
     onChangeHandler({
       ...releaseValue,
       [name]: value,
@@ -48,7 +55,7 @@ const ReleaseUpdatePresenter = ({
     const { value } = e.target;
     onChangeHandler({
       ...releaseValue,
-      deliveryDto: { ...releaseValue.deliveryDto, [name]: value },
+      delivery: { ...releaseValue.delivery, [name]: value },
     });
   });
 
@@ -126,9 +133,10 @@ const ReleaseUpdatePresenter = ({
                   }
                 />
               </Descriptions.Item>
-              <Descriptions.Item label="수량">
+              <Descriptions.Item label="출고수량">
                 <InputNumber
                   min={1}
+                  max={`${data.production.productionQuantity}`}
                   style={{
                     width: '100%',
                   }}
@@ -144,10 +152,20 @@ const ReleaseUpdatePresenter = ({
                     })
                   }
                 />
+                <Text style={{ color: '#277BC0' }}>
+                  * 생산수량 : {data.production.productionQuantity}개
+                </Text>
+                <br />
+                <Text type="danger">
+                  * 출고예정수량 : {data.releaseQuantity}개
+                </Text>
               </Descriptions.Item>
               <Descriptions.Item label="공급가액(합계)">
                 <InputNumber
-                  min={0}
+                  value={
+                    releaseValue.releaseQuantity *
+                    `${data.production.productionPrice}`
+                  }
                   style={{
                     width: '100%',
                   }}
@@ -157,12 +175,11 @@ const ReleaseUpdatePresenter = ({
                   }
                   parser={(value) => value.replace(/\￦\s?|(,*)/g, '')}
                   defaultValue={data.releaseTotalPrice}
-                  onChange={(e) => {
-                    onChangeInputHandler('releaseTotalPrice', {
-                      target: { value: e },
-                    });
-                  }}
+                  disabled={true}
                 />
+                <div style={{ display: 'none' }}>
+                  {releaseValue.releaseQuantity}
+                </div>
               </Descriptions.Item>
               <Descriptions.Item label="출고방식" span={2}>
                 {data.releaseType}
@@ -190,9 +207,7 @@ const ReleaseUpdatePresenter = ({
                   }}
                   onClick={showModal}
                 >
-                  {data.deliveryDto.deliveryCompanyName === ''
-                    ? '택배사등록'
-                    : '택배사수정'}
+                  {data.delivery === null ? '택배사등록' : '택배사수정'}
                 </Button>
                 <Modal
                   title="택배사 등록"
@@ -224,7 +239,11 @@ const ReleaseUpdatePresenter = ({
                         onChange={(e) =>
                           onChangeDeliveryInputHandler('deliveryCompanyName', e)
                         }
-                        defaultValue={data.deliveryDto.deliveryCompanyName}
+                        defaultValue={
+                          data.delivery === null
+                            ? ''
+                            : data.delivery.deliveryCompanyName
+                        }
                       />
                     </Form.Item>
                     <Form.Item
@@ -247,7 +266,11 @@ const ReleaseUpdatePresenter = ({
                             e,
                           )
                         }
-                        defaultValue={data.deliveryDto.deliveryTrackingNumber}
+                        defaultValue={
+                          data.delivery === null
+                            ? ''
+                            : data.delivery.deliveryTrackingNumber
+                        }
                       />
                     </Form.Item>
                   </Form>
@@ -298,25 +321,25 @@ const ReleaseUpdatePresenter = ({
                   bordered
                   column={1}
                   labelStyle={{ width: '140px' }}
-                  style={{ width: '380px' }}
+                  style={{ width: '98.5%' }}
                 >
                   <Descriptions.Item label="거래처코드">
-                    {data.releaseClientDto.clientId}
+                    {data.client.clientId}
                   </Descriptions.Item>
                   <Descriptions.Item label="거래처명">
-                    {data.releaseClientDto.clientName}
+                    {data.client.clientName}
                   </Descriptions.Item>
                   <Descriptions.Item label="담당자">
-                    {data.releaseClientDto.clientManager}
+                    {data.client.clientManager}
                   </Descriptions.Item>
                   <Descriptions.Item label="연락처">
-                    {data.releaseClientDto.clientTel}
+                    {data.client.clientTel}
                   </Descriptions.Item>
                   <Descriptions.Item label="주소">
-                    {data.releaseClientDto.clientAddress}
+                    {data.client.clientAddress}
                   </Descriptions.Item>
                   <Descriptions.Item label="담당자(자사)">
-                    {data.releaseClientDto.employeeName}
+                    {data.client.employeeName}
                   </Descriptions.Item>
                 </Descriptions>
               </div>
@@ -339,16 +362,16 @@ const ReleaseUpdatePresenter = ({
                   bordered
                   column={1}
                   labelStyle={{ width: '160px' }}
-                  style={{ width: '391px' }}
+                  style={{ width: '98.5%' }}
                 >
                   <Descriptions.Item label="생산 제품명">
-                    {data.releaseProductionDto.productionName}
+                    {data.production.productionName}
                   </Descriptions.Item>
                   <Descriptions.Item label="생산 제품 브랜드명">
-                    {data.releaseProductionDto.productionBrandName}
+                    {data.production.productionBrandName}
                   </Descriptions.Item>
                   <Descriptions.Item label="생산 제품 단가">
-                    {data.releaseProductionDto.productionPrice}
+                    {data.production.productionPrice}원
                   </Descriptions.Item>
                 </Descriptions>
               </div>
@@ -366,21 +389,20 @@ const ReleaseUpdatePresenter = ({
                 >
                   배송정보
                 </Typography.Title>
-                {data.deliveryDto.deliveryCompanyName === '' ||
-                data.deliveryDto.deliveryTrackingNumber === '' ? (
+                {data.delivery === null ? (
                   <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
                 ) : (
                   <Descriptions
                     bordered
                     column={1}
                     labelStyle={{ width: '140px' }}
-                    style={{ width: '380px' }}
+                    style={{ width: '98.5%' }}
                   >
                     <Descriptions.Item label="택배사">
-                      {data.deliveryDto.deliveryCompanyName}
+                      {data.delivery.deliveryCompanyName}
                     </Descriptions.Item>
                     <Descriptions.Item label="운송장번호">
-                      {data.deliveryDto.deliveryTrackingNumber}
+                      {data.delivery.deliveryTrackingNumber}
                     </Descriptions.Item>
                   </Descriptions>
                 )}

@@ -24,6 +24,7 @@ export {
   AdminProductionDetails,
   AdminProductionList,
   AdminProductionRegistration,
+  AdminProductionListCompleted,
 } from './AdminProduction';
 
 export {

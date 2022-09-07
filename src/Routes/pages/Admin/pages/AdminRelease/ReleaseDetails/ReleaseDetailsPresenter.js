@@ -11,6 +11,9 @@ const ReleaseDetailsPresenter = ({
   setSwitchToEditPage,
   onSetReleaseValue,
   onDeleteRelease,
+  isButtonVisible,
+  setIsButtonVisible,
+  onSetReleaseConfirmed,
 }) => {
   const showDeleteConfirm = (releaseId) => {
     confirm({
@@ -41,31 +44,65 @@ const ReleaseDetailsPresenter = ({
                 출고 상세정보
               </Typography.Title>
               <div>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  style={{
-                    margin: 5,
-                    backgroundColor: '#FEB139',
-                    border: '#FEB139',
-                  }}
-                  onClick={() => {
-                    setSwitchToEditPage(false);
-                    onSetReleaseValue(data);
-                  }}
-                >
-                  수정
-                </Button>
-                <Button
-                  type="primary"
-                  size="middle"
-                  style={{ backgroundColor: '#D61C4E', border: '#D61C4E' }}
-                  onClick={() => {
-                    showDeleteConfirm(data.releaseId);
-                  }}
-                >
-                  삭제
-                </Button>
+                {data.delivery ? (
+                  <>
+                    <Button
+                      type="primary"
+                      onClick={() => {
+                        setIsButtonVisible(true);
+                        onSetReleaseValue(data);
+                      }}
+                      disabled={data.releaseConfirmed ? true : false}
+                    >
+                      출고확정
+                    </Button>
+                    <Modal
+                      title="경고"
+                      centered
+                      visible={isButtonVisible}
+                      onOk={() => {
+                        setIsButtonVisible(false);
+                        onSetReleaseConfirmed();
+                      }}
+                      onCancel={() => setIsButtonVisible(false)}
+                    >
+                      <p>출고 확정 후 취소 불가합니다. 진행하시겠습니까?</p>
+                    </Modal>
+                  </>
+                ) : (
+                  ''
+                )}
+                {data.releaseConfirmed ? (
+                  ''
+                ) : (
+                  <>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      style={{
+                        margin: 5,
+                        backgroundColor: '#FEB139',
+                        border: '#FEB139',
+                      }}
+                      onClick={() => {
+                        setSwitchToEditPage(false);
+                        onSetReleaseValue(data);
+                      }}
+                    >
+                      수정
+                    </Button>
+                    <Button
+                      type="primary"
+                      size="middle"
+                      style={{ backgroundColor: '#D61C4E', border: '#D61C4E' }}
+                      onClick={() => {
+                        showDeleteConfirm(data.releaseId);
+                      }}
+                    >
+                      삭제
+                    </Button>
+                  </>
+                )}
                 <Link to="/admin/release/list">
                   <Button
                     type="primary"
@@ -132,25 +169,25 @@ const ReleaseDetailsPresenter = ({
                     bordered
                     column={1}
                     labelStyle={{ width: '140px' }}
-                    style={{ width: '380px' }}
+                    style={{ width: '98.5%' }}
                   >
                     <Descriptions.Item label="거래처코드">
-                      {data.releaseClientDto.clientId}
+                      {data.client.clientId}
                     </Descriptions.Item>
                     <Descriptions.Item label="거래처명">
-                      {data.releaseClientDto.clientName}
+                      {data.client.clientName}
                     </Descriptions.Item>
                     <Descriptions.Item label="담당자">
-                      {data.releaseClientDto.clientManager}
+                      {data.client.clientManager}
                     </Descriptions.Item>
                     <Descriptions.Item label="연락처">
-                      {data.releaseClientDto.clientTel}
+                      {data.client.clientTel}
                     </Descriptions.Item>
                     <Descriptions.Item label="주소">
-                      {data.releaseClientDto.clientAddress}
+                      {data.client.clientAddress}
                     </Descriptions.Item>
                     <Descriptions.Item label="담당자(자사)">
-                      {data.releaseClientDto.employeeName}
+                      {data.client.employeeName}
                     </Descriptions.Item>
                   </Descriptions>
                 </div>
@@ -173,16 +210,16 @@ const ReleaseDetailsPresenter = ({
                     bordered
                     column={1}
                     labelStyle={{ width: '160px' }}
-                    style={{ width: '391px' }}
+                    style={{ width: '98.5%' }}
                   >
                     <Descriptions.Item label="생산 제품명">
-                      {data.releaseProductionDto.productionName}
+                      {data.production.productionName}
                     </Descriptions.Item>
                     <Descriptions.Item label="생산 제품 브랜드명">
-                      {data.releaseProductionDto.productionBrandName}
+                      {data.production.productionBrandName}
                     </Descriptions.Item>
                     <Descriptions.Item label="생산 제품 단가">
-                      {data.releaseProductionDto.productionPrice}
+                      {data.production.productionPrice}
                     </Descriptions.Item>
                   </Descriptions>
                 </div>
@@ -200,21 +237,20 @@ const ReleaseDetailsPresenter = ({
                   >
                     배송정보
                   </Typography.Title>
-                  {data.deliveryDto.deliveryCompanyName === '' ||
-                  data.deliveryDto.deliveryTrackingNumber === '' ? (
+                  {data.delivery === null ? (
                     <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
                   ) : (
                     <Descriptions
                       bordered
                       column={1}
                       labelStyle={{ width: '140px' }}
-                      style={{ width: '380px' }}
+                      style={{ width: '98.5%' }}
                     >
                       <Descriptions.Item label="택배사">
-                        {data.deliveryDto.deliveryCompanyName}
+                        {data.delivery.deliveryCompanyName}
                       </Descriptions.Item>
                       <Descriptions.Item label="운송장번호">
-                        {data.deliveryDto.deliveryTrackingNumber}
+                        {data.delivery.deliveryTrackingNumber}
                       </Descriptions.Item>
                     </Descriptions>
                   )}

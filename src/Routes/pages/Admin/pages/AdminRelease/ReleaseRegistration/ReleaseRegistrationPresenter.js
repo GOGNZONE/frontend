@@ -17,6 +17,7 @@ import moment from 'moment';
 
 const { TextArea } = Input;
 const { Option } = Select;
+const { Text } = Typography;
 
 const ReleaseRegistrationPresenter = ({
   releaseValue,
@@ -26,6 +27,8 @@ const ReleaseRegistrationPresenter = ({
   setIsModalVisible,
   productionData,
   loading,
+  setIndex,
+  index,
 }) => {
   const showModal = () => {
     setIsModalVisible(true);
@@ -33,8 +36,8 @@ const ReleaseRegistrationPresenter = ({
 
   const handleOk = () => {
     if (
-      releaseValue.deliveryDto.deliveryCompanyName === '' ||
-      releaseValue.deliveryDto.deliveryTrackingNumber === ''
+      releaseValue.delivery.deliveryCompanyName === '' ||
+      releaseValue.delivery.deliveryTrackingNumber === ''
     ) {
       message.error('필수 입력값을 입력해 주세요.');
     } else {
@@ -74,9 +77,19 @@ const ReleaseRegistrationPresenter = ({
     const { value } = e.target;
     onChangeHandler({
       ...releaseValue,
-      deliveryDto: { ...releaseValue.deliveryDto, [name]: value },
+      delivery: { ...releaseValue.delivery, [name]: value },
     });
   });
+
+  const disabledDate = (current) => {
+    return (
+      current < moment(productionData[index].productionEndDate).endOf('day')
+    );
+  };
+
+  const onSelect = (value) => {
+    setIndex(value);
+  };
 
   return (
     <>
@@ -117,15 +130,16 @@ const ReleaseRegistrationPresenter = ({
                 filterOption={(input, option) =>
                   option.children.toLowerCase().includes(input.toLowerCase())
                 }
-                onChange={(e) => {
-                  onChangeProductionInputHandler('productionId', e);
-                }}
+                onSelect={onSelect}
               >
-                {productionData.map((production) => {
-                  if (production.releases.length === 0) {
+                {productionData.map((production, index) => {
+                  if (
+                    production.releases.length === 0 &&
+                    production.productionEndDate !== null
+                  ) {
                     return (
                       <Option
-                        value={`${production.productionId}`}
+                        value={`${index}`}
                         key={`${production.productionId}`}
                       >
                         {production.productionName} ({production.productionId})
@@ -134,21 +148,6 @@ const ReleaseRegistrationPresenter = ({
                   }
                 })}
               </Select>
-            </Form.Item>
-            <Form.Item
-              name="releaseId"
-              label="출고코드"
-              rules={[
-                {
-                  required: true,
-                  message: '출고코드를 입력해주세요!',
-                },
-              ]}
-            >
-              <Input
-                placeholder="출고코드"
-                onChange={(e) => onChangeInputHandler('releaseId', e)}
-              />
             </Form.Item>
             <Form.Item
               name="releaseDate"
@@ -170,6 +169,7 @@ const ReleaseRegistrationPresenter = ({
                     moment(e).format('YYYY-MM-DD'),
                   )
                 }
+                disabledDate={disabledDate}
               />
             </Form.Item>
             <Form.Item
@@ -183,10 +183,11 @@ const ReleaseRegistrationPresenter = ({
               ]}
               required
               tooltip="출고 수량은 필수 입력 필드입니다"
-              initialValue={1}
             >
               <InputNumber
                 min={1}
+                defaultValue={1}
+                max={productionData[index].productionQuantity}
                 style={{
                   width: '100%',
                 }}
@@ -201,22 +202,22 @@ const ReleaseRegistrationPresenter = ({
                   })
                 }
               />
+              {index ? (
+                <Text type="danger">
+                  출고가능수량 : {productionData[index].productionQuantity}개
+                </Text>
+              ) : (
+                ''
+              )}
             </Form.Item>
-            <Form.Item
-              name="releaseTotalPrice"
-              label="공급가액(합계)"
-              rules={[
-                {
-                  required: true,
-                  message: '공급 가액을 입력해주세요!',
-                },
-              ]}
-              required
-              tooltip="공급 가액은 필수 입력 필드입니다"
-              initialValue={0}
-            >
+            <Form.Item name="releaseTotalPrice" label="공급가액(합계)">
               <InputNumber
-                min={0}
+                value={
+                  productionData[index].releases.length !== 0
+                    ? 0
+                    : releaseValue.releaseQuantity *
+                      `${productionData[index].productionPrice}`
+                }
                 style={{
                   width: '100%',
                 }}
@@ -225,12 +226,11 @@ const ReleaseRegistrationPresenter = ({
                   `\￦ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                 }
                 parser={(value) => value.replace(/\￦\s?|(,*)/g, '')}
-                onChange={(e) => {
-                  onChangeInputHandler('releaseTotalPrice', {
-                    target: { value: e },
-                  });
-                }}
+                disabled={true}
               />
+              <div style={{ display: 'none' }}>
+                {releaseValue.releaseQuantity}
+              </div>
             </Form.Item>
             <Form.Item label="출고방식">
               <div style={{ display: 'flex' }}>
