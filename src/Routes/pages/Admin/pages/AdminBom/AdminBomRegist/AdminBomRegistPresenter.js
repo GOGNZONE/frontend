@@ -13,7 +13,6 @@ import {
   Upload,
 } from 'antd';
 import moment from 'moment';
-import FU from 'components/FU';
 
 const normFile = (e) => {
   if (Array.isArray(e)) {
@@ -206,8 +205,7 @@ function AdminBomRegistPresenter({
               />
             </Form.Item> */}
             <Form.Item label="원자재 관련 파일" getValueFromEvent={normFile}>
-              <FU onChange={onChange} bom={bom} />
-              {/* <Button icon={<UploadOutlined />}>업로드</Button> */}
+              <Button icon={<UploadOutlined />}>업로드</Button>
             </Form.Item>
           </Form>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
