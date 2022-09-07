@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Button, Modal } from 'antd';
+import { Typography, Table, Button, Modal } from 'antd';
 import { Link } from 'react-router-dom';
 import { v4 } from 'uuid';
 
@@ -52,9 +52,14 @@ function AdminStorageListPresenter({ storageList, onDeleteHandler }) {
   ];
   return (
     <div>
-      <Link to="/admin/Storage">
-        <Button>등록</Button>
-      </Link>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Typography.Title level={3} style={{ marginBottom: 25 }}>
+          재고 목록
+        </Typography.Title>
+        <Link to="/admin/Storage">
+          <Button>등록</Button>
+        </Link>
+      </div>
       <Table rowKey={() => v4()} columns={columns} dataSource={storageList} />
       <Modal
         title="삭제"

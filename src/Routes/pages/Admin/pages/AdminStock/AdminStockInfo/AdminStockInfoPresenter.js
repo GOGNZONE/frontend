@@ -8,7 +8,7 @@ function AdminStockInfoPresenter({ data, changePageHandler, onDeleteHandler }) {
     <>
       {data ? (
         <>
-          <Row align="middle" gutter={8}>
+          <Row align="middle" gutter={6}>
             <Col flex={4}>
               <Descriptions title="재고 정보" bordered>
                 <Descriptions.Item label="재고 코드">
@@ -25,8 +25,9 @@ function AdminStockInfoPresenter({ data, changePageHandler, onDeleteHandler }) {
                 </Descriptions.Item>
               </Descriptions>
             </Col>
-
-            <br />
+          </Row>
+          <br />
+          <Row align="middle" gutter={6}>
             <Col flex={4}>
               <Descriptions title="보관 창고 정보" bordered>
                 <Descriptions.Item label="창고 번호">

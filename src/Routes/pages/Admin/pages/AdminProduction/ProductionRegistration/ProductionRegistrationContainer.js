@@ -24,6 +24,8 @@ const ProductionRegistrationContainer = () => {
     (state) => state.client.clientList,
   );
 
+  console.log(productionValue);
+
   const dispatch = useDispatch();
   /***** navigate *****/
   const navigate = useNavigate();

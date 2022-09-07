@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Button } from 'antd';
+import { Typography, Table, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import { v4 } from 'uuid';
 
@@ -31,9 +31,14 @@ function StaffStockListPresenter({ stockList }) {
   ];
   return (
     <div>
-      <Link to="/staff/stock">
-        <Button>등록</Button>
-      </Link>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Typography.Title level={3} style={{ marginBottom: 25 }}>
+          재고 목록
+        </Typography.Title>
+        <Link to="/staff/stock">
+          <Button>등록</Button>
+        </Link>
+      </div>
       <Table rowKey={() => v4()} columns={columns} dataSource={stockList} />
     </div>
   );

@@ -9,7 +9,7 @@ import {
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
-import { getClientList } from 'store/modules/client';
+import { getClientList } from 'store/modules/client/clientActions';
 
 function AdminOrderInfoContainer() {
   const { orderIdParams } = useParams();

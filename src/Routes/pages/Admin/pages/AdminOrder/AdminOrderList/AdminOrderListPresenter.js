@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Button, Modal } from 'antd';
+import { Typography, Table, Button, Modal } from 'antd';
 import { Link } from 'react-router-dom';
 import { v4 } from 'uuid';
 
@@ -66,10 +66,14 @@ function AdminOrderListPresenter({
   ];
   return (
     <div>
-      <h2>발주 리스트</h2>
-      <Link to="/admin/order">
-        <Button>등록</Button>
-      </Link>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Typography.Title level={3} style={{ marginBottom: 25 }}>
+          발주 목록
+        </Typography.Title>
+        <Link to="/admin/order">
+          <Button>등록</Button>
+        </Link>
+      </div>
       <Table rowKey={() => v4()} columns={columns} dataSource={orderList} />
       <Modal
         title="삭제"
