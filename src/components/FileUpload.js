@@ -5,7 +5,7 @@ import { Upload, Button, message } from 'antd';
 
 const FileUpload = ({ onChangeHandler, productionValue }) => {
   const token = localStorage.getItem('ACCESS_TOKEN');
-
+  const codeNumber = Date.now();
   const props = {
     name: 'file',
     action: '/api/file/upload',
@@ -40,7 +40,7 @@ const FileUpload = ({ onChangeHandler, productionValue }) => {
 
       onChangeHandler({
         ...productionValue,
-        productionFile: info.file.name,
+        productionFile: codeNumber + '_' + info.file.name,
       });
     },
 
@@ -60,7 +60,7 @@ const FileUpload = ({ onChangeHandler, productionValue }) => {
           formData.append(key, data[key]);
         });
       }
-      formData.append(filename, file);
+      formData.append(filename, file, codeNumber + '_' + file.name);
 
       await axios
         .post(action, formData, {

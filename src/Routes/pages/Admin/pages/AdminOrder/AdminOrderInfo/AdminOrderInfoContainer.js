@@ -8,10 +8,6 @@ import {
 } from 'store/modules/order/orderActions';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-<<<<<<< HEAD
-import moment from 'moment';
-=======
->>>>>>> 55a89eeb0ade623f5f47fe1a31f6cecc244ab6d0
 import { getClientList } from 'store/modules/client/clientActions';
 
 function AdminOrderInfoContainer() {

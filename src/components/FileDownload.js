@@ -28,7 +28,8 @@ const FileDownload = ({ file }) => {
   return (
     <a onClick={() => onDownloadClick()}>
       <Text underline style={{ color: '#1890FF' }}>
-        {file}
+        {file.substring(file.lastIndexOf('_') + 1)}
+        {/* {file} */}
       </Text>
     </a>
   );
