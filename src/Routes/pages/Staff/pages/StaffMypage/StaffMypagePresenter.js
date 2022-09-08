@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, Descriptions, Col, Row, Spin, Button } from 'antd';
-import Profile from 'assets/test.png';
+import Profile from 'assets/profile.png';
 import Swal from 'sweetalert2';
 
 const StaffMypagePresenter = ({ mypage, loading, error, setPage }) => {
@@ -18,7 +18,15 @@ const StaffMypagePresenter = ({ mypage, loading, error, setPage }) => {
     <>
       <Row align="middle" gutter={8}>
         <Col>
-          <Image width={250} height={250} src={Profile} />
+          <Image
+            width={250}
+            height={250}
+            src={
+              mypage.employeeImage
+                ? `https://gongzone1bucket.s3.ap-northeast-2.amazonaws.com/${mypage.employeeImage}`
+                : Profile
+            }
+          />
         </Col>
         <Col flex={4}>
           <Descriptions title="마이페이지" bordered>

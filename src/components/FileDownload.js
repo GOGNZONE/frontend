@@ -28,7 +28,7 @@ const FileDownload = ({ file }) => {
   return (
     <a onClick={() => onDownloadClick()}>
       <Text underline style={{ color: '#1890FF' }}>
-        {file.substring(file.lastIndexOf('_') + 1)}
+        {file ? file.substring(file.lastIndexOf('_') + 1) : '없음'}
         {/* {file} */}
       </Text>
     </a>

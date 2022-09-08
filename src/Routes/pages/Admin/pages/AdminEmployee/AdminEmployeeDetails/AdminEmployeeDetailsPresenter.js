@@ -1,11 +1,12 @@
 import React from 'react';
 import { Image, Descriptions, Col, Row, Button } from 'antd';
-import Profile from 'assets/test.png';
+import Profile from 'assets/profile.png';
 import { useNavigate } from 'react-router-dom';
 import Loading from 'components/Loading';
 
 const AdminEmployeeDetailsPresenter = ({ employee, loading, error }) => {
   const navigate = useNavigate();
+  console.log(employee);
   return loading ? (
     <div
       style={{
@@ -20,7 +21,15 @@ const AdminEmployeeDetailsPresenter = ({ employee, loading, error }) => {
     <>
       <Row align="middle" gutter={8}>
         <Col>
-          <Image width={250} height={250} src={Profile} />
+          <Image
+            width={250}
+            height={250}
+            src={
+              employee.employeeImage
+                ? `https://gongzone1bucket.s3.ap-northeast-2.amazonaws.com/${employee.employeeImage}`
+                : Profile
+            }
+          />
         </Col>
         <Col flex={4}>
           <Descriptions title="사원 정보" bordered>
