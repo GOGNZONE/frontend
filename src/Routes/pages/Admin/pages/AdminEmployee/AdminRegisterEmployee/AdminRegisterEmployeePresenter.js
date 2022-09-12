@@ -12,6 +12,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import ImgUpload from 'components/ImgUpload';
+import FileUpload from 'components/FileUpload';
 
 const { Option } = Select;
 const normFile = (e) => {
@@ -197,9 +198,10 @@ const AdminRegisterEmployeePresenter = ({
           </Select>
         </Form.Item>
         <Form.Item label="사원 이미지" getValueFromEvent={normFile}>
-          <ImgUpload
+          <FileUpload
+            fileName={'employeeImage'}
             onChangeHandler={onChangeHandler}
-            employeeInfo={employeeInfo}
+            preventValue={employeeInfo}
           />
         </Form.Item>
         <div
