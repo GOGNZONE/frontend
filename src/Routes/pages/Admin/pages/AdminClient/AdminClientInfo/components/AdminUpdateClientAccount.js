@@ -7,6 +7,7 @@ const AdminUpdateClientAccount = ({
   loading,
   error,
   setPage,
+  onChangeClientAccountInfo,
   onClientAccountChangeHandler,
   onClientAccountUpdateHandler,
   onClientAccountResetHandler,
@@ -54,7 +55,8 @@ const AdminUpdateClientAccount = ({
             <Input
               name="accountBank"
               placeholder="은행명"
-              onChange={onClientAccountChangeHandler}
+              onChange={(e) => onChangeClientAccountInfo('accountBank', e)}
+              defaultValue={clientInfo.account.accountBank}
             />
           </Form.Item>
           <Form.Item
@@ -71,7 +73,8 @@ const AdminUpdateClientAccount = ({
             <Input
               name="accountNumber"
               placeholder="계좌번호"
-              onChange={onClientAccountChangeHandler}
+              onChange={(e) => onChangeClientAccountInfo('accountNumber', e)}
+              defaultValue={clientInfo.account.accountNumber}
             />
           </Form.Item>
           <Form.Item
@@ -88,7 +91,8 @@ const AdminUpdateClientAccount = ({
             <Input
               name="accountDepositor"
               placeholder="예금주"
-              onChange={onClientAccountChangeHandler}
+              onChange={(e) => onChangeClientAccountInfo('accountDepositor', e)}
+              defaultValue={clientInfo.account.accountDepositor}
             />
           </Form.Item>
         </Form>

@@ -61,16 +61,18 @@ const AdminClientInfoContainer = () => {
     clientTel !== '' &&
     clientAddress !== '' &&
     clientManger !== ''
-      ? await dispatch(updateClient({ client_id: clientId, updateClientInfo }))
-      : // Swal.fire({
-        //   position: 'center',
-        //   icon: 'success',
-        //   title: '수정완료',
-        //   showConfirmButton: false,
-        //   timer: 1500,
-        // }),
-        // window.location.reload())
-        Swal.fire({
+      ? await dispatch(
+          updateClient({ client_id: clientId, updateClientInfo }),
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: '수정완료',
+            showConfirmButton: false,
+            timer: 1500,
+          }),
+          window.location.reload(),
+        )
+      : Swal.fire({
           position: 'center',
           icon: 'error',
           title: '필수값을 입력해주세요',
@@ -159,6 +161,7 @@ const AdminClientInfoContainer = () => {
         loading={loading}
         error={error}
         setPage={setPage}
+        onChangeClientAccountInfo={onChangeClientAccountInfo}
         onClientAccountChangeHandler={onClientAccountChangeHandler}
         onClientAccountUpdateHandler={onClientAccountUpdateHandler}
         onClientAccountResetHandler={onClientAccountResetHandler}

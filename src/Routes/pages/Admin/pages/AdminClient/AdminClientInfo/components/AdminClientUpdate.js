@@ -115,7 +115,11 @@ const AdminClientUpdate = ({
             </Form.Item>
 
             <Form.Item label="거래처 관련 파일" valuePropName="fileList">
-              <FileUpload onChangeHandler={onChangeClientInfo} />
+              <FileUpload
+                onChangeHandler={onChangeClientInfo}
+                preventValue={clientInfo}
+                fileName={'clientFile'}
+              />
             </Form.Item>
           </Form>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
