@@ -14,22 +14,11 @@ const StaffMypageContainer = () => {
   const { data, loading, error } = useSelector(
     (state) => state.employee.mypage,
   );
-  const [updateMyProfile, setUpdateMyProfile] = useState({
-    employeeEmail: '',
-    newPassword: '',
-    confirmPassword: '',
-    employeeName: '',
-    employeePhone: '',
-    employeeAddress: '',
-    employeeImage: '',
-  });
+  const [updateMyProfile, setUpdateMyProfile] = useState({});
+  console.log(updateMyProfile);
 
-  const onChangeHandler = (e) => {
-    const { name, value } = e.target;
-    setUpdateMyProfile({
-      ...updateMyProfile,
-      [name]: value,
-    });
+  const onchangeHandler = (value) => {
+    setUpdateMyProfile(value);
   };
 
   const onUpdateHandler = async () => {
@@ -101,7 +90,8 @@ const StaffMypageContainer = () => {
       loading={loading}
       error={error}
       setPage={setPage}
-      onChangeHandler={onChangeHandler}
+      updateMyProfile={updateMyProfile}
+      onChangeHandler={onchangeHandler}
       onUpdateHandler={onUpdateHandler}
       onResetHandler={onResetHandler}
     />
