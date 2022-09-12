@@ -2,12 +2,14 @@ import React from 'react';
 import { Form, Input, Button, Upload, Typography } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import Loading from 'components/Loading';
+import FileUpload from 'components/FileUpload';
 
 const AdminClientUpdate = ({
   clientInfo,
   loading,
   error,
   setPage,
+  onChangeClientInfo,
   onClientInfoChangeHandler,
   onClientInfoUpdateHandler,
   onClientInfoResetHandler,
@@ -53,7 +55,8 @@ const AdminClientUpdate = ({
               <Input
                 name="clientName"
                 placeholder="거래처 이름"
-                onChange={onClientInfoChangeHandler}
+                defaultValue={clientInfo.clientName}
+                onChange={(e) => onClientInfoChangeHandler('clientName', e)}
               />
             </Form.Item>
             <Form.Item
@@ -70,7 +73,8 @@ const AdminClientUpdate = ({
               <Input
                 name="clientAddress"
                 placeholder="주소"
-                onChange={onClientInfoChangeHandler}
+                defaultValue={clientInfo.clientAddress}
+                onChange={(e) => onClientInfoChangeHandler('clientAddress', e)}
               />
             </Form.Item>
             <Form.Item
@@ -87,7 +91,8 @@ const AdminClientUpdate = ({
               <Input
                 name="clientManager"
                 placeholder="거래처 담당자"
-                onChange={onClientInfoChangeHandler}
+                defaultValue={clientInfo.clientManager}
+                onChange={(e) => onClientInfoChangeHandler('clientManager', e)}
               />
             </Form.Item>
             <Form.Item
@@ -104,14 +109,13 @@ const AdminClientUpdate = ({
               <Input
                 name="clientTel"
                 placeholder="전화번호"
-                onChange={onClientInfoChangeHandler}
+                defaultValue={clientInfo.clientTel}
+                onChange={(e) => onClientInfoChangeHandler('clientTel', e)}
               />
             </Form.Item>
 
             <Form.Item label="거래처 관련 파일" valuePropName="fileList">
-              <Upload maxCount={1}>
-                <Button icon={<UploadOutlined />}>업로드</Button>
-              </Upload>
+              <FileUpload onChangeHandler={onChangeClientInfo} />
             </Form.Item>
           </Form>
           <div style={{ display: 'flex', justifyContent: 'center' }}>

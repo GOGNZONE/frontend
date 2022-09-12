@@ -20,29 +20,37 @@ const AdminClientInfoContainer = () => {
   const { clientId } = useParams();
   const dispatch = useDispatch();
 
-  const [updateClientInfo, setUpdateClientInfo] = useState({
-    clientName: '',
-    clientTel: '',
-    clientAddress: '',
-    clientFile: '',
-    clientManager: '',
-  });
+  const [updateClientInfo, setUpdateClientInfo] = useState({});
+  const [updateClientAccountInfo, setUpdateClientAccountInfo] = useState({});
 
-  const [updateClientAccountInfo, setUpdateClientAccountInfo] = useState({
-    accountBank: '',
-    accountNumber: '',
-    accountDepositor: '',
-  });
+  const onChangeClientInfo = (value) => {
+    setUpdateClientInfo(value);
+  };
+
+  const onChangeClientAccountInfo = (value) => {
+    setUpdateClientAccountInfo(value);
+  };
 
   const onClientInfoChangeHandler = useCallback(
-    (e) => {
-      const { name, value } = e.target;
-      setUpdateClientInfo({
+    (name, e) => {
+      const { value } = e.target;
+      onChangeClientInfo({
         ...updateClientInfo,
         [name]: value,
       });
     },
     [updateClientInfo],
+  );
+
+  const onClientAccountChangeHandler = useCallback(
+    (name, e) => {
+      const { value } = e.target;
+      onChangeClientAccountInfo({
+        ...updateClientAccountInfo,
+        [name]: value,
+      });
+    },
+    [updateClientAccountInfo],
   );
 
   const onClientInfoUpdateHandler = async () => {
@@ -53,18 +61,16 @@ const AdminClientInfoContainer = () => {
     clientTel !== '' &&
     clientAddress !== '' &&
     clientManger !== ''
-      ? await (dispatch(
-          updateClient({ client_id: clientId, updateClientInfo }),
-        ),
+      ? await dispatch(updateClient({ client_id: clientId, updateClientInfo }))
+      : // Swal.fire({
+        //   position: 'center',
+        //   icon: 'success',
+        //   title: '수정완료',
+        //   showConfirmButton: false,
+        //   timer: 1500,
+        // }),
+        // window.location.reload())
         Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: '수정완료',
-          showConfirmButton: false,
-          timer: 1500,
-        }),
-        window.location.reload())
-      : Swal.fire({
           position: 'center',
           icon: 'error',
           title: '필수값을 입력해주세요',
@@ -82,17 +88,6 @@ const AdminClientInfoContainer = () => {
       clientManager: '',
     });
   };
-
-  const onClientAccountChangeHandler = useCallback(
-    (e) => {
-      const { name, value } = e.target;
-      setUpdateClientAccountInfo({
-        ...updateClientAccountInfo,
-        [name]: value,
-      });
-    },
-    [updateClientAccountInfo],
-  );
 
   const onClientAccountUpdateHandler = async (accountId) => {
     const { accountBank, accountNumber, accountDepositor } =
@@ -151,6 +146,7 @@ const AdminClientInfoContainer = () => {
         loading={loading}
         error={error}
         setPage={setPage}
+        onChangeClientInfo={onChangeClientInfo}
         onClientInfoChangeHandler={onClientInfoChangeHandler}
         onClientInfoUpdateHandler={onClientInfoUpdateHandler}
         onClientInfoResetHandler={onClientInfoResetHandler}
