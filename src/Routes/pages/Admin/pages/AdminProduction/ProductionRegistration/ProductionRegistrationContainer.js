@@ -19,6 +19,8 @@ const ProductionRegistrationContainer = () => {
   });
   const { data, loading } = useSelector((state) => state.client.clientList);
 
+  console.log(productionValue);
+
   const dispatch = useDispatch();
   /***** navigate *****/
   const navigate = useNavigate();

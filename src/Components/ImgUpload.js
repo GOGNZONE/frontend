@@ -3,7 +3,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { Upload, Button, message } from 'antd';
 
-const FileUpload = ({ onChangeHandler, productionValue }) => {
+const ImgUpload = ({ onChangeHandler, employeeInfo }) => {
   const token = localStorage.getItem('ACCESS_TOKEN');
   const codeNumber = Date.now();
   const props = {
@@ -39,8 +39,8 @@ const FileUpload = ({ onChangeHandler, productionValue }) => {
       }
 
       onChangeHandler({
-        ...productionValue,
-        productionFile: codeNumber + '_' + info.file.name,
+        ...employeeInfo,
+        employeeImage: codeNumber + '_' + info.file.name,
       });
     },
 
@@ -85,4 +85,4 @@ const FileUpload = ({ onChangeHandler, productionValue }) => {
   );
 };
 
-export default FileUpload;
+export default ImgUpload;

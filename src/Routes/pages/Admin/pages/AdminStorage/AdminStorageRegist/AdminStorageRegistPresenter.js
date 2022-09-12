@@ -82,7 +82,7 @@ function AdminStorageRegistPresenter({ registStorage, onChangeInputHandler }) {
               border: '#293462',
             }}
           >
-            목록
+            취소
           </Button>
         </Link>
       </div>
