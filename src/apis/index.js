@@ -56,8 +56,7 @@ export const registerClient = (inData) => {
 
 export const updateClient = (inData) => {
   const { client_id, updateClientInfo } = inData;
-  console.log(updateClientInfo);
-  // return instance.put(`/client/${client_id}`, updateClientInfo);
+  return instance.put(`/client/${client_id}`, updateClientInfo);
 };
 
 export const deleteClient = (client_id) => {
