@@ -10,6 +10,7 @@ const AdminClientInfoPresenter = ({
   error,
   setPage,
   setChangeClientInfo,
+  setChangeClinetAccountInfo,
 }) => {
   const navigate = useNavigate();
   const { account } = clientInfo;
@@ -123,7 +124,10 @@ const AdminClientInfoPresenter = ({
               backgroundColor: '#9BA923',
               border: '#293462',
             }}
-            onClick={() => setPage('updateAccount')}
+            onClick={() => {
+              setPage('updateAccount');
+              setChangeClinetAccountInfo(account);
+            }}
           >
             계좌 정보 수정
           </Button>

@@ -2,12 +2,12 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getClient, updateClient } from 'store/modules/client/clientActions';
-import { updateClientAccount } from 'store/modules/client/clientAccountActions';
 import AdminClientInfoPresenter from './AdminClientInfoPresenter';
 import AdminClientUpdate from './components/AdminClientUpdate';
 import Swal from 'sweetalert2';
 import AdminUpdateClientAccount from './components/AdminUpdateClientAccount';
 import AdminRegisterClientAccount from '../AdminRegisterClientAccount';
+import { updateClientAccount } from 'store/modules/client/clientAccountActions';
 
 const AdminClientInfoContainer = () => {
   const { data, loading, error } = useSelector((state) => state.client.client);
@@ -33,6 +33,10 @@ const AdminClientInfoContainer = () => {
 
   const setChangeClientInfo = (data) => {
     setUpdateClientInfo(data);
+  };
+
+  const setChangeClinetAccountInfo = (data) => {
+    setUpdateClientAccountInfo(data);
   };
 
   const onClientInfoChangeHandler = useCallback(
@@ -95,14 +99,13 @@ const AdminClientInfoContainer = () => {
     });
   };
 
-  const onClientAccountUpdateHandler = async (accountId) => {
-    const { accountBank, accountNumber, accountDepositor } =
-      updateClientAccountInfo;
-
-    accountBank !== '' && accountNumber !== '' && accountDepositor !== ''
+  const onClientAccountUpdateHandler = async () => {
+    updateClientAccountInfo.accountBank !== '' &&
+    updateClientAccountInfo.accountNumber !== '' &&
+    updateClientAccountInfo.accountDepositor !== ''
       ? await dispatch(
           updateClientAccount({
-            account_id: accountId,
+            account_id: updateClientAccountInfo.accountId,
             updateClientAccountInfo,
           }),
           Swal.fire({
@@ -135,7 +138,6 @@ const AdminClientInfoContainer = () => {
     dispatch(getClient(clientId));
   }, [clientId, dispatch]);
 
-  console.log(updateClientInfo);
   if (data && page === 'info')
     return (
       <AdminClientInfoPresenter
@@ -144,6 +146,7 @@ const AdminClientInfoContainer = () => {
         error={error}
         setPage={setPage}
         setChangeClientInfo={setChangeClientInfo}
+        setChangeClinetAccountInfo={setChangeClinetAccountInfo}
       />
     );
 
