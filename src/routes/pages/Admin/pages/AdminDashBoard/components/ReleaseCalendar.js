@@ -24,8 +24,6 @@ const ReleaseCalendar = ({
 }) => {
   let dateList;
 
-  console.log(dataSource);
-
   if (dataSource) {
     dateList = releaseConfirmedList?.map((data) => data.releaseDate);
   }
