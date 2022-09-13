@@ -1,5 +1,5 @@
 #!/bin/bash
-REPOSITORY=/home/ubuntu/frontend
+REPOSITORY=/home/ubuntu/frontend/zip
 PROJECT_NAME=front_test
 
 echo "> Build 파일 복사"
