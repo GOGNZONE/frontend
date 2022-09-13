@@ -9,7 +9,7 @@ const ProductionListContainer = () => {
     (state) => state.production.productions,
   );
   const dispatch = useDispatch();
-  //   /***** search *****/
+  /***** search *****/
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);

@@ -11,7 +11,6 @@ import {
   Input,
   Empty,
   Form,
-  message,
 } from 'antd';
 import moment from 'moment';
 
@@ -120,38 +119,54 @@ const ReleaseUpdatePresenter = ({
                 {data.releaseId}
               </Descriptions.Item>
               <Descriptions.Item label="출고일자">
-                <DatePicker
-                  placeholder="제품 출고 일자"
-                  defaultValue={
-                    data.releaseDate ? moment(data.releaseDate) : undefined
-                  }
-                  onChange={(e) =>
-                    onChangeDatePickerHandler(
-                      'releaseDate',
-                      moment(e).format('YYYY-MM-DD'),
-                    )
-                  }
-                />
+                <Form
+                  initialValues={{
+                    releaseDate: moment(releaseValue.releaseDate),
+                  }}
+                >
+                  <Form.Item noStyle>
+                    <Form.Item name="releaseDate" noStyle>
+                      <DatePicker
+                        placeholder="제품 출고 일자"
+                        onChange={(e) =>
+                          onChangeDatePickerHandler(
+                            'releaseDate',
+                            moment(e).format('YYYY-MM-DD'),
+                          )
+                        }
+                      />
+                    </Form.Item>
+                  </Form.Item>
+                </Form>
               </Descriptions.Item>
               <Descriptions.Item label="출고수량">
-                <InputNumber
-                  min={1}
-                  max={`${data.production.productionQuantity}`}
-                  style={{
-                    width: '100%',
+                <Form
+                  initialValues={{
+                    releaseQuantity: releaseValue.releaseQuantity,
                   }}
-                  placeholder="출고 수량"
-                  formatter={(value) =>
-                    `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                  }
-                  parser={(value) => value.replace(/\\s?|(,*)/g, '')}
-                  defaultValue={data.releaseQuantity}
-                  onChange={(e) =>
-                    onChangeInputHandler('releaseQuantity', {
-                      target: { value: e },
-                    })
-                  }
-                />
+                >
+                  <Form.Item noStyle>
+                    <Form.Item name="releaseQuantity" noStyle>
+                      <InputNumber
+                        min={1}
+                        max={`${data.production.productionQuantity}`}
+                        style={{
+                          width: '100%',
+                        }}
+                        placeholder="출고 수량"
+                        formatter={(value) =>
+                          `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                        }
+                        parser={(value) => value.replace(/\\s?|(,*)/g, '')}
+                        onChange={(e) =>
+                          onChangeInputHandler('releaseQuantity', {
+                            target: { value: e },
+                          })
+                        }
+                      />
+                    </Form.Item>
+                  </Form.Item>
+                </Form>
                 <Text style={{ color: '#277BC0' }}>
                   * 생산수량 : {data.production.productionQuantity}개
                 </Text>
@@ -185,17 +200,25 @@ const ReleaseUpdatePresenter = ({
                 {data.releaseType}
               </Descriptions.Item>
               <Descriptions.Item label="비고" span={2}>
-                <TextArea
-                  name="releaseDescription"
-                  showCount
-                  maxLength={1000}
-                  rows={5}
-                  placeholder="출고 관련 비고사항"
-                  defaultValue={data.releaseDescription}
-                  onChange={(e) =>
-                    onChangeInputHandler('releaseDescription', e)
-                  }
-                />
+                <Form
+                  initialValues={{
+                    releaseDescription: releaseValue.releaseDescription,
+                  }}
+                >
+                  <Form.Item noStyle>
+                    <Form.Item name="releaseDescription" noStyle>
+                      <TextArea
+                        showCount
+                        maxLength={1000}
+                        rows={5}
+                        placeholder="출고 관련 비고사항"
+                        onChange={(e) =>
+                          onChangeInputHandler('releaseDescription', e)
+                        }
+                      />
+                    </Form.Item>
+                  </Form.Item>
+                </Form>
               </Descriptions.Item>
               <Descriptions.Item label="배송">
                 <Button
@@ -221,9 +244,18 @@ const ReleaseUpdatePresenter = ({
                     labelCol={{
                       span: 6,
                     }}
+                    initialValues={{
+                      deliveryCompanyName:
+                        releaseValue.delivery === null
+                          ? ''
+                          : releaseValue.delivery.deliveryCompanyName,
+                      deliveryTrackingNumber:
+                        releaseValue.delivery === null
+                          ? ''
+                          : releaseValue.delivery.deliveryTrackingNumber,
+                    }}
                   >
                     <Form.Item
-                      name="deliveryCompanyName"
                       label="택배사"
                       rules={[
                         {
@@ -234,20 +266,19 @@ const ReleaseUpdatePresenter = ({
                       required
                       tooltip="택배사는 필수 입력 필드입니다."
                     >
-                      <Input
-                        placeholder="택배사명"
-                        onChange={(e) =>
-                          onChangeDeliveryInputHandler('deliveryCompanyName', e)
-                        }
-                        defaultValue={
-                          data.delivery === null
-                            ? ''
-                            : data.delivery.deliveryCompanyName
-                        }
-                      />
+                      <Form.Item name="deliveryCompanyName" noStyle>
+                        <Input
+                          placeholder="택배사명"
+                          onChange={(e) =>
+                            onChangeDeliveryInputHandler(
+                              'deliveryCompanyName',
+                              e,
+                            )
+                          }
+                        />
+                      </Form.Item>
                     </Form.Item>
                     <Form.Item
-                      name="deliveryTrackingNumber"
                       label="운송장번호"
                       rules={[
                         {
@@ -258,20 +289,17 @@ const ReleaseUpdatePresenter = ({
                       required
                       tooltip="운송장 번호는 필수 입력 필드입니다."
                     >
-                      <Input
-                        placeholder="운송장 번호"
-                        onChange={(e) =>
-                          onChangeDeliveryInputHandler(
-                            'deliveryTrackingNumber',
-                            e,
-                          )
-                        }
-                        defaultValue={
-                          data.delivery === null
-                            ? ''
-                            : data.delivery.deliveryTrackingNumber
-                        }
-                      />
+                      <Form.Item name="deliveryTrackingNumber" noStyle>
+                        <Input
+                          placeholder="운송장 번호"
+                          onChange={(e) =>
+                            onChangeDeliveryInputHandler(
+                              'deliveryTrackingNumber',
+                              e,
+                            )
+                          }
+                        />
+                      </Form.Item>
                     </Form.Item>
                   </Form>
                   <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
