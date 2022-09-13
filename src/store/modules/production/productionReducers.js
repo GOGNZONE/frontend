@@ -30,12 +30,10 @@ export const productionReducer = (state = initialState, action) => {
         action,
       );
     case types.PUT_PRODUCTION:
-    case types.PUT_PRODUCTION_SUCCESS:
-    case types.PUT_PRODUCTION_ERROR:
-      return handleAsyncActions(types.PUT_PRODUCTION, 'production')(
-        state,
-        action,
-      );
+      return {
+        productions: { loading: false, data: null },
+        production: { loading: false, data: action.param.inData },
+      };
     case types.DELETE_PRODUCTION:
       return {
         productions: {
