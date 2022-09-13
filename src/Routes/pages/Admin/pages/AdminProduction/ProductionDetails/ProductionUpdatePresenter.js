@@ -38,29 +38,38 @@ const ProductionUpdatePresenter = ({
   abledEndDate,
   setAbledEndDate,
 }) => {
-  const onChangeInputHandler = useCallback((name, e) => {
-    const { value } = e.target;
-    onChangeHandler({
-      ...productionValue,
-      [name]: value,
-    });
-  });
-
-  const onChangeClientHandler = useCallback((name, value) => {
-    onChangeHandler({
-      ...productionValue,
-      client: {
+  const onChangeInputHandler = useCallback(
+    (name, e) => {
+      const { value } = e.target;
+      onChangeHandler({
+        ...productionValue,
         [name]: value,
-      },
-    });
-  });
+      });
+    },
+    [productionValue],
+  );
 
-  const onChangeDatePickerHandler = useCallback((name, value) => {
-    onChangeHandler({
-      ...productionValue,
-      [name]: value,
-    });
-  });
+  const onChangeClientHandler = useCallback(
+    (name, value) => {
+      onChangeHandler({
+        ...productionValue,
+        client: {
+          [name]: value,
+        },
+      });
+    },
+    [productionValue],
+  );
+
+  const onChangeDatePickerHandler = useCallback(
+    (name, value) => {
+      onChangeHandler({
+        ...productionValue,
+        [name]: value,
+      });
+    },
+    [productionValue],
+  );
 
   const disabledDate = (current) => {
     return current < moment(productionValue.productionStartDate).endOf('day');

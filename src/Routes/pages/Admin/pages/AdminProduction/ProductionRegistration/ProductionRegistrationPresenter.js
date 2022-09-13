@@ -33,13 +33,16 @@ const ProductionRegistrationPresenter = ({
 }) => {
   const navigate = useNavigate();
 
-  const onChangeInputHandler = useCallback((name, e) => {
-    const { value } = e.target;
-    onChangeHandler({
-      ...productionValue,
-      [name]: value,
-    });
-  });
+  const onChangeInputHandler = useCallback(
+    (name, e) => {
+      const { value } = e.target;
+      onChangeHandler({
+        ...productionValue,
+        [name]: value,
+      });
+    },
+    [productionValue],
+  );
 
   const onChangeDatePickerHandler = useCallback((name, value) => {
     onChangeHandler({

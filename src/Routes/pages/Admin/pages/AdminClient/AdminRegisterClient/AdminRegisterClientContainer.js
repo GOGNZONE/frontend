@@ -81,6 +81,7 @@ const AdminRegisterClientContainer = () => {
         loading={loading}
         error={error}
         saveClient={saveClient}
+        onChangeHandler={onChangeHandler}
         onChangeInputHandler={onChangeInputHandler}
         onChangeEmployeeHandler={onChangeEmployeeHandler}
         onResetHandler={onResetHandler}

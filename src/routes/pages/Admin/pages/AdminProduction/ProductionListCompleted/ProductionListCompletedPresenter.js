@@ -28,7 +28,6 @@ const ProductionListCompletedPresenter = ({
   loading,
   onDeleteProduction,
 }) => {
-  console.log(dataSource);
   const showDeleteConfirm = (productionId) => {
     confirm({
       title: '해당 품목을 삭제하시겠습니까?',

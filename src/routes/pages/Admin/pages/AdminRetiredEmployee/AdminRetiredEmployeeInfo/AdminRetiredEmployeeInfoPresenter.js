@@ -31,8 +31,8 @@ const AdminRetiredEmployeeInfoPresenter = ({
             width={250}
             height={250}
             src={
-              retiredEmployee.retiredEmployeeImage
-                ? `https://gongzone1bucket.s3.ap-northeast-2.amazonaws.com/${retiredEmployee.retiredEmployeeImage}`
+              retiredEmployee.employeeImage
+                ? `https://gongzone1bucket.s3.ap-northeast-2.amazonaws.com/${retiredEmployee.employeeImage}`
                 : Profile
             }
           />

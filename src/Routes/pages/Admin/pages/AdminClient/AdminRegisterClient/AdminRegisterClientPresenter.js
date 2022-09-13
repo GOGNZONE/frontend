@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Input, Button, Typography, Select } from 'antd';
 import { Link } from 'react-router-dom';
 import Loading from 'components/Loading';
+import FileUpload from 'components/FileUpload';
 
 const { Option } = Select;
 
@@ -11,12 +12,13 @@ const AdminRegisterClientPresenter = ({
   loading,
   error,
   saveClient,
+  onChangeHandler,
   onChangeInputHandler,
   onChangeEmployeeHandler,
   onResetHandler,
 }) => {
-  const { clientName, clientManager, clientAddress, clientTel } = clientInfo;
-
+  const { clientName, clientManager, clientAddress, clientTel, clientFile } =
+    clientInfo;
   return loading ? (
     <div
       style={{
@@ -137,13 +139,13 @@ const AdminRegisterClientPresenter = ({
             ))}
           </Select>
         </Form.Item>
-        {/* <Form.Item label="거래처 관련파일">
-          <Upload>
-            <Button icon={<UploadOutlined />} onClick={fileUpload}>
-              업로드
-            </Button>
-          </Upload>
-        </Form.Item> */}
+        <Form.Item label="거래처 관련파일">
+          <FileUpload
+            onChangeHandler={onChangeHandler}
+            fileName={'clientFile'}
+            preventValue={clientInfo}
+          />
+        </Form.Item>
         <div
           style={{
             display: 'flex',

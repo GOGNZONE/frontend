@@ -49,7 +49,8 @@ const ProductionRegistrationContainer = () => {
       await dispatch(postProduction(productionValue));
       await navigate('list');
     }
-  });
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <ProductionRegistrationPresenter
