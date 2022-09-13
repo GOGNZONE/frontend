@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import {
   Typography,
   Button,
@@ -7,26 +7,79 @@ import {
   Descriptions,
   Drawer,
   Divider,
-  Badge,
+  Select,
+  DatePicker,
+  message,
 } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import FileDownload from 'components/FileDownload';
+import moment from 'moment';
 
 const { confirm } = Modal;
 const { Title, Text } = Typography;
+const { Option } = Select;
 
 const ProductionDetailsPresenter = ({
   data,
   loading,
   setSwitchToEditPage,
-  onSetProductionValue,
+  setProductionValue,
   showDrawer,
   onClose,
   visible,
   onDeleteProduction,
+  onChangeHandler,
+  productionValue,
+  selectVisible,
+  setSelectVisible,
+  onClickUpdateProductionProgress,
+  setCheckProgress,
+  checkProgress,
+  storageData,
 }) => {
-  console.log(data);
+  const navigate = useNavigate();
+  useEffect(() => {
+    setProductionValue(data);
+  }, [data, setProductionValue]);
+
+  const onChangeInputHandler = useCallback(
+    (name, e) => {
+      const { value } = e.target;
+      setCheckProgress(value);
+      onChangeHandler({
+        ...productionValue,
+        [name]: value,
+      });
+    },
+    [setCheckProgress, productionValue, onChangeHandler],
+  );
+
+  const onChangeDatePickerHandler = useCallback(
+    (name, value) => {
+      onChangeHandler({
+        ...productionValue,
+        [name]: value,
+      });
+    },
+    [onChangeHandler, productionValue],
+  );
+
+  const onChangeStorageId = useCallback(
+    (name, e) => {
+      const { value } = e.target;
+      onChangeHandler({
+        ...productionValue,
+        stock: { storage: { [name]: value } },
+      });
+    },
+    [productionValue, onChangeHandler],
+  );
+
+  const disabledDate = (current) => {
+    return current < moment(productionValue.productionStartDate).endOf('day');
+  };
+
   const showDeleteConfirm = (productionId) => {
     confirm({
       title: '해당 제품을 삭제하시겠습니까?',
@@ -38,6 +91,24 @@ const ProductionDetailsPresenter = ({
         onDeleteProduction(productionId);
       },
     });
+  };
+
+  const warning = (value) => {
+    if (value === '1') {
+      Modal.warning({
+        title: '주의',
+        content: '생산 중으로 변경 시, 정보 수정이 불가합니다.',
+      });
+    } else if (value === '2') {
+      if (storageData.length === 0) {
+        message.loading('', 0.5).then(() => {
+          message.warning(
+            '등록된 창고가 없습니다. 창고 등록을 먼저 진행해 주세요.',
+          );
+          navigate('/admin/storage/list');
+        });
+      }
+    }
   };
 
   return (
@@ -67,7 +138,6 @@ const ProductionDetailsPresenter = ({
                       }}
                       onClick={() => {
                         setSwitchToEditPage(false);
-                        onSetProductionValue(data);
                       }}
                     >
                       수정
@@ -133,29 +203,113 @@ const ProductionDetailsPresenter = ({
                   {data.productionQuantity}
                 </Descriptions.Item>
                 <Descriptions.Item label="단가" span={2}>
-                  {data.productionPrice}
+                  {data.productionPrice}원
                 </Descriptions.Item>
                 <Descriptions.Item label="규격/단위">
                   {data.productionStandard}
                   {data.productionUnit}
                 </Descriptions.Item>
                 <Descriptions.Item label="진행 상황" span={2}>
-                  <Badge
-                    status={
-                      data.productionProgress === 0
-                        ? 'success'
-                        : data.productionProgress === 1
-                        ? 'processing'
-                        : 'error'
-                    }
-                  />
-                  {data.productionProgress === 0
-                    ? '생산 시작전'
-                    : data.productionProgress === 1
-                    ? '생산중'
-                    : '생산 완료 (' + `${data.productionEndDate}` + ')'}
+                  <div>
+                    <Select
+                      onChange={(e) => {
+                        onChangeInputHandler('productionProgress', {
+                          target: { value: e },
+                        });
+                      }}
+                      defaultValue={`${data.productionProgress}`}
+                      style={{ marginRight: 7, width: '130px' }}
+                      disabled={selectVisible}
+                      onSelect={warning}
+                    >
+                      <Option value="0">생산 시작전</Option>
+                      <Option value="1">생산중</Option>
+                      <Option value="2">생산 완료</Option>
+                    </Select>
+                    {data.productionProgress === 2 &&
+                      '완료일자 (' + data.productionEndDate + ')'}
+                    {checkProgress === '2' ? (
+                      <>
+                        <DatePicker
+                          placeholder="제품 생산 완료 일자"
+                          initialvalues={
+                            data.productionEndDate
+                              ? moment(data.productionEndDate)
+                              : undefined
+                          }
+                          onChange={(e) =>
+                            onChangeDatePickerHandler(
+                              'productionEndDate',
+                              moment(e).format('YYYY-MM-DD'),
+                            )
+                          }
+                          disabledDate={disabledDate}
+                          style={{ marginRight: 7 }}
+                          disabled={selectVisible}
+                        />
+                        <Select
+                          style={{ marginRight: 7, width: '130px' }}
+                          placeholder="창고 선택"
+                          onChange={(e) => {
+                            onChangeStorageId('storageId', {
+                              target: { value: e },
+                            });
+                          }}
+                          disabled={selectVisible}
+                        >
+                          {storageData.map((storage, index) => {
+                            return (
+                              <Option
+                                value={`${storage.storageId}`}
+                                key={`${index}`}
+                              >
+                                {storage.storageCategory} ({storage.storageId})
+                              </Option>
+                            );
+                          })}
+                        </Select>
+                      </>
+                    ) : (
+                      ''
+                    )}
+                    {data.releases[0] ? (
+                      ''
+                    ) : selectVisible ? (
+                      <Button
+                        type="primary"
+                        style={{
+                          backgroundColor: '#293462',
+                          border: '#293462',
+                          marginLeft: 5,
+                        }}
+                        size="default"
+                        shape="round"
+                        onClick={() => {
+                          setSelectVisible(!selectVisible);
+                        }}
+                      >
+                        수정
+                      </Button>
+                    ) : (
+                      <Button
+                        type="primary"
+                        style={{
+                          backgroundColor: '#293462',
+                          border: '#293462',
+                          marginLeft: 5,
+                        }}
+                        size="default"
+                        shape="round"
+                        onClick={() => {
+                          onClickUpdateProductionProgress();
+                        }}
+                      >
+                        저장
+                      </Button>
+                    )}
+                  </div>
                 </Descriptions.Item>
-                <Descriptions.Item label="생성일자">
+                <Descriptions.Item label="시작일자">
                   {data.productionStartDate}
                 </Descriptions.Item>
                 <Descriptions.Item label="출고예정일자">
@@ -172,9 +326,18 @@ const ProductionDetailsPresenter = ({
                 ) : (
                   ''
                 )}
-                <Descriptions.Item label="거래처코드" span={3}>
+                <Descriptions.Item label="거래처코드">
                   {data.client.clientName + '(' + data.client.clientId + ')'}
                 </Descriptions.Item>
+                {data.productionProgress === 2 ? (
+                  <Descriptions.Item label="창고정보" span={2}>
+                    {data.stock.storage.storageCategory}(
+                    {data.stock.storage.storageId}) /{' '}
+                    {data.stock.storage.storageAddress}
+                  </Descriptions.Item>
+                ) : (
+                  ''
+                )}
                 <Descriptions.Item label="비고" span={3}>
                   {data.productionDescription}
                 </Descriptions.Item>

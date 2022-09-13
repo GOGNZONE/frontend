@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import StaffStorageListPresenter from './StaffStorageListPresenter';
 import { useDispatch, useSelector } from 'react-redux';
 import {

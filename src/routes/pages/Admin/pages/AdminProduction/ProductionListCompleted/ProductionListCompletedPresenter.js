@@ -14,6 +14,7 @@ import {
 } from 'antd';
 import Highlighter from 'react-highlight-words';
 import Today from 'components/Today';
+import moment from 'moment';
 
 const { confirm } = Modal;
 const { Text } = Typography;
@@ -149,7 +150,7 @@ const ProductionListCompletedPresenter = ({
     {
       title: '생산코드',
       dataIndex: 'productionId',
-      width: 130,
+      width: 110,
       ...getColumnSearchProps('productionId'),
       sorter: (a, b) => a.productionId - b.productionId,
     },
@@ -189,6 +190,9 @@ const ProductionListCompletedPresenter = ({
       render: (date) => (
         <Text style={{ backgroundColor: '#F7ECDE' }}>{date}</Text>
       ),
+      sorter: (a, b) =>
+        moment(a.productionReleasedDate).unix() -
+        moment(b.productionReleasedDate).unix(),
     },
     {
       title: '출고일자',
@@ -244,7 +248,7 @@ const ProductionListCompletedPresenter = ({
           ) : record.productionProgress === 1 ? (
             '생산중'
           ) : record.releases[0] && record.releases[0].releaseConfirmed ? (
-            <Text type="danger">출고확정</Text>
+            <Text type="danger">출고 확정</Text>
           ) : (
             '생산 완료'
           )}

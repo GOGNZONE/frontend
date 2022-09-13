@@ -20,12 +20,13 @@ const ReleaseRegistrationContainer = () => {
     production: { productionId: '' },
     delivery: { deliveryCompanyName: '', deliveryTrackingNumber: '' },
   });
+  const [index, setIndex] = useState(0);
+  const timestamp = new Date().getTime();
+  /***** redux *****/
   const { data, loading } = useSelector(
     (state) => state.production.productions,
   );
   const dispatch = useDispatch();
-  const [index, setIndex] = useState(0);
-  const timestamp = new Date().getTime();
   /***** navigate *****/
   const navigate = useNavigate();
 
@@ -41,8 +42,7 @@ const ReleaseRegistrationContainer = () => {
     if (
       releaseValue.releaseId === '' ||
       releaseValue.releaseDate === '' ||
-      releaseValue.releaseQuantity === '' ||
-      releaseValue.releaseTotalPrice === ''
+      releaseValue.releaseQuantity === ''
     ) {
       message.error('필수 입력값을 입력해 주세요.');
     } else {

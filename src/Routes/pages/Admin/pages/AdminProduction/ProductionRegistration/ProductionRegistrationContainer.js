@@ -17,10 +17,8 @@ const ProductionRegistrationContainer = () => {
     productionProgress: 0,
     client: { clientId: null },
   });
+  /***** redux *****/
   const { data, loading } = useSelector((state) => state.client.clientList);
-
-  console.log(productionValue);
-
   const dispatch = useDispatch();
   /***** navigate *****/
   const navigate = useNavigate();
@@ -49,8 +47,7 @@ const ProductionRegistrationContainer = () => {
       await dispatch(postProduction(productionValue));
       await navigate('list');
     }
-    // eslint-disable-next-line
-  }, []);
+  }, [productionValue, dispatch, navigate]);
 
   return (
     <ProductionRegistrationPresenter

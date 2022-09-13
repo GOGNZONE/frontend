@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import {
   Typography,
   Form,
@@ -32,6 +32,16 @@ const ProductionRegistrationPresenter = ({
   loading,
 }) => {
   const navigate = useNavigate();
+  useEffect(() => {
+    if (clientData?.length === 0) {
+      message.loading('', 0.5).then(() => {
+        message.warning(
+          '등록된 거래처가 없습니다. 거래처 등록을 먼저 진행해 주세요.',
+        );
+        navigate('/admin/client/list');
+      });
+    }
+  }, []);
 
   const onChangeInputHandler = useCallback(
     (name, e) => {
@@ -60,13 +70,6 @@ const ProductionRegistrationPresenter = ({
     });
   });
 
-  const onClientSelectHandler = () => {
-    if (clientData.length === 0) {
-      message.warning('거래처 등록을 먼저 진행해 주세요.');
-      navigate('list');
-    }
-  };
-
   const disabledDate = (current) => {
     return current < moment(productionValue.productionStartDate).endOf('day');
   };
@@ -94,7 +97,6 @@ const ProductionRegistrationPresenter = ({
             size="large"
           >
             <Form.Item
-              name="productionName"
               label="생산품목"
               rules={[
                 {
@@ -106,6 +108,7 @@ const ProductionRegistrationPresenter = ({
               tooltip="필수 입력 필드입니다"
             >
               <Input
+                name="productionName"
                 placeholder="생산 제품명"
                 onChange={(e) => onChangeInputHandler('productionName', e)}
               />
@@ -118,7 +121,6 @@ const ProductionRegistrationPresenter = ({
               />
             </Form.Item>
             <Form.Item
-              name="productionPrice"
               label="단가"
               rules={[
                 {
@@ -131,6 +133,7 @@ const ProductionRegistrationPresenter = ({
               initialValue={0}
             >
               <InputNumber
+                name="productionPrice"
                 min={0}
                 style={{
                   width: '100%',
@@ -148,7 +151,6 @@ const ProductionRegistrationPresenter = ({
               />
             </Form.Item>
             <Form.Item
-              name="productionQuantity"
               label="제품수량"
               rules={[
                 {
@@ -161,6 +163,7 @@ const ProductionRegistrationPresenter = ({
               initialValue={1}
             >
               <InputNumber
+                name="productionQuantity"
                 min={1}
                 style={{
                   width: '100%',
@@ -207,7 +210,6 @@ const ProductionRegistrationPresenter = ({
               />
             </Form.Item>
             <Form.Item
-              name="productionStartDate"
               label="시작일자"
               rules={[
                 {
@@ -219,6 +221,7 @@ const ProductionRegistrationPresenter = ({
               tooltip="필수 입력 필드입니다"
             >
               <DatePicker
+                name="productionStartDate"
                 placeholder="제품 생산 시작일자"
                 onChange={(e) =>
                   onChangeDatePickerHandler(
@@ -232,7 +235,6 @@ const ProductionRegistrationPresenter = ({
               </div>
             </Form.Item>
             <Form.Item
-              name="productionReleasedDate"
               label="출고예정일자"
               rules={[
                 {
@@ -244,6 +246,7 @@ const ProductionRegistrationPresenter = ({
               tooltip="필수 입력 필드입니다"
             >
               <DatePicker
+                name="productionReleasedDate"
                 placeholder="출고 예정 일자"
                 onChange={(e) =>
                   onChangeDatePickerHandler(
@@ -255,7 +258,6 @@ const ProductionRegistrationPresenter = ({
               />
             </Form.Item>
             <Form.Item
-              name="clientId"
               label="거래처코드"
               rules={[
                 {
@@ -267,15 +269,15 @@ const ProductionRegistrationPresenter = ({
               tooltip="필수 입력 필드입니다"
             >
               <Select
+                name="clientId"
                 placeholder="거래처 코드"
                 onChange={(e) => {
                   onChangeClientHandler('clientId', e);
                 }}
-                onClick={() => onClientSelectHandler()}
               >
                 {clientData.map((data) => (
-                  <Option key={data.clientId} value={data.clientId}>
-                    {data.clientName}({data.clientId})
+                  <Option value={data.clientId} key={data.clientId}>
+                    {data.clientName + '(' + data.clientId + ')'}
                   </Option>
                 ))}
               </Select>
