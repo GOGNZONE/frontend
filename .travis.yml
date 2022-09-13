@@ -16,13 +16,13 @@ script:
   - CI=false npm run build
 
 before_deploy:
-  - mkdir -p before-deploy
-  - cp scripts/*.sh before-deploy/
+  - mkdir -p before-deploy-frontend
+  - cp scripts/deploy.sh before-deploy-frontend/
   - cp appspec.yml before-deploy/
-  - cp build/libs/*.jar before-deploy/
-  - cd before-deploy && zip -r before-deploy *
-  - cd ../ && mkdir -p deploy
-  - mv before-deploy/before-deploy.zip deploy/front-test.zip
+  - cp -r build before-deploy-frontend/
+  - cd before-deploy-frontend && zip -r before-deploy-frontend
+  - cd ../ && mkdir -p deploy-frontend
+  - mv before-deploy-frontend/before-deploy-frontend.zip deploy-frontend/front-test.zip
 
 deploy:
   - provider: s3
