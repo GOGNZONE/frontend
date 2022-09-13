@@ -12,7 +12,8 @@ cache:
 
 script:
   - ls
-  - cd src/App
+  - cd src/App/
+  - ls
   - node -v
   - npm install
   - CI=false npm run build
