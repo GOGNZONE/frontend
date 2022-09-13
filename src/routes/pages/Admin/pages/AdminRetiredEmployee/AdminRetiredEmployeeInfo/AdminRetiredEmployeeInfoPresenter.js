@@ -1,11 +1,18 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Image, Descriptions, Col, Row, Button } from 'antd';
 import Profile from 'assets/profile.png';
-import { useNavigate } from 'react-router-dom';
 import Loading from 'components/Loading';
 
-const AdminEmployeeDetailsPresenter = ({ employee, loading, error }) => {
+const AdminRetiredEmployeeInfoPresenter = ({
+  retiredEmployee,
+  loading,
+  error,
+}) => {
   const navigate = useNavigate();
+
+  console.log(retiredEmployee);
+
   return loading ? (
     <div
       style={{
@@ -14,7 +21,7 @@ const AdminEmployeeDetailsPresenter = ({ employee, loading, error }) => {
         alignItems: ' center',
       }}
     >
-      <Loading loading={loading} error={error} data={employee} />
+      <Loading loading={loading} error={error} data={retiredEmployee} />
     </div>
   ) : (
     <>
@@ -24,8 +31,8 @@ const AdminEmployeeDetailsPresenter = ({ employee, loading, error }) => {
             width={250}
             height={250}
             src={
-              employee.employeeImage
-                ? `https://gongzone1bucket.s3.ap-northeast-2.amazonaws.com/${employee.employeeImage}`
+              retiredEmployee.retiredEmployeeImage
+                ? `https://gongzone1bucket.s3.ap-northeast-2.amazonaws.com/${retiredEmployee.retiredEmployeeImage}`
                 : Profile
             }
           />
@@ -33,25 +40,28 @@ const AdminEmployeeDetailsPresenter = ({ employee, loading, error }) => {
         <Col flex={4}>
           <Descriptions title="사원 정보" bordered>
             <Descriptions.Item label="사번">
-              {employee.employeeId}
+              {retiredEmployee.employeeId}
             </Descriptions.Item>
             <Descriptions.Item label="이름" span={2}>
-              {employee.employeeName}
+              {retiredEmployee.employeeName}
             </Descriptions.Item>
             <Descriptions.Item label="연락처">
-              {employee.employeePhone}
+              {retiredEmployee.employeePhone}
             </Descriptions.Item>
             <Descriptions.Item label="입사일자" span={2}>
-              {employee.employeeHiredate}
+              {retiredEmployee.employeeHiredate}
+            </Descriptions.Item>
+            <Descriptions.Item label="퇴사일자" span={3}>
+              {retiredEmployee.employeeRetiredDate}
             </Descriptions.Item>
             <Descriptions.Item label="주소" span={3}>
-              {employee.employeeAddress}
+              {retiredEmployee.employeeAddress}
             </Descriptions.Item>
             <Descriptions.Item label="이메일">
-              {employee.employeeEmail}
+              {retiredEmployee.employeeEmail}
             </Descriptions.Item>
             <Descriptions.Item label="권한">
-              {employee.employeeRole}
+              {retiredEmployee.employeeRole}
             </Descriptions.Item>
           </Descriptions>
         </Col>
@@ -66,7 +76,7 @@ const AdminEmployeeDetailsPresenter = ({ employee, loading, error }) => {
             backgroundColor: '#293462',
             border: '#293462',
           }}
-          onClick={() => navigate('/admin/employee/list')}
+          onClick={() => navigate('/admin/retired-employee/list')}
         >
           목록
         </Button>
@@ -75,4 +85,4 @@ const AdminEmployeeDetailsPresenter = ({ employee, loading, error }) => {
   );
 };
 
-export default AdminEmployeeDetailsPresenter;
+export default AdminRetiredEmployeeInfoPresenter;

@@ -7,6 +7,7 @@ import {
   AdminEmployeeList,
   AdminRegisterEmployee,
   AdminRetiredEmployeeList,
+  AdminRetiredEmployeeInfo,
   AdminClientList,
   AdminClientInfo,
   AdminRegisterClient,
@@ -65,6 +66,10 @@ const Admin = ({ checkAdmin, logout }) => {
         <Route
           path="/retired-employee/list"
           element={<AdminRetiredEmployeeList />}
+        />
+        <Route
+          path="/retired-employee/:retiredEmployeeId"
+          element={<AdminRetiredEmployeeInfo />}
         />
         {/* Client */}
         <Route path="/client/list" element={<AdminClientList />} />

@@ -12,7 +12,10 @@ export {
   AdminEmployeeList,
   AdminRegisterEmployee,
 } from './AdminEmployee';
-export { AdminRetiredEmployeeList } from './AdminRetiredEmployee';
+export {
+  AdminRetiredEmployeeList,
+  AdminRetiredEmployeeInfo,
+} from './AdminRetiredEmployee';
 export {
   AdminClientList,
   AdminClientInfo,
