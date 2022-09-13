@@ -12,7 +12,7 @@ cache:
 
 script:
   - ls
-  - cd src/App/
+  - cd src/app/
   - ls
   - node -v
   - npm install
