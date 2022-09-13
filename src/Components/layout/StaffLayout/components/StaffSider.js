@@ -1,11 +1,10 @@
 import React from 'react';
-import { Layout, Menu } from 'antd';
+import { Button, Layout, Menu } from 'antd';
 import {
   UserOutlined,
   RocketOutlined,
   TeamOutlined,
   DropboxOutlined,
-  FileDoneOutlined,
   InboxOutlined,
   PhoneOutlined,
   CloudServerOutlined,
@@ -26,11 +25,6 @@ function getItem(label, key, icon, children, type) {
 
 const items = [
   getItem(<Link to="/staff">마이페이지</Link>, '/staff', <UserOutlined />),
-  getItem(
-    <Link to="/staff/dashboard">대시보드</Link>,
-    '/staff/dashboard',
-    <UserOutlined />,
-  ),
   getItem(
     <Link to="/staff/client/list">거래처 관리</Link>,
     '/client',
@@ -91,7 +85,7 @@ const items = [
   ]),
 ];
 
-const StaffSider = ({ onCollapse, collapsed }) => {
+const StaffSider = ({ onCollapse, collapsed, logout }) => {
   return (
     <Sider
       width={250}
@@ -117,6 +111,13 @@ const StaffSider = ({ onCollapse, collapsed }) => {
         theme="dark"
         items={items}
       />
+      <Button
+        onClick={() => {
+          logout();
+        }}
+      >
+        로그아웃
+      </Button>
     </Sider>
   );
 };

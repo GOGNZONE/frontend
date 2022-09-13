@@ -14,6 +14,7 @@ const AdminClientInfoPresenter = ({
 }) => {
   const navigate = useNavigate();
   const { account } = clientInfo;
+  console.log(clientInfo);
   return loading ? (
     <div
       style={{
@@ -46,6 +47,9 @@ const AdminClientInfoPresenter = ({
             </Descriptions.Item>
             <Descriptions.Item label="거래처 관련 파일" span={3}>
               <FileDownload file={clientInfo.clientFile} />
+            </Descriptions.Item>
+            <Descriptions.Item label="자회사 담당자" span={3}>
+              {clientInfo.employeeName ? clientInfo.employeeName : '없음'}
             </Descriptions.Item>
           </Descriptions>
         </Col>

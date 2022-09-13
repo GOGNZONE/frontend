@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router-dom';
 import { StaffLayout } from 'components';
 import {
   StaffMypage,
-  StaffDashBoard,
   StaffOrderInfo,
   StaffOrderList,
   StaffBomList,
@@ -33,7 +32,6 @@ const Staff = ({ logout, checkAdmin }) => {
         element={<StaffLayout checkAdmin={checkAdmin} logout={logout} />}
       >
         <Route index element={<StaffMypage />} />
-        <Route path="/dashboard" element={<StaffDashBoard />} />
         {/* Client */}
         <Route path="/client/list" element={<StaffClientList />} />
         <Route path="/client/:clientId" element={<StaffClientInfo />} />

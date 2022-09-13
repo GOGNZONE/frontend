@@ -23,7 +23,7 @@ const ProductionListContainer = () => {
       dispatch(getProductions());
     };
     !loading && callDispatch();
-  }, []);
+  }, [dispatch, loading]);
 
   if (data) {
     completedList = data.filter((d) => d.productionProgress === 2);
