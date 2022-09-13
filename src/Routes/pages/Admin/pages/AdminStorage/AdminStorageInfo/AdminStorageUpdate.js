@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react';
 import { Form, Button, Input, Typography } from 'antd';
-import { Link } from 'react-router-dom';
 
 function AdminStorageInfoPresenter({
-  onChangeHandler,
   changePageHandler,
   onChangeInputHandler,
   updateStorageHandler,

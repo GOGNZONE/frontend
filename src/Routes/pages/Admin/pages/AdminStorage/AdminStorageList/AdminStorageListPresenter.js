@@ -54,7 +54,7 @@ function AdminStorageListPresenter({ storageList, onDeleteHandler }) {
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography.Title level={3} style={{ marginBottom: 25 }}>
-          재고 목록
+          창고 목록
         </Typography.Title>
         <Link to="/admin/Storage">
           <Button>등록</Button>

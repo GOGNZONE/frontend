@@ -10,7 +10,6 @@ import AdminStorageInfoPresenter from './AdminStorageInfoPresenter';
 import AdminStorageUpdate from './AdminStorageUpdate';
 import { message } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import moment from 'moment';
 
 function AdminStorageInfoContainer() {
   const { storageIdParams } = useParams();
@@ -21,10 +20,7 @@ function AdminStorageInfoContainer() {
     storageDescription: '',
   });
 
-  const [updateButton, setUpdateButton] = useState(true);
-  const { data, loading, error } = useSelector(
-    (state) => state.storage.storage,
-  );
+  const { data } = useSelector((state) => state.storage.storage);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const dataInsert = () => {
@@ -46,17 +42,17 @@ function AdminStorageInfoContainer() {
     setPage(!page);
   };
 
-  const onChange = useCallback((value) => {
+  const onChange = (value) => {
     setStorage(value);
-  });
+  };
 
-  const onChangeInputHandler = useCallback((name, e) => {
+  const onChangeInputHandler = (name, e) => {
     const value = e.target.value;
     onChange({
       ...storage,
       [name]: value,
     });
-  });
+  };
 
   const updateStorageHandler = useCallback(async (e) => {
     if (storage.storageAddress === '') {
