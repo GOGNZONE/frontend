@@ -44,7 +44,7 @@ const items = [
     ),
     getItem(<Link to="/admin/client">거래처 등록</Link>, '/admin/client'),
   ]),
-  getItem('생산 관리', 'sub1', <DropboxOutlined />, [
+  getItem('생산 관리', '/production', <DropboxOutlined />, [
     getItem(
       '시작전/진행중',
       'g1',
@@ -110,7 +110,7 @@ const AdminSider = ({ onCollapse, collapsed }) => {
       collapsed={collapsed}
       onCollapse={onCollapse}
     >
-      <div
+      {/* <div
         className="logo"
         style={{
           height: '32px',
@@ -118,9 +118,7 @@ const AdminSider = ({ onCollapse, collapsed }) => {
           textAlign: 'center',
           backgroundColor: '#fff',
         }}
-      >
-        {/* <img src={LOGO} alt="logo" style={{ height: '100%' }} /> */}
-      </div>
+      ></div> */}
       <Menu
         defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1']}

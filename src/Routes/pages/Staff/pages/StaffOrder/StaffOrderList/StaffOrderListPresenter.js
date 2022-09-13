@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Button } from 'antd';
+import { Typography, Table } from 'antd';
 import { Link } from 'react-router-dom';
 import { v4 } from 'uuid';
 
@@ -41,7 +41,9 @@ function StaffOrderListPresenter({ orderList, onDeleteHandler }) {
   ];
   return (
     <div>
-      <h2>발주 리스트</h2>
+      <Typography.Title level={3} style={{ marginBottom: 25 }}>
+        발주 목록
+      </Typography.Title>
       <Table rowKey={() => v4()} columns={columns} dataSource={orderList} />
     </div>
   );

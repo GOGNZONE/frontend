@@ -85,6 +85,7 @@ const AdminRegisterEmployeeContainer = () => {
       onChangeDatePickerHandler={onChangeDatePickerHandler}
       onChangeEmployeeRole={onChangeEmployeeRole}
       onResetHandler={onResetHandler}
+      onChangeHandler={onChangeHandler}
     />
   );
 };

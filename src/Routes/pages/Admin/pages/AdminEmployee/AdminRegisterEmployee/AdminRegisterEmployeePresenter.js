@@ -11,8 +11,16 @@ import {
 import { UploadOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import ImgUpload from 'components/ImgUpload';
+import FileUpload from 'components/FileUpload';
 
 const { Option } = Select;
+const normFile = (e) => {
+  if (Array.isArray(e)) {
+    return e;
+  }
+  return e?.fileList;
+};
 
 const AdminRegisterEmployeePresenter = ({
   employeeInfo,
@@ -22,6 +30,7 @@ const AdminRegisterEmployeePresenter = ({
   onChangeEmployeeRole,
   onResetHandler,
   onChangeInputHandler,
+  onChangeHandler,
 }) => {
   const {
     employeeId,
@@ -188,12 +197,12 @@ const AdminRegisterEmployeePresenter = ({
             <Option value="STAFF">STAFF</Option>
           </Select>
         </Form.Item>
-        <Form.Item label="사원 이미지">
-          <Upload>
-            <Button icon={<UploadOutlined />} onClick={fileUpload}>
-              업로드
-            </Button>
-          </Upload>
+        <Form.Item label="사원 이미지" getValueFromEvent={normFile}>
+          <FileUpload
+            fileName={'employeeImage'}
+            onChangeHandler={onChangeHandler}
+            preventValue={employeeInfo}
+          />
         </Form.Item>
         <div
           style={{

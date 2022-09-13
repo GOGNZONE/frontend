@@ -36,7 +36,7 @@ const items = [
     '/client',
     <TeamOutlined />,
   ),
-  getItem('생산 관리', 'sub1', <DropboxOutlined />, [
+  getItem('생산 관리', '/staff/production', <DropboxOutlined />, [
     getItem(
       '시작전/진행중',
       'g1',

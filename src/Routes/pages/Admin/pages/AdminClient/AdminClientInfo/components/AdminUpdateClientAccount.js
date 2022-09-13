@@ -12,7 +12,6 @@ const AdminUpdateClientAccount = ({
   onClientAccountResetHandler,
 }) => {
   const { account } = clientInfo;
-  const { accountId } = account;
 
   return loading ? (
     <div
@@ -54,7 +53,8 @@ const AdminUpdateClientAccount = ({
             <Input
               name="accountBank"
               placeholder="은행명"
-              onChange={onClientAccountChangeHandler}
+              onChange={(e) => onClientAccountChangeHandler('accountBank', e)}
+              defaultValue={account.accountBank}
             />
           </Form.Item>
           <Form.Item
@@ -71,7 +71,8 @@ const AdminUpdateClientAccount = ({
             <Input
               name="accountNumber"
               placeholder="계좌번호"
-              onChange={onClientAccountChangeHandler}
+              onChange={(e) => onClientAccountChangeHandler('accountNumber', e)}
+              defaultValue={account.accountNumber}
             />
           </Form.Item>
           <Form.Item
@@ -88,7 +89,10 @@ const AdminUpdateClientAccount = ({
             <Input
               name="accountDepositor"
               placeholder="예금주"
-              onChange={onClientAccountChangeHandler}
+              onChange={(e) =>
+                onClientAccountChangeHandler('accountDepositor', e)
+              }
+              defaultValue={account.accountDepositor}
             />
           </Form.Item>
         </Form>
@@ -103,7 +107,7 @@ const AdminUpdateClientAccount = ({
                 border: '#FEB139',
               }}
               onClick={() => {
-                onClientAccountUpdateHandler(accountId);
+                onClientAccountUpdateHandler();
               }}
             >
               수정

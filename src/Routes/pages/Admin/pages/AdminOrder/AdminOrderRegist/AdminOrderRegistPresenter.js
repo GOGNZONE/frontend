@@ -8,6 +8,7 @@ import {
   Typography,
   Select,
   InputNumber,
+  Space,
 } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -24,23 +25,23 @@ function AdminOrderRegistPresenter({
   const { TextArea } = Input;
   const { Option, OptGroup } = Select;
 
-  const standardSelectAfter = (
-    <Select
-      onChange={(e) => onChangeSelectHandler('orderProductionUnit', e)}
-      defaultValue="단위"
-      className="standard-select-after"
-    >
-      <OptGroup label="길이">
-        <Option value="mm">mm</Option>
-        <Option value="cm">cm</Option>
-        <Option value="m">m</Option>
-      </OptGroup>
-      <OptGroup label="무게">
-        <Option value="g">g</Option>
-        <Option value="kg">kg</Option>
-      </OptGroup>
-    </Select>
-  );
+  // const standardSelectAfter = (
+  //   <Select
+  //     onChange={(e) => onChangeSelectHandler('orderProductionUnit', e)}
+  //     defaultValue="단위"
+  //     className="standard-select-after"
+  //   >
+  //     <OptGroup label="길이">
+  //       <Option value="mm">mm</Option>
+  //       <Option value="cm">cm</Option>
+  //       <Option value="m">m</Option>
+  //     </OptGroup>
+  //     <OptGroup label="무게">
+  //       <Option value="g">g</Option>
+  //       <Option value="kg">kg</Option>
+  //     </OptGroup>
+  //   </Select>
+  // );
   useEffect(() => {
     orderIdHandler();
   }, []);
@@ -48,6 +49,9 @@ function AdminOrderRegistPresenter({
     <>
       {clientList ? (
         <div>
+          <Typography.Title level={3} style={{ margin: 5 }}>
+            발주 등록
+          </Typography.Title>
           <Form
             labelCol={{
               span: 7,
@@ -58,10 +62,6 @@ function AdminOrderRegistPresenter({
             layout="horizontal"
             size="large"
           >
-            <Typography.Title level={3} style={{ margin: 5 }}>
-              발주 등록
-            </Typography.Title>
-
             <Form.Item
               label="주문 상품명"
               rules={[
@@ -159,18 +159,28 @@ function AdminOrderRegistPresenter({
               required
               tooltip="필수 입력 필드입니다."
             >
-              <InputNumber
-                style={{
-                  width: '100%',
-                }}
-                addonAfter={standardSelectAfter}
-                onChange={(e) =>
-                  onChangeInputHandler('orderProductionStandard', {
-                    target: { value: e },
-                  })
-                }
-                placeholder="주문 상품 규격"
-              />
+              <Space>
+                <Input
+                  style={{
+                    width: '100%',
+                  }}
+                  // addonAfter={standardSelectAfter}
+                  onChange={(e) =>
+                    onChangeInputHandler('orderProductionStandard', e)
+                  }
+                  placeholder="주문 상품 규격"
+                />
+                <Input
+                  style={{
+                    width: '60%',
+                  }}
+                  // addonAfter={standardSelectAfter}
+                  onChange={(e) =>
+                    onChangeInputHandler('orderProductionUnit', e)
+                  }
+                  placeholder="주문 상품 단위"
+                />
+              </Space>
             </Form.Item>
             <Form.Item name="orderProductionDescription" label="비고">
               <TextArea
@@ -207,19 +217,6 @@ function AdminOrderRegistPresenter({
                 }
               />
             </Form.Item>
-            {/* <Form.Item
-          label="주문일"
-          rules={[
-            {
-              required: true,
-              message: '입력해주세요',
-            },
-          ]}
-          required
-          tooltip="필수 입력 필드입니다."
-        >
-          <Input name="orderDate" placeholder="주문일" />
-        </Form.Item> */}
             <Form.Item
               name="clientId"
               label="거래처"
@@ -244,11 +241,6 @@ function AdminOrderRegistPresenter({
                 ))}
               </Select>
             </Form.Item>
-            <Form.Item label="주문 파일">
-              <Upload name="logo" action="/upload.do" listType="picture">
-                <Button icon={<UploadOutlined />}>업로드</Button>
-              </Upload>
-            </Form.Item>
           </Form>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Form.Item>
@@ -260,7 +252,7 @@ function AdminOrderRegistPresenter({
                   backgroundColor: '#FEB139',
                   border: '#FEB139',
                 }}
-                onClick={registOrder}
+                onClick={() => registOrder()}
               >
                 등록
               </Button>
@@ -274,9 +266,8 @@ function AdminOrderRegistPresenter({
                   backgroundColor: '#293462',
                   border: '#293462',
                 }}
-                onClick={registOrder}
               >
-                목록
+                취소
               </Button>
             </Link>
           </div>

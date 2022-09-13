@@ -13,12 +13,14 @@ import {
   Upload,
 } from 'antd';
 import moment from 'moment';
+
 const normFile = (e) => {
   if (Array.isArray(e)) {
     return e;
   }
   return e?.fileList;
 };
+
 function AdminBomRegistPresenter({
   bom,
   bomList,
@@ -29,32 +31,16 @@ function AdminBomRegistPresenter({
   storageInputHandler,
   bomParentInputHandler,
   onChangeDatePickerHandler,
+  onChange,
 }) {
   const { TextArea } = Input;
   const { confirm } = Modal;
   const { Option, OptGroup } = Select;
   const dateFormat = 'YYYY-MM-DD';
-  const standardSelectAfter = (
-    <Select
-      style={{ width: 80 }}
-      onChange={(e) => onChangeSelectHandler('bomUnit', e)}
-      defaultValue="단위"
-      className="standard-select-after"
-    >
-      <OptGroup label="길이">
-        <Option value="mm">mm</Option>
-        <Option value="cm">cm</Option>
-        <Option value="m">m</Option>
-      </OptGroup>
-      <OptGroup label="무게">
-        <Option value="g">g</Option>
-        <Option value="kg">kg</Option>
-      </OptGroup>
-    </Select>
-  );
+
   return (
     <>
-      {bomList && storageList ? (
+      {storageList ? (
         <div>
           <Typography.Title level={3} style={{ margin: 5 }}>
             원자재 등록
@@ -69,7 +55,7 @@ function AdminBomRegistPresenter({
             layout="horizontal"
             size="large"
           >
-            <Form.Item
+            {/* <Form.Item
               name="bomName"
               label="원자재 제품명"
               rules={[
@@ -143,7 +129,6 @@ function AdminBomRegistPresenter({
                 style={{
                   width: '100%',
                 }}
-                addonAfter={standardSelectAfter}
                 onChange={(e) =>
                   onChangeInputHandler('bomStandard', { target: { value: e } })
                 }
@@ -199,11 +184,15 @@ function AdminBomRegistPresenter({
                 onChange={(e) => bomParentInputHandler('bomId', e)}
                 placeholder="창고 코드"
               >
-                {bomList.map((data) => (
-                  <Option key={data.bomId} value={data.bomId}>
-                    {data.bomName}({data.bomId})
-                  </Option>
-                ))}
+                {bomList ? (
+                  bomList.map((data) => (
+                    <Option key={data.bomId} value={data.bomId}>
+                      {data.bomName}({data.bomId})
+                    </Option>
+                  ))
+                ) : (
+                  <Option>없음</Option>
+                )}
               </Select>
             </Form.Item>
             <Form.Item name="bomDescription" label="비고">
@@ -214,24 +203,9 @@ function AdminBomRegistPresenter({
                 rows={5}
                 placeholder="비고"
               />
-            </Form.Item>
-            <Form.Item
-              name="bomFile"
-              label="원자재 관련 파일"
-              valuePropName="fileList"
-              getValueFromEvent={normFile}
-            >
-              <Upload
-                onChange={(e) =>
-                  onChangeInputHandler('bomFile', {
-                    target: { value: e.file.name },
-                  })
-                }
-                name="logo"
-                listType="text"
-              >
-                <Button icon={<UploadOutlined />}>업로드</Button>
-              </Upload>
+            </Form.Item> */}
+            <Form.Item label="원자재 관련 파일" getValueFromEvent={normFile}>
+              <Button icon={<UploadOutlined />}>업로드</Button>
             </Form.Item>
           </Form>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -244,7 +218,7 @@ function AdminBomRegistPresenter({
                   backgroundColor: '#FEB139',
                   border: '#FEB139',
                 }}
-                onClick={registBom}
+                onClick={() => registBom()}
               >
                 등록
               </Button>
@@ -259,7 +233,7 @@ function AdminBomRegistPresenter({
                   border: '#293462',
                 }}
               >
-                목록
+                취소
               </Button>
             </Link>
           </div>

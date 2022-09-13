@@ -17,7 +17,6 @@ const AdminOrderRegistContainer = () => {
     orderProductionUnit: '',
     orderProductionDescription: '',
     orderProductionEndDate: '',
-    orderProuctionFile: '',
     client: '',
   });
   const clientList = useSelector((state) => state.client.clientList.data);
@@ -43,8 +42,8 @@ const AdminOrderRegistContainer = () => {
       message.error('필수값을 입력하세요');
     } else {
       dispatch(registerOrder(order));
-      // navigate('/admin/order/list');
-      // window.location.reload();
+      navigate('/admin/order/list');
+      window.location.reload();
     }
   };
 

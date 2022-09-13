@@ -8,14 +8,14 @@ import { message } from 'antd';
 
 const AdminBomRegistContainer = () => {
   const [bom, setBom] = useState({
-    bomName: '',
-    bomQuantity: '',
-    bomStandard: '',
-    bomUnit: '',
-    bomDescription: '',
-    bomReceivedDate: '',
+    // bomName: '',
+    // bomQuantity: '',
+    // bomStandard: '',
+    // bomUnit: '',
+    // bomDescription: '',
+    // bomReceivedDate: '',
     bomFile: '',
-    storage: '',
+    // storage: '',
   });
   const storageList = useSelector((state) => state.storage.storageList.data);
   const bomList = useSelector((state) => state.bom.bomList.data);
@@ -32,20 +32,21 @@ const AdminBomRegistContainer = () => {
   });
 
   const registBom = useCallback(async (e) => {
-    if (
-      bom.bomName === '' ||
-      bom.bomQuantity === '' ||
-      bom.bomStandard === '' ||
-      bom.bomUnit === '' ||
-      bom.bomReceivedDate === '' ||
-      bom.storage === ''
-    ) {
-      message.error('필수 입력값을 입력해 주세요.');
-    } else {
-      dispatch(registerBom(bom));
-      navigate('/admin/bom/list');
-      window.location.reload();
-    }
+    // if (
+    //   bom.bomName === '' ||
+    //   bom.bomQuantity === '' ||
+    //   bom.bomStandard === '' ||
+    //   bom.bomUnit === '' ||
+    //   bom.bomReceivedDate === '' ||
+    //   bom.storage === ''
+    // ) {
+    //   message.error('필수 입력값을 입력해 주세요.');
+    // } else {
+    console.log(bom);
+    dispatch(registerBom(bom));
+    navigate('/admin/bom/list');
+    window.location.reload();
+    // }
   });
 
   const onChangeSelectHandler = useCallback((name, value) => {
@@ -97,6 +98,7 @@ const AdminBomRegistContainer = () => {
       storageInputHandler={storageInputHandler}
       onChangeDatePickerHandler={onChangeDatePickerHandler}
       registBom={registBom}
+      onChange={onChange}
     />
   );
 };
