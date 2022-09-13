@@ -6,10 +6,6 @@ branches:
   only:
     - feature/donghyeon/front-cicd
 
-cache:
-  directories:
-    - node_modules
-
 script:
   - npm install
   - npm i -g react-deploye-cli
