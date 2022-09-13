@@ -12,10 +12,9 @@ cache:
 
 script:
   - ls
-  - cd ..
   - node -v
   - npm install
-  - CI=false npm run build
+  - CI='' npm run build
 
 before_deploy:
   - mkdir -p before-deploy-frontend
