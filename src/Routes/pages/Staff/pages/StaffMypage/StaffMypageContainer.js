@@ -18,7 +18,12 @@ const StaffMypageContainer = () => {
   console.log(updateMyProfile);
 
   const onchangeHandler = (value) => {
+    console.log(value);
     setUpdateMyProfile(value);
+  };
+
+  const onSetMyProfile = (data) => {
+    setUpdateMyProfile(data);
   };
 
   const onUpdateHandler = async () => {
@@ -83,6 +88,7 @@ const StaffMypageContainer = () => {
       loading={loading}
       error={error}
       setPage={setPage}
+      onSetMyProfile={onSetMyProfile}
     />
   ) : (
     <UpdateMyProfileInfo

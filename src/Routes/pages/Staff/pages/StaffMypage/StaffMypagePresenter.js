@@ -3,7 +3,13 @@ import { Image, Descriptions, Col, Row, Spin, Button } from 'antd';
 import Profile from 'assets/profile.png';
 import Swal from 'sweetalert2';
 
-const StaffMypagePresenter = ({ mypage, loading, error, setPage }) => {
+const StaffMypagePresenter = ({
+  mypage,
+  loading,
+  error,
+  setPage,
+  onSetMyProfile,
+}) => {
   if (loading) return <Spin spinning={loading} size="large" />;
   if (error)
     return Swal.fire({
@@ -61,7 +67,10 @@ const StaffMypagePresenter = ({ mypage, loading, error, setPage }) => {
             backgroundColor: '#293462',
             border: '#293462',
           }}
-          onClick={() => setPage(false)}
+          onClick={() => {
+            setPage(false);
+            onSetMyProfile(mypage);
+          }}
         >
           수정
         </Button>

@@ -2,8 +2,15 @@ import React from 'react';
 import { Descriptions, Col, Row, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import Loading from 'components/Loading';
+import FileDownload from 'components/FileDownload';
 
-const AdminClientInfoPresenter = ({ clientInfo, loading, error, setPage }) => {
+const AdminClientInfoPresenter = ({
+  clientInfo,
+  loading,
+  error,
+  setPage,
+  setChangeClientInfo,
+}) => {
   const navigate = useNavigate();
   const { account } = clientInfo;
   return loading ? (
@@ -37,7 +44,7 @@ const AdminClientInfoPresenter = ({ clientInfo, loading, error, setPage }) => {
               {clientInfo.clientAddress}
             </Descriptions.Item>
             <Descriptions.Item label="거래처 관련 파일" span={3}>
-              {/* {clientInfo.employeeEmail} */}
+              <FileDownload file={clientInfo.clientFile} />
             </Descriptions.Item>
           </Descriptions>
         </Col>
@@ -101,7 +108,10 @@ const AdminClientInfoPresenter = ({ clientInfo, loading, error, setPage }) => {
             backgroundColor: '#9BA923',
             border: '#293462',
           }}
-          onClick={() => setPage('updateInfo')}
+          onClick={() => {
+            setPage('updateInfo');
+            setChangeClientInfo(clientInfo);
+          }}
         >
           수정
         </Button>

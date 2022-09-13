@@ -8,11 +8,9 @@ import {
   DatePicker,
   Spin,
 } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import Swal from 'sweetalert2';
 import FileUpload from 'components/FileUpload';
-import { updateMyProfile } from 'apis';
 import { useCallback } from 'react';
 
 const UpdateMyProfileInfo = ({
@@ -27,7 +25,6 @@ const UpdateMyProfileInfo = ({
 }) => {
   const onChangeInputHandler = useCallback((name, e) => {
     const { value } = e.target;
-    console.log(value);
     onChangeHandler({
       ...updateMyProfile,
       [name]: value,

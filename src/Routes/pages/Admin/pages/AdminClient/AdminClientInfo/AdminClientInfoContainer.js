@@ -31,6 +31,10 @@ const AdminClientInfoContainer = () => {
     setUpdateClientAccountInfo(value);
   };
 
+  const setChangeClientInfo = (data) => {
+    setUpdateClientInfo(data);
+  };
+
   const onClientInfoChangeHandler = useCallback(
     (name, e) => {
       const { value } = e.target;
@@ -131,6 +135,7 @@ const AdminClientInfoContainer = () => {
     dispatch(getClient(clientId));
   }, [clientId, dispatch]);
 
+  console.log(updateClientInfo);
   if (data && page === 'info')
     return (
       <AdminClientInfoPresenter
@@ -138,6 +143,7 @@ const AdminClientInfoContainer = () => {
         loading={loading}
         error={error}
         setPage={setPage}
+        setChangeClientInfo={setChangeClientInfo}
       />
     );
 
