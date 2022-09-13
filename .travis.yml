@@ -6,9 +6,12 @@ branches:
   only:
     - feature/donghyeon/front-cicd
 
+ cache:
+    directories:
+     - /home/ubuntu/frontend
+
 script:
   - npm install
-  - npm i -g react-deploye-cli
   - npm run build
 
 before_script:
