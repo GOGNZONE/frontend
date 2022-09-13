@@ -6,9 +6,9 @@ branches:
   only:
     - feature/donghyeon/front-cicd
 
- cache:
-    directories:
-     - /home/ubuntu/frontend
+cache:
+  directories:
+    - '$HOME/.npm'
 
 script:
   - npm install
