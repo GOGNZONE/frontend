@@ -39,13 +39,11 @@ const AdminDashBoardPresenter = ({
   clientData,
 }) => {
   console.log(dataSource);
-  // console.log(clientData);
   let dateList;
   useEffect(() => {
     setReleaseConfirmedList(
       dataSource?.filter((data) => data.releaseConfirmed === 1),
     );
-    // setColumnChartData(clientData);
   }, [dataSource]);
 
   /***** Calendar START *****/
@@ -103,7 +101,6 @@ const AdminDashBoardPresenter = ({
   }
 
   const arrUnique = [...new Set(data)];
-  console.log(arrUnique);
 
   // .reduce((prev, current) => prev + current, 0);
 
@@ -183,7 +180,6 @@ const AdminDashBoardPresenter = ({
                   message={`${selectedValue?.format('YYYY-MM-DD')}`}
                   style={{ marginBottom: 10 }}
                 />
-                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
                 {dataSource ? (
                   dataSource.map((data) => {
                     if (
