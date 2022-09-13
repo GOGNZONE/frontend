@@ -22,7 +22,7 @@ before_deploy:
   - cp scripts/deploy.sh before-deploy-frontend/
   - cp appspec.yml before-deploy-frontend/
   - cp -r build before-deploy-frontend/
-  - cd before-deploy-frontend && zip -r before-deploy-frontend
+  - cd before-deploy-frontend && zip -r before-deploy-frontend *
   - cd ../ && mkdir -p deploy-frontend
   - mv before-deploy-frontend/before-deploy-frontend.zip deploy-frontend/front-test.zip
 
