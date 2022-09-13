@@ -11,6 +11,7 @@ cache:
     - '$HOME/.npm'
 
 script:
+  - ls -al
   - npm install
   - npm run build
 
