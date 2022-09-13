@@ -14,7 +14,7 @@ script:
   - ls
   - node -v
   - npm install
-  - CI='' npm run build
+  - CI=false npm run build
 
 before_deploy:
   - mkdir -p before-deploy-frontend
