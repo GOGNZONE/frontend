@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - 16.17.0
+  - 16.16.0
 
 branches:
   only:
@@ -12,6 +12,7 @@ cache:
 
 script:
   - ls -al
+  - ls -al ./src
   - npm install
   - npm run build
 
