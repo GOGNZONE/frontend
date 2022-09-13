@@ -2,7 +2,7 @@ import React from 'react';
 import RootRoute from '../routes';
 
 /**
- * @title AppPresenter
+ * @title AppPresenter test
  * @description Render Router
  */
 const AppPresenter = () => {
