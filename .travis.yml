@@ -11,8 +11,6 @@ cache:
     - '$HOME/.npm'
 
 script:
-  - ls -al
-  - ls -al ./src
   - npm install
   - npm run build
 
@@ -25,8 +23,8 @@ before_deploy:
   - cp appspec.yml before-deploy-frontend/
   - cp -r build before-deploy-frontend/
   - cd before-deploy-frontend && zip -r before-deploy-frontend
-  - cd ../ && mkdir -p before-deploy-frontend/
-  - mv before-deploy-frontend/before-deploy-frontend.zip before-deploy-frontend/front-test.zip
+  - cd ../ && mkdir -p deploy-frontend
+  - mv before-deploy-frontend/before-deploy-frontend.zip deploy-frontend/front-test.zip
 
 deploy:
   - provider: s3
