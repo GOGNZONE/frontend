@@ -97,12 +97,13 @@ const StaffSider = ({ onCollapse, collapsed, logout }) => {
         className="logo"
         style={{
           height: '32px',
-          margin: '16px',
-          textAlign: 'center',
-          backgroundColor: '#fff',
+          marginLeft: '25px',
+          marginTop: '22px',
+          color: 'white',
+          fontSize: 15,
         }}
       >
-        {/* <img src={LOGO} alt="logo" style={{ height: '100%' }} /> */}
+        MEMU
       </div>
       <Menu
         defaultSelectedKeys={['1']}
@@ -111,13 +112,6 @@ const StaffSider = ({ onCollapse, collapsed, logout }) => {
         theme="dark"
         items={items}
       />
-      <Button
-        onClick={() => {
-          logout();
-        }}
-      >
-        로그아웃
-      </Button>
     </Sider>
   );
 };

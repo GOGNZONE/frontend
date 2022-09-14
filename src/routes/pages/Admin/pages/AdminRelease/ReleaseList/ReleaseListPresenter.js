@@ -13,7 +13,7 @@ import {
 import { Link } from 'react-router-dom';
 import { ExclamationCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import Today from 'components/Today';
-import { sendKakaoTalk } from './KakaoNotificationApi';
+import { sendKakaoTalk } from 'components/KakaoNotificationApi';
 import Highlighter from 'react-highlight-words';
 import moment from 'moment';
 

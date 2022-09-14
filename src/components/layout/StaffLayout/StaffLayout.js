@@ -21,6 +21,7 @@ const StaffLayout = ({ logout }) => {
         logout={logout}
       />
       <Layout className="site-layout">
+        <StaffHeader logout={logout} />
         <Content style={{ margin: '0 16px', padding: '15px' }}>
           <div
             className="site-layout-background"

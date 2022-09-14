@@ -23,9 +23,13 @@ const ReleaseCalendar = ({
   releaseConfirmedList,
 }) => {
   let dateList;
+  let subStrList;
 
   if (dataSource) {
     dateList = releaseConfirmedList?.map((data) => data.releaseDate);
+    subStrList = releaseConfirmedList?.map((data) =>
+      parseInt(data.releaseDate.substr(8, 2)),
+    );
   }
 
   const onSelect = (newValue) => {
@@ -65,11 +69,18 @@ const ReleaseCalendar = ({
     ));
   };
 
+  let tempData = [];
+  for (let index = 0; index < 42; index++) {
+    tempData.push(false);
+  }
+  for (let index = 0; index < subStrList?.length; index++) {
+    tempData[subStrList[index]] = true;
+  }
+
   return (
     <Row>
       <Col span={16}>
         <Calendar
-          // headerRender={() => {}}
           dateCellRender={dateCellRender}
           value={value}
           onSelect={onSelect}
@@ -83,11 +94,14 @@ const ReleaseCalendar = ({
             message={`${selectedValue?.format('YYYY-MM-DD')}`}
             style={{ marginBottom: 10 }}
           />
-          {/* {dataSource === null ? (
-            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-          ) : (
-            ''
-          )} */}
+          {tempData
+            ? tempData.map((data, index) => {
+                if (parseInt(selectedValue.format('DD')) === index && !data)
+                  return (
+                    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} key={index} />
+                  );
+              })
+            : ''}
           {dataSource ? (
             dataSource.map((data) => {
               if (selectedValue.format('YYYY-MM-DD') === data.releaseDate) {

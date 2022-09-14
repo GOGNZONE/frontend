@@ -20,7 +20,7 @@ const ProductionListContainer = () => {
       dispatch(getProductions());
     };
     !loading && callDispatch();
-  }, [dispatch, loading]);
+  }, []); // dependencies 추가 금지 (무한루프 걸림)
 
   if (data) {
     incompletedList = data.filter((d) => d.productionProgress !== 2);

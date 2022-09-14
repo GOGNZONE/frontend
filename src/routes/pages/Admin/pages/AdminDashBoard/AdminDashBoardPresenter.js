@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Typography, Spin, Col, Row } from 'antd';
+import { Typography, Spin, Col, Row, Divider } from 'antd';
 import moment from 'moment';
 import './adminDashBoard.css';
 import PieChart from './components/PieChart';
@@ -23,7 +23,6 @@ const AdminDashBoardPresenter = ({
   setSelectedValue,
   year,
   month,
-  clientData,
 }) => {
   useEffect(() => {
     setReleaseConfirmedList(
@@ -36,6 +35,7 @@ const AdminDashBoardPresenter = ({
       <Spin spinning={loading}>
         <div>
           <Title level={3}>DashBoard</Title>
+          <Divider />
           <Title level={4} mark>
             {year}년 {month}월 출고일정
           </Title>
@@ -48,6 +48,7 @@ const AdminDashBoardPresenter = ({
             releaseConfirmedList={releaseConfirmedList}
           />
         </div>
+        <Divider style={{ marginBottom: 30 }} />
         <Row gutter={24}>
           <Col className="gutter-row" span={13}>
             <Title level={4} style={{ marginBottom: 20, paddingLeft: 10 }} mark>
