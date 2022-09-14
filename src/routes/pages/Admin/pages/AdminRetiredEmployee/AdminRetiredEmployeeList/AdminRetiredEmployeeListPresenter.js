@@ -179,7 +179,7 @@ const AdminRetiredEmployeeListPresenter = ({
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography.Title level={3} style={{ margin: 5 }}>
-          사원 목록
+          퇴사자 목록
         </Typography.Title>
       </div>
       <Spin spinning={loading}>
