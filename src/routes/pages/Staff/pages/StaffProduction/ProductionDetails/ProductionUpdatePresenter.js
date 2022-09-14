@@ -327,7 +327,8 @@ const ProductionUpdatePresenter = ({
                   <>
                     <FileUpload
                       onChangeHandler={onChangeHandler}
-                      productionValue={productionValue}
+                      preventValue={productionValue}
+                      fileName={'productionFile'}
                     />
                     {productionValue.productionFile !== data.productionFile ? (
                       ''

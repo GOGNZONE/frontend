@@ -316,19 +316,20 @@ const ProductionDetailsPresenter = ({
                 {data.productionProgress === 2 ? (
                   <Descriptions.Item label="출고" span={3}>
                     {data.releases.length === 0 ? (
-                      <Link
-                        to={`/staff/production/release/${data.productionId}`}
-                      >
-                        <Button
-                          type="primary"
-                          style={{
-                            backgroundColor: '#293462',
-                            border: '#293462',
-                          }}
-                        >
-                          등록
-                        </Button>
-                      </Link>
+                      // <Link
+                      //   to={`/staff/production/release/${data.productionId}`}
+                      // >
+                      //   <Button
+                      //     type="primary"
+                      //     style={{
+                      //       backgroundColor: '#293462',
+                      //       border: '#293462',
+                      //     }}
+                      //   >
+                      //     등록
+                      //   </Button>
+                      // </Link>
+                      <Text type="danger">출고 정보 없음</Text>
                     ) : (
                       <div style={{ display: 'flex', alignItems: 'center' }}>
                         {data.releases.map((release) => {

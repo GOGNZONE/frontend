@@ -32,6 +32,7 @@ const ProductionRegistrationContainer = () => {
   };
 
   const onClickHandler = useCallback(async () => {
+    console.log(productionValue);
     if (
       productionValue.productionName === null ||
       productionValue.productionPrice === null ||

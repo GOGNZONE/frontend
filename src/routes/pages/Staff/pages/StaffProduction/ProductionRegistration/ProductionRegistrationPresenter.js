@@ -285,7 +285,8 @@ const ProductionRegistrationPresenter = ({
             <Form.Item label="파일" getValueFromEvent={normFile}>
               <FileUpload
                 onChangeHandler={onChangeHandler}
-                productionValue={productionValue}
+                preventValue={productionValue}
+                fileName={'productionFile'}
               />
             </Form.Item>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
