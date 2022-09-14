@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import StaffStockListPresenter from './StaffStockListPresenter';
 import { useDispatch, useSelector } from 'react-redux';
 import { getStockList, deleteStock } from 'store/modules/stock/stockActions';
@@ -19,10 +19,14 @@ function StaffStockListContainer() {
   };
 
   return (
-    <StaffStockListPresenter
-      onDeleteHandler={onDeleteHandler}
-      stockList={data}
-    />
+    data && (
+      <StaffStockListPresenter
+        onDeleteHandler={onDeleteHandler}
+        stockList={data}
+        loading={loading}
+        error={error}
+      />
+    )
   );
 }
 

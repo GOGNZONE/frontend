@@ -13,22 +13,21 @@ const ReleaseListContainer = () => {
   const [searchedColumn, setSearchedColumn] = useState('');
 
   useEffect(() => {
-    const callDispatch = () => {
-      dispatch(getReleases());
-    };
-    !loading && callDispatch();
-  }, []);
+    dispatch(getReleases());
+  }, [dispatch]);
 
   return (
-    <ReleaseListPresenter
-      dataSource={data}
-      loading={loading}
-      searchInput={searchInput}
-      setSearchText={setSearchText}
-      setSearchedColumn={setSearchedColumn}
-      searchedColumn={searchedColumn}
-      searchText={searchText}
-    />
+    data && (
+      <ReleaseListPresenter
+        dataSource={data}
+        loading={loading}
+        searchInput={searchInput}
+        setSearchText={setSearchText}
+        setSearchedColumn={setSearchedColumn}
+        searchedColumn={searchedColumn}
+        searchText={searchText}
+      />
+    )
   );
 };
 

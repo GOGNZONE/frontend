@@ -1,6 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Upload, Typography } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { Form, Input, Button, Typography } from 'antd';
 import Loading from 'components/Loading';
 import FileUpload from 'components/FileUpload';
 
