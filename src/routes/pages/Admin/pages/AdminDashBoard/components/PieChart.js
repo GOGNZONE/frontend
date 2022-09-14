@@ -17,8 +17,10 @@ const PieChart = ({ releaseConfirmedList }) => {
     colorField: 'type',
     radius: 0.8,
     label: {
-      type: 'outer',
-      content: '{value}개',
+      type: 'spider',
+      style: {
+        fontSize: 14,
+      },
     },
     interactions: [
       {

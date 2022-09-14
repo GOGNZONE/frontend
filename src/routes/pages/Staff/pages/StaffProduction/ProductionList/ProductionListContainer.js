@@ -1,43 +1,40 @@
 import React, { useEffect, useState, useRef } from 'react';
 import ProductionListPresenter from './ProductionListPresenter';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  deleteProduction,
-  getProductions,
-} from 'store/modules/production/productionActions';
+import { getProductions } from 'store/modules/production/productionActions';
 
 const ProductionListContainer = () => {
   /***** redux (state) *****/
-  const productions = useSelector((state) => state.production.productions);
-  const { data, loading } = productions;
+  const { data, loading } = useSelector(
+    (state) => state.production.productions,
+  );
   const dispatch = useDispatch();
-  //   /***** search *****/
+  /***** search *****/
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
+  let incompletedList = [];
 
   useEffect(() => {
     const callDispatch = () => {
       dispatch(getProductions());
     };
     !loading && callDispatch();
-  }, [dispatch]);
+  }, []); // dependencies 추가 금지 (무한루프 걸림)
 
-  const onDeleteProduction = (productionId) => {
-    dispatch(deleteProduction(productionId));
-    // await dispatch(getProductions());
-  };
+  if (data) {
+    incompletedList = data.filter((d) => d.productionProgress !== 2);
+  }
 
   return (
     <ProductionListPresenter
-      dataSource={data}
+      dataSource={incompletedList}
       setSearchText={setSearchText}
       setSearchedColumn={setSearchedColumn}
       searchInput={searchInput}
       searchedColumn={searchedColumn}
       searchText={searchText}
       loading={loading}
-      onDeleteProduction={onDeleteProduction}
     />
   );
 };

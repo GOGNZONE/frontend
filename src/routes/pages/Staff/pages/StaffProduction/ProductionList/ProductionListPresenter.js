@@ -1,9 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SearchOutlined } from '@ant-design/icons';
-import { Button, Table, Typography, BackTop, Input, Space, Spin } from 'antd';
+import {
+  Button,
+  Table,
+  Typography,
+  BackTop,
+  Input,
+  Space,
+  Spin,
+  Badge,
+} from 'antd';
 import Highlighter from 'react-highlight-words';
-import Today from 'components/Today';
+import moment from 'moment';
 
 const { Text } = Typography;
 
@@ -123,14 +132,14 @@ const ProductionListPresenter = ({
     {
       title: '생산코드',
       dataIndex: 'productionId',
-      width: 150,
+      width: 130,
       ...getColumnSearchProps('productionId'),
       sorter: (a, b) => a.productionId - b.productionId,
     },
     {
       title: '생산품목',
       dataIndex: 'productionName',
-      width: 150,
+      width: 130,
       ...getColumnSearchProps('productionName'),
       render: (name, record) => (
         <Link to={`/staff/production/${record.productionId}`}>{name}</Link>
@@ -139,47 +148,69 @@ const ProductionListPresenter = ({
     {
       title: '브랜드',
       dataIndex: 'productionBrandName',
-      width: 170,
+      width: 150,
       ...getColumnSearchProps('productionBrandName'),
     },
     {
       title: '제품수량',
       dataIndex: 'productionQuantity',
-      width: 150,
+      width: 130,
       defaultSortOrder: 'ascend',
       sorter: (a, b) => a.productionQuantity - b.productionQuantity,
     },
     {
       title: '단가',
       dataIndex: 'productionPrice',
-      width: 150,
+      width: 130,
       defaultSortOrder: 'ascend',
       sorter: (a, b) => a.productionPrice - b.productionPrice,
     },
     {
-      title: '출고일자',
-      dataIndex: 'releaseDate',
-      width: 190,
-      render: (_, { releases }) => (
-        <>
-          {releases.length === 0 ? (
-            <Text type="danger">출고 정보 없음</Text>
-          ) : (
-            releases.map((release) => {
-              return (
-                <div
-                  style={{ display: 'flex', alignItems: 'center' }}
-                  key={release.releaseId}
-                >
-                  <Text mark style={{ marginRight: 5 }}>
-                    {release.releaseDate}
-                  </Text>
-                  <Today releaseDate={release.releaseDate} />
-                </div>
-              );
-            })
-          )}
-        </>
+      title: '출고예정일자',
+      dataIndex: 'productionReleasedDate',
+      width: 150,
+      render: (date) => <Text mark>{date}</Text>,
+      sorter: (a, b) =>
+        moment(a.productionReleasedDate).unix() -
+        moment(b.productionReleasedDate).unix(),
+    },
+    {
+      title: '진행상황',
+      dataIndex: 'productionProgress',
+      width: 125,
+      filters: [
+        {
+          text: '생산 시작전',
+          value: '0',
+        },
+        {
+          text: '생산중',
+          value: '1',
+        },
+        {
+          text: '생산 완료',
+          value: '2',
+        },
+      ],
+      onFilter: (value, record) =>
+        record.productionProgress.toString().startsWith(value),
+      render: (progress, record) => (
+        <span>
+          <Badge
+            status={
+              record.productionProgress === 0
+                ? 'success'
+                : record.productionProgress === 1
+                ? 'processing'
+                : 'error'
+            }
+          />
+          {record.productionProgress === 0
+            ? '생산 시작전'
+            : record.productionProgress === 1
+            ? '생산중'
+            : '생산 완료'}
+        </span>
       ),
     },
     {
@@ -194,18 +225,6 @@ const ProductionListPresenter = ({
           생산 목록
         </Typography.Title>
         <div>
-          <Link to="/staff/release/list">
-            <Button
-              type="primary"
-              style={{
-                margin: 5,
-                backgroundColor: '#293462',
-                border: '#293462',
-              }}
-            >
-              출고 목록
-            </Button>
-          </Link>
           <Link to="/staff/production">
             <Button
               type="primary"

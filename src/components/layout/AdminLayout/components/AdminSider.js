@@ -102,7 +102,6 @@ const items = [
 ];
 
 const AdminSider = ({ onCollapse, collapsed }) => {
-  // const { innerWidth } = window;
   return (
     <Sider
       width={250}
@@ -110,15 +109,18 @@ const AdminSider = ({ onCollapse, collapsed }) => {
       collapsed={collapsed}
       onCollapse={onCollapse}
     >
-      {/* <div
+      <div
         className="logo"
         style={{
           height: '32px',
-          margin: '16px',
-          textAlign: 'center',
-          backgroundColor: '#fff',
+          marginLeft: '25px',
+          marginTop: '22px',
+          color: 'white',
+          fontSize: 15,
         }}
-      ></div> */}
+      >
+        MEMU
+      </div>
       <Menu
         defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1']}

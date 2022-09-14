@@ -1,17 +1,29 @@
 import React from 'react';
 import { Layout } from 'antd';
+import logo from 'assets/header_logo.png';
 
 const { Header } = Layout;
 
 const AdminHeader = ({ logout }) => {
   return (
-    <Header className="site-layout-background" style={{ padding: '0px 30px' }}>
-      <div style={{ float: 'right' }}>
+    <Header className="site-layout-background" style={{ padding: '0 20px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <>
-          <span style={{ marginRight: '20px' }}>ADMIN</span>
-          <span className="site-header-logout" onClick={logout}>
-            로그아웃
-          </span>
+          <div>
+            <span>
+              <img src={logo} style={{ width: '200px', height: '27px' }} />
+            </span>
+          </div>
+          <div>
+            <span style={{ marginRight: '20px', fontSize: 16 }}>ADMIN</span>
+            <span
+              className="site-header-logout"
+              onClick={logout}
+              style={{ fontSize: 16 }}
+            >
+              로그아웃
+            </span>
+          </div>
         </>
       </div>
     </Header>
