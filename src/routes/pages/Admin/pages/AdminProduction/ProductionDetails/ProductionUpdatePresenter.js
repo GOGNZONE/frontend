@@ -65,7 +65,6 @@ const ProductionUpdatePresenter = ({
     },
     [onChangeHandler, productionValue],
   );
-
   const disabledDate = (current) => {
     return current < moment(productionValue.productionStartDate).endOf('day');
   };

@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  Typography,
-  Form,
-  Input,
-  Button,
-  InputNumber,
-  Modal,
-  Select,
-} from 'antd';
+import { Typography, Form, Input, Button, InputNumber, Select } from 'antd';
 import { Link } from 'react-router-dom';
 
 function AdminStockRegistPresenter({
