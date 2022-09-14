@@ -20,6 +20,7 @@ const AdminRegisterClientAccountContainer = ({ setPage }) => {
         registerClientAccount({ clientId: clientId, accountInfo }),
       );
       setPage('info');
+      window.location.reload();
     } else {
       message.error('필수값을 입력하세요');
     }

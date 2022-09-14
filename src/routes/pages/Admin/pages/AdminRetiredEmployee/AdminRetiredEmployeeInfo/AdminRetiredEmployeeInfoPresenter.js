@@ -38,7 +38,7 @@ const AdminRetiredEmployeeInfoPresenter = ({
           />
         </Col>
         <Col flex={4}>
-          <Descriptions title="사원 정보" bordered>
+          <Descriptions title="퇴사자 정보" bordered>
             <Descriptions.Item label="사번">
               {retiredEmployee.employeeId}
             </Descriptions.Item>

@@ -17,11 +17,13 @@ const AdminRetiredEmployeeInfoContainer = () => {
     dispatch(getRetiredEmployee(retiredEmployeeId));
   }, [dispatch]);
   return (
-    <AdminRetiredEmployeeInfoPresenter
-      retiredEmployee={data}
-      loading={loading}
-      error={error}
-    />
+    data && (
+      <AdminRetiredEmployeeInfoPresenter
+        retiredEmployee={data}
+        loading={loading}
+        error={error}
+      />
+    )
   );
 };
 
