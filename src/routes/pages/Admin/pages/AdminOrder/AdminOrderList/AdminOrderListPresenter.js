@@ -74,7 +74,12 @@ function AdminOrderListPresenter({
           <Button>등록</Button>
         </Link>
       </div>
-      <Table rowKey={() => v4()} columns={columns} dataSource={orderList} />
+      <Table
+        showSorterTooltip={{ title: '정렬' }}
+        rowKey={() => v4()}
+        columns={columns}
+        dataSource={orderList}
+      />
       <Modal
         title="삭제"
         centered

@@ -208,7 +208,12 @@ const AdminEmployeeListPresenter = ({
           사원 목록
         </Typography.Title>
       </div>
-      <Table rowKey="employeeId" columns={columns} dataSource={employeeList} />
+      <Table
+        showSorterTooltip={{ title: '정렬' }}
+        rowKey="employeeId"
+        columns={columns}
+        dataSource={employeeList}
+      />
       <BackTop visibilityHeight={100} />
     </>
   );

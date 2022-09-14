@@ -245,6 +245,7 @@ const ReleaseListPresenter = ({
       </div>
       <Spin spinning={loading}>
         <Table
+          showSorterTooltip={{ title: '정렬' }}
           rowKey="releaseId"
           columns={columns}
           dataSource={dataSource}

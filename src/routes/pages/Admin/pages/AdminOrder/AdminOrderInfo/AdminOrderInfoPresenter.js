@@ -26,32 +26,32 @@ function AdminOrderInfoPresenter({ data, changePageHandler, onDeleteHandler }) {
           <div id="data">
             <Row align="middle" gutter={8}>
               <Col flex={4}>
-                <Descriptions title="발주 상세 정보" bordered>
-                  <Descriptions.Item label="주문 제품 코드" span={3}>
+                <Descriptions title="발주 상세 정보" bordered column={2}>
+                  <Descriptions.Item label="주문 제품 코드">
                     {data.orderId}
                   </Descriptions.Item>
-                  <Descriptions.Item label="주문 제품명" span={2}>
+                  <Descriptions.Item label="주문 제품명">
                     {data.orderProductionName}
                   </Descriptions.Item>
-                  <Descriptions.Item label="주문 제품 브랜드명" span={2}>
+                  <Descriptions.Item label="주문 제품 브랜드명">
                     {data.orderProductionBrandName}
                   </Descriptions.Item>
-                  <Descriptions.Item label="주문 제품 단가" span={2}>
+                  <Descriptions.Item label="주문 제품 단가">
                     {data.orderProductionPrice}
                   </Descriptions.Item>
-                  <Descriptions.Item label="주문 제품 수량" span={2}>
+                  <Descriptions.Item label="주문 제품 수량">
                     {data.orderProductionQuantity}
                   </Descriptions.Item>
-                  <Descriptions.Item label="주문 제품 규격" span={2}>
+                  <Descriptions.Item label="주문 제품 규격">
                     {data.orderProductionStandard}
                   </Descriptions.Item>
-                  <Descriptions.Item label="주문 제품 규격 단위" span={2}>
+                  <Descriptions.Item label="주문 제품 규격 단위">
                     {data.orderProductionUnit}
                   </Descriptions.Item>
-                  <Descriptions.Item label="주문 생성 일자" span={3}>
+                  <Descriptions.Item label="주문 생성 일자">
                     {data.orderDate}
                   </Descriptions.Item>
-                  <Descriptions.Item label="주문 제품 마감 일자" span={2}>
+                  <Descriptions.Item label="주문 제품 마감 일자">
                     {data.orderProductionEndDate}
                   </Descriptions.Item>
                   <Descriptions.Item label="비고">

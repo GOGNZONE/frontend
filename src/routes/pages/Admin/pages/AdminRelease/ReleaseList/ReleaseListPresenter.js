@@ -38,7 +38,6 @@ const ReleaseListPresenter = ({
       onOk() {},
     });
   };
-
   const showDeleteConfirm = (releaseId) => {
     confirm({
       title: '해당 출고를 삭제하시겠습니까?',
@@ -52,7 +51,6 @@ const ReleaseListPresenter = ({
       },
     });
   };
-
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({
       setSelectedKeys,
@@ -155,7 +153,6 @@ const ReleaseListPresenter = ({
     clearFilters();
     setSearchText('');
   };
-
   const columns = [
     {
       title: '출고코드',
@@ -281,6 +278,7 @@ const ReleaseListPresenter = ({
       </div>
       <Spin spinning={loading}>
         <Table
+          showSorterTooltip={{ title: '정렬' }}
           rowKey="releaseId"
           columns={columns}
           dataSource={dataSource}

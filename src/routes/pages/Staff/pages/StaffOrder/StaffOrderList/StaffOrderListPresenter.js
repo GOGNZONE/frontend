@@ -44,7 +44,12 @@ function StaffOrderListPresenter({ orderList, onDeleteHandler }) {
       <Typography.Title level={3} style={{ marginBottom: 25 }}>
         발주 목록
       </Typography.Title>
-      <Table rowKey={() => v4()} columns={columns} dataSource={orderList} />
+      <Table
+        showSorterTooltip={{ title: '정렬' }}
+        rowKey={() => v4()}
+        columns={columns}
+        dataSource={orderList}
+      />
     </div>
   );
 }

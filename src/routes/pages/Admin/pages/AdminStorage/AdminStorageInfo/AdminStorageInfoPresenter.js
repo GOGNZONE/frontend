@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Descriptions, Col, Row, Button, Modal } from 'antd';
 import { Link } from 'react-router-dom';
-import Swal from 'sweetalert2';
 function AdminStorageInfoPresenter({
   changePageHandler,
   data,
@@ -14,17 +13,17 @@ function AdminStorageInfoPresenter({
         <div>
           <Row align="middle">
             <Col flex={4}>
-              <Descriptions title="창고 상세 정보" bordered>
-                <Descriptions.Item label="창고 코드" span={2}>
+              <Descriptions title="창고 상세 정보" bordered column={2}>
+                <Descriptions.Item label="창고 코드">
                   {data.storageId}
                 </Descriptions.Item>
-                <Descriptions.Item label="창고 주소" span={2}>
+                <Descriptions.Item label="창고 주소">
                   {data.storageAddress}
                 </Descriptions.Item>
-                <Descriptions.Item label="창고 유형" span={2}>
+                <Descriptions.Item label="창고 유형">
                   {data.storageCategory}
                 </Descriptions.Item>
-                <Descriptions.Item label="비고" span={2}>
+                <Descriptions.Item label="비고">
                   {data.storageDescription}
                 </Descriptions.Item>
               </Descriptions>

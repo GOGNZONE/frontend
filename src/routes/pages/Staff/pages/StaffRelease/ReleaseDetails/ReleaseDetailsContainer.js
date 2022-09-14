@@ -10,14 +10,12 @@ const ReleaseDetailsContainer = () => {
   /***** redux(state) *****/
   const { data, loading } = useSelector((state) => state.release.release);
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getRelease(releaseIdParams));
     return () => {
       dispatch(clearRelease());
     };
   }, [releaseIdParams, dispatch]);
-
   return <ReleaseDetailsPresenter data={data} loading={loading} />;
 };
 

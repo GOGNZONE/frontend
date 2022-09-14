@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Descriptions, Col, Row, Button, Modal } from 'antd';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
+
 function AdminStockInfoPresenter({ data, changePageHandler, onDeleteHandler }) {
   console.log(data);
   const [deleteModal, setDeleteModal] = useState(false);
@@ -11,14 +11,14 @@ function AdminStockInfoPresenter({ data, changePageHandler, onDeleteHandler }) {
         <>
           <Row align="middle" gutter={6}>
             <Col flex={4}>
-              <Descriptions title="재고 정보" bordered>
+              <Descriptions title="재고 정보" bordered column={2}>
                 <Descriptions.Item label="재고 코드">
                   {data.stockId}
                 </Descriptions.Item>
                 <Descriptions.Item label="재고 상품명">
                   {data.stockName}
                 </Descriptions.Item>
-                <Descriptions.Item label="재고 수량" span={2}>
+                <Descriptions.Item label="재고 수량">
                   {data.stockQuantity}
                 </Descriptions.Item>
                 <Descriptions.Item label="비고">
@@ -30,7 +30,7 @@ function AdminStockInfoPresenter({ data, changePageHandler, onDeleteHandler }) {
           <br />
           <Row align="middle" gutter={6}>
             <Col flex={4}>
-              <Descriptions title="보관 창고 정보" bordered>
+              <Descriptions title="보관 창고 정보" bordered column={2}>
                 <Descriptions.Item label="창고 번호">
                   {data.storage.storageId}
                 </Descriptions.Item>
