@@ -40,7 +40,12 @@ function StaffStockListPresenter({ stockList, loading, error }) {
           <Button>등록</Button>
         </Link>
       </div>
-      <Table rowKey={() => v4()} columns={columns} dataSource={stockList} />
+      <Table
+        showSorterTooltip={{ title: '정렬' }}
+        rowKey={() => v4()}
+        columns={columns}
+        dataSource={stockList}
+      />
     </div>
   ) : (
     <Loading loading={loading} error={error} />

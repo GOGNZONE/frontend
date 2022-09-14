@@ -40,7 +40,12 @@ function StaffStorageListPresenter({ storageList, onDeleteHandler }) {
         </Link>
       </div>
 
-      <Table rowKey={() => v4()} columns={columns} dataSource={storageList} />
+      <Table
+        showSorterTooltip={{ title: '정렬' }}
+        rowKey={() => v4()}
+        columns={columns}
+        dataSource={storageList}
+      />
     </div>
   );
 }

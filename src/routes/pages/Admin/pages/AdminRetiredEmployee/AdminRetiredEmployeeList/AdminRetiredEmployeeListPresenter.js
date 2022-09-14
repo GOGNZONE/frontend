@@ -184,6 +184,7 @@ const AdminRetiredEmployeeListPresenter = ({
       </div>
       <Spin spinning={loading}>
         <Table
+          showSorterTooltip={{ title: '정렬' }}
           rowKey="employeeId"
           columns={columns}
           dataSource={retiredEmployee}

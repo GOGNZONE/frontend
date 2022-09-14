@@ -302,6 +302,7 @@ const ProductionListCompletedPresenter = ({
       </div>
       <Spin spinning={loading}>
         <Table
+          showSorterTooltip={{ title: '정렬' }}
           rowKey="productionId"
           columns={columns}
           dataSource={dataSource}
