@@ -1,7 +1,6 @@
 import React from 'react';
 import { Descriptions, Col, Row, Button } from 'antd';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
 function StaffStockInfoPresenter({ data }) {
   return (
     <>
@@ -60,7 +59,7 @@ function StaffStockInfoPresenter({ data }) {
           </div>
         </>
       ) : (
-        <div></div>
+        <div>로딩중....</div>
       )}
     </>
   );

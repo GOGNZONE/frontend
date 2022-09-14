@@ -15,8 +15,6 @@ const StaffMypageContainer = () => {
     (state) => state.employee.mypage,
   );
   const [updateMyProfile, setUpdateMyProfile] = useState({});
-  console.log(updateMyProfile);
-
   const onchangeHandler = (value) => {
     console.log(value);
     setUpdateMyProfile(value);

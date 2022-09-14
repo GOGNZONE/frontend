@@ -13,7 +13,7 @@ function StaffStorageRegistContainer() {
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const registStorage = (e) => {
+  const registStorage = () => {
     if (storage.storageAddress === '' || storage.storageCategory === '') {
       message.error('필수값을 입력하세요');
     } else {
@@ -23,13 +23,16 @@ function StaffStorageRegistContainer() {
     }
   };
 
-  const onChangeInputHandler = useCallback((name, e) => {
-    const value = e.target.value;
-    setStorage({
-      ...storage,
-      [name]: value,
-    });
-  });
+  const onChangeInputHandler = useCallback(
+    (name, e) => {
+      const value = e.target.value;
+      setStorage({
+        ...storage,
+        [name]: value,
+      });
+    },
+    [storage],
+  );
 
   return (
     <StaffStorageRegistPresenter

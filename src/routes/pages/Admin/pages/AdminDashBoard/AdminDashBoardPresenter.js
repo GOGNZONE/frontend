@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Typography, Spin, Col, Row, Divider } from 'antd';
+import { Typography, Spin, Col, Row, Divider, BackTop } from 'antd';
 import moment from 'moment';
 import './adminDashBoard.css';
 import PieChart from './components/PieChart';
@@ -65,6 +65,7 @@ const AdminDashBoardPresenter = ({
             <PieChart releaseConfirmedList={releaseConfirmedList} />
           </Col>
         </Row>
+        <BackTop visibilityHeight={100} />
       </Spin>
     </>
   );
