@@ -133,7 +133,7 @@ const AdminRetiredEmployeeListPresenter = ({
       width: 200,
       ...getColumnSearchProps('employeeName'),
       render: (name, record) => (
-        <Link to={`/staff/employee/${record.employeeId}`}>{name}</Link>
+        <Link to={`/admin/retired-employee/${record.employeeId}`}>{name}</Link>
       ),
     },
     {
@@ -179,11 +179,12 @@ const AdminRetiredEmployeeListPresenter = ({
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography.Title level={3} style={{ margin: 5 }}>
-          사원 목록
+          퇴사자 목록
         </Typography.Title>
       </div>
       <Spin spinning={loading}>
         <Table
+          showSorterTooltip={{ title: '정렬' }}
           rowKey="employeeId"
           columns={columns}
           dataSource={retiredEmployee}

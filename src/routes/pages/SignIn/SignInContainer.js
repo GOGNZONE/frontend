@@ -4,24 +4,19 @@ import api from 'apis/apiController';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeField, changeFields } from 'store/modules/auth';
 import { useNavigate } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 import Swal from 'sweetalert2';
 
-const SignInContainer = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+const SignInContainer = ({ authToken }) => {
   const { login } = useSelector(({ auth }) => {
     return {
       login: auth.login,
       admin: auth.admin,
     };
   });
-
-  let loginInit = { employee_email: '', employee_password: '' };
-
-  useEffect(() => {
-    dispatch(changeFields({ form: 'login', key: loginInit }));
-    // eslint-disable-next-line
-  }, [dispatch]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const loginInit = { employee_email: '', employee_password: '' };
 
   /* 로그인 input 값 변경 */
   const onLoginChange = (e) => {
@@ -37,7 +32,7 @@ const SignInContainer = () => {
   };
 
   // 로그인
-  const onLogin = async (e) => {
+  const onLogin = async () => {
     const { employee_email, employee_password } = login;
 
     let data = {
@@ -49,8 +44,6 @@ const SignInContainer = () => {
       if (response.data.accessToken) {
         // localstorage 토큰 저장
         localStorage.setItem('ACCESS_TOKEN', response.data.accessToken);
-        localStorage.setItem('AUTH', response.data.employeeRole);
-        localStorage.setItem('EXPIRSE', response.data.tokenExpiresIn);
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -77,6 +70,21 @@ const SignInContainer = () => {
       }
     });
   };
+
+  const isLogin = () => {
+    const decoded = jwt_decode(authToken);
+
+    if (decoded.auth && decoded.auth === 'ADMIN') return navigate('/admin');
+    if (decoded.auth && decoded.auth === 'STAFF') return navigate('/staff');
+  };
+
+  useEffect(() => {
+    dispatch(changeFields({ form: 'login', key: loginInit }));
+    if (authToken !== null) {
+      isLogin();
+    }
+    // eslint-disable-next-line
+  }, [dispatch]);
 
   return (
     <SignInPresenter

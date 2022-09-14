@@ -1,34 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { Typography, Button, Spin, Descriptions, Modal, Empty } from 'antd';
+import { Typography, Button, Spin, Descriptions, Empty } from 'antd';
 
-const { confirm } = Modal;
-
-const ReleaseDetailsPresenter = ({
-  data,
-  loading,
-  setSwitchToEditPage,
-  onSetReleaseValue,
-  onDeleteRelease,
-  isButtonVisible,
-  setIsButtonVisible,
-  onSetReleaseConfirmed,
-}) => {
-  const showDeleteConfirm = (releaseId) => {
-    confirm({
-      title: '해당 출고를 삭제하시겠습니까?',
-      icon: <ExclamationCircleOutlined />,
-      okText: '확인',
-      okType: 'danger',
-      cancelText: '취소',
-
-      onOk() {
-        onDeleteRelease(releaseId);
-      },
-    });
-  };
-
+const ReleaseDetailsPresenter = ({ data, loading }) => {
+  console.log(data);
   return (
     <>
       <Spin
@@ -44,34 +19,6 @@ const ReleaseDetailsPresenter = ({
                 출고 상세정보
               </Typography.Title>
               <div>
-                {data.delivery ? (
-                  <>
-                    <Button
-                      type="primary"
-                      onClick={() => {
-                        setIsButtonVisible(true);
-                        onSetReleaseValue(data);
-                      }}
-                      disabled={data.releaseConfirmed ? true : false}
-                    >
-                      출고확정
-                    </Button>
-                    <Modal
-                      title="경고"
-                      centered
-                      visible={isButtonVisible}
-                      onOk={() => {
-                        setIsButtonVisible(false);
-                        onSetReleaseConfirmed();
-                      }}
-                      onCancel={() => setIsButtonVisible(false)}
-                    >
-                      <p>출고 확정 후 취소 불가합니다. 진행하시겠습니까?</p>
-                    </Modal>
-                  </>
-                ) : (
-                  ''
-                )}
                 <Link to="/staff/release/list">
                   <Button
                     type="primary"
@@ -186,6 +133,9 @@ const ReleaseDetailsPresenter = ({
                     </Descriptions.Item>
                     <Descriptions.Item label="생산 제품 브랜드명">
                       {data.production.productionBrandName}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="생산 제품 수량">
+                      {data.production.productionQuantity}
                     </Descriptions.Item>
                     <Descriptions.Item label="생산 제품 단가">
                       {data.production.productionPrice}

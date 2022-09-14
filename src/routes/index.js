@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Admin, SignIn, Staff } from 'routes/pages';
@@ -9,7 +9,7 @@ import { Admin, SignIn, Staff } from 'routes/pages';
  */
 const RootRoute = () => {
   const navigate = useNavigate();
-  const expirse = localStorage.getItem('EXPIRSE');
+  const authToken = localStorage.getItem('ACCESS_TOKEN');
 
   const checkAdmin = () => {
     if (
@@ -23,8 +23,6 @@ const RootRoute = () => {
         timer: 2000,
       });
       localStorage.removeItem('AUTH');
-      localStorage.removeItem('ACCESS_TOKEN');
-      localStorage.removeItem('EXPIRSE');
       setTimeout(() => {
         navigate('/');
       });
@@ -33,21 +31,12 @@ const RootRoute = () => {
 
   const logout = () => {
     localStorage.removeItem('ACCESS_TOKEN');
-    localStorage.removeItem('AUTH');
-    localStorage.removeItem('EXPIRSE');
     navigate('/');
   };
 
-  useEffect(() => {
-    if (Date.now() > expirse) {
-      logout();
-    }
-    // eslint-disable-next-line
-  }, []);
-
   return (
     <Routes>
-      <Route path="/" element={<SignIn />} />
+      <Route path="/" element={<SignIn authToken={authToken} />} />
       <Route path="/staff/*" element={<Staff logout={logout} />} />
       <Route
         path="/admin/*"

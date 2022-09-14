@@ -2,8 +2,9 @@ import React from 'react';
 import { Typography, Table, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import { v4 } from 'uuid';
+import Loading from 'components/Loading';
 
-function StaffStockListPresenter({ stockList }) {
+function StaffStockListPresenter({ stockList, loading, error }) {
   const columns = [
     {
       title: '재고 코드',
@@ -29,7 +30,7 @@ function StaffStockListPresenter({ stockList }) {
       key: 'stockDescription',
     },
   ];
-  return (
+  return stockList ? (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography.Title level={3} style={{ marginBottom: 25 }}>
@@ -39,8 +40,15 @@ function StaffStockListPresenter({ stockList }) {
           <Button>등록</Button>
         </Link>
       </div>
-      <Table rowKey={() => v4()} columns={columns} dataSource={stockList} />
+      <Table
+        showSorterTooltip={{ title: '정렬' }}
+        rowKey={() => v4()}
+        columns={columns}
+        dataSource={stockList}
+      />
     </div>
+  ) : (
+    <Loading loading={loading} error={error} />
   );
 }
 

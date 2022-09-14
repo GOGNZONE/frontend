@@ -8,19 +8,28 @@ import {
   DatePicker,
   Spin,
 } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import Swal from 'sweetalert2';
+import FileUpload from 'components/FileUpload';
+import { useCallback } from 'react';
 
 const UpdateMyProfileInfo = ({
   mypage,
   setPage,
   loading,
   error,
+  updateMyProfile,
   onChangeHandler,
   onUpdateHandler,
   onResetHandler,
 }) => {
+  const onChangeInputHandler = useCallback((name, e) => {
+    const { value } = e.target;
+    onChangeHandler({
+      ...updateMyProfile,
+      [name]: value,
+    });
+  });
   if (loading) return <Spin spinning={loading} size="large" />;
   if (error)
     return Swal.fire({
@@ -65,7 +74,8 @@ const UpdateMyProfileInfo = ({
               <Input
                 name="employeeName"
                 placeholder="사원 이름"
-                onChange={onChangeHandler}
+                defaultValue={mypage.employeeName}
+                onChange={(e) => onChangeInputHandler('employeeName', e)}
               />
             </Form.Item>
             <Form.Item
@@ -82,7 +92,7 @@ const UpdateMyProfileInfo = ({
               <Input
                 name="newPassword"
                 placeholder="새 비밀번호"
-                onChange={onChangeHandler}
+                onChange={(e) => onChangeInputHandler('newPassword', e)}
                 type="password"
               />
             </Form.Item>
@@ -100,7 +110,7 @@ const UpdateMyProfileInfo = ({
               <Input
                 name="confirmPassword"
                 placeholder="새 비밀번호 확인"
-                onChange={onChangeHandler}
+                onChange={(e) => onChangeInputHandler('confirmPassword', e)}
                 type="password"
               />
             </Form.Item>
@@ -118,7 +128,8 @@ const UpdateMyProfileInfo = ({
               <Input
                 name="employeeEmail"
                 placeholder="이메일"
-                onChange={onChangeHandler}
+                onChange={(e) => onChangeInputHandler('employeeEmail', e)}
+                defaultValue={mypage.employeeEmail}
               />
             </Form.Item>
             <Form.Item
@@ -135,14 +146,16 @@ const UpdateMyProfileInfo = ({
               <Input
                 name="employeePhone"
                 placeholder="전화번호"
-                onChange={onChangeHandler}
+                onChange={(e) => onChangeInputHandler('employeePhone', e)}
+                defaultValue={mypage.employeePhone}
               />
             </Form.Item>
             <Form.Item label="주소">
               <Input
                 name="employeeAddress"
                 placeholder="주소"
-                onChange={onChangeHandler}
+                onChange={(e) => onChangeInputHandler('employeeAddress', e)}
+                defaultValue={mypage.employeeAddress}
               />
             </Form.Item>
             <Form.Item label="입사일자">
@@ -160,9 +173,11 @@ const UpdateMyProfileInfo = ({
               <Input disabled value={mypage.employeeRole} />
             </Form.Item>
             <Form.Item label="사원 이미지" valuePropName="fileList">
-              <Upload maxCount={1}>
-                <Button icon={<UploadOutlined />}>업로드</Button>
-              </Upload>
+              <FileUpload
+                onChangeHandler={onChangeHandler}
+                fileName={'employeeImage'}
+                preventValue={updateMyProfile}
+              />
             </Form.Item>
           </Form>
           <div style={{ display: 'flex', justifyContent: 'center' }}>

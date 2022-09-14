@@ -12,6 +12,7 @@ import {
   Badge,
 } from 'antd';
 import Highlighter from 'react-highlight-words';
+import moment from 'moment';
 
 const { Text } = Typography;
 
@@ -169,11 +170,30 @@ const ProductionListPresenter = ({
       dataIndex: 'productionReleasedDate',
       width: 150,
       render: (date) => <Text mark>{date}</Text>,
+      sorter: (a, b) =>
+        moment(a.productionReleasedDate).unix() -
+        moment(b.productionReleasedDate).unix(),
     },
     {
       title: '진행상황',
       dataIndex: 'productionProgress',
-      width: 120,
+      width: 125,
+      filters: [
+        {
+          text: '생산 시작전',
+          value: '0',
+        },
+        {
+          text: '생산중',
+          value: '1',
+        },
+        {
+          text: '생산 완료',
+          value: '2',
+        },
+      ],
+      onFilter: (value, record) =>
+        record.productionProgress.toString().startsWith(value),
       render: (progress, record) => (
         <span>
           <Badge
@@ -221,6 +241,7 @@ const ProductionListPresenter = ({
       </div>
       <Spin spinning={loading}>
         <Table
+          showSorterTooltip={{ title: '정렬' }}
           rowKey="productionId"
           columns={columns}
           dataSource={dataSource}

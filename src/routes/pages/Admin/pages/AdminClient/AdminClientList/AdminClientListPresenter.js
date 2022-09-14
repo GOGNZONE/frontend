@@ -1,9 +1,11 @@
 import React, { useState, useRef } from 'react';
-import { Button, Table, Typography, BackTop, Input, Space } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { Button, Table, Typography, BackTop, Input, Space, Modal } from 'antd';
+import { SearchOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
 import { Link } from 'react-router-dom';
 import Loading from 'components/Loading';
+
+const { confirm } = Modal;
 
 const AdminClientListPresenter = ({
   clientList,
@@ -24,6 +26,20 @@ const AdminClientListPresenter = ({
   const handleReset = (clearFilters) => {
     clearFilters();
     setSearchText('');
+  };
+
+  const showDeleteConfirm = (employeeId) => {
+    confirm({
+      title: '해당 거래처를 삭제하시겠습니까?',
+      icon: <ExclamationCircleOutlined />,
+      okText: '확인',
+      okType: 'danger',
+      cancelText: '취소',
+
+      onOk() {
+        onDeleteHandler(employeeId);
+      },
+    });
   };
 
   const getColumnSearchProps = (dataIndex) => ({
@@ -151,9 +167,21 @@ const AdminClientListPresenter = ({
       width: 200,
     },
     {
-      title: '비고',
-      render: (record) => (
-        <Button onClick={() => onDeleteHandler(record.clientId)}>삭제</Button>
+      title: '삭제',
+      dataIndex: 'deleteButton',
+      width: 100,
+      align: 'center',
+      render: (name, record) => (
+        <Button
+          type="primary"
+          size="middle"
+          danger
+          onClick={() => {
+            showDeleteConfirm(record.clientId);
+          }}
+        >
+          삭제
+        </Button>
       ),
     },
   ];

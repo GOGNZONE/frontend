@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import {
   Typography,
   Form,
@@ -7,10 +7,10 @@ import {
   Button,
   InputNumber,
   Select,
-  Space,
   Spin,
+  message,
 } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import FileUpload from 'components/FileUpload';
 
@@ -31,20 +31,28 @@ const ProductionRegistrationPresenter = ({
   clientData,
   loading,
 }) => {
-  const standardSelectAfter = (
-    <Select className="standard-select-after">
-      <Option value="mm">mm</Option>
-      <Option value="cm">cm</Option>
-    </Select>
-  );
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (clientData?.length === 0) {
+      message.loading('', 0.5).then(() => {
+        message.warning(
+          '등록된 거래처가 없습니다. 거래처 등록을 먼저 진행해 주세요.',
+        );
+        navigate('/staff/client/list');
+      });
+    }
+  }, []);
 
-  const onChangeInputHandler = useCallback((name, e) => {
-    const { value } = e.target;
-    onChangeHandler({
-      ...productionValue,
-      [name]: value,
-    });
-  });
+  const onChangeInputHandler = useCallback(
+    (name, e) => {
+      const { value } = e.target;
+      onChangeHandler({
+        ...productionValue,
+        [name]: value,
+      });
+    },
+    [productionValue],
+  );
 
   const onChangeDatePickerHandler = useCallback((name, value) => {
     onChangeHandler({
@@ -75,7 +83,7 @@ const ProductionRegistrationPresenter = ({
         tip="Loading..."
         spinning={loading && !clientData}
         size="middle"
-        style={{ marginTop: '30px' }}
+        style={{ marginTop: '100px' }}
       >
         {clientData ? (
           <Form
@@ -89,7 +97,6 @@ const ProductionRegistrationPresenter = ({
             size="large"
           >
             <Form.Item
-              name="productionName"
               label="생산품목"
               rules={[
                 {
@@ -101,6 +108,7 @@ const ProductionRegistrationPresenter = ({
               tooltip="필수 입력 필드입니다"
             >
               <Input
+                name="productionName"
                 placeholder="생산 제품명"
                 onChange={(e) => onChangeInputHandler('productionName', e)}
               />
@@ -113,7 +121,6 @@ const ProductionRegistrationPresenter = ({
               />
             </Form.Item>
             <Form.Item
-              name="productionPrice"
               label="단가"
               rules={[
                 {
@@ -126,6 +133,7 @@ const ProductionRegistrationPresenter = ({
               initialValue={0}
             >
               <InputNumber
+                name="productionPrice"
                 min={0}
                 style={{
                   width: '100%',
@@ -143,7 +151,6 @@ const ProductionRegistrationPresenter = ({
               />
             </Form.Item>
             <Form.Item
-              name="productionQuantity"
               label="제품수량"
               rules={[
                 {
@@ -156,6 +163,7 @@ const ProductionRegistrationPresenter = ({
               initialValue={1}
             >
               <InputNumber
+                name="productionQuantity"
                 min={1}
                 style={{
                   width: '100%',
@@ -202,7 +210,6 @@ const ProductionRegistrationPresenter = ({
               />
             </Form.Item>
             <Form.Item
-              name="productionStartDate"
               label="시작일자"
               rules={[
                 {
@@ -214,6 +221,7 @@ const ProductionRegistrationPresenter = ({
               tooltip="필수 입력 필드입니다"
             >
               <DatePicker
+                name="productionStartDate"
                 placeholder="제품 생산 시작일자"
                 onChange={(e) =>
                   onChangeDatePickerHandler(
@@ -227,7 +235,6 @@ const ProductionRegistrationPresenter = ({
               </div>
             </Form.Item>
             <Form.Item
-              name="productionReleasedDate"
               label="출고예정일자"
               rules={[
                 {
@@ -239,6 +246,7 @@ const ProductionRegistrationPresenter = ({
               tooltip="필수 입력 필드입니다"
             >
               <DatePicker
+                name="productionReleasedDate"
                 placeholder="출고 예정 일자"
                 onChange={(e) =>
                   onChangeDatePickerHandler(
@@ -250,7 +258,6 @@ const ProductionRegistrationPresenter = ({
               />
             </Form.Item>
             <Form.Item
-              name="clientId"
               label="거래처코드"
               rules={[
                 {
@@ -262,14 +269,15 @@ const ProductionRegistrationPresenter = ({
               tooltip="필수 입력 필드입니다"
             >
               <Select
+                name="clientId"
                 placeholder="거래처 코드"
                 onChange={(e) => {
                   onChangeClientHandler('clientId', e);
                 }}
               >
                 {clientData.map((data) => (
-                  <Option key={data.clientId} value={data.clientId}>
-                    {data.clientName}({data.clientId})
+                  <Option value={data.clientId} key={data.clientId}>
+                    {data.clientName + '(' + data.clientId + ')'}
                   </Option>
                 ))}
               </Select>

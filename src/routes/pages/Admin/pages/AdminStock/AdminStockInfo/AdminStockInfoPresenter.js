@@ -3,6 +3,7 @@ import { Descriptions, Col, Row, Button, Modal } from 'antd';
 import { Link } from 'react-router-dom';
 
 function AdminStockInfoPresenter({ data, changePageHandler, onDeleteHandler }) {
+  console.log(data);
   const [deleteModal, setDeleteModal] = useState(false);
   return (
     <>

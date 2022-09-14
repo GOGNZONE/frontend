@@ -3,8 +3,8 @@ import ProductionRegistrationPresenter from './ProductionRegistrationPresenter';
 import { useDispatch, useSelector } from 'react-redux';
 import { postProduction } from 'store/modules/production/productionActions';
 import { useNavigate } from 'react-router-dom';
-import { message } from 'antd';
 import { getClientList } from 'store/modules/client/clientActions';
+import { message } from 'antd';
 
 const ProductionRegistrationContainer = () => {
   /***** state *****/
@@ -17,8 +17,8 @@ const ProductionRegistrationContainer = () => {
     productionProgress: 0,
     client: { clientId: null },
   });
+  /***** redux *****/
   const { data, loading } = useSelector((state) => state.client.clientList);
-
   const dispatch = useDispatch();
   /***** navigate *****/
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ const ProductionRegistrationContainer = () => {
       await dispatch(postProduction(productionValue));
       await navigate('list');
     }
-  });
+  }, [productionValue, dispatch, navigate]);
 
   return (
     <ProductionRegistrationPresenter

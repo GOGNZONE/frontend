@@ -1,17 +1,8 @@
 import React from 'react';
-import {
-  Form,
-  Input,
-  Button,
-  Typography,
-  DatePicker,
-  Upload,
-  Select,
-} from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { Form, Input, Button, Typography, DatePicker, Select } from 'antd';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import ImgUpload from 'components/ImgUpload';
+import FileUpload from 'components/FileUpload';
 
 const { Option } = Select;
 const normFile = (e) => {
@@ -24,7 +15,6 @@ const normFile = (e) => {
 const AdminRegisterEmployeePresenter = ({
   employeeInfo,
   saveEmployee,
-  fileUpload,
   onChangeDatePickerHandler,
   onChangeEmployeeRole,
   onResetHandler,
@@ -197,9 +187,10 @@ const AdminRegisterEmployeePresenter = ({
           </Select>
         </Form.Item>
         <Form.Item label="사원 이미지" getValueFromEvent={normFile}>
-          <ImgUpload
+          <FileUpload
+            fileName={'employeeImage'}
             onChangeHandler={onChangeHandler}
-            employeeInfo={employeeInfo}
+            preventValue={employeeInfo}
           />
         </Form.Item>
         <div

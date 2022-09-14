@@ -15,6 +15,7 @@ const ReleaseDetailsPresenter = ({
   setIsButtonVisible,
   onSetReleaseConfirmed,
 }) => {
+  console.log(data);
   const showDeleteConfirm = (releaseId) => {
     confirm({
       title: '해당 출고를 삭제하시겠습니까?',
@@ -85,8 +86,8 @@ const ReleaseDetailsPresenter = ({
                         border: '#FEB139',
                       }}
                       onClick={() => {
-                        setSwitchToEditPage(false);
                         onSetReleaseValue(data);
+                        setSwitchToEditPage(false);
                       }}
                     >
                       수정
@@ -217,6 +218,9 @@ const ReleaseDetailsPresenter = ({
                     </Descriptions.Item>
                     <Descriptions.Item label="생산 제품 브랜드명">
                       {data.production.productionBrandName}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="생산 제품 수량">
+                      {data.production.productionQuantity}
                     </Descriptions.Item>
                     <Descriptions.Item label="생산 제품 단가">
                       {data.production.productionPrice}

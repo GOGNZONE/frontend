@@ -1,9 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { SearchOutlined } from '@ant-design/icons';
-import { Button, Table, Typography, BackTop, Input, Space } from 'antd';
+import { SearchOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { Button, Table, Typography, BackTop, Input, Space, Modal } from 'antd';
 import Highlighter from 'react-highlight-words';
 import Loading from 'components/Loading';
+
+const { confirm } = Modal;
 
 const AdminEmployeeListPresenter = ({
   employeeList,
@@ -24,6 +26,20 @@ const AdminEmployeeListPresenter = ({
   const handleReset = (clearFilters) => {
     clearFilters();
     setSearchText('');
+  };
+
+  const showDeleteConfirm = (employeeId) => {
+    confirm({
+      title: '해당 사원을 삭제하시겠습니까?',
+      icon: <ExclamationCircleOutlined />,
+      okText: '확인',
+      okType: 'danger',
+      cancelText: '취소',
+
+      onOk() {
+        onDeleteHandler(employeeId);
+      },
+    });
   };
 
   const getColumnSearchProps = (dataIndex) => ({
@@ -156,9 +172,21 @@ const AdminEmployeeListPresenter = ({
       dataIndex: 'employeeRole',
     },
     {
-      title: '비고',
-      render: (record) => (
-        <Button onClick={() => onDeleteHandler(record.employeeId)}>삭제</Button>
+      title: '삭제',
+      dataIndex: 'deleteButton',
+      width: 100,
+      align: 'center',
+      render: (name, record) => (
+        <Button
+          type="primary"
+          size="middle"
+          danger
+          onClick={() => {
+            showDeleteConfirm(record.employeeId);
+          }}
+        >
+          삭제
+        </Button>
       ),
     },
   ];
@@ -180,7 +208,12 @@ const AdminEmployeeListPresenter = ({
           사원 목록
         </Typography.Title>
       </div>
-      <Table rowKey="employeeId" columns={columns} dataSource={employeeList} />
+      <Table
+        showSorterTooltip={{ title: '정렬' }}
+        rowKey="employeeId"
+        columns={columns}
+        dataSource={employeeList}
+      />
       <BackTop visibilityHeight={100} />
     </>
   );

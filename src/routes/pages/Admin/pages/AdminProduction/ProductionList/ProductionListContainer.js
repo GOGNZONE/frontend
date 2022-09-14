@@ -9,7 +9,7 @@ const ProductionListContainer = () => {
     (state) => state.production.productions,
   );
   const dispatch = useDispatch();
-  //   /***** search *****/
+  /***** search *****/
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
@@ -20,7 +20,7 @@ const ProductionListContainer = () => {
       dispatch(getProductions());
     };
     !loading && callDispatch();
-  }, []);
+  }, []); // dependencies 추가 금지 (무한루프 걸림)
 
   if (data) {
     incompletedList = data.filter((d) => d.productionProgress !== 2);

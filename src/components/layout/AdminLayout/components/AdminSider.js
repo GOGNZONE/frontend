@@ -4,7 +4,6 @@ import {
   RocketOutlined,
   TeamOutlined,
   DropboxOutlined,
-  FileDoneOutlined,
   InboxOutlined,
   PhoneOutlined,
   CloudServerOutlined,
@@ -45,7 +44,7 @@ const items = [
     ),
     getItem(<Link to="/admin/client">거래처 등록</Link>, '/admin/client'),
   ]),
-  getItem('생산 관리', 'sub1', <DropboxOutlined />, [
+  getItem('생산 관리', '/production', <DropboxOutlined />, [
     getItem(
       '시작전/진행중',
       'g1',
@@ -75,16 +74,16 @@ const items = [
       'group',
     ),
   ]),
-  getItem('재고 관리', '/stock', <InboxOutlined />, [
-    getItem(<Link to="/admin/stock/list">재고 목록</Link>, '/admin/stock/list'),
-    getItem(<Link to="/admin/stock">재고 등록</Link>, '/admin/stock'),
-  ]),
   getItem('출고 관리', '/release', <RocketOutlined />, [
     getItem(
       <Link to="/admin/release/list">출고 목록</Link>,
       '/release/stock/list',
     ),
     getItem(<Link to="/admin/release">출고 등록</Link>, '/release/stock'),
+  ]),
+  getItem('재고 관리', '/stock', <InboxOutlined />, [
+    getItem(<Link to="/admin/stock/list">재고 목록</Link>, '/admin/stock/list'),
+    getItem(<Link to="/admin/stock">재고 등록</Link>, '/admin/stock'),
   ]),
   getItem('발주 관리', '/order', <PhoneOutlined />, [
     getItem(
@@ -103,7 +102,6 @@ const items = [
 ];
 
 const AdminSider = ({ onCollapse, collapsed }) => {
-  // const { innerWidth } = window;
   return (
     <Sider
       width={250}
@@ -115,12 +113,13 @@ const AdminSider = ({ onCollapse, collapsed }) => {
         className="logo"
         style={{
           height: '32px',
-          margin: '16px',
-          textAlign: 'center',
-          backgroundColor: '#fff',
+          marginLeft: '25px',
+          marginTop: '22px',
+          color: 'white',
+          fontSize: 15,
         }}
       >
-        {/* <img src={LOGO} alt="logo" style={{ height: '100%' }} /> */}
+        MEMU
       </div>
       <Menu
         defaultSelectedKeys={['1']}

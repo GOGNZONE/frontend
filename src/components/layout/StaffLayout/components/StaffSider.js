@@ -1,11 +1,10 @@
 import React from 'react';
-import { Layout, Menu } from 'antd';
+import { Button, Layout, Menu } from 'antd';
 import {
   UserOutlined,
   RocketOutlined,
   TeamOutlined,
   DropboxOutlined,
-  FileDoneOutlined,
   InboxOutlined,
   PhoneOutlined,
   CloudServerOutlined,
@@ -27,16 +26,11 @@ function getItem(label, key, icon, children, type) {
 const items = [
   getItem(<Link to="/staff">마이페이지</Link>, '/staff', <UserOutlined />),
   getItem(
-    <Link to="/staff/dashboard">대시보드</Link>,
-    '/staff/dashboard',
-    <UserOutlined />,
-  ),
-  getItem(
     <Link to="/staff/client/list">거래처 관리</Link>,
     '/client',
     <TeamOutlined />,
   ),
-  getItem('생산 관리', 'sub1', <DropboxOutlined />, [
+  getItem('생산 관리', '/production', <DropboxOutlined />, [
     getItem(
       '시작전/진행중',
       'g1',
@@ -91,7 +85,7 @@ const items = [
   ]),
 ];
 
-const StaffSider = ({ onCollapse, collapsed }) => {
+const StaffSider = ({ onCollapse, collapsed, logout }) => {
   return (
     <Sider
       width={250}
@@ -103,12 +97,13 @@ const StaffSider = ({ onCollapse, collapsed }) => {
         className="logo"
         style={{
           height: '32px',
-          margin: '16px',
-          textAlign: 'center',
-          backgroundColor: '#fff',
+          marginLeft: '25px',
+          marginTop: '22px',
+          color: 'white',
+          fontSize: 15,
         }}
       >
-        {/* <img src={LOGO} alt="logo" style={{ height: '100%' }} /> */}
+        MEMU
       </div>
       <Menu
         defaultSelectedKeys={['1']}

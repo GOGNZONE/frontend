@@ -60,7 +60,12 @@ function AdminStorageListPresenter({ storageList, onDeleteHandler }) {
           <Button>등록</Button>
         </Link>
       </div>
-      <Table rowKey={() => v4()} columns={columns} dataSource={storageList} />
+      <Table
+        showSorterTooltip={{ title: '정렬' }}
+        rowKey={() => v4()}
+        columns={columns}
+        dataSource={storageList}
+      />
       <Modal
         title="삭제"
         centered

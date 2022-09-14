@@ -22,7 +22,7 @@ function StaffStockRegistContainer() {
     dispatch(getStorageList());
   }, [dispatch]);
 
-  const registStock = async (e) => {
+  const registStock = async () => {
     if (
       stock.stockQuantity === '' ||
       stock.storage === '' ||
@@ -36,26 +36,35 @@ function StaffStockRegistContainer() {
     }
   };
 
-  const onChange = useCallback((value) => {
-    setStock(value);
-  });
+  const onChange = useCallback(
+    (value) => {
+      setStock(value);
+    },
+    [setStock],
+  );
 
-  const onChangeInputHandler = useCallback((name, e) => {
-    const value = e.target.value;
-    onChange({
-      ...stock,
-      [name]: value,
-    });
-  });
+  const onChangeInputHandler = useCallback(
+    (name, e) => {
+      const value = e.target.value;
+      onChange({
+        ...stock,
+        [name]: value,
+      });
+    },
+    [onChange, stock],
+  );
 
-  const storageInputHandler = useCallback((name, e) => {
-    onChange({
-      ...stock,
-      storage: {
-        [name]: e,
-      },
-    });
-  });
+  const storageInputHandler = useCallback(
+    (name, e) => {
+      onChange({
+        ...stock,
+        storage: {
+          [name]: e,
+        },
+      });
+    },
+    [onChange, stock],
+  );
 
   return (
     <StaffStockRegistPresenter
