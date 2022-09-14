@@ -19,7 +19,7 @@ function StaffStorageInfoPresenter({ data }) {
                 <Descriptions.Item label="창고 유형" span={2}>
                   {data.storageCategory}
                 </Descriptions.Item>
-                <Descriptions.Item label="비고" span={3}>
+                <Descriptions.Item label="비고">
                   {data.storageDescription}
                 </Descriptions.Item>
               </Descriptions>
