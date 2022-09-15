@@ -76,7 +76,7 @@ function AdminStockInfoPresenter({ data, changePageHandler, onDeleteHandler }) {
               title="삭제"
               centered
               visible={deleteModal}
-              onOk={() => onDeleteHandler(data.stock)}
+              onOk={() => onDeleteHandler(data.stockId)}
               okText="삭제"
               onCancel={() => setDeleteModal(false)}
               cancelText="취소"

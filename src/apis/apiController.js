@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 /** axios localhost instance 생성 */
+
 const instance = axios.create({
   baseURL: '/api',
   timeout: 15000,
@@ -8,6 +9,12 @@ const instance = axios.create({
 });
 
 /** axios gongzone-service instance */
+
+// const instance = axios.create({
+//   baseURL: 'http://18.183.206.108:8080/api',
+//   timeout: 15000,
+//   headers: { 'Content-Type': 'application/json; charset=utf-8' },
+// });
 
 instance.interceptors.request.use(
   (config) => {

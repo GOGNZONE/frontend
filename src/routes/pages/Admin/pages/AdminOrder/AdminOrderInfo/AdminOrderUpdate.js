@@ -29,24 +29,7 @@ function AdminOrderUpdate({
   const { confirm } = Modal;
   const { Option, OptGroup } = Select;
   const dateFormat = 'YYYY-MM-DD';
-  const standardSelectAfter = (
-    <Select
-      style={{ width: 80 }}
-      onChange={(e) => onChangeSelectHandler('orderProductionUnit', e)}
-      defaultValue={data.orderProductionUnit}
-      className="standard-select-after"
-    >
-      <OptGroup label="길이">
-        <Option value="mm">mm</Option>
-        <Option value="cm">cm</Option>
-        <Option value="m">m</Option>
-      </OptGroup>
-      <OptGroup label="무게">
-        <Option value="g">g</Option>
-        <Option value="kg">kg</Option>
-      </OptGroup>
-    </Select>
-  );
+
   useEffect(() => {
     dataInsert();
   }, []);
@@ -186,7 +169,6 @@ function AdminOrderUpdate({
                 style={{
                   width: '100%',
                 }}
-                addonAfter={standardSelectAfter}
                 name="orderProductionStandard"
                 placeholder="주문 규격"
                 onChange={(e) => {

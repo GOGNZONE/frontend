@@ -51,10 +51,10 @@ const SignInContainer = ({ authToken }) => {
           showConfirmButton: false,
           timer: 1500,
         });
+        const token = jwt_decode(response.data.accessToken);
+        const { auth } = token;
         setTimeout(() => {
-          response.data.employeeRole === 'ADMIN'
-            ? navigate('/admin')
-            : navigate('/staff');
+          auth === 'ADMIN' ? navigate('/admin') : navigate('/staff');
         }, 2000);
       } else {
         Swal.fire({
