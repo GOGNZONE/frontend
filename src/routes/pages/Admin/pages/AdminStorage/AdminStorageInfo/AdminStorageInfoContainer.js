@@ -36,8 +36,6 @@ function AdminStorageInfoContainer() {
     dispatch(getStorage(storageIdParams));
   }, [storageIdParams, dispatch]);
 
-  console.log(storage);
-
   const changePageHandler = () => {
     setPage(!page);
   };
