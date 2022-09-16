@@ -18,8 +18,6 @@ function AdminStorageInfoContainer() {
   const { data, loading, error } = useSelector((state) => state.stock.stock);
   const storageList = useSelector((state) => state.storage.storageList.data);
   const navigate = useNavigate();
-  console.log(stock);
-
   useEffect(() => {
     dispatch(getStock(stockIdParams));
     dispatch(getStorageList());
