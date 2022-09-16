@@ -1,9 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  getProductions,
-  deleteProduction,
-} from 'store/modules/production/productionActions';
+import { getProductions } from 'store/modules/production/productionActions';
 import ProductionListCompletedPresenter from './ProductionListCompletedPresenter';
 
 const ProductionListContainer = () => {
@@ -29,10 +26,6 @@ const ProductionListContainer = () => {
     completedList = data.filter((d) => d.productionProgress === 2);
   }
 
-  const onDeleteProduction = (productionId) => {
-    dispatch(deleteProduction(productionId));
-  };
-
   return (
     <ProductionListCompletedPresenter
       dataSource={completedList}
@@ -42,7 +35,6 @@ const ProductionListContainer = () => {
       searchedColumn={searchedColumn}
       searchText={searchText}
       loading={loading}
-      onDeleteProduction={onDeleteProduction}
     />
   );
 };

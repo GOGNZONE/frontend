@@ -32,6 +32,8 @@ const ProductionUpdatePresenter = ({
   productionValue,
   onChangeHandler,
   clientData,
+  fileVisible,
+  setFileVisible,
 }) => {
   const onChangeInputHandler = useCallback(
     (name, e) => {
@@ -65,7 +67,6 @@ const ProductionUpdatePresenter = ({
     },
     [onChangeHandler, productionValue],
   );
-
   const disabledDate = (current) => {
     return current < moment(productionValue.productionStartDate).endOf('day');
   };
@@ -166,7 +167,7 @@ const ProductionUpdatePresenter = ({
                     formatter={(value) =>
                       `\￦ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                     }
-                    parser={(value) => value.replace(/\￦\s?|(,*)/g, '')}
+                    // parser={(value) => value.replace(/\￦\s?|(,*)/g, '')}
                     onChange={(e) => {
                       onChangeInputHandler('productionPrice', {
                         target: { value: e },
@@ -332,8 +333,10 @@ const ProductionUpdatePresenter = ({
                     />
                     {productionValue.productionFile !== data.productionFile ? (
                       ''
-                    ) : (
+                    ) : !fileVisible ? (
                       <Text underline>{data.productionFile}</Text>
+                    ) : (
+                      ''
                     )}
                   </>
                 ) : data.productionFile !== null ? (
@@ -358,6 +361,7 @@ const ProductionUpdatePresenter = ({
                   }}
                   onClick={() => {
                     onClickHandler();
+                    setFileVisible(true);
                   }}
                 >
                   저장

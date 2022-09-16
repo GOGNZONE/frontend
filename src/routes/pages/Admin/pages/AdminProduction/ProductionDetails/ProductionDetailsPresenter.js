@@ -228,9 +228,19 @@ const ProductionDetailsPresenter = ({
                       disabled={selectVisible}
                       onSelect={warning}
                     >
-                      <Option value="0">생산 시작전</Option>
+                      <Option
+                        value="0"
+                        disabled={data.productionProgress === 2 ? true : false}
+                      >
+                        생산 시작전
+                      </Option>
                       <Option value="1">생산중</Option>
-                      <Option value="2">생산 완료</Option>
+                      <Option
+                        value="2"
+                        disabled={data.productionProgress === 0 ? true : false}
+                      >
+                        생산 완료
+                      </Option>
                     </Select>
                     {data.productionProgress === 2 &&
                       '완료일자 (' + data.productionEndDate + ')'}

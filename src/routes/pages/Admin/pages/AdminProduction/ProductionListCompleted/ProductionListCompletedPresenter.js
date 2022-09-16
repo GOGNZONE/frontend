@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { SearchOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 import {
   Button,
   Table,
@@ -8,7 +8,6 @@ import {
   BackTop,
   Input,
   Space,
-  Modal,
   Spin,
   Badge,
 } from 'antd';
@@ -16,7 +15,6 @@ import Highlighter from 'react-highlight-words';
 import Today from 'components/Today';
 import moment from 'moment';
 
-const { confirm } = Modal;
 const { Text } = Typography;
 
 const ProductionListCompletedPresenter = ({
@@ -27,22 +25,7 @@ const ProductionListCompletedPresenter = ({
   searchedColumn,
   searchText,
   loading,
-  onDeleteProduction,
 }) => {
-  const showDeleteConfirm = (productionId) => {
-    confirm({
-      title: '해당 품목을 삭제하시겠습니까?',
-      icon: <ExclamationCircleOutlined />,
-      okText: '확인',
-      okType: 'danger',
-      cancelText: '취소',
-
-      onOk() {
-        onDeleteProduction(productionId);
-      },
-    });
-  };
-
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -253,25 +236,6 @@ const ProductionListCompletedPresenter = ({
             '생산 완료'
           )}
         </span>
-      ),
-    },
-    {
-      title: '삭제',
-      dataIndex: 'deleteButton',
-      width: 100,
-      align: 'center',
-      render: (name, record) => (
-        <Button
-          type="primary"
-          size="middle"
-          danger
-          ghost
-          onClick={() => {
-            showDeleteConfirm(record.productionId);
-          }}
-        >
-          삭제
-        </Button>
       ),
     },
   ];

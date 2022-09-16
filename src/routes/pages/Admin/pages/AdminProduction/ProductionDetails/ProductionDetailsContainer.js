@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useNavigate, useParams, Link } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ProductionDetailsPresenter from './ProductionDetailsPresenter';
 import ProductionUpdatePresenter from './ProductionUpdatePresenter';
 import { useSelector, useDispatch } from 'react-redux';
