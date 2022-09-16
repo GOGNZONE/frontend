@@ -48,6 +48,9 @@ function AdminOrderInfoPresenter({ data, changePageHandler, onDeleteHandler }) {
                   <Descriptions.Item label="주문 제품 규격 단위">
                     {data.orderProductionUnit}
                   </Descriptions.Item>
+                  <Descriptions.Item label="거래처">
+                    {data.client.clientId}
+                  </Descriptions.Item>
                   <Descriptions.Item label="주문 생성 일자">
                     {data.orderDate}
                   </Descriptions.Item>
