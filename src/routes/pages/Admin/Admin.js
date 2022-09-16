@@ -33,10 +33,12 @@ import {
   AdminReleaseList,
   AdminReleaseDetails,
 } from './pages';
+import NotFound from '../NotFound';
 
 const Admin = ({ checkAdmin, logout }) => {
   return (
     <Routes>
+      <Route path="*" element={<NotFound />} />
       <Route
         path="/"
         element={<AdminLayout checkAdmin={checkAdmin} logout={logout} />}

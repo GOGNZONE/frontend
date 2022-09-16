@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { Admin, SignIn, Staff } from 'routes/pages';
+import { Admin, SignIn, Staff, NotFound } from 'routes/pages';
 
 /**
  * @title RootRoute
@@ -36,13 +36,14 @@ const RootRoute = () => {
 
   return (
     <Routes>
+      <Route path="*" element={<NotFound />} />
+
       <Route path="/" element={<SignIn authToken={authToken} />} />
       <Route path="/staff/*" element={<Staff logout={logout} />} />
       <Route
         path="/admin/*"
         element={<Admin checkAdmin={checkAdmin} logout={logout} />}
       />
-      {/* 404 Page */}
     </Routes>
   );
 };

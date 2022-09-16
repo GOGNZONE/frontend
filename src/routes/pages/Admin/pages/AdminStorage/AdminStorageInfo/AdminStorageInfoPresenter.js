@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Descriptions, Col, Row, Button, Modal } from 'antd';
 import { Link } from 'react-router-dom';
+import KakaoMap from 'components/KakaoMap';
 function AdminStorageInfoPresenter({
   changePageHandler,
   data,
@@ -30,7 +31,13 @@ function AdminStorageInfoPresenter({
             </Col>
           </Row>
 
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              margin: '10px',
+            }}
+          >
             <Button
               type="primary"
               style={{
@@ -80,6 +87,10 @@ function AdminStorageInfoPresenter({
               </Button>
             </Link>
           </div>
+          <KakaoMap
+            address={data.storageAddress}
+            category={data.storageCategory}
+          />
         </div>
       ) : (
         <div></div>

@@ -23,10 +23,12 @@ import {
   StaffReleaseList,
   StaffReleaseDetails,
 } from './pages';
+import NotFound from '../NotFound';
 
 const Staff = ({ logout, checkAdmin }) => {
   return (
     <Routes>
+      <Route path="*" element={<NotFound />} />
       <Route
         path="/"
         element={<StaffLayout checkAdmin={checkAdmin} logout={logout} />}

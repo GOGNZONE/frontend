@@ -1,3 +1,4 @@
-export { default as SignIn } from 'routes/pages/SignIn';
-export { Staff } from 'routes/pages/Staff';
-export { Admin } from 'routes/pages/Admin';
+export { default as SignIn } from './SignIn';
+export { default as NotFound } from './NotFound';
+export { Staff } from './Staff';
+export { Admin } from './Admin';
