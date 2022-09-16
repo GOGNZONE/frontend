@@ -52,7 +52,7 @@ const ReleaseRegistrationPresenter = ({
   const onChangeInputHandler = useCallback((name, e) => {
     const { value } = e.target;
 
-    if (value == `${productionData[index].productionQuantity}`) {
+    if (value === `${productionData[index].productionQuantity}`) {
       message.warning('출고수량은 생산 수량을 초과할 수 없습니다.');
     }
 

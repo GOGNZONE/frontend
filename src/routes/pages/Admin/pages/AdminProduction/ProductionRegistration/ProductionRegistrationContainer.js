@@ -32,22 +32,13 @@ const ProductionRegistrationContainer = () => {
   };
 
   const onClickHandler = useCallback(async () => {
-    if (
-      productionValue.productionName === null ||
-      productionValue.productionPrice === null ||
-      productionValue.productionQuantity === null ||
-      productionValue.productionStartDate === null ||
-      productionValue.productionStartDate === 'Invalid date' ||
-      productionValue.productionReleasedDate === null ||
-      productionValue.productionReleasedDate === 'Invalid date' ||
-      productionValue.client.clientId === null
-    ) {
-      message.error('필수 입력값을 입력해 주세요.');
-    } else {
+    if (productionValue) {
       await dispatch(postProduction(productionValue));
       await navigate('list');
+    } else {
+      message.error('필수 입력값을 입력해 주세요.');
     }
-  }, [productionValue, dispatch, navigate]);
+  });
 
   return (
     <ProductionRegistrationPresenter
