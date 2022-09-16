@@ -10,12 +10,6 @@ const instance = axios.create({
 
 /** axios gongzone-service instance */
 
-// const instance = axios.create({
-//   baseURL: 'http://18.183.206.108:8080/api',
-//   timeout: 15000,
-//   headers: { 'Content-Type': 'application/json; charset=utf-8' },
-// });
-
 instance.interceptors.request.use(
   (config) => {
     // HTTP Authorization 요청 헤더에 jwt-token을 넣음

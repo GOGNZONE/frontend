@@ -89,7 +89,7 @@ const ReleaseCalendar = ({
       </Col>
       <Col span={1}></Col>
       <Col span={7}>
-        <Card>
+        <Card style={{ overflow: 'scroll', height: '600px' }}>
           <Alert
             message={`${selectedValue?.format('YYYY-MM-DD')}`}
             style={{ marginBottom: 10 }}

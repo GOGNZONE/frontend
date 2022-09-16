@@ -60,15 +60,15 @@ const items = [
       'group',
     ),
   ]),
-  getItem('재고 관리', '/stock', <InboxOutlined />, [
-    getItem(<Link to="/staff/stock/list">재고 목록</Link>, '/staff/stock/list'),
-    getItem(<Link to="/staff/stock">재고 등록</Link>, '/staff/stock'),
-  ]),
   getItem('출고 관리', '/release', <RocketOutlined />, [
     getItem(
       <Link to="/staff/release/list">출고 목록</Link>,
       '/release/stock/list',
     ),
+  ]),
+  getItem('재고 관리', '/stock', <InboxOutlined />, [
+    getItem(<Link to="/staff/stock/list">재고 목록</Link>, '/staff/stock/list'),
+    getItem(<Link to="/staff/stock">재고 등록</Link>, '/staff/stock'),
   ]),
   getItem('발주 관리', '/order', <PhoneOutlined />, [
     getItem(

@@ -32,6 +32,8 @@ const ProductionUpdatePresenter = ({
   productionValue,
   onChangeHandler,
   clientData,
+  fileVisible,
+  setFileVisible,
 }) => {
   const onChangeInputHandler = useCallback(
     (name, e) => {
@@ -326,12 +328,15 @@ const ProductionUpdatePresenter = ({
                   <>
                     <FileUpload
                       onChangeHandler={onChangeHandler}
-                      productionValue={productionValue}
+                      preventValue={productionValue}
+                      fileName={'productionFile'}
                     />
                     {productionValue.productionFile !== data.productionFile ? (
                       ''
-                    ) : (
+                    ) : !fileVisible ? (
                       <Text underline>{data.productionFile}</Text>
+                    ) : (
+                      ''
                     )}
                   </>
                 ) : data.productionFile !== null ? (
@@ -356,6 +361,7 @@ const ProductionUpdatePresenter = ({
                   }}
                   onClick={() => {
                     onClickHandler();
+                    setFileVisible(true);
                   }}
                 >
                   저장

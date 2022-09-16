@@ -15,7 +15,6 @@ const ReleaseDetailsPresenter = ({
   setIsButtonVisible,
   onSetReleaseConfirmed,
 }) => {
-  console.log(data);
   const showDeleteConfirm = (releaseId) => {
     confirm({
       title: '해당 출고를 삭제하시겠습니까?',

@@ -11,10 +11,13 @@ import {
   DatePicker,
   message,
 } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import FileDownload from 'components/FileDownload';
 import moment from 'moment';
+import LocalizedModal from 'components/LocalizedModal';
 
+const { confirm } = Modal;
 const { Title, Text } = Typography;
 const { Option } = Select;
 
@@ -26,6 +29,7 @@ const ProductionDetailsPresenter = ({
   showDrawer,
   onClose,
   visible,
+  onDeleteProduction,
   onChangeHandler,
   productionValue,
   selectVisible,
@@ -77,6 +81,19 @@ const ProductionDetailsPresenter = ({
     return current < moment(productionValue.productionStartDate).endOf('day');
   };
 
+  const showDeleteConfirm = (productionId) => {
+    confirm({
+      title: '해당 제품을 삭제하시겠습니까?',
+      icon: <ExclamationCircleOutlined />,
+      okText: '확인',
+      okType: 'danger',
+      cancelText: '취소',
+      onOk() {
+        onDeleteProduction(productionId);
+      },
+    });
+  };
+
   const warning = (value) => {
     if (value === '1') {
       Modal.warning({
@@ -110,21 +127,41 @@ const ProductionDetailsPresenter = ({
                 생산 상세정보
               </Typography.Title>
               <div>
+                {data.productionHistory.length !== 0 ? (
+                  <LocalizedModal productionHistory={data.productionHistory} />
+                ) : (
+                  ''
+                )}
                 {data.productionProgress !== 2 ? (
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    style={{
-                      margin: 5,
-                      backgroundColor: '#FEB139',
-                      border: '#FEB139',
-                    }}
-                    onClick={() => {
-                      setSwitchToEditPage(false);
-                    }}
-                  >
-                    수정
-                  </Button>
+                  <>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      style={{
+                        margin: 5,
+                        backgroundColor: '#FEB139',
+                        border: '#FEB139',
+                      }}
+                      onClick={() => {
+                        setSwitchToEditPage(false);
+                      }}
+                    >
+                      수정
+                    </Button>
+                    <Button
+                      type="primary"
+                      style={{
+                        margin: 5,
+                        backgroundColor: '#D61C4E',
+                        border: '#D61C4E',
+                      }}
+                      onClick={() => {
+                        showDeleteConfirm(data.productionId);
+                      }}
+                    >
+                      삭제
+                    </Button>
+                  </>
                 ) : (
                   ''
                 )}
