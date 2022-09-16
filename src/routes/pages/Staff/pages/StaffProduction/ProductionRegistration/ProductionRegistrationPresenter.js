@@ -95,9 +95,12 @@ const ProductionRegistrationPresenter = ({
             }}
             layout="horizontal"
             size="large"
+            onFinish={onClickHandler}
+            autoComplete="off"
           >
             <Form.Item
               label="생산품목"
+              name="productionName"
               rules={[
                 {
                   required: true,
@@ -108,7 +111,6 @@ const ProductionRegistrationPresenter = ({
               tooltip="필수 입력 필드입니다"
             >
               <Input
-                name="productionName"
                 placeholder="생산 제품명"
                 onChange={(e) => onChangeInputHandler('productionName', e)}
               />
@@ -122,6 +124,7 @@ const ProductionRegistrationPresenter = ({
             </Form.Item>
             <Form.Item
               label="단가"
+              name="productionPrice"
               rules={[
                 {
                   required: true,
@@ -133,7 +136,6 @@ const ProductionRegistrationPresenter = ({
               initialValue={0}
             >
               <InputNumber
-                name="productionPrice"
                 min={0}
                 style={{
                   width: '100%',
@@ -152,6 +154,7 @@ const ProductionRegistrationPresenter = ({
             </Form.Item>
             <Form.Item
               label="제품수량"
+              name="productionQuantity"
               rules={[
                 {
                   required: true,
@@ -163,7 +166,6 @@ const ProductionRegistrationPresenter = ({
               initialValue={1}
             >
               <InputNumber
-                name="productionQuantity"
                 min={1}
                 style={{
                   width: '100%',
@@ -211,6 +213,7 @@ const ProductionRegistrationPresenter = ({
             </Form.Item>
             <Form.Item
               label="시작일자"
+              name="productionStartDate"
               rules={[
                 {
                   required: true,
@@ -221,7 +224,6 @@ const ProductionRegistrationPresenter = ({
               tooltip="필수 입력 필드입니다"
             >
               <DatePicker
-                name="productionStartDate"
                 placeholder="제품 생산 시작일자"
                 onChange={(e) =>
                   onChangeDatePickerHandler(
@@ -230,12 +232,10 @@ const ProductionRegistrationPresenter = ({
                   )
                 }
               />
-              <div style={{ display: 'none' }}>
-                {productionValue.productionStartDate}
-              </div>
             </Form.Item>
             <Form.Item
               label="출고예정일자"
+              name="productionReleasedDate"
               rules={[
                 {
                   required: true,
@@ -246,7 +246,6 @@ const ProductionRegistrationPresenter = ({
               tooltip="필수 입력 필드입니다"
             >
               <DatePicker
-                name="productionReleasedDate"
                 placeholder="출고 예정 일자"
                 onChange={(e) =>
                   onChangeDatePickerHandler(
@@ -259,6 +258,7 @@ const ProductionRegistrationPresenter = ({
             </Form.Item>
             <Form.Item
               label="거래처코드"
+              name="clientId"
               rules={[
                 {
                   required: true,
@@ -269,7 +269,6 @@ const ProductionRegistrationPresenter = ({
               tooltip="필수 입력 필드입니다"
             >
               <Select
-                name="clientId"
                 placeholder="거래처 코드"
                 onChange={(e) => {
                   onChangeClientHandler('clientId', e);
@@ -292,13 +291,12 @@ const ProductionRegistrationPresenter = ({
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Button
                 type="primary"
-                htmlType="button"
+                htmlType="submit"
                 style={{
                   margin: 5,
                   backgroundColor: '#FEB139',
                   border: '#FEB139',
                 }}
-                onClick={() => onClickHandler()}
               >
                 등록
               </Button>
