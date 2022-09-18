@@ -127,9 +127,6 @@ const UpdateMyProfileInfo = ({
                 disabled
               />
             </Form.Item>
-            <Form.Item label="사원 권한">
-              <Input disabled value={mypage.employeeRole} />
-            </Form.Item>
             <Form.Item label="사원 이미지" valuePropName="fileList">
               <FileUpload
                 onChangeHandler={onChangeHandler}
