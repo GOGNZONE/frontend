@@ -11,9 +11,9 @@ export const sendKakaoTalk = (
   releaseId,
   delivery,
 ) => {
-  console.log(client);
+  // console.log(client);
   Kakao.init(JAVASCRIPT_KEY);
-  console.log(Kakao.isInitialized());
+  // console.log(Kakao.isInitialized());
 
   Kakao.Auth.login({
     scope: 'friends,talk_message',

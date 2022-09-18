@@ -52,7 +52,7 @@ const ReleaseRegistrationPresenter = ({
   const onChangeInputHandler = useCallback((name, e) => {
     const { value } = e.target;
 
-    if (value === `${productionData[index].productionQuantity}`) {
+    if (value === productionData[index].productionQuantity) {
       message.warning('출고수량은 생산 수량을 초과할 수 없습니다.');
     }
 
@@ -189,7 +189,7 @@ const ReleaseRegistrationPresenter = ({
               <Form.Item name="releaseQuantity" noStyle>
                 <InputNumber
                   min={1}
-                  max={productionData[index].productionQuantity}
+                  max={productionData[index]?.productionQuantity}
                   style={{
                     width: '100%',
                   }}
@@ -226,7 +226,7 @@ const ReleaseRegistrationPresenter = ({
                   parser={(value) => value.replace(/\￦\s?|(,*)/g, '')}
                   disabled={true}
                   value={
-                    productionData[index].releases.length !== 0
+                    productionData[index]?.releases.length !== 0
                       ? 0
                       : releaseValue.releaseQuantity *
                         `${productionData[index].productionPrice}`

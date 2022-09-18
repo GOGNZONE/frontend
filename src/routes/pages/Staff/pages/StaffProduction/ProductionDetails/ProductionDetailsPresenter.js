@@ -11,13 +11,11 @@ import {
   DatePicker,
   message,
 } from 'antd';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import FileDownload from 'components/FileDownload';
 import moment from 'moment';
 import LocalizedModal from 'components/LocalizedModal';
 
-const { confirm } = Modal;
 const { Title, Text } = Typography;
 const { Option } = Select;
 
@@ -29,7 +27,6 @@ const ProductionDetailsPresenter = ({
   showDrawer,
   onClose,
   visible,
-  onDeleteProduction,
   onChangeHandler,
   productionValue,
   selectVisible,
@@ -79,19 +76,6 @@ const ProductionDetailsPresenter = ({
 
   const disabledDate = (current) => {
     return current < moment(productionValue.productionStartDate).endOf('day');
-  };
-
-  const showDeleteConfirm = (productionId) => {
-    confirm({
-      title: '해당 제품을 삭제하시겠습니까?',
-      icon: <ExclamationCircleOutlined />,
-      okText: '확인',
-      okType: 'danger',
-      cancelText: '취소',
-      onOk() {
-        onDeleteProduction(productionId);
-      },
-    });
   };
 
   const warning = (value) => {
@@ -147,19 +131,6 @@ const ProductionDetailsPresenter = ({
                       }}
                     >
                       수정
-                    </Button>
-                    <Button
-                      type="primary"
-                      style={{
-                        margin: 5,
-                        backgroundColor: '#D61C4E',
-                        border: '#D61C4E',
-                      }}
-                      onClick={() => {
-                        showDeleteConfirm(data.productionId);
-                      }}
-                    >
-                      삭제
                     </Button>
                   </>
                 ) : (
@@ -228,9 +199,19 @@ const ProductionDetailsPresenter = ({
                       disabled={selectVisible}
                       onSelect={warning}
                     >
-                      <Option value="0">생산 시작전</Option>
+                      <Option
+                        value="0"
+                        disabled={data.productionProgress === 2 ? true : false}
+                      >
+                        생산 시작전
+                      </Option>
                       <Option value="1">생산중</Option>
-                      <Option value="2">생산 완료</Option>
+                      <Option
+                        value="2"
+                        disabled={data.productionProgress === 0 ? true : false}
+                      >
+                        생산 완료
+                      </Option>
                     </Select>
                     {data.productionProgress === 2 &&
                       '완료일자 (' + data.productionEndDate + ')'}
@@ -353,19 +334,7 @@ const ProductionDetailsPresenter = ({
                 {data.productionProgress === 2 ? (
                   <Descriptions.Item label="출고" span={3}>
                     {data.releases.length === 0 ? (
-                      <Link
-                        to={`/staff/production/release/${data.productionId}`}
-                      >
-                        <Button
-                          type="primary"
-                          style={{
-                            backgroundColor: '#293462',
-                            border: '#293462',
-                          }}
-                        >
-                          등록
-                        </Button>
-                      </Link>
+                      <Text type="danger">출고 정보 없음</Text>
                     ) : (
                       <div style={{ display: 'flex', alignItems: 'center' }}>
                         {data.releases.map((release) => {
