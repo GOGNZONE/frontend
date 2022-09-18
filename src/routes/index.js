@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Admin, SignIn, Staff, NotFound } from 'routes/pages';
+import jwtDecode from 'jwt-decode';
 
 /**
  * @title RootRoute
@@ -10,21 +11,16 @@ import { Admin, SignIn, Staff, NotFound } from 'routes/pages';
 const RootRoute = () => {
   const navigate = useNavigate();
   const authToken = localStorage.getItem('ACCESS_TOKEN');
+  const tokenDecode = jwtDecode(authToken);
+  console.log(tokenDecode);
 
   const checkAdmin = () => {
-    if (
-      localStorage.getItem('AUTH') &&
-      localStorage.getItem('AUTH') !== 'ADMIN'
-    ) {
+    if (tokenDecode.auth && tokenDecode.auth !== 'ADMIN') {
       Swal.fire({
         position: 'center',
         icon: 'error',
         title: '접근 권한이 없습니다.',
         timer: 2000,
-      });
-      localStorage.removeItem('AUTH');
-      setTimeout(() => {
-        navigate('/');
       });
     }
   };
