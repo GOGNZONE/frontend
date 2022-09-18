@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import ProductionDetailsPresenter from './ProductionDetailsPresenter';
 import ProductionUpdatePresenter from './ProductionUpdatePresenter';
 import { useSelector, useDispatch } from 'react-redux';
@@ -29,6 +29,7 @@ const ProductionDetailsContainer = () => {
   const [visible, setVisible] = useState(false);
   const [selectVisible, setSelectVisible] = useState(true);
   const [checkProgress, setCheckProgress] = useState(0);
+  const [fileVisible, setFileVisible] = useState(false);
   /***** navigate *****/
   const navigate = useNavigate();
 
@@ -101,6 +102,7 @@ const ProductionDetailsContainer = () => {
         }),
       );
       await setSelectVisible(!selectVisible);
+      await window.location.replace(`/admin/production/${productionIdParams}`);
     }
   }, [dispatch, navigate, productionIdParams, productionValue, selectVisible]);
 
@@ -141,6 +143,8 @@ const ProductionDetailsContainer = () => {
       productionValue={productionValue}
       onChangeHandler={onChangeHandler}
       clientData={clientData}
+      fileVisible={fileVisible}
+      setFileVisible={setFileVisible}
     />
   );
 };

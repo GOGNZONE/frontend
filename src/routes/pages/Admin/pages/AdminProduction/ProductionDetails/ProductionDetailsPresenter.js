@@ -15,6 +15,7 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import FileDownload from 'components/FileDownload';
 import moment from 'moment';
+import LocalizedModal from 'components/LocalizedModal';
 
 const { confirm } = Modal;
 const { Title, Text } = Typography;
@@ -126,6 +127,11 @@ const ProductionDetailsPresenter = ({
                 생산 상세정보
               </Typography.Title>
               <div>
+                {data.productionHistory.length !== 0 ? (
+                  <LocalizedModal productionHistory={data.productionHistory} />
+                ) : (
+                  ''
+                )}
                 {data.productionProgress !== 2 ? (
                   <>
                     <Button

@@ -252,7 +252,6 @@ const ReleaseListPresenter = ({
           onClick={() => {
             showDeleteConfirm(record.releaseId);
           }}
-          disabled={record.releaseConfirmed ? true : false}
         >
           삭제
         </Button>

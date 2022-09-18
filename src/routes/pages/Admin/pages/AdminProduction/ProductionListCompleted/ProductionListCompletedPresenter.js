@@ -269,11 +269,6 @@ const ProductionListCompletedPresenter = ({
           onClick={() => {
             showDeleteConfirm(record.productionId);
           }}
-          disabled={
-            record.releases[0] && record.releases[0].releaseConfirmed
-              ? true
-              : false
-          }
         >
           삭제
         </Button>

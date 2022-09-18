@@ -54,7 +54,6 @@ const AdminDashBoardPresenter = ({
             <Title level={4} style={{ marginBottom: 20, paddingLeft: 10 }} mark>
               거래처별 누적 매출액
             </Title>
-            {/* <Column {...config} style={{ height: '85%', paddingLeft: 10 }} /> */}
             <ColumnChart releaseConfirmedList={releaseConfirmedList} />
           </Col>
           <Col className="gutter-row" span={1}></Col>
