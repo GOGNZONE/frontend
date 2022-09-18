@@ -11,7 +11,6 @@ import {
   DatePicker,
 } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 function AdminOrderUpdate({
@@ -23,7 +22,6 @@ function AdminOrderUpdate({
   clientInputHandler,
   dataInsert,
   onUpdateOrderHandler,
-  onChangeSelectHandler,
 }) {
   const { TextArea } = Input;
   const { confirm } = Modal;

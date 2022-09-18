@@ -41,8 +41,8 @@ function StaffOrderInfoPresenter({ data }) {
                 <Descriptions.Item label="주문 제품 파일" span={3}>
                   {data.orderProuctionFile}
                 </Descriptions.Item>
-                <Descriptions.Item label="거래처 ID">
-                  {data.client.clientId}
+                <Descriptions.Item label="거래처">
+                  {data.client.clientName}({data.client.clientId})
                 </Descriptions.Item>
                 <Descriptions.Item label="비고">
                   {data.orderProductionDescription}

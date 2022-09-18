@@ -9,10 +9,11 @@ import {
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getClientList } from 'store/modules/client/clientActions';
+import { message } from 'antd';
 
 function AdminOrderInfoContainer() {
   const { orderIdParams } = useParams();
-  const [order, setOrder] = useState([]);
+  const [order, setOrder] = useState({});
   const [page, setPage] = useState(true);
   const dispatch = useDispatch();
   const changePageHandler = () => {
@@ -68,12 +69,13 @@ function AdminOrderInfoContainer() {
       order.orderProductionName === '' ||
       order.orderProductionBrandName === '' ||
       order.orderProductionPrice === '' ||
-      order.orderProductionPrice === '' ||
+      order.orderProductionQuantity === '' ||
       order.orderProductionStandard === '' ||
       order.orderProductionUnit === '' ||
       order.orderProductionEndDate === '' ||
       order.client === ''
     ) {
+      message.error('필수값을 입력하세요');
     } else {
       dispatch(putOrder({ orderIdParams, order }));
       changePageHandler();

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Descriptions, Col, Row, Button } from 'antd';
 import { Link } from 'react-router-dom';
+import KakaoMap from 'components/KakaoMap';
 
 function StaffStorageInfoPresenter({ data }) {
   return (
@@ -39,6 +40,10 @@ function StaffStorageInfoPresenter({ data }) {
               </Button>
             </Link>
           </div>
+          <KakaoMap
+            address={data.storageAddress}
+            category={data.storageCategory}
+          />
         </>
       ) : (
         <div>

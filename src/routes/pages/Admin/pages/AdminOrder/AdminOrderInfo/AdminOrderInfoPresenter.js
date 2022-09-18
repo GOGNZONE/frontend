@@ -49,7 +49,7 @@ function AdminOrderInfoPresenter({ data, changePageHandler, onDeleteHandler }) {
                     {data.orderProductionUnit}
                   </Descriptions.Item>
                   <Descriptions.Item label="거래처">
-                    {data.client.clientId}
+                    {data.client.clientName}({data.client.clientId})
                   </Descriptions.Item>
                   <Descriptions.Item label="주문 생성 일자">
                     {data.orderDate}

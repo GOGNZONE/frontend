@@ -28,7 +28,7 @@ const AdminOrderRegistContainer = () => {
     dispatch(getClientList());
   }, [dispatch]);
 
-  const registOrder = (e) => {
+  const registOrder = () => {
     if (
       order.orderProductionName === '' ||
       order.orderProductionBrandName === '' ||
