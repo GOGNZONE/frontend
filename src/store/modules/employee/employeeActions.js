@@ -18,6 +18,10 @@ export const REGISTER_EMPLOYEE = 'REGISTER_EMPLOYEE';
 export const REGISTER_EMPLOYEE_SUCCESS = 'REGISTER_EMPLOYEE_SUCCESS';
 export const REGISTER_EMPLOYEE_ERROR = 'REGISTER_EMPLOYEE_ERROR';
 
+export const UPDATE_MYPROFILE = 'UPDATE_MYPROFILE';
+export const UPDATE_MYPROFILE_SUCCESS = 'UPDATE_MYPROFILE_SUCCESS';
+export const UPDATE_MYPROFILE_ERROR = 'UPDATE_MYPROFILE_ERROR';
+
 export const SET_PASSWORD_EMPLOYEE = 'SET_PASSWORD_EMPLOYEE';
 export const SET_PASSWORD_EMPLOYEE_SUCCESS = 'SET_PASSWORD_EMPLOYEE_SUCCESS';
 export const SET_PASSWORD_EMPLOYEE_ERROR = 'SET_PASSWORD_EMPLOYEE_ERROR';
@@ -61,8 +65,13 @@ export const registerEmployee = createPromiseThunk(
 );
 
 export const updateProfile = createPromiseThunk(
-  SET_PASSWORD_EMPLOYEE,
+  UPDATE_MYPROFILE,
   api.updateMyProfile,
+);
+
+export const updatePassword = createPromiseThunk(
+  SET_PASSWORD_EMPLOYEE,
+  api.updatePassword,
 );
 
 export const deleteEmployee = createPromiseThunk(

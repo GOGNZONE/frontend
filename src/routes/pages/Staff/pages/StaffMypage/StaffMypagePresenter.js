@@ -1,7 +1,8 @@
 import React from 'react';
-import { Image, Descriptions, Col, Row, Spin, Button } from 'antd';
+import { Image, Descriptions, Col, Row, Spin, Button, Modal } from 'antd';
 import Profile from 'assets/profile.png';
 import Swal from 'sweetalert2';
+import UpdatePassword from './UpdatePassword';
 
 const StaffMypagePresenter = ({
   mypage,
@@ -26,7 +27,7 @@ const StaffMypagePresenter = ({
         <Col>
           <Image
             width={250}
-            height={250}
+            height={265}
             src={
               mypage.employeeImage
                 ? `https://gongzone1bucket.s3.ap-northeast-2.amazonaws.com/${mypage.employeeImage}`
@@ -34,6 +35,7 @@ const StaffMypagePresenter = ({
             }
           />
         </Col>
+
         <Col flex={4}>
           <Descriptions title="마이페이지" bordered>
             <Descriptions.Item label="사번">
@@ -63,7 +65,7 @@ const StaffMypagePresenter = ({
         <Button
           type="primary"
           style={{
-            margin: 5,
+            marginRight: '10px',
             backgroundColor: '#293462',
             border: '#293462',
           }}
@@ -74,6 +76,7 @@ const StaffMypagePresenter = ({
         >
           수정
         </Button>
+        <UpdatePassword />
       </div>
     </>
   );

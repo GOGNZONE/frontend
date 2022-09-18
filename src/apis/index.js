@@ -21,6 +21,10 @@ export const updateMyProfile = (inData) => {
   return instance.post('/employee/edit', inData);
 };
 
+export const updatePassword = (inData) => {
+  return instance.post('/employee/password', { newPassword: inData });
+};
+
 export const registerEmployee = (inData) => {
   return instance.post(`/employee/register`, inData);
 };

@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  Form,
-  Input,
-  Button,
-  Upload,
-  Typography,
-  DatePicker,
-  Spin,
-} from 'antd';
+import { Form, Input, Button, Typography, DatePicker, Spin } from 'antd';
 import moment from 'moment';
 import Swal from 'sweetalert2';
 import FileUpload from 'components/FileUpload';
@@ -30,6 +22,7 @@ const UpdateMyProfileInfo = ({
       [name]: value,
     });
   });
+
   if (loading) return <Spin spinning={loading} size="large" />;
   if (error)
     return Swal.fire({
@@ -78,42 +71,7 @@ const UpdateMyProfileInfo = ({
                 onChange={(e) => onChangeInputHandler('employeeName', e)}
               />
             </Form.Item>
-            <Form.Item
-              label="새 비밀번호"
-              rules={[
-                {
-                  required: true,
-                  message: '비밀번호를 입력해주세요!',
-                },
-              ]}
-              required
-              tooltip="필수 입력 필드입니다"
-            >
-              <Input
-                name="newPassword"
-                placeholder="새 비밀번호"
-                onChange={(e) => onChangeInputHandler('newPassword', e)}
-                type="password"
-              />
-            </Form.Item>
-            <Form.Item
-              label="새 비밀번호 확인"
-              rules={[
-                {
-                  required: true,
-                  message: '비밀번호를 입력해주세요!',
-                },
-              ]}
-              required
-              tooltip="필수 입력 필드입니다"
-            >
-              <Input
-                name="confirmPassword"
-                placeholder="새 비밀번호 확인"
-                onChange={(e) => onChangeInputHandler('confirmPassword', e)}
-                type="password"
-              />
-            </Form.Item>
+
             <Form.Item
               label="이메일"
               rules={[
