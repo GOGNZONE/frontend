@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { AdminLayout } from 'components';
 import {
@@ -34,15 +34,33 @@ import {
   AdminReleaseDetails,
 } from './pages';
 import NotFound from '../NotFound';
+import Swal from 'sweetalert2';
+import jwtDecode from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
 
-const Admin = ({ checkAdmin, logout }) => {
+const Admin = ({ logout, authToken }) => {
+  const tokenDecoded = jwtDecode(authToken);
+  const navigate = useNavigate();
+
+  const checkAdmin = () => {
+    if (tokenDecoded.auth && tokenDecoded.auth !== 'ADMIN') {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: '접근 권한이 없습니다.',
+        timer: 2000,
+      });
+      navigate('/staff');
+    }
+  };
+
+  useEffect(() => {
+    checkAdmin();
+  }, []);
   return (
     <Routes>
       <Route path="*" element={<NotFound />} />
-      <Route
-        path="/"
-        element={<AdminLayout checkAdmin={checkAdmin} logout={logout} />}
-      >
+      <Route path="/" element={<AdminLayout logout={logout} />}>
         <Route index element={<AdminDashBoard />} />
         {/* Stock */}
         <Route path="/stock/list" element={<AdminStockList />} />

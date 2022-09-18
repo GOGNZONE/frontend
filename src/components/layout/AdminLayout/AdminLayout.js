@@ -6,17 +6,12 @@ import '../layout.css';
 
 const { Content, Footer } = Layout;
 
-const AdminLayout = ({ checkAdmin, logout }) => {
+const AdminLayout = ({ logout }) => {
   const [collapsed, setCollapsed] = useState(false);
 
   const onCollapse = (val) => {
     setCollapsed(val);
   };
-
-  useEffect(() => {
-    checkAdmin();
-    // eslint-disable-next-line
-  }, []);
 
   return (
     <Layout className="site-layout-container" style={{ minHeight: '100vh' }}>
