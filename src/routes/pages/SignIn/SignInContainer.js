@@ -55,17 +55,6 @@ const SignInContainer = ({ authToken }) => {
         setTimeout(() => {
           auth === 'ADMIN' ? navigate('/admin') : navigate('/staff');
         }, 2000);
-      } else {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: '아이디 또는 비밀번호가\n틀렸습니다',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setTimeout(() => {
-          navigate('/');
-        }, 1800);
       }
     });
   };
