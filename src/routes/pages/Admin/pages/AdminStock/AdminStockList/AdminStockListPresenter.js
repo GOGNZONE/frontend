@@ -57,7 +57,16 @@ function AdminStockListPresenter({ stockList, onDeleteHandler }) {
           재고 목록
         </Typography.Title>
         <Link to="/admin/stock">
-          <Button>등록</Button>
+          <Button
+            type="primary"
+            style={{
+              margin: 5,
+              backgroundColor: '#FEB139',
+              border: '#FEB139',
+            }}
+          >
+            등록
+          </Button>
         </Link>
       </div>
       <Table

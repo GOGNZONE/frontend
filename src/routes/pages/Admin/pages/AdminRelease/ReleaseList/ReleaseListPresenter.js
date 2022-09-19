@@ -262,18 +262,32 @@ const ReleaseListPresenter = ({
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography.Title level={3}>출고 목록</Typography.Title>
-        <Link to="/admin/production/list-completed">
-          <Button
-            type="primary"
-            style={{
-              margin: 5,
-              backgroundColor: '#293462',
-              border: '#293462',
-            }}
-          >
-            생산 목록
-          </Button>
-        </Link>
+        <div>
+          <Link to="/admin/production/list-completed">
+            <Button
+              type="primary"
+              style={{
+                margin: 5,
+                backgroundColor: '#293462',
+                border: '#293462',
+              }}
+            >
+              생산 목록
+            </Button>
+          </Link>
+          <Link to="/admin/release">
+            <Button
+              type="primary"
+              style={{
+                margin: 5,
+                backgroundColor: '#FEB139',
+                border: '#FEB139',
+              }}
+            >
+              등록
+            </Button>
+          </Link>
+        </div>
       </div>
       <Spin spinning={loading}>
         <Table

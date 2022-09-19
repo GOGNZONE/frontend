@@ -71,7 +71,16 @@ function AdminOrderListPresenter({
           발주 목록
         </Typography.Title>
         <Link to="/admin/order">
-          <Button>등록</Button>
+          <Button
+            type="primary"
+            style={{
+              margin: 5,
+              backgroundColor: '#FEB139',
+              border: '#FEB139',
+            }}
+          >
+            등록
+          </Button>
         </Link>
       </div>
       <Table

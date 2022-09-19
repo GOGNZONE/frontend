@@ -202,6 +202,20 @@ const AdminClientListPresenter = ({
         <Typography.Title level={3} style={{ margin: 5 }}>
           거래처 목록
         </Typography.Title>
+        <div>
+          <Link to="/admin/client">
+            <Button
+              type="primary"
+              style={{
+                margin: 5,
+                backgroundColor: '#FEB139',
+                border: '#FEB139',
+              }}
+            >
+              등록
+            </Button>
+          </Link>
+        </div>
       </div>
       <Table rowKey="clientId" columns={columns} dataSource={clientList} />
       <BackTop visibilityHeight={100} />
