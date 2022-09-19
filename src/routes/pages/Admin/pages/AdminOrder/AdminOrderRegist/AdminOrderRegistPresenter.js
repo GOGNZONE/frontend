@@ -10,6 +10,7 @@ import {
   InputNumber,
   Space,
 } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 function AdminOrderRegistPresenter({
@@ -17,12 +18,30 @@ function AdminOrderRegistPresenter({
   registOrder,
   onChangeInputHandler,
   clientInputHandler,
+  onChangeSelectHandler,
   onChangeDatePickerHandler,
   orderIdHandler,
 }) {
   const { TextArea } = Input;
   const { Option, OptGroup } = Select;
 
+  // const standardSelectAfter = (
+  //   <Select
+  //     onChange={(e) => onChangeSelectHandler('orderProductionUnit', e)}
+  //     defaultValue="단위"
+  //     className="standard-select-after"
+  //   >
+  //     <OptGroup label="길이">
+  //       <Option value="mm">mm</Option>
+  //       <Option value="cm">cm</Option>
+  //       <Option value="m">m</Option>
+  //     </OptGroup>
+  //     <OptGroup label="무게">
+  //       <Option value="g">g</Option>
+  //       <Option value="kg">kg</Option>
+  //     </OptGroup>
+  //   </Select>
+  // );
   useEffect(() => {
     orderIdHandler();
   }, []);
@@ -175,35 +194,11 @@ function AdminOrderRegistPresenter({
               />
             </Form.Item>
             <Form.Item
-              label="주문 일자"
+              label="주문 마감 일자"
               rules={[
                 {
                   required: true,
                   message: '입고일자를 입력해주세요!',
-                },
-              ]}
-              required
-              tooltip="필수 입력 필드입니다"
-            >
-              <DatePicker
-                style={{
-                  width: '100%',
-                }}
-                placeholder="주문 일자"
-                onChange={(e) =>
-                  onChangeDatePickerHandler(
-                    'orderDate',
-                    moment(e).format('YYYY-MM-DD'),
-                  )
-                }
-              />
-            </Form.Item>
-            <Form.Item
-              label="제품 마감 일자"
-              rules={[
-                {
-                  required: true,
-                  message: '마감일자를 입력해주세요!',
                 },
               ]}
               required
@@ -222,7 +217,6 @@ function AdminOrderRegistPresenter({
                 }
               />
             </Form.Item>
-
             <Form.Item
               name="clientId"
               label="거래처"
