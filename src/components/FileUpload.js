@@ -1,7 +1,7 @@
 import React from 'react';
 import { UploadOutlined } from '@ant-design/icons';
 import axios from 'axios';
-import { Upload, Button, message } from 'antd';
+import { Upload, Button, message, Descriptions } from 'antd';
 
 const FileUpload = ({ onChangeHandler, preventValue, fileName }) => {
   const token = localStorage.getItem('ACCESS_TOKEN');
@@ -79,9 +79,12 @@ const FileUpload = ({ onChangeHandler, preventValue, fileName }) => {
     },
   };
   return (
-    <Upload {...props} maxCount={1}>
-      <Button icon={<UploadOutlined />}>업로드</Button>
-    </Upload>
+    <>
+      <Upload {...props} maxCount={1} accept=".jpg, .png, .zip">
+        <Button icon={<UploadOutlined />}>업로드</Button>
+      </Upload>
+      <Descriptions.Item>image 또는 zip파일 업로드</Descriptions.Item>
+    </>
   );
 };
 
