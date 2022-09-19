@@ -51,7 +51,7 @@ const ReleaseListPresenter = ({
       >
         <Input
           ref={searchInput}
-          placeholder={'생산 코드를 입력해 주세요.'}
+          placeholder={'출고 대상을 입력해 주세요.'}
           value={selectedKeys[0]}
           onChange={(e) =>
             setSelectedKeys(e.target.value ? [e.target.value] : [])
