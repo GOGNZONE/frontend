@@ -9,7 +9,6 @@ const AdminRetiredEmployeeListPresenter = ({
   retiredEmployee,
   error,
   loading,
-  onDeleteHandler,
   setSearchText,
   setSearchedColumn,
   searchInput,
@@ -156,12 +155,6 @@ const AdminRetiredEmployeeListPresenter = ({
     {
       title: '권한',
       dataIndex: 'employeeRole',
-    },
-    {
-      title: '비고',
-      render: (record) => (
-        <Button onClick={() => onDeleteHandler(record.employeeId)}>삭제</Button>
-      ),
     },
   ];
 

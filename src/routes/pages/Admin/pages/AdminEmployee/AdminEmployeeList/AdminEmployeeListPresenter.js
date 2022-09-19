@@ -207,6 +207,18 @@ const AdminEmployeeListPresenter = ({
         <Typography.Title level={3} style={{ margin: 5 }}>
           사원 목록
         </Typography.Title>
+        <Link to="/admin/employee">
+          <Button
+            type="primary"
+            style={{
+              margin: 5,
+              backgroundColor: '#FEB139',
+              border: '#FEB139',
+            }}
+          >
+            등록
+          </Button>
+        </Link>
       </div>
       <Table
         showSorterTooltip={{ title: '정렬' }}

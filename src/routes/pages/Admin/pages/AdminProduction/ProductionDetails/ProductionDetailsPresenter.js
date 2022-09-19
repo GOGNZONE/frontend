@@ -345,7 +345,7 @@ const ProductionDetailsPresenter = ({
                 <Descriptions.Item label="거래처코드">
                   {data.client.clientName + '(' + data.client.clientId + ')'}
                 </Descriptions.Item>
-                {data.productionProgress === 2 ? (
+                {/* {data.productionProgress === 2 ? (
                   <Descriptions.Item label="창고정보" span={2}>
                     {data.stock.storage.storageCategory}(
                     {data.stock.storage.storageId}) /{' '}
@@ -353,6 +353,17 @@ const ProductionDetailsPresenter = ({
                   </Descriptions.Item>
                 ) : (
                   ''
+                )} */}
+                {data.stock && data.productionProgress === 2 ? (
+                  <Descriptions.Item label="창고정보" span={2}>
+                    {data.stock.storage.storageCategory}(
+                    {data.stock.storage.storageId}) /{' '}
+                    {data.stock.storage.storageAddress}
+                  </Descriptions.Item>
+                ) : (
+                  <Descriptions.Item label="창고정보" span={2}>
+                    없음
+                  </Descriptions.Item>
                 )}
                 <Descriptions.Item label="비고" span={3}>
                   {data.productionDescription}

@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getProductions } from 'store/modules/production/productionActions';
+import {
+  deleteProduction,
+  getProductions,
+} from 'store/modules/production/productionActions';
 import ProductionListCompletedPresenter from './ProductionListCompletedPresenter';
 
 const ProductionListContainer = () => {
@@ -21,6 +24,10 @@ const ProductionListContainer = () => {
     };
     !loading && callDispatch();
   }, []); // dependencies 추가 금지 (무한루프 걸림)
+
+  const onDeleteHandler = () => {
+    dispatch(deleteProduction);
+  };
 
   if (data) {
     completedList = data.filter((d) => d.productionProgress === 2);

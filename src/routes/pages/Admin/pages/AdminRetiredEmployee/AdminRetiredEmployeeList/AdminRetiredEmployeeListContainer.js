@@ -15,11 +15,6 @@ const AdminRetiredEmployeeListContainer = () => {
   );
   const dispatch = useDispatch();
 
-  const onDeleteHandler = async (retiredEmployeeId) => {
-    await dispatch(deleteRetiredEmployee(retiredEmployeeId));
-    dispatch(getRetiredEmployeeList());
-  };
-
   useEffect(() => {
     dispatch(getRetiredEmployeeList());
     dispatch(getRetiredEmployeeList());
@@ -30,7 +25,6 @@ const AdminRetiredEmployeeListContainer = () => {
       retiredEmployee={data}
       loading={loading}
       error={error}
-      onDeleteHandler={onDeleteHandler}
       setSearchText={setSearchText}
       setSearchedColumn={setSearchedColumn}
       searchInput={searchInput}
