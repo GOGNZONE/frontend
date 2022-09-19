@@ -9,6 +9,7 @@ import { message } from 'antd';
 const AdminOrderRegistContainer = () => {
   const [order, setOrder] = useState({
     orderId: '',
+    orderDate: '',
     orderProductionName: '',
     orderProductionBrandName: '',
     orderProductionPrice: '',
