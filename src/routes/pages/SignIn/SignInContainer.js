@@ -32,9 +32,8 @@ const SignInContainer = ({ authToken }) => {
   };
 
   // 로그인
-  const onLogin = async () => {
+  const onLogin = async (values) => {
     const { employee_email, employee_password } = login;
-
     let data = {
       employeeEmail: employee_email,
       employeePassword: employee_password,

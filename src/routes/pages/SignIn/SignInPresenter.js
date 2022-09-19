@@ -4,6 +4,9 @@ import { Form, Input, Button } from 'antd';
 import LOGO from 'assets/logo.png';
 
 const SignInPresenter = ({ login, onLoginChange, onLogin }) => {
+  const onFinish = (values) => {
+    onLogin(values);
+  };
   return (
     <div className="signin-container">
       <div className="login-wrapper">
@@ -13,7 +16,7 @@ const SignInPresenter = ({ login, onLoginChange, onLogin }) => {
         <h3 className="title">GONGZONE</h3>
         <p className="desc">소규모 공장 / 공방 관리 시스템</p>
         <>
-          <Form>
+          <Form onFinish={onFinish}>
             <Form.Item name={'employee_email'}>
               <Input
                 type="text"
@@ -40,8 +43,7 @@ const SignInPresenter = ({ login, onLoginChange, onLogin }) => {
                 className="login-button"
                 shape="round"
                 size="large"
-                // htmlType="submit"
-                onClick={onLogin}
+                htmlType="submit"
               >
                 로그인
               </Button>
