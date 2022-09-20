@@ -43,6 +43,7 @@ const SignInContainer = ({ authToken }) => {
       if (response.data.accessToken) {
         // localstorage 토큰 저장
         localStorage.setItem('ACCESS_TOKEN', response.data.accessToken);
+        localStorage.setItem('EXPIRE', response.data.tokenExpiresIn);
         Swal.fire({
           position: 'center',
           icon: 'success',

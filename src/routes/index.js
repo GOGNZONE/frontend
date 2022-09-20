@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 const RootRoute = () => {
   const navigate = useNavigate();
   const authToken = localStorage.getItem('ACCESS_TOKEN');
+  const expireToken = localStorage.getItem('EXPIRE');
 
   const logout = () => {
     localStorage.removeItem('ACCESS_TOKEN');
@@ -18,11 +19,9 @@ const RootRoute = () => {
   };
 
   const expiredToken = () => {
-    const decodedeToken = jwt_decode(authToken);
-    const { exp } = decodedeToken;
     const now = new Date();
     const nowTime = now.getTime();
-    if (nowTime < exp) {
+    if (nowTime > expireToken) {
       logout();
       Swal.fire({
         position: 'center',

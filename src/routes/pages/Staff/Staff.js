@@ -26,10 +26,9 @@ import {
 import NotFound from '../NotFound';
 
 const Staff = ({ logout, checkAdmin, expiredToken }) => {
-  // useEffect(() => {
-  //   expiredToken();
-  // }, []);
-
+  useEffect(() => {
+    expiredToken();
+  }, []);
   return (
     <Routes>
       <Route path="*" element={<NotFound />} />
