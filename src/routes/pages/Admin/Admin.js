@@ -38,7 +38,7 @@ import Swal from 'sweetalert2';
 import jwtDecode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 
-const Admin = ({ logout, authToken }) => {
+const Admin = ({ logout, authToken, expiredToken }) => {
   const tokenDecoded = jwtDecode(authToken);
   const navigate = useNavigate();
 
@@ -56,6 +56,7 @@ const Admin = ({ logout, authToken }) => {
 
   useEffect(() => {
     checkAdmin();
+    expiredToken();
   }, []);
   return (
     <Routes>

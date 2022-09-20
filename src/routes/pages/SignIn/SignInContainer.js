@@ -60,10 +60,11 @@ const SignInContainer = ({ authToken }) => {
   };
 
   const isLogin = () => {
-    const decoded = jwt_decode(authToken);
+    const decodedToken = jwt_decode(authToken);
+    const { auth } = decodedToken;
 
-    if (decoded.auth && decoded.auth === 'ADMIN') return navigate('/admin');
-    if (decoded.auth && decoded.auth === 'STAFF') return navigate('/staff');
+    if (auth && auth === 'ADMIN') return navigate('/admin');
+    if (auth && auth === 'STAFF') return navigate('/staff');
   };
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { StaffLayout } from 'components';
 import {
@@ -25,7 +25,11 @@ import {
 } from './pages';
 import NotFound from '../NotFound';
 
-const Staff = ({ logout, checkAdmin }) => {
+const Staff = ({ logout, checkAdmin, expiredToken }) => {
+  // useEffect(() => {
+  //   expiredToken();
+  // }, []);
+
   return (
     <Routes>
       <Route path="*" element={<NotFound />} />
