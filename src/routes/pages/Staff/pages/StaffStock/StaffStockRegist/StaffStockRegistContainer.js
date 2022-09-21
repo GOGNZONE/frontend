@@ -16,7 +16,6 @@ function StaffStockRegistContainer() {
   const dispatch = useDispatch();
   const storageList = useSelector((state) => state.storage.storageList.data);
   const navigate = useNavigate();
-  console.log(stock);
 
   useEffect(() => {
     dispatch(getStorageList());

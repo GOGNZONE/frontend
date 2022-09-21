@@ -63,9 +63,7 @@ function AdminStorageRegistPresenter({ registStorage, onChangeInputHandler }) {
             type="primary"
             htmlType="submit"
             style={{
-              margin: 5,
-              backgroundColor: '#FEB139',
-              border: '#FEB139',
+              marginRight: 15,
             }}
             onClick={registStorage}
           >
@@ -74,14 +72,7 @@ function AdminStorageRegistPresenter({ registStorage, onChangeInputHandler }) {
         </Form.Item>
 
         <Link to="/admin/storage/list">
-          <Button
-            type="primary"
-            style={{
-              margin: 5,
-              backgroundColor: '#293462',
-              border: '#293462',
-            }}
-          >
+          <Button type="primary" danger>
             취소
           </Button>
         </Link>

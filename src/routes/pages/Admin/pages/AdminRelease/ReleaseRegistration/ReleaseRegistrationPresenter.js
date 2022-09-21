@@ -356,23 +356,14 @@ const ReleaseRegistrationPresenter = ({
             type="primary"
             htmlType="button"
             style={{
-              margin: 5,
-              backgroundColor: '#FEB139',
-              border: '#FEB139',
+              marginRight: 15,
             }}
             onClick={() => onClickHandler()}
           >
             등록
           </Button>
           <Link to="/admin/release/list">
-            <Button
-              type="primary"
-              style={{
-                margin: 5,
-                backgroundColor: '#D61C4E',
-                border: '#D61C4E',
-              }}
-            >
+            <Button type="primary" danger>
               취소
             </Button>
           </Link>

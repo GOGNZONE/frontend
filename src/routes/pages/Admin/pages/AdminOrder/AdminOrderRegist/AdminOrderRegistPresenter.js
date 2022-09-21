@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import {
   DatePicker,
   Form,
-  Upload,
   Button,
   Input,
   Typography,
@@ -10,7 +9,6 @@ import {
   InputNumber,
   Space,
 } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 function AdminOrderRegistPresenter({
@@ -18,30 +16,12 @@ function AdminOrderRegistPresenter({
   registOrder,
   onChangeInputHandler,
   clientInputHandler,
-  onChangeSelectHandler,
   onChangeDatePickerHandler,
   orderIdHandler,
 }) {
   const { TextArea } = Input;
-  const { Option, OptGroup } = Select;
+  const { Option } = Select;
 
-  // const standardSelectAfter = (
-  //   <Select
-  //     onChange={(e) => onChangeSelectHandler('orderProductionUnit', e)}
-  //     defaultValue="단위"
-  //     className="standard-select-after"
-  //   >
-  //     <OptGroup label="길이">
-  //       <Option value="mm">mm</Option>
-  //       <Option value="cm">cm</Option>
-  //       <Option value="m">m</Option>
-  //     </OptGroup>
-  //     <OptGroup label="무게">
-  //       <Option value="g">g</Option>
-  //       <Option value="kg">kg</Option>
-  //     </OptGroup>
-  //   </Select>
-  // );
   useEffect(() => {
     orderIdHandler();
   }, []);
@@ -178,7 +158,7 @@ function AdminOrderRegistPresenter({
                   onChange={(e) =>
                     onChangeInputHandler('orderProductionUnit', e)
                   }
-                  placeholder="주문 상품 단위"
+                  placeholder="단위"
                 />
               </Space>
             </Form.Item>
@@ -247,26 +227,15 @@ function AdminOrderRegistPresenter({
               <Button
                 type="primary"
                 htmlType="submit"
-                style={{
-                  margin: 5,
-                  backgroundColor: '#FEB139',
-                  border: '#FEB139',
-                }}
                 onClick={() => registOrder()}
+                style={{ marginRight: 15 }}
               >
                 등록
               </Button>
             </Form.Item>
 
             <Link to="/admin/order/list">
-              <Button
-                type="primary"
-                style={{
-                  margin: 5,
-                  backgroundColor: '#293462',
-                  border: '#293462',
-                }}
-              >
+              <Button type="primary" danger>
                 취소
               </Button>
             </Link>

@@ -22,7 +22,6 @@ const AdminOrderRegistContainer = () => {
   const clientList = useSelector((state) => state.client.clientList.data);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log(order);
 
   useEffect(() => {
     dispatch(getClientList());

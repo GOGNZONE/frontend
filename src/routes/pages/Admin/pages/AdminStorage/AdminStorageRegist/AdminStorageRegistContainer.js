@@ -11,7 +11,6 @@ function AdminStorageRegistContainer() {
     storageCategory: '',
     storageDescription: '',
   });
-  console.log(storage);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const registStorage = (e) => {

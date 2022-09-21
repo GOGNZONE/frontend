@@ -8,7 +8,6 @@ const AdminRegisterClientAccountPresenter = ({
   onResetHandler,
 }) => {
   const { accountBank, accountNumber, accountDepositor } = accountInfo;
-  console.log(accountInfo);
 
   return (
     <>

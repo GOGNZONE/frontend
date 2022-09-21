@@ -105,27 +105,16 @@ function AdminStockRegistPresenter({
               <Button
                 type="primary"
                 htmlType="submit"
-                style={{
-                  margin: 5,
-                  backgroundColor: '#FEB139',
-                  border: '#FEB139',
-                }}
                 onClick={registStock}
+                style={{ marginRight: 15 }}
               >
                 등록
               </Button>
             </Form.Item>
 
             <Link to="/admin/stock/list">
-              <Button
-                type="primary"
-                style={{
-                  margin: 5,
-                  backgroundColor: '#293462',
-                  border: '#293462',
-                }}
-              >
-                목록
+              <Button type="primary" danger>
+                취소
               </Button>
             </Link>
           </div>

@@ -17,7 +17,6 @@ const AdminRegisterEmployeePresenter = ({
   saveEmployee,
   onChangeDatePickerHandler,
   onChangeEmployeeRole,
-  onResetHandler,
   onChangeInputHandler,
   onChangeHandler,
 }) => {
@@ -200,18 +199,15 @@ const AdminRegisterEmployeePresenter = ({
             marginTop: '10px',
           }}
         >
-          <Button type="primary" style={{ marginRight: '15px' }}>
-            <Link to="/admin/employee/list">목록</Link>
-          </Button>
           <Button
             type="primary"
             htmlType="submit"
             style={{ marginRight: '15px' }}
           >
-            저장
+            등록
           </Button>
-          <Button type="primary" onClick={onResetHandler} danger>
-            취소
+          <Button type="danger" style={{ marginRight: '15px' }}>
+            <Link to="/admin/employee/list">취소</Link>
           </Button>
         </div>
       </Form>

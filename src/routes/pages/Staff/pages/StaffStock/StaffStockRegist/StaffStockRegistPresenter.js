@@ -104,9 +104,7 @@ function StaffStockRegistPresenter({
                 type="primary"
                 htmlType="submit"
                 style={{
-                  margin: 5,
-                  backgroundColor: '#FEB139',
-                  border: '#FEB139',
+                  marginRight: 15,
                 }}
                 onClick={registStock}
               >
@@ -115,15 +113,8 @@ function StaffStockRegistPresenter({
             </Form.Item>
 
             <Link to="/staff/stock/list">
-              <Button
-                type="primary"
-                style={{
-                  margin: 5,
-                  backgroundColor: '#293462',
-                  border: '#293462',
-                }}
-              >
-                목록
+              <Button type="primary" danger>
+                취소
               </Button>
             </Link>
           </div>

@@ -153,15 +153,12 @@ const AdminRegisterClientPresenter = ({
             marginTop: '10px',
           }}
         >
-          <Button type="primary" style={{ marginRight: '15px' }}>
-            <Link to="/admin/client/list">목록</Link>
-          </Button>
           <Button
             type="primary"
             htmlType="submit"
             style={{ marginRight: '15px' }}
           >
-            저장
+            등록
           </Button>
           <Button type="primary" onClick={onResetHandler} danger>
             취소

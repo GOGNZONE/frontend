@@ -288,27 +288,19 @@ const ProductionRegistrationPresenter = ({
                 fileName={'productionFile'}
               />
             </Form.Item>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
+
+            <div
+              style={{ display: 'flex', justifyContent: 'center', margin: 5 }}
+            >
               <Button
                 type="primary"
                 htmlType="submit"
-                style={{
-                  margin: 5,
-                  backgroundColor: '#FEB139',
-                  border: '#FEB139',
-                }}
+                style={{ marginRight: '15px' }}
               >
                 등록
               </Button>
               <Link to="/admin/production/list">
-                <Button
-                  type="primary"
-                  style={{
-                    margin: 5,
-                    backgroundColor: '#D61C4E',
-                    border: '#D61C4E',
-                  }}
-                >
+                <Button type="primary" danger>
                   취소
                 </Button>
               </Link>

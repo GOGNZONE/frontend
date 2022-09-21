@@ -14,7 +14,6 @@ const AdminClientInfoPresenter = ({
 }) => {
   const navigate = useNavigate();
   const { account } = clientInfo;
-  console.log(clientInfo);
   return loading ? (
     <div
       style={{

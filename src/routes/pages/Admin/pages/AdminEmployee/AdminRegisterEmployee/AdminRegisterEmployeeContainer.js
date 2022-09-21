@@ -64,19 +64,6 @@ const AdminRegisterEmployeeContainer = () => {
     [employeeInfo],
   );
 
-  const onResetHandler = () => {
-    onChangeHandler({
-      employeeId: '',
-      employeeName: '',
-      employeePassword: '',
-      employeeAddress: '',
-      employeeEmail: '',
-      employeePhone: '',
-      employeeHiredate: '',
-      employeeImage: '',
-      employeeRole: '',
-    });
-  };
   return (
     <AdminRegisterEmployeePresenter
       employeeInfo={employeeInfo}
@@ -84,7 +71,6 @@ const AdminRegisterEmployeeContainer = () => {
       onChangeInputHandler={onChangeInputHandler}
       onChangeDatePickerHandler={onChangeDatePickerHandler}
       onChangeEmployeeRole={onChangeEmployeeRole}
-      onResetHandler={onResetHandler}
       onChangeHandler={onChangeHandler}
     />
   );
