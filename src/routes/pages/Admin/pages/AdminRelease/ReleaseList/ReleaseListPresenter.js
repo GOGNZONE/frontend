@@ -16,6 +16,7 @@ import Today from 'components/Today';
 import { sendKakaoTalk } from 'components/KakaoNotificationApi';
 import Highlighter from 'react-highlight-words';
 import moment from 'moment';
+import KakaoLogin from 'components/KakaoLogin';
 
 const { confirm } = Modal;
 const { Text } = Typography;
@@ -262,18 +263,21 @@ const ReleaseListPresenter = ({
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography.Title level={3}>출고 목록</Typography.Title>
-        <Link to="/admin/production/list-completed">
-          <Button
-            type="primary"
-            style={{
-              margin: 5,
-              backgroundColor: '#293462',
-              border: '#293462',
-            }}
-          >
-            생산 목록
-          </Button>
-        </Link>
+        <div>
+          <KakaoLogin />
+          <Link to="/admin/production/list-completed">
+            <Button
+              type="primary"
+              style={{
+                margin: 5,
+                backgroundColor: '#293462',
+                border: '#293462',
+              }}
+            >
+              생산 목록
+            </Button>
+          </Link>
+        </div>
       </div>
       <Spin spinning={loading}>
         <Table

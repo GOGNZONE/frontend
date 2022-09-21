@@ -11,22 +11,6 @@ export const sendKakaoTalk = (
   releaseId,
   delivery,
 ) => {
-  Kakao.init(JAVASCRIPT_KEY);
-
-  /** 최초 로그인 */
-  // Kakao.Auth.login({
-  //   scope: 'friends,talk_message',
-  //   success: function (res) {
-  //     Kakao.API.request({
-  //       url: '/v1/api/talk/friends',
-  //       success: function (res) {
-  //         return res;
-  //       },
-  //       // fail: function (err) {return JSON.stringify(err);
-  //     });
-  //   },
-  // });
-
   Kakao.API.request({
     url: '/v1/api/talk/friends/message/default/send',
     data: {
