@@ -22,7 +22,7 @@ const AdminEmployeeDetailsPresenter = ({ employee, loading, error }) => {
         <Col>
           <Image
             width={250}
-            height={250}
+            height={300}
             src={
               employee.employeeImage
                 ? `https://gongzone1bucket.s3.ap-northeast-2.amazonaws.com/${employee.employeeImage}`

@@ -17,11 +17,13 @@ const AdminOrderRegistContainer = () => {
     orderProductionUnit: '',
     orderProductionDescription: '',
     orderProductionEndDate: '',
-    client: '',
+    client: { clientId: '' },
   });
   const clientList = useSelector((state) => state.client.clientList.data);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  console.log(order);
 
   useEffect(() => {
     dispatch(getClientList());

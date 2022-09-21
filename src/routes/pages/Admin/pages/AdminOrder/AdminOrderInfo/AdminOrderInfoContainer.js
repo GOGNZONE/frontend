@@ -23,8 +23,6 @@ function AdminOrderInfoContainer() {
   const clientList = useSelector((state) => state.client.clientList.data);
   const navigate = useNavigate();
 
-  console.log(order);
-
   useEffect(() => {
     dispatch(getOrder(orderIdParams));
     dispatch(getClientList());

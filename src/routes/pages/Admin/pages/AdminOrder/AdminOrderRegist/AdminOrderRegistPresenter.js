@@ -96,7 +96,6 @@ function AdminOrderRegistPresenter({
                 formatter={(value) =>
                   `￦ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                 }
-                // parser={(value) => value.replace(/\\s?|(,*)/g, '')}
                 onChange={(e) =>
                   onChangeInputHandler('orderProductionPrice', {
                     target: { value: e },
@@ -144,7 +143,6 @@ function AdminOrderRegistPresenter({
                   style={{
                     width: '100%',
                   }}
-                  // addonAfter={standardSelectAfter}
                   onChange={(e) =>
                     onChangeInputHandler('orderProductionStandard', e)
                   }
@@ -154,7 +152,6 @@ function AdminOrderRegistPresenter({
                   style={{
                     width: '60%',
                   }}
-                  // addonAfter={standardSelectAfter}
                   onChange={(e) =>
                     onChangeInputHandler('orderProductionUnit', e)
                   }
@@ -210,6 +207,7 @@ function AdminOrderRegistPresenter({
               tooltip="필수 입력 필드입니다."
             >
               <Select
+                placeholder="거래처"
                 onChange={(e) => {
                   clientInputHandler('clientId', e);
                 }}

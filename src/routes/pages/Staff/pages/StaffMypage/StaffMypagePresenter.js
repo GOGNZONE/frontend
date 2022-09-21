@@ -27,7 +27,7 @@ const StaffMypagePresenter = ({
         <Col>
           <Image
             width={250}
-            height={265}
+            height={300}
             src={
               mypage.employeeImage
                 ? `https://gongzone1bucket.s3.ap-northeast-2.amazonaws.com/${mypage.employeeImage}`
