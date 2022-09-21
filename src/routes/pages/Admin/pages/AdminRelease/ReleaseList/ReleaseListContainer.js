@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { getReleases } from 'store/modules/release/releaseActions';
+import { deleteProduction } from 'store/modules/production/productionActions';
 import ReleaseListPresenter from './ReleaseListPresenter';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteRelease } from 'store/modules/release/releaseActions';
@@ -20,8 +21,9 @@ const ReleaseListContainer = () => {
     !loading && callDispatch();
   }, []);
 
-  const onDeleteRelease = (releaseId) => {
+  const onDeleteRelease = (releaseId, productionId) => {
     dispatch(deleteRelease(releaseId));
+    dispatch(deleteProduction(productionId));
   };
 
   return (

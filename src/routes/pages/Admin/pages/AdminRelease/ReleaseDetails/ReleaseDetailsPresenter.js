@@ -15,7 +15,7 @@ const ReleaseDetailsPresenter = ({
   setIsButtonVisible,
   onSetReleaseConfirmed,
 }) => {
-  const showDeleteConfirm = (releaseId) => {
+  const showDeleteConfirm = (releaseId, productionId) => {
     confirm({
       title: '해당 출고를 삭제하시겠습니까?',
       icon: <ExclamationCircleOutlined />,
@@ -24,7 +24,7 @@ const ReleaseDetailsPresenter = ({
       cancelText: '취소',
 
       onOk() {
-        onDeleteRelease(releaseId);
+        onDeleteRelease(releaseId, productionId);
       },
     });
   };
@@ -96,7 +96,10 @@ const ReleaseDetailsPresenter = ({
                       size="middle"
                       style={{ backgroundColor: '#D61C4E', border: '#D61C4E' }}
                       onClick={() => {
-                        showDeleteConfirm(data.releaseId);
+                        showDeleteConfirm(
+                          data.releaseId,
+                          data.production.productionId,
+                        );
                       }}
                     >
                       삭제

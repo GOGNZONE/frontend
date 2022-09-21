@@ -9,6 +9,7 @@ import {
   putRelease,
   deleteRelease,
 } from 'store/modules/release/releaseActions';
+import { deleteProduction } from 'store/modules/production/productionActions';
 
 const ReleaseDetailsContainer = () => {
   /***** release id params *****/
@@ -59,8 +60,9 @@ const ReleaseDetailsContainer = () => {
     setReleaseValue(data);
   };
 
-  const onDeleteRelease = async (releaseId) => {
+  const onDeleteRelease = async (releaseId, productionId) => {
     await dispatch(deleteRelease(releaseId));
+    await dispatch(deleteProduction(productionId));
     await navigate('/admin/release/list');
   };
 

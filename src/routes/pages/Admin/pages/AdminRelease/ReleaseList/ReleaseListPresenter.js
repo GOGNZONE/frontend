@@ -38,7 +38,7 @@ const ReleaseListPresenter = ({
       onOk() {},
     });
   };
-  const showDeleteConfirm = (releaseId) => {
+  const showDeleteConfirm = (releaseId, productionId) => {
     confirm({
       title: '해당 출고를 삭제하시겠습니까?',
       icon: <ExclamationCircleOutlined />,
@@ -47,7 +47,7 @@ const ReleaseListPresenter = ({
       cancelText: '취소',
 
       onOk() {
-        onDeleteRelease(releaseId);
+        onDeleteRelease(releaseId, productionId);
       },
     });
   };
@@ -65,7 +65,7 @@ const ReleaseListPresenter = ({
       >
         <Input
           ref={searchInput}
-          placeholder={'생산 품목을 입력해 주세요.'}
+          placeholder={'생산 코드를 입력해 주세요.'}
           value={selectedKeys[0]}
           onChange={(e) =>
             setSelectedKeys(e.target.value ? [e.target.value] : [])
@@ -250,7 +250,7 @@ const ReleaseListPresenter = ({
           danger
           ghost
           onClick={() => {
-            showDeleteConfirm(record.releaseId);
+            showDeleteConfirm(record.releaseId, record.productionId);
           }}
         >
           삭제
@@ -262,32 +262,18 @@ const ReleaseListPresenter = ({
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography.Title level={3}>출고 목록</Typography.Title>
-        <div>
-          <Link to="/admin/production/list-completed">
-            <Button
-              type="primary"
-              style={{
-                margin: 5,
-                backgroundColor: '#293462',
-                border: '#293462',
-              }}
-            >
-              생산 목록
-            </Button>
-          </Link>
-          <Link to="/admin/release">
-            <Button
-              type="primary"
-              style={{
-                margin: 5,
-                backgroundColor: '#FEB139',
-                border: '#FEB139',
-              }}
-            >
-              등록
-            </Button>
-          </Link>
-        </div>
+        <Link to="/admin/production/list-completed">
+          <Button
+            type="primary"
+            style={{
+              margin: 5,
+              backgroundColor: '#293462',
+              border: '#293462',
+            }}
+          >
+            생산 목록
+          </Button>
+        </Link>
       </div>
       <Spin spinning={loading}>
         <Table
