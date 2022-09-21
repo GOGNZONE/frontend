@@ -28,6 +28,7 @@ import NotFound from '../NotFound';
 const Staff = ({ logout, checkAdmin, expiredToken }) => {
   useEffect(() => {
     expiredToken();
+    // eslint-disable-next-line
   }, []);
   return (
     <Routes>
