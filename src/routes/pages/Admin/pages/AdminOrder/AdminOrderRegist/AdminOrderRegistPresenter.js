@@ -127,17 +127,7 @@ function AdminOrderRegistPresenter({
               />
             </Form.Item>
 
-            <Form.Item
-              label="상품 규격"
-              rules={[
-                {
-                  required: true,
-                  message: '입력해주세요',
-                },
-              ]}
-              required
-              tooltip="필수 입력 필드입니다."
-            >
+            <Form.Item label="상품 규격">
               <Space>
                 <Input
                   style={{

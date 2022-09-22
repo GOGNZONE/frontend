@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   Form,
   Upload,
@@ -9,6 +9,7 @@ import {
   Modal,
   Select,
   DatePicker,
+  Space,
 } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import moment from 'moment';
@@ -152,30 +153,29 @@ function AdminOrderUpdate({
               />
             </Form.Item>
 
-            <Form.Item
-              label="주문 규격"
-              rules={[
-                {
-                  required: true,
-                  message: '입력해주세요',
-                },
-              ]}
-              required
-              tooltip="필수 입력 필드입니다."
-            >
-              <InputNumber
-                style={{
-                  width: '100%',
-                }}
-                name="orderProductionStandard"
-                placeholder="주문 규격"
-                onChange={(e) => {
-                  onChangeInputHandler('orderProductionStandard', {
-                    target: { value: e },
-                  });
-                }}
-                defaultValue={data.orderProductionStandard}
-              />
+            <Form.Item label="주문 규격">
+              <Space>
+                <Input
+                  style={{
+                    width: '100%',
+                  }}
+                  onChange={(e) =>
+                    onChangeInputHandler('orderProductionStandard', e)
+                  }
+                  defaultValue={data.orderProductionStandard}
+                  placeholder="주문 상품 규격"
+                />
+                <Input
+                  style={{
+                    width: '60%',
+                  }}
+                  onChange={(e) =>
+                    onChangeInputHandler('orderProductionUnit', e)
+                  }
+                  defaultValue={data.orderProductionUnit}
+                  placeholder="단위"
+                />
+              </Space>
             </Form.Item>
             <Form.Item label="비고">
               <TextArea

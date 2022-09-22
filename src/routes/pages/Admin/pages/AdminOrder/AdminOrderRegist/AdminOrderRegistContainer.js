@@ -35,8 +35,6 @@ const AdminOrderRegistContainer = () => {
       order.orderProductionBrandName === '' ||
       order.orderProductionPrice === '' ||
       order.orderProductionQuantity === '' ||
-      order.orderProductionStandard === '' ||
-      order.orderProductionUnit === '' ||
       order.orderProductionEndDate === '' ||
       order.client === ''
     ) {
