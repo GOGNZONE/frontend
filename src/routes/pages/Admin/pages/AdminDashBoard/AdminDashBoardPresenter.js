@@ -59,7 +59,7 @@ const AdminDashBoardPresenter = ({
           <Col className="gutter-row" span={1}></Col>
           <Col className="gutter-row" span={10}>
             <Title level={4} style={{ marginBottom: 20 }} mark>
-              {month}월 생산량
+              상품별 생산량
             </Title>
             <PieChart releaseConfirmedList={releaseConfirmedList} />
           </Col>
