@@ -1,0 +1,2 @@
+import AdminRegisterClientAccountContainer from './AdminRegisterClientAccountContainer';
+export default AdminRegisterClientAccountContainer;

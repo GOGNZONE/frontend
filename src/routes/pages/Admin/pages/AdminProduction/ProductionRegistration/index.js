@@ -1,0 +1,2 @@
+import ProductionRegistrationContainer from './ProductionRegistrationContainer';
+export default ProductionRegistrationContainer;

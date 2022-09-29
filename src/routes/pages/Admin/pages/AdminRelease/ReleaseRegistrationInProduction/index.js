@@ -1,0 +1,2 @@
+import ReleaseRegistrationInProductionContainer from './ReleaseRegistrationInProductionContainer';
+export default ReleaseRegistrationInProductionContainer;
